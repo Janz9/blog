@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="工作区 在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件 缓冲区 缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区 # 示例: 查看缓冲区列表 :ls   1 %a   &quot;.&#x2F;a_owner.proto&quot;              line 1   2 #    &amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim 工作区">
+<meta property="og:url" content="https://janz.icu/2021/04/24/vim%20002/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="工作区 在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件 缓冲区 缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区 # 示例: 查看缓冲区列表 :ls   1 %a   &quot;.&#x2F;a_owner.proto&quot;              line 1   2 #    &amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-24T13:06:31.000Z">
+<meta property="article:modified_time" content="2021-04-30T02:13:06.806Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Vim">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2021/04/24/vim%20002/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2021/04/24/vim%20002/","path":"2021/04/24/vim 002/","title":"Vim 工作区"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vim 工作区 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">工作区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">缓冲区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E9%A1%B5"><span class="nav-number">1.3.</span> <span class="nav-text">标签页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%A0%91"><span class="nav-number">1.4.</span> <span class="nav-text">文件树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%98%E5%8F%A0"><span class="nav-number">1.5.1.</span> <span class="nav-text">折叠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8"><span class="nav-number">1.5.2.</span> <span class="nav-text">自动补全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">1.5.3.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E6%A0%91"><span class="nav-number">1.5.4.</span> <span class="nav-text">撤销树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82"><span class="nav-number">1.5.5.</span> <span class="nav-text">差异</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8"><span class="nav-number">1.6.</span> <span class="nav-text">参数列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4"><span class="nav-number">1.7.1.</span> <span class="nav-text">区间范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AD%94%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.2.</span> <span class="nav-text">魔法模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8F"><span class="nav-number">1.8.</span> <span class="nav-text">宏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.8.1.</span> <span class="nav-text">递归</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF"><span class="nav-number">1.9.</span> <span class="nav-text">终端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux"><span class="nav-number">1.9.1.</span> <span class="nav-text">Tmux</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/04/24/vim%20002/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vim 工作区
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-24 21:06:31" itemprop="dateCreated datePublished" datetime="2021-04-24T21:06:31+08:00">2021-04-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-30 10:13:06" itemprop="dateModified" datetime="2021-04-30T10:13:06+08:00">2021-04-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/04/24/vim%20002/" class="post-meta-item leancloud_visitors" data-flag-title="Vim 工作区" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="工作区">工作区</h1>
+<p>在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件</p>
+<h2 id="缓冲区">缓冲区</h2>
+<p>缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看缓冲区列表
+:ls
+  1 %a   &quot;.&#x2F;a_owner.proto&quot;              line 1
+  2 #    &quot;.&#x2F;b_address.proto&quot;            line 1
+
+# 输出结果显示了缓冲区的相关信息
+n       # 为缓冲区的编号, 具有唯一性
+%       # 表示该缓冲区位于当前窗口中
+a       # 表示该缓冲区处于活动状态, 即它已被加载并可见
+&quot;&quot;      # 为文件名
+line n  # 表示当前光标位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 切换缓冲区
+:e &lt;path-to-file&gt;  # 在当前Vim窗口中编辑指定文件
+:bd                # 从打开的缓冲区列表中删除
+
+:b &lt;n&gt;     # 指定编号, 指令中的空格可省略
+:b &lt;file&gt;  # 指定文件名, 可以使用Tab键补全文件名
+:bn        # 上一个缓冲区
+:bp        # 下一个缓冲区<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="窗口">窗口</h2>
+<p>Vim 将缓冲区加载到窗口中, 一个屏幕上可以同时显示多个窗口</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 窗口操作
+:sp &lt;path-to-file&gt;  # 垂直新建窗口打开文件
+:vs &lt;path-to-file&gt;  # 水平新建窗口打开文件
+:qa                 # 关闭所有窗口并退出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使光标在不同窗口间移动, 先按 <code>Ctrl+w</code> 组合键, 再输入方向键</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看窗口帮助文档
+:help window-moving  # 窗口移动位置的文档
+:help window-resize  # 窗口调整大小的文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="标签页">标签页</h2>
+<p>Vim 用标签页来组织一个窗口的集合, 进而支持在不同的窗口集合之间切换, 这让用户方便的拥有了多个工作区</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 
+:tabnew &lt;path-to-file&gt;  # 新建标签页打开文件
+:tabnext                # 切换上个标签
+:tabprevious            # 切换下个标签
+:tabmove &lt;n&gt;            # 移动标签到第n个标签页后
+:tabclose               # 关闭标签页<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="文件树">文件树</h2>
+<p>Netrw 是 Vim 内置的文件管理器, 支持对文件和目录的浏览, 这和操作系统下的文件管理器类似</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: Netrw
+:Ex
+
+# 通过Netrw, 可以在工作区看到所有的文件, 顶部的状态栏列出了常用操作的快捷键
+&lt;F1&gt;   # 帮助文档
+Enter  # 打开文件或目录
+-      # 进入上一层目录
+D      # 删除文件或目录
+R      # 重命名文件或目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Netrw 的窗口也可以在分割窗口或标签页中打开</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: Netrw
+:Vex  # 以左右分割方式打开Netrw
+:Sex  # 以上下分割方式打开Netrw
+:Lex  # 以左右分割方式打开Netrw, 位于最左边且高度占满整个屏幕
+
+:Ex sftp:&#x2F;&#x2F;&lt;domain&gt;&#x2F;&lt;directory&gt;&#x2F;      # 列出sftp下远程目录
+:e scp:&#x2F;&#x2F;&lt;domain&gt;&#x2F;&lt;directory&gt;&#x2F;&lt;file&gt;  # 编辑scp远程文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/preservim/nerdtree">NERDTree</a> 是一种模拟现代 IDE 行为的优秀插件, 它在屏幕边缘用一个分割的缓冲区来展示文件树, 并且支持书签</p>
+<h2 id="文件">文件</h2>
+<p>Vim 拥有一些浏览复杂代码结构的功能</p>
+<h3 id="折叠">折叠</h3>
+<p>折叠功能支持文件部分内容的隐藏, 隐藏的依据既可以是预定义的规则, 也可以是手动添加的折叠标记, Vim 在折叠代码方面是比较智能的, 而且支持多种折叠方式</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
+set foldmethod&#x3D;manual
+
+# 可选折叠方式:
+manual  # 手动折叠 
+indent  # 基于缩进的折叠
+expr    # 基于正则表达式的折叠
+marker  # 使用文本中特殊的标记来定义折叠
+syntax  # 提供可识别语法的折叠
+diff    # 当Vim处于diff模式时会自动采用这种折叠方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 折叠操作
+zo  # 打开光标所在的折叠
+zc  # 关闭光标所在的折叠
+za  # 切换光标所在的折叠
+zR  # 打开所有折叠
+zM  # 关闭所有折叠<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自动补全">自动补全</h3>
+<p>Vim 内置了代码自动补全的功能, 通过自动补全, 用户可以在编辑时避免拼写错误, 而且无须反复输入和记忆冗长复杂的变量名</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看自动补全的帮助文档
+:help ins-completion<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>自动补全功能从 Vim7 开始默认启用, 输入函数名的开始几个字符, 然后按 <code>Ctrl+n</code> 组合键, Vim 会弹出一个自动补全列表, 可以通过 <code>Ctrl+n</code> 和 <code>Ctrl+p</code> 在这个列表中上下移动, 以选择合适的备选项, 如果继续输入, 列表则会消失</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ycm-core/YouCompleteMe">YouCompleteMe</a> 插件扩展了 Vim 内置的自动补全引擎, 而且还增添了大量新功能:</p>
+<ul>
+<li>支持程序语言感知的自动语义补全;</li>
+<li>补全建议的智能排序和过滤;</li>
+<li>能够显示代码文档, 重命名变量, 自动格式化代码以及修正某些类别的输入错误</li>
+</ul>
+<h3 id="标签">标签</h3>
+<p>Vim 自带了在同一文件中浏览变量定义的功能, 将光标置于一个单词上, 输入 <code>gd</code> 会优先查看变量的局部声明, 输入 <code>gD</code> 会查看全局声明</p>
+<blockquote>
+<p>此功能并没有考虑语法, 因为 Vim 本身并不了解代码的语义结构, 不过, Vim 支持标签功能, 标签文件中可存储程序代码的语义和结构关键词, 供 Vim 检索</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> 是一个用于生成标签文件的外部工具</p>
+<h3 id="撤销树">撤销树</h3>
+<p>大部分现代编辑器都支持撤销栈, 其中保存了撤销和重做操作的历史记录, Vim 则更进一步, 采用了撤销树</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看撤销树的帮助文档
+:help undo-tree<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/sjl/gundo.vim">Gundo</a> 是一个对撤销树进行可视化的插件</p>
+<p>执行 <code>:GundoToggle</code> 将以分割方式打开(或关闭)两个新窗口, 左上窗口为树状结构的可视化表达, 光标默认选中了最新的版本, 左下窗口则显示此版本和上一版本之间的差异, 按 <code>Enter</code> 键将恢复到选中的版本</p>
+<h3 id="差异">差异</h3>
+<p>在开发过程中, 经常需要比较不同文件之间的差异, 比如比较不同的输出, 或者比较一个文件的不同版本, 或者处理合并时的冲突, Vim 提供了一个独立的可执行程序 vimdiff 用于对比文件差异</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: vimdiff
+&gt; vimdiff &lt;path-to-file&gt; &lt;path-to-file2&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>此命令会打开两个文件的窗口, 不同的行用一种颜色高亮显示, 而不同的字符则用另一种颜色高亮显示, 用户可以用 <code>]c</code> 和 <code>[c</code> 分别在多个修改处之间向前和向后跳转</p>
+<p>用户可以在两个文件之间推送修改:</p>
+<ul>
+<li><code>do</code> 或 <code>:diffget</code> 将文件修改应用于当前窗口中的文件</li>
+<li><code>dp</code> 或 <code>:diffput</code> 将当前窗口中的文件修改推送给另一个文件</li>
+</ul>
+<p>若要将一个文件整体复制到另一个文件中, 可以使用 <code>:%diffget</code> 或 <code>:%diffput</code>, 当用户手动修改了文件, 则需要执行 <code>:diffupdate</code> 手动更新高亮显示</p>
+<h2 id="参数列表">参数列表</h2>
+<p>参数列表(argument list, arglist) 支持在多个文件中执行同一操作, 而不需要用户预先加载缓冲区</p>
+<p>参数列表支持如下命令:</p>
+<ul>
+<li><code>arg</code> 用于定义参数列表</li>
+<li><code>argdo</code> 对参数列表中的所有文件执行一条命令</li>
+<li><code>args</code> 用于显示参数列表中的文件列表</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 批量替换文件中的字符串
+:arg **&#x2F;*.java  # 在参数列表中添加匹配的文件
+:argdo %s&#x2F;\&lt;string\&gt;&#x2F;String&#x2F;ge | w
+# %s&#x2F;\&lt;public\&gt;&#x2F;private&#x2F;ge 通过正则将每个文件中的string单词替换成String
+# w 用于保存每个被修改过的缓冲区<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 使用:normal命令执行正常模式下的命令
+:argdo execute &quot;:normal dd&quot; | w<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="正则表达式">正则表达式</h2>
+<p>正则表达式(regular expression) 是对字符串操作的一种逻辑公式, Vim 有一套独特的正则表达式语法, 和其他很多正则表达式不同, Vim 中的正则表达式的特殊字符需要用 <code>\</code> 来转义</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看特殊符号的完整列表
+:help ordinary-atom<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Vim 通过 <code>:substitute</code> 命令实现搜索和替换功能, 简写为 <code>:s</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 正则命令
+:s&#x2F;&lt;find&gt;&#x2F;&lt;replace&gt;&#x2F;&lt;flags&gt;
+
+# &lt;flags&gt;是可选的, 可选值
+g  # 全局替换, 而不仅是第一个
+c  # 每次替换前需要确认
+e  # 没有匹配项时不显示错误
+i  # 忽略大小写
+I  # 区分大小写<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="区间范围">区间范围</h3>
+<p><code>:substitute</code> 命令可以作用于一个区间范围, 即指定范围的内容中的匹配项会被替换, 常用的范围是 <code>%</code>, 即作用于整个文件, 区间范围可以用 <code>;</code> 运算符组合起来</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 区间范围替换
+:3;&#x2F;out&#x2F;s&#x2F;string&#x2F;String&#x2F;g
+# 3;&#x2F;out 从第3行开始到找到包含out字符串的行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看区间的帮助文档
+:help cmdline-ranges<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="魔法模式">魔法模式</h3>
+<p>当用户需要编写较长的正则表达式时, 对每个特殊字符都使用 <code>\</code> 转义就比较繁琐, 这时候就需要用到 Vim 的魔法模式了, Vim 的魔法模式用于确定如何解析正则表达式, 有 3 种模式:</p>
+<ul>
+<li><p>基本魔法(magic) Vim 默认模式, 大部分特殊字符都需要转义, 少数除外如 <code>. *</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 显示设置\m
+:s&#x2F;\m.\+&#x2F;&#x2F;g  # 此处转义符号+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>无魔法(no magic) 类似于基本魔法, 只不过每个特殊字符都需要转义, 包括 <code>. *</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 显示设置\M
+:s&#x2F;\M\.\+&#x2F;&#x2F;g  # 此处转义符号.和+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>深度魔法(very magic) 深度魔法将数字, 字母和下划线之外的字符都视为特殊字符, 不再转义</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 显示设置\v
+:s&#x2F;\v.+&#x2F;&#x2F;g  # 此处不用转义<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="宏">宏</h2>
+<p>宏(macro) 支持录制一系列动作, 然后用于回放, Vim 用命令 <code>q</code> 进入宏录制模式, 后面接任意寄存器</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 宏录制
+qa  # 使用寄存器a
+# 状态栏可以看到recording @a表示宏已经开始录制
+# 宏模式下的每个移动或编辑操作都需要考虑到后续的回放
+
+q   # 退出录制
+@a  # 回放寄存器a中的宏<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 宏操作
+@@   # 回放最后一次运行的宏
+2@a  # 执行2次寄存器a中的宏
+qaq  # 清空寄存器a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="递归">递归</h3>
+<p>在命令前加数字表示多次重复运行宏, 不过更好的做法是, Vim 支持递归的宏</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 递归宏
+qbqqb  # 清空寄存器b, 再使用寄存器b进入录制
+# 单行操作
+j_  # 光标移到下一行并移至行首
+@b  # 重新运行宏b(此时寄存器b为空的, 所以不会有动作)
+q   # 退出录制
+
+# 执行宏b, 递归调用会访问文件中的每一行, 并执行录制的单行操作
+@b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="终端">终端</h2>
+<p>Vim 中运行 shell 命令可以使用 <code>:!</code> 命令, 这种方式不太方便, 因为用户无法在运行程序的同时编辑文档</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 传统方式
+:!vim --version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Vim8.1 版本中引入终端模式, 终端模式是 Vim 会话中运行的一个终端模拟器, 当用户执行终端命令时, 可以同时使用 Vim 进行其他操作</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 终端模式
+:term       # 上下分割打开终端窗口
+:vert term  # 左右分割打开终端窗口
+
+# 终端窗口初始情况下处于终端工作模式(terminal-job), 操作方式类似插入模式
+&lt;Ctrl-w&gt; N  # 组合键用于进入终端正常模式(terminal-normal), 按i键可回到终端工作模式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 执行终端命令并将输出保存到新缓冲区
+:term vim --version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="tmux">Tmux</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">Tmux</a> 是一个终端复用工具, 可以在终端屏幕中管理多个终端窗口, Tmux 面板和 Vim 窗口可以互补, 用户可以在不同的 Tmux 面板中打开 Vim, 从而让这些实例相互独立, 实现缓冲区的分组</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/24/vim 001/" rel="bookmark">Vim 简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/25/vim 003/" rel="bookmark">Vim 定制</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2021/04/24/vim%20002/" title="Vim 工作区">https://janz.icu/2021/04/24/vim 002/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vim/" rel="tag"><i class="fa fa-tag"></i> Vim</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/25/vim%20003/" rel="prev" title="Vim 定制">
+                  <i class="fa fa-chevron-left"></i> Vim 定制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/24/vim%20001/" rel="next" title="Vim 简介">
+                  Vim 简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

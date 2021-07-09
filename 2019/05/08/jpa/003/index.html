@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="JPA 基础查询 Repository Repository 位于 Spring Data Common 的 lib 里面, 是 Spring Data 里面做数据库操作的最底层的抽象接口, 最顶级的父类, 源码里面其实什么方法都没有, 仅仅起到一个标识作用, 管理域类以及域类的 id 类型作为类型参数, 此接口主要作为标记接口捕获要使用的类型, Spring 底层做动态代理的时候发现只要是它的子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JPA 003 基础查询">
+<meta property="og:url" content="https://janz.icu/2019/05/08/jpa/003/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="JPA 基础查询 Repository Repository 位于 Spring Data Common 的 lib 里面, 是 Spring Data 里面做数据库操作的最底层的抽象接口, 最顶级的父类, 源码里面其实什么方法都没有, 仅仅起到一个标识作用, 管理域类以及域类的 id 类型作为类型参数, 此接口主要作为标记接口捕获要使用的类型, Spring 底层做动态代理的时候发现只要是它的子">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-08T01:46:38.000Z">
+<meta property="article:modified_time" content="2021-02-07T14:47:59.392Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="JPA">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2019/05/08/jpa/003/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2019/05/08/jpa/003/","path":"2019/05/08/jpa/003/","title":"JPA 003 基础查询"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JPA 003 基础查询 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jpa-%E5%9F%BA%E7%A1%80%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.</span> <span class="nav-text">JPA 基础查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#repository"><span class="nav-number">1.1.</span> <span class="nav-text">Repository</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%B1%82%E6%AC%A1%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">类层次关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">自定义方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">1.2.1.</span> <span class="nav-text">方法名规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%BC%80"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">属性表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">查询结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E6%89%A9%E5%B1%95-projections"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">查询结果扩展 (Projections)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">注解式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#query"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">@Query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#namedquery-namednativequery"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">@NamedQuery &#x2F; @NamedNativeQuery</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#param"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">@Param</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#modifying"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">@Modifying</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#procedure"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">@Procedure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queryhints"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">@QueryHints</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2019/05/08/jpa/003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JPA 003 基础查询
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-08 09:46:38" itemprop="dateCreated datePublished" datetime="2019-05-08T09:46:38+08:00">2019-05-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JPA/" itemprop="url" rel="index"><span itemprop="name">JPA</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2019/05/08/jpa/003/" class="post-meta-item leancloud_visitors" data-flag-title="JPA 003 基础查询" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="jpa-基础查询">JPA 基础查询</h1>
+<h2 id="repository">Repository</h2>
+<p><code>Repository</code> 位于 Spring Data Common 的 lib 里面, 是 Spring Data 里面做数据库操作的最底层的抽象接口, 最顶级的父类, 源码里面其实什么方法都没有, 仅仅起到一个标识作用, 管理域类以及域类的 <code>id</code> 类型作为类型参数, 此接口主要作为标记接口捕获要使用的类型, Spring 底层做动态代理的时候发现只要是它的子类或者实现类, 都代表储存库操作</p>
+<h3 id="类层次关系">类层次关系</h3>
+<pre class="mermaid">graph BT
+title[图 Repository层级关系]
+title --> L
+style title fill:#FFF,stroke:#FFF
+linkStyle 0 stroke:#FFF,stroke-width:0;
+B[Repository]
+C[CrudRepository]
+D[QueryByExampleExecutor]
+E[PagingAndSortingRepository]
+F[JpaSpecificationExecutor]
+G[JpaRepository]
+H[JpaRepositoryImplementation]
+I[Serializable]
+J[QuerydslPredicateExecutor]
+K(SimpleJpaRepository)
+L(QuerydslJpaRepository)
+L -.-> I
+L -.-> J
+L --> K
+K -.-> H
+H --> F
+H --> G
+G --> D
+G --> E
+E --> C
+C --> B</pre>
+<h3 id="实例">实例</h3>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 数据对象</span>
+<span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>janz<span class="token punctuation">.</span>jpa<span class="token punctuation">.</span>database</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span></span><span class="token operator">*</span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Entity</span>
+<span class="token annotation punctuation">@Table</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"b_user"</span><span class="token punctuation">)</span> <span class="token comment">// 设置表名</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDO</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Id</span> <span class="token comment">// 定义ID</span>
+    <span class="token annotation punctuation">@GeneratedValue</span><span class="token punctuation">(</span>strategy <span class="token operator">=</span> <span class="token class-name">GenerationType</span><span class="token punctuation">.</span>AUTO<span class="token punctuation">)</span> <span class="token comment">// 设置自增</span>
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> id<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> phone<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> email<span class="token punctuation">;</span>
+
+    <span class="token comment">// get/set 方法...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 数据操作Repo</span>
+<span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>janz<span class="token punctuation">.</span>jpa<span class="token punctuation">.</span>database</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>repository<span class="token punctuation">.</span></span><span class="token class-name">CrudRepository</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Repository</span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Repository</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserRepository</span> <span class="token keyword">extends</span> <span class="token class-name">CrudRepository</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 测试类</span>
+<span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>janz<span class="token punctuation">.</span>jpa</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>janz<span class="token punctuation">.</span>jpa<span class="token punctuation">.</span>database<span class="token punctuation">.</span></span><span class="token class-name">UserDO</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>janz<span class="token punctuation">.</span>jpa<span class="token punctuation">.</span>database<span class="token punctuation">.</span></span><span class="token class-name">UserRepository</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span></span><span class="token class-name">Assert</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span></span><span class="token class-name">Test</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>runner<span class="token punctuation">.</span></span><span class="token class-name">RunWith</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">SpringBootTest</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>junit4<span class="token punctuation">.</span></span><span class="token class-name">SpringJUnit4ClassRunner</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">javax<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span></span><span class="token class-name">Transactional</span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootTest</span><span class="token punctuation">(</span>classes <span class="token operator">=</span> <span class="token class-name">Application</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span><span class="token class-name">SpringJUnit4ClassRunner</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Transactional</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserTest</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">UserRepository</span> userRepositoryImpl<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">UserDO</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserDO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"测试用户"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setPhone</span><span class="token punctuation">(</span><span class="token string">"13512351235"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setEmail</span><span class="token punctuation">(</span><span class="token string">"13512351235@email.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">UserDO</span> result <span class="token operator">=</span> userRepositoryImpl<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertNotNull</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertNotNull</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">UserDO</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserDO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">10L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"测试用户"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setPhone</span><span class="token punctuation">(</span><span class="token string">"13512351235"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setEmail</span><span class="token punctuation">(</span><span class="token string">"13512351235@email.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">UserDO</span> result <span class="token operator">=</span> userRepositoryImpl<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertNotNull</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertNotNull</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        userRepositoryImpl<span class="token punctuation">.</span><span class="token function">deleteById</span><span class="token punctuation">(</span><span class="token number">10L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="自定义方法">自定义方法</h2>
+<p>由于 Spring JPA Repository 的实现原理是采用动态代理的机制, 有两种定义查询方法:</p>
+<ul>
+<li>从方法名称中指定特定用于存储的查询和更新;</li>
+<li>通过使用 <code>@Query</code> 手动定义的查询</li>
+</ul>
+<p>通过 <code>@EnableJpaRepositories</code> 的 <code>queryLookupStrategy</code> 属性可以配置方法的查询策略, 其中 <code>QueryLookupStrategy.Key</code> 的值一共有三个:</p>
+<ul>
+<li><code>CREATE</code> 直接根据方法名进行创建, 规则是根据方法名称的构造进行尝试, 一般的方法是从方法名中删除给定的一组已知前缀, 并解析该方法的其余部分, 如果方法名不符合规则, 启动的时候就会报异常;</li>
+<li><code>USER_DECLARED_QUERY</code> 声明方式创建, 即注解方式, 启动的时候会尝试找到一个声明的查询, 如果没有找到就将抛出一个异常, 查询可以由某处注释或其他方法声明;</li>
+<li><code>CREATE_IF_NOT_FOUND</code> 默认值, 以上两种方式的结合, 先用声明方式进行查找, 如果没有找到与方法相匹配的查询, 就用方法名创建规则查询</li>
+</ul>
+<h3 id="方法名规则">方法名规则</h3>
+<p>内部基础架构中有个根据方法名的查询生成器机制, 对于在存储库的实体上构建约束查询很有用, 该机制方法的前缀有 <code>find...By</code>, <code>read...By</code>, <code>query...By</code>, <code>count...By</code> 和 <code>get...By</code>, 从这些方法可以分析它的其余部分 (实体里面的字段), 引入子句可以包含其他表达式, 第一个 <code>By</code> 作为分隔符来指示实际标准的开始, 在一个非常基本的水平上, 可以定义实体性条件, 并与它们串联 (<code>AND</code> 和 <code>OR</code>)</p>
+<h4 id="前缀">前缀</h4>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// PartTree类中定义的前缀</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> QUERY_PATTERN <span class="token operator">=</span> <span class="token string">"find|read|get|query|stream"</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> COUNT_PATTERN <span class="token operator">=</span> <span class="token string">"count"</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> EXISTS_PATTERN <span class="token operator">=</span> <span class="token string">"exists"</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> DELETE_PATTERN <span class="token operator">=</span> <span class="token string">"delete|remove"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="关键字">关键字</h4>
+<p>关键字列表</p>
+<table>
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 21%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>关键字</th>
+<th>示例</th>
+<th>JPQL 表达</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>And</code></td>
+<td><code>findByPhoneAndEmail</code></td>
+<td><code>where a.phone = ?1 and a.email = ?2</code></td>
+</tr>
+<tr class="even">
+<td><code>Or</code></td>
+<td><code>findByPhoneOrEmail</code></td>
+<td><code>where a.phone = ?1 or a.email = ?2</code></td>
+</tr>
+<tr class="odd">
+<td><code>Is</code> <code>Equals</code></td>
+<td><code>findByNameIs</code></td>
+<td><code>where a.name = ?1</code></td>
+</tr>
+<tr class="even">
+<td><code>Between</code></td>
+<td><code>findByIdBetween</code></td>
+<td><code>where a.id between ?1 and ?2</code></td>
+</tr>
+<tr class="odd">
+<td><code>LessThan</code> <code>Before</code></td>
+<td><code>findByIdLessThan</code></td>
+<td><code>where a.id &lt; ?1</code></td>
+</tr>
+<tr class="even">
+<td><code>LessThanEqual</code></td>
+<td><code>findByIdLessThanEqual</code></td>
+<td><code>where a.id &lt;= ?1</code></td>
+</tr>
+<tr class="odd">
+<td><code>GreaterThan</code> <code>After</code></td>
+<td><code>findByIdGreaterThan</code></td>
+<td><code>where a.id &gt; ?1</code></td>
+</tr>
+<tr class="even">
+<td><code>GreaterThanEqual</code></td>
+<td><code>findByIdGreaterThanEqual</code></td>
+<td><code>where a.id &gt;= ?1</code></td>
+</tr>
+<tr class="odd">
+<td><code>IsNull</code></td>
+<td><code>findByNameIsNull</code></td>
+<td><code>where a.name is null</code></td>
+</tr>
+<tr class="even">
+<td><code>IsNotNull</code> <code>NotNull</code></td>
+<td><code>findByNameIsNotNull</code></td>
+<td><code>where a.name is not null</code></td>
+</tr>
+<tr class="odd">
+<td><code>Like</code><br><code>StartingWith(前缀%)</code><br><code>EndingWith(后缀%)</code><br><code>Containing(环绕%)</code></td>
+<td><code>findByNameLike</code></td>
+<td><code>where a.name like ?1</code></td>
+</tr>
+<tr class="even">
+<td><code>OrderBy</code></td>
+<td><code>findByNameOrderById</code></td>
+<td><code>where a.name = ?1 order by a.id</code></td>
+</tr>
+<tr class="odd">
+<td><code>Not</code></td>
+<td><code>findByIdNot</code></td>
+<td><code>where a.id &lt;&gt; ?1</code></td>
+</tr>
+<tr class="even">
+<td><code>In</code></td>
+<td><code>findByIdIn</code></td>
+<td><code>where a.id in ?1</code></td>
+</tr>
+<tr class="odd">
+<td><code>NotIn</code></td>
+<td><code>findByIdNotIn</code></td>
+<td><code>where a.id not in ?1</code></td>
+</tr>
+<tr class="even">
+<td><code>True</code></td>
+<td><code>findByActiveTrue</code></td>
+<td><code>where a.active = true</code></td>
+</tr>
+<tr class="odd">
+<td><code>False</code></td>
+<td><code>findByActiveFalse</code></td>
+<td><code>where a.active = false</code></td>
+</tr>
+<tr class="even">
+<td><code>IgnoreCase</code></td>
+<td><code>findByNameIgnoreCase</code></td>
+<td><code>where UPPER(a.name) = UPPER(?1)</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="属性表达式">属性表达式</h4>
+<p><strong>属性表达式(Property Expressions)</strong> 只能引用托管 (泛化) 实体的直接属性, 创建及其查找的过程是, 解析算法首先将整个解释为属性, 并使用该名称检查域类的属性, 如果算法成功, 就使用该属性, 如果不是, 就拆分右侧驼峰部分的信号源到头部和尾部, 并试图找出相应的属性, 如果算法找到一个具有头部的属性, 那么它需要尾部, 并从那里继续构建树, 然后按照刚刚描述的方式将尾部分割, 如果第一个分割不匹配, 就将分割点移动到左边, 然后继续</p>
+<blockquote>
+<p>算法可能会因为歧义选择错误的属性, 比如:</p>
+<p><code>List&lt;Person&gt; findByAddressZipCode(String zipCode)</code></p>
+<p>如果 <code>Person</code> 中同时有 <code>Address</code> 和 <code>AddressZip</code>, 算法可能会选择错误的属性, 要解决这个歧义, 可以在方法名称中手动定义遍历点, 比如:</p>
+<p><code>List&lt;Person&gt; findByAddress_ZipCode(String zipCode)</code></p>
+<p>Spring JPA 里面是将下划线视为保留字符, 但是强烈建议遵循标准 Java 命名约定 (不使用属性名称中的下划线, 而是使用骆驼示例)</p>
+</blockquote>
+<h4 id="查询结果">查询结果</h4>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 分页/排序查询 */</span>
+<span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">Pageable</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Slice</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">Pageable</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">Pageable</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">Sort</span> sort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* 
+Pageable: 分页+排序参数, 会多执行一条count语句
+Sort: 排序参数
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 流式查询 */</span>
+<span class="token class-name">Stream</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 异步查询 */</span>
+<span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">CompletableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">ListenableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="查询结果扩展-projections">查询结果扩展 (Projections)</h4>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 定义想返回字段的接口或类 */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">NameOnly</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 使用SPEL语法处理字段, 会导致select全部字段</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"#&#123;target.phone + ',' + target.email&#125;"</span><span class="token punctuation">)</span>
+    <span class="token class-name">String</span> <span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// 子对象也可通过内部接口/类的形式定义</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 返回类型使用定义的接口 */</span>
+<span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">NameOnly</span><span class="token punctuation">></span></span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">></span></span> ids<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 可以通过泛化实现返回动态字段</span>
+<span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">></span></span> ids<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> type<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="注解式">注解式</h3>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// Spring JPA里的优先级:</span>
+<span class="token annotation punctuation">@Query</span> <span class="token operator">></span> <span class="token annotation punctuation">@NamedQuery</span> <span class="token operator">></span> 方法名规则
+<span class="token comment">// 都不支持动态条件查询</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="query"><span class="citation" data-cites="Query">@Query</span></h4>
+<p>使用命名查询为实体声明查询是一种有效的方法, 对于少量查询很有效, 使用声明式 JPQL 查询有一个好处, 就是启动的时候就知道语法正确与否</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例 */</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select u from UserDO u where u.id = ?1"</span><span class="token punctuation">)</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findWithCustomize</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// LIKE查询</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select u from UserDO u where u.name like %?1%"</span><span class="token punctuation">)</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findWithCustomize</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 原始SQL</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select u.* from b_user u where u.id = ?1"</span><span class="token punctuation">,</span> nativeQuery <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findWithCustomize</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 排序</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select u.name,LENGTH(u.name) as un_len from UserDO u where u.id = ?1"</span><span class="token punctuation">)</span>
+<span class="token class-name">List</span><span class="token operator">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token function">findWithCustomize</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">,</span> <span class="token class-name">Sort</span> sort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 分页</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select u from UserDO u where u.id = ?1"</span><span class="token punctuation">)</span>
+<span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findWithCustomize</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">,</span> <span class="token class-name">Pageable</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* SpEL表达式的支持 */</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select e from #&#123;#entityName&#125; e where e.id in ?1"</span><span class="token punctuation">)</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">></span></span> ids<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 适合自定义公用的父类repository</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="namedquery-namednativequery"><span class="citation" data-cites="NamedQuery">@NamedQuery</span> / <span class="citation" data-cites="NamedNativeQuery">@NamedNativeQuery</span></h4>
+<p>预定义查询</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例 */</span>
+<span class="token comment">// 在Entity上定义</span>
+<span class="token annotation punctuation">@NamedQuery</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"User.findWithNamedQuery"</span><span class="token punctuation">,</span> query <span class="token operator">=</span> <span class="token string">"select u from UserDO u where u.id = ?1"</span><span class="token punctuation">)</span>
+<span class="token comment">// 在Repository中定义</span>
+<span class="token class-name">Optional</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findWithNamedQuery</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 或者</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span><span class="token string">"User.findWithNamedQuery"</span><span class="token punctuation">)</span>
+<span class="token class-name">Optional</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="param"><span class="citation" data-cites="Param">@Param</span></h4>
+<p>默认情况下, 参数是通过顺序绑定在查询语句上的, 这使得查询方法对参数位置的重构容易出错, 为了解决这个问题, 可以使用 <code>@Param</code> 注解指定方法参数的具体名称, 通过绑定的参数名字做查询条件</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 根据参数进行查询 */</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"select u from UserDO u where u.id = :id"</span><span class="token punctuation">)</span>
+<span class="token class-name">Optional</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findWithParam</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Param</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 不加@Param时查询参数名与方法参数名相同</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="modifying"><span class="citation" data-cites="Modifying">@Modifying</span></h4>
+<p>修改查询</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 更新指定字段 */</span>
+<span class="token annotation punctuation">@Modifying</span><span class="token punctuation">(</span>clearAutomatically <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Query</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"update UserDO u set u.phone = ?2, u.email = ?3 where u.id = ?1"</span><span class="token punctuation">)</span>
+<span class="token keyword">int</span> <span class="token function">updateWithCustomize</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">,</span> <span class="token class-name">String</span> phone<span class="token punctuation">,</span> <span class="token class-name">String</span> email<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Modifying的clearAutomatically属性用于设置是否刷新hibernate的一级缓存</span>
+<span class="token comment">// 自定义的update/delete语句返回为数字类型的结果, 表示执行语句后受影响的行数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="procedure"><span class="citation" data-cites="Procedure">@Procedure</span></h4>
+<p>存储过程的查询方法</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例 */</span>
+<span class="token comment">// 在Entity上定义存储过程</span>
+<span class="token annotation punctuation">@NamedStoredProcedureQuery</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"UserDO.findWithProcedure"</span><span class="token punctuation">,</span> procedureName <span class="token operator">=</span> <span class="token string">"userFindNameById"</span><span class="token punctuation">,</span> parameters <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token annotation punctuation">@StoredProcedureParameter</span><span class="token punctuation">(</span>mode <span class="token operator">=</span> <span class="token class-name">ParameterMode</span><span class="token punctuation">.</span>IN<span class="token punctuation">,</span> name <span class="token operator">=</span> <span class="token string">"id"</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token class-name">Long</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token annotation punctuation">@StoredProcedureParameter</span><span class="token punctuation">(</span>mode <span class="token operator">=</span> <span class="token class-name">ParameterMode</span><span class="token punctuation">.</span>OUT<span class="token punctuation">,</span> name <span class="token operator">=</span> <span class="token string">"name"</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">// 在Repository中定义</span>
+<span class="token annotation punctuation">@Procedure</span><span class="token punctuation">(</span><span class="token string">"UserDO.findWithProcedure"</span><span class="token punctuation">)</span>
+<span class="token class-name">String</span> <span class="token function">findWithProcedure</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 注意, 参数名称及类型必须匹配</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="queryhints"><span class="citation" data-cites="QueryHints">@QueryHints</span></h4>
+<p>很多数据库支持 Hint Query 的语法, Spring Data JPA 只支持一些固定的 HintValue 值, 用来优化 Query 的作用</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例 */</span>
+<span class="token annotation punctuation">@QueryHints</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token annotation punctuation">@QueryHint</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span> value <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> forCounting <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+<span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserDO</span><span class="token punctuation">></span></span> <span class="token function">findByName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">Pageable</span> pageable<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 了解即可, 不推荐使用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/05/07/jpa/001/" rel="bookmark">JPA 001 简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/05/07/jpa/002/" rel="bookmark">JPA 002 Entity</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/05/08/jpa/004/" rel="bookmark">JPA 004 扩展查询</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/05/22/jpa/005/" rel="bookmark">JPA 005 扩展</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2019/05/08/jpa/003/" title="JPA 003 基础查询">https://janz.icu/2019/05/08/jpa/003/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JPA/" rel="tag"><i class="fa fa-tag"></i> JPA</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/08/jpa/004/" rel="prev" title="JPA 004 扩展查询">
+                  <i class="fa fa-chevron-left"></i> JPA 004 扩展查询
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/07/jpa/002/" rel="next" title="JPA 002 Entity">
+                  JPA 002 Entity <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

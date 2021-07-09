@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="自动化测试 自动化测试 是指通过工具录制或编写脚本模拟手工测试的过程, 并通过回放或运行脚本来执行测试, 从而代替人工检查被测软件或系统的功能是否符合预期要求 通过手工测试稳定的功能, 可以采用自动化测试, 机械重复的测试场景也可以采用自动化测试, 这样效率反而更高 手工测试  手工测试需要人的较强的思考能力, 通过人的逻辑思考来验证当前测试步骤是否正确; 在执行用例的过程中, 步骤更具有灵活性和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化测试">
+<meta property="og:url" content="https://janz.icu/2020/11/16/test%20001/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="自动化测试 自动化测试 是指通过工具录制或编写脚本模拟手工测试的过程, 并通过回放或运行脚本来执行测试, 从而代替人工检查被测软件或系统的功能是否符合预期要求 通过手工测试稳定的功能, 可以采用自动化测试, 机械重复的测试场景也可以采用自动化测试, 这样效率反而更高 手工测试  手工测试需要人的较强的思考能力, 通过人的逻辑思考来验证当前测试步骤是否正确; 在执行用例的过程中, 步骤更具有灵活性和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-16T05:04:24.000Z">
+<meta property="article:modified_time" content="2021-04-30T03:03:45.509Z">
+<meta property="article:author" content="Janz">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2020/11/16/test%20001/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2020/11/16/test%20001/","path":"2020/11/16/test 001/","title":"自动化测试"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>自动化测试 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">自动化测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AF%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">场景</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2020/11/16/test%20001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自动化测试
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-16 13:04:24" itemprop="dateCreated datePublished" datetime="2020-11-16T13:04:24+08:00">2020-11-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-30 11:03:45" itemprop="dateModified" datetime="2021-04-30T11:03:45+08:00">2021-04-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/11/16/test%20001/" class="post-meta-item leancloud_visitors" data-flag-title="自动化测试" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="自动化测试">自动化测试</h1>
+<p><strong>自动化测试</strong> 是指通过工具录制或编写脚本模拟手工测试的过程, 并通过回放或运行脚本来执行测试, 从而代替人工检查被测软件或系统的功能是否符合预期要求</p>
+<p>通过手工测试稳定的功能, 可以采用自动化测试, 机械重复的测试场景也可以采用自动化测试, 这样效率反而更高</p>
+<p><strong>手工测试</strong></p>
+<ol type="1">
+<li>手工测试需要人的较强的思考能力, 通过人的逻辑思考来验证当前测试步骤是否正确;</li>
+<li>在执行用例的过程中, 步骤更具有灵活性和跳跃性, 凭借个人的经验积累可以快速发现并准确定位问题;</li>
+<li>如果版本迭代中有大量测试用例需要回归测试, 在人员有限的情况下, 在开展回归测试的过程中手工测试就会变得异常困难和吃力</li>
+</ol>
+<p><strong>自动化测试</strong></p>
+<ol type="1">
+<li>执行用例的对象是测试脚本, 能通过提供的测试用例判断, 验证当前的步骤是否正确;</li>
+<li>用例步骤之间的依赖性强, 在自动执行的过程中不需要思考, 因为这个过程是事先依靠人的思考来设计的;</li>
+<li>对于复杂烦琐, 机械重复的测试, 绝对是测试利器, 更能让测试人员从繁重的工作中解脱出来, 从而节省大量时间;</li>
+<li>自动化测试先期投入的工作量比较大, 而且对测试人员有一定的要求</li>
+</ol>
+<h2 id="误区">误区</h2>
+<p><strong>误区一</strong> 自动化测试就是用工具录制和回放</p>
+<p>通过录制确实可以生成对应语言的脚本, 但得到的不是有效的自动化测试脚本, 录制操作步骤是否正确以及生成的脚本是否稳定, 能否重复使用等, 都会直接影响整个测试结果</p>
+<p><strong>误区二</strong> 自动化测试能发现新 Bug</p>
+<p>新 Bug 一般是在新功能的手工测试过程中发现的, 自动化测试主要用于大批量的回归测试, 可以发现一些偶发性 Bug, 从而节省更多测试时间</p>
+<p><strong>误区三</strong> 有了自动化测试就什么都不用做了</p>
+<p>能做自动化测试的项目一定是经过了很多次测试, 并且对框架和功能相对稳定的项目才能编写自动化测试代码, 如果产品版本迭代速度比脚本开发速度还快, 那么自动化测试就只能是说说而已了, 所以自动化测试是一种辅助测试的方式, 最重要的是一切要以做好功能测试为前提</p>
+<h2 id="用例">用例</h2>
+<p>自动化用例的好坏对自动化测试的开展有着重要的作用和影响</p>
+<p><strong>选择</strong></p>
+<ul>
+<li>有目的地选择用例, 不是所有用例都适合做自动化测试;</li>
+<li>对相对稳定的模块进行自动化测试, 而变动较大的模块仍使用手工测试;</li>
+<li>优先选择主流程测试用例, 用于冒烟测试;</li>
+<li>选取的用例应以步骤烦琐和重复执行率较高的优先</li>
+</ul>
+<p><strong>编写</strong></p>
+<ul>
+<li>测试人员应该了解自动化测试是如何模拟手工进行测试的;</li>
+<li>编写的测试用例一定要做到步骤清晰明了;</li>
+<li>当前的测试用例前置条件信息要写清楚;</li>
+<li>不需要每一步都写验证点, 抓重点即可;</li>
+<li>用例之间保持独立, 尽量少关联;</li>
+<li>用例要以模块和场景去划分, 这样做的好处是方便参数化测试</li>
+</ul>
+<p><strong>脚本</strong></p>
+<ul>
+<li>保持测试脚本的独立性, 减少依赖;</li>
+<li>保持测试脚本的可移植性;</li>
+<li>减少测试脚本对执行环境的依赖;</li>
+<li>如果有对执行条件的检查, 检查失败就尽快退出执行;</li>
+<li>抽离登录, 初始化实现自动登录;</li>
+<li>多元化数据驱动扩展;</li>
+<li>减少硬性等待时间</li>
+</ul>
+<h2 id="场景">场景</h2>
+<p>适合自动化测试的情况:</p>
+<ul>
+<li>需求变更不频繁, 稳定的项目;</li>
+<li>项目周期长, 回归测试频率高的项目;</li>
+<li>需要大量用户重复执行相同测试的场景;</li>
+<li>被测软件功能相对稳定, 并且具备可测试性</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2020/11/16/test%20001/" title="自动化测试">https://janz.icu/2020/11/16/test 001/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/16/selenium%20001/" rel="prev" title="Selenium 入门">
+                  <i class="fa fa-chevron-left"></i> Selenium 入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/23/jenkins%20010/" rel="next" title="Jenkins CLI">
+                  Jenkins CLI <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

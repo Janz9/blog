@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="接口 使用 GraphQL 时, 最常见被选用的跨端协议是 HTTP, 通常使用单个端点来提供服务的完整功能, 服务通常使用文本格式的 Json 语法返回数据, serving-over-http 页面提供了使用 HTTP 服务的最佳实践 准则 GraphQL 规范特意忽略了网络处理的问题, 但这并不意味着在使用 GraphQL 时没有针对这些问题的解决方案, 可代以工程上通行的准则来实现, 这些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GraphQL 接口">
+<meta property="og:url" content="https://janz.icu/2021/05/20/graphql%20003/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="接口 使用 GraphQL 时, 最常见被选用的跨端协议是 HTTP, 通常使用单个端点来提供服务的完整功能, 服务通常使用文本格式的 Json 语法返回数据, serving-over-http 页面提供了使用 HTTP 服务的最佳实践 准则 GraphQL 规范特意忽略了网络处理的问题, 但这并不意味着在使用 GraphQL 时没有针对这些问题的解决方案, 可代以工程上通行的准则来实现, 这些">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-20T05:28:23.000Z">
+<meta property="article:modified_time" content="2021-06-09T18:04:29.266Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="GraphQL">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2021/05/20/graphql%20003/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2021/05/20/graphql%20003/","path":"2021/05/20/graphql 003/","title":"GraphQL 接口"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GraphQL 接口 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">准则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1"><span class="nav-number">1.1.1.</span> <span class="nav-text">路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94"><span class="nav-number">1.1.3.</span> <span class="nav-text">响应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C"><span class="nav-number">1.2.1.</span> <span class="nav-text">校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E6%88%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">集成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graphiql"><span class="nav-number">1.3.</span> <span class="nav-text">GraphiQL</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/05/20/graphql%20003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GraphQL 接口
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-20 13:28:23" itemprop="dateCreated datePublished" datetime="2021-05-20T13:28:23+08:00">2021-05-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-10 02:04:29" itemprop="dateModified" datetime="2021-06-10T02:04:29+08:00">2021-06-10</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">开发</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/05/20/graphql%20003/" class="post-meta-item leancloud_visitors" data-flag-title="GraphQL 接口" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="接口">接口</h1>
+<p>使用 GraphQL 时, 最常见被选用的跨端协议是 HTTP, 通常使用单个端点来提供服务的完整功能, 服务通常使用文本格式的 Json 语法返回数据, <a target="_blank" rel="noopener" href="https://graphql.cn/learn/serving-over-http/">serving-over-http</a> 页面提供了使用 HTTP 服务的最佳实践</p>
+<h2 id="准则">准则</h2>
+<p>GraphQL 规范特意忽略了网络处理的问题, 但这并不意味着在使用 GraphQL 时没有针对这些问题的解决方案, 可代以工程上通行的准则来实现, 这些准则是基于服务端与 <a target="_blank" rel="noopener" href="https://relay.dev/">relay</a> 客户端兼容来写的, 但是对于任何客户端都有用</p>
+<h3 id="路由">路由</h3>
+<p>GraphQL 服务在单个入口端点, 通常是 <code>/graphql</code> 上运行, 并且所有提供服务的 GraphQL 请求都应被导向此入口端点</p>
+<blockquote>
+<p>虽然 GraphQL 也可以暴露多个资源端点, 但这可能导致开发人员在使用 GraphiQL 等工具时遇到困难</p>
+</blockquote>
+<h3 id="请求">请求</h3>
+<p>GraphQL 服务应能够处理 <code>GET</code> 和 <code>POST</code> 方法</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http">GET /graphql?query=&amp;operationName=&amp;variables=<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http">POST /graphql
+&#123;
+    "query": "",
+    "operationName": "",
+    "variables": &#123;&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通常建议支持另外两种情况:</p>
+<ol type="1">
+<li>如果存在 <code>query</code> 这个查询字符串参数, 则应当以与 <code>GET</code> 相同的方式进行解析和处理</li>
+<li>如果存在 <code>Content-Type: application/graphql</code> 请求头, 则将 <code>POST</code> 请求体内容视为 GraphQL 查询字符串</li>
+</ol>
+<h3 id="响应">响应</h3>
+<p>无论使用任何方法发送查询和变量, 响应都应当以 Json 格式返回, 注意需按 <a target="_blank" rel="noopener" href="https://spec.graphql.cn//#sec-Data-">规范</a> 的条目规则</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// 响应结构</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>    <span class="token comment">// 请求执行成功时返回的选择集对象</span>
+    <span class="token property">"errors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment">// 请求执行失败时返回的错误条目</span>
+    <span class="token property">"extensions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="示例">示例</h2>
+<p>GraphQL 接口开发, 参考 <a target="_blank" rel="noopener" href="https://github.com/facebook/relay">facebook-relay</a> <a target="_blank" rel="noopener" href="https://github.com/apollographql/apollo">apollo</a></p>
+<p>GraphQL-Java 开发示例, 参考 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples">graphql-java-examples</a></p>
+<ol type="1">
+<li>Http 集成示例 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples/blob/master/spring-boot-integration/README.md">example</a></li>
+<li>Http 使用数据加载器 <code>DataLoader</code>, 跟踪器 <code>instrumentatin</code> 的示例 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples/blob/master/http-example/readme.md">example</a></li>
+<li>使用套接字提供订阅功能的示例 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples/blob/master/subscription-example/readme.md">example</a></li>
+<li>使用响应流提供订阅功能, 延迟字段的示例 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples/blob/master/defer/server/README.md">example</a></li>
+<li>Hibernate 集成示例 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples/blob/master/hibernate-example/readme.md">example</a></li>
+<li>通过优化检查配置, 限制客户端滥用查询的示例 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-examples/blob/master/performance-checks/README.md">example</a></li>
+</ol>
+<h3 id="校验">校验</h3>
+<p>GraphQL-Java 提供了字段和参数的扩展校验 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-extended-validation">extended-validation</a></p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 示例: Maven配置 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.graphql-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>graphql-java-extended-validation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;latest-version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>支持的校验指令, 详见 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-extended-validation#the-supplied-directive-constraints">directive-constrains</a></p>
+<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">"示例: 引入需要的校验指令"</span>
+directive @Size<span class="token punctuation">(</span><span class="token function">min:</span> Int = 0, max: Int = 2147483647, message: String = <span class="token string">"graphql.validation.Size.message"</span><span class="token punctuation">)</span> on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+type Query &#123;
+    <span class="token string">"在字段或参数上添加校验指令"</span>
+    hero<span class="token punctuation">(</span><span class="token function">id:</span> ID @Size<span class="token punctuation">(</span><span class="token builtin">min</span> : 3, max: <span class="token number">2048</span><span class="token punctuation">)</span><span class="token punctuation">)</span>: Hero
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 配置 */</span>
+<span class="token class-name">ValidationRules</span> validationRules <span class="token operator">=</span> <span class="token class-name">ValidationRules</span><span class="token punctuation">.</span><span class="token function">newValidationRules</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 校验失败的策略, 此处为校验失败时数据date将返回null</span>
+    <span class="token punctuation">.</span><span class="token function">onValidationErrorStrategy</span><span class="token punctuation">(</span><span class="token class-name">OnValidationErrorStrategy</span><span class="token punctuation">.</span>RETURN_NULL<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">ValidationSchemaWiring</span> schemaWiring <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ValidationSchemaWiring</span><span class="token punctuation">(</span>validationRules<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">RuntimeWiring</span> runtime <span class="token operator">=</span> <span class="token class-name">RuntimeWiring</span><span class="token punctuation">.</span><span class="token function">newRuntimeWiring</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">directiveWiring</span><span class="token punctuation">(</span>schemaWiring<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">/* 执行校验失败的结果 */</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"errors"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"message"</span> <span class="token operator">:</span> <span class="token string">"/hero/id size must be between 3 and 2048"</span><span class="token punctuation">,</span>
+    <span class="token property">"locations"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"line"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">"column"</span> <span class="token operator">:</span> <span class="token number">3</span>
+    <span class="token punctuation">&#125;</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"path"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"hero"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"extensions"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"classification"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"type"</span> <span class="token operator">:</span> <span class="token string">"ExtendedValidationError"</span><span class="token punctuation">,</span>
+        <span class="token property">"validatedPath"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">"hero"</span><span class="token punctuation">,</span> <span class="token string">"id"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token property">"constraint"</span> <span class="token operator">:</span> <span class="token string">"@Size"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"data"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"hero"</span> <span class="token operator">:</span> <span class="token null keyword">null</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="集成">集成</h3>
+<p>GraphQL-Java-Spring 集成开发, 参考 <a target="_blank" rel="noopener" href="https://github.com/graphql-java/graphql-java-spring">graphql-java-spring</a></p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 示例: Maven配置 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>  <span class="token comment">&lt;!--webmvc--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.graphql-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>graphql-java-spring-boot-starter-webmvc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;latest-version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>  <span class="token comment">&lt;!--webflux--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.graphql-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>graphql-java-spring-boot-starter-webflux<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;latest-version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 配置文件</span>
+<span class="token key atrule">graphql</span><span class="token punctuation">:</span>
+  <span class="token key atrule">url</span><span class="token punctuation">:</span> /graphql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="测试">测试</h3>
+<p>测试基于 Junit5 框架</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 测试 */</span>
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">GraphQLController</span> controller<span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">MockMvc</span> mockMvc <span class="token operator">=</span> <span class="token class-name">MockMvcBuilders</span><span class="token punctuation">.</span><span class="token function">standaloneSetup</span><span class="token punctuation">(</span>controller<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">alwaysDo</span><span class="token punctuation">(</span><span class="token class-name">MockMvcResultHandlers</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">// 打印测试的结果</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> query <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+    &#123;
+        hero(id: "1") &#123;
+            id
+            name
+        &#125;
+    &#125;
+    """</span><span class="token punctuation">;</span>
+    <span class="token comment">// GET方式</span>
+    mockMvc<span class="token punctuation">.</span><span class="token function">perform</span><span class="token punctuation">(</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/graphql"</span><span class="token punctuation">)</span>
+             <span class="token punctuation">.</span><span class="token function">param</span><span class="token punctuation">(</span><span class="token string">"query"</span><span class="token punctuation">,</span> query<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">andExpect</span><span class="token punctuation">(</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isOk</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// POST方式</span>
+    mockMvc<span class="token punctuation">.</span><span class="token function">perform</span><span class="token punctuation">(</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">"/graphql"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">header</span><span class="token punctuation">(</span><span class="token class-name">HttpHeaders</span><span class="token punctuation">.</span>CONTENT_TYPE<span class="token punctuation">,</span> <span class="token string">"application/graphql"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">andExpect</span><span class="token punctuation">(</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isOk</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="graphiql">GraphiQL</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/graphql-java-kickstart/graphql-spring-boot">GraphiQL-Spring-Boot</a> 嵌入 GraphiQL 工具用于内省和查询, GraphiQL 在测试和开发过程中非常有用, 但在生产环境下应当默认被禁用</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 示例: Maven配置 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.graphql-java-kickstart<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>graphql-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;latest-version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.graphql-java-kickstart<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>graphiql-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;latest-version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 配置文件</span>
+<span class="token key atrule">graphiql</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mapping</span><span class="token punctuation">:</span> /graphiql
+  <span class="token key atrule">endpoint</span><span class="token punctuation">:</span>
+    <span class="token key atrule">graphql</span><span class="token punctuation">:</span> /graphql
+    <span class="token key atrule">subscriptions</span><span class="token punctuation">:</span> /subscriptions
+  <span class="token key atrule">subscriptions</span><span class="token punctuation">:</span>
+    <span class="token key atrule">timeout</span><span class="token punctuation">:</span> <span class="token number">30</span>
+    <span class="token key atrule">reconnect</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">basePath</span><span class="token punctuation">:</span> /
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">pageTitle</span><span class="token punctuation">:</span> GraphiQL
+  <span class="token key atrule">cdn</span><span class="token punctuation">:</span>
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> latest
+  <span class="token key atrule">props</span><span class="token punctuation">:</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token key atrule">query</span><span class="token punctuation">:</span> query.graphql
+      <span class="token key atrule">defaultQuery</span><span class="token punctuation">:</span> defaultQuery.graphql
+      <span class="token key atrule">variables</span><span class="token punctuation">:</span> variables.graphql
+    <span class="token key atrule">variables</span><span class="token punctuation">:</span>
+      <span class="token key atrule">editorTheme</span><span class="token punctuation">:</span> <span class="token string">"solarized light"</span>
+  <span class="token key atrule">headers</span><span class="token punctuation">:</span>
+    <span class="token key atrule">Authorization</span><span class="token punctuation">:</span> <span class="token string">"Bearer &lt;your-token>"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/03/03/grpc 003/" rel="bookmark">gRPC 接口</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/05/17/graphql 001/" rel="bookmark">GraphQL 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/05/19/graphql 002/" rel="bookmark">GraphQL 示例</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2021/05/20/graphql%20003/" title="GraphQL 接口">https://janz.icu/2021/05/20/graphql 003/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+              <a href="/tags/GraphQL/" rel="tag"><i class="fa fa-tag"></i> GraphQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/21/prometheus-001/" rel="prev" title="Prometheus 入门">
+                  <i class="fa fa-chevron-left"></i> Prometheus 入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/19/graphql%20002/" rel="next" title="GraphQL 示例">
+                  GraphQL 示例 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

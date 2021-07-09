@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="设计模式 BDD BDD(Behaviour-Driven Development) 行为驱动开发是一种敏捷的软件开发技术, 使用自然语言编写用例的好处是能够让非技术人员 (客户和用户) 看懂测试用例, 可以最大程度的减少技术语言和领域语言的翻译成本 Cucumber Cucumber 是一款支持行为驱动开发, 读取以纯文本形式编写的可执行规范, 验证该软件是否满足规范的内容, 并生成报告, 官网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium 设计模式">
+<meta property="og:url" content="https://janz.icu/2020/11/16/selenium%20003/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="设计模式 BDD BDD(Behaviour-Driven Development) 行为驱动开发是一种敏捷的软件开发技术, 使用自然语言编写用例的好处是能够让非技术人员 (客户和用户) 看懂测试用例, 可以最大程度的减少技术语言和领域语言的翻译成本 Cucumber Cucumber 是一款支持行为驱动开发, 读取以纯文本形式编写的可执行规范, 验证该软件是否满足规范的内容, 并生成报告, 官网">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-16T05:07:17.000Z">
+<meta property="article:modified_time" content="2021-05-24T17:52:36.820Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Selenium3">
+<meta property="article:tag" content="BDD">
+<meta property="article:tag" content="TDD">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2020/11/16/selenium%20003/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2020/11/16/selenium%20003/","path":"2020/11/16/selenium 003/","title":"Selenium 设计模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Selenium 设计模式 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bdd"><span class="nav-number">1.1.</span> <span class="nav-text">BDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cucumber"><span class="nav-number">1.1.1.</span> <span class="nav-text">Cucumber</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gherkin"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Gherkin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#keyword"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">Keyword</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tdd"><span class="nav-number">1.2.</span> <span class="nav-text">TDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#po"><span class="nav-number">1.3.</span> <span class="nav-text">PO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2020/11/16/selenium%20003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selenium 设计模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-16 13:07:17" itemprop="dateCreated datePublished" datetime="2020-11-16T13:07:17+08:00">2020-11-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-25 01:52:36" itemprop="dateModified" datetime="2021-05-25T01:52:36+08:00">2021-05-25</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/11/16/selenium%20003/" class="post-meta-item leancloud_visitors" data-flag-title="Selenium 设计模式" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="设计模式">设计模式</h1>
+<h2 id="bdd">BDD</h2>
+<p><strong>BDD(Behaviour-Driven Development)</strong> 行为驱动开发是一种敏捷的软件开发技术, 使用自然语言编写用例的好处是能够让非技术人员 (客户和用户) 看懂测试用例, 可以最大程度的减少技术语言和领域语言的翻译成本</p>
+<h3 id="cucumber">Cucumber</h3>
+<p><strong>Cucumber</strong> 是一款支持行为驱动开发, 读取以纯文本形式编写的可执行规范, 验证该软件是否满足规范的内容, 并生成报告, 官网 <a target="_blank" rel="noopener" href="https://cucumber.io/">Cucumber</a></p>
+<h4 id="gherkin">Gherkin</h4>
+<p>Cucumber 运行时会从纯文本语言编写的 <code>.feature</code> 文件中读取测试规格说明, 解析需要测试的场景 <code>scenario</code>, 每个场景由一系列步骤 <code>step</code> 组成, 为了使 Cucumber 理解特性文件, 这些文件必须遵循 Gherkin 的基本语法规则</p>
+<p><a target="_blank" rel="noopener" href="https://cucumber.io/docs/gherkin/reference/">Gherkin</a> 使用一组特殊关键字为可执行规范指定结构和含义, 为了让 Gherkin 能用多种语言书写, 关键字已经被翻译成多种语言, 为了提高可读性和流畅性, 有些语言可能对任何给定的关键字有多个翻译, 列表 <a target="_blank" rel="noopener" href="https://cucumber.io/docs/gherkin/languages/">languages</a></p>
+<pre class="line-numbers language-gherkin" data-language="gherkin"><code class="language-gherkin"><span class="token comment"># 示例: login.feature</span>
+<span class="token feature"><span class="token keyword">Feature:</span><span class="token important"> 登录测试</span>
+  使用手机号码和密码登录并跳转团队首页
+</span>
+  <span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"></span></span>
+    <span class="token atrule">Given</span> 访问登录页面
+    <span class="token atrule">And</span> 输入手机号码 <span class="token string">"135xxxxxxxx"</span>
+    <span class="token atrule">And</span> 输入密码 <span class="token string">"xxxxxxxx"</span>
+    <span class="token atrule">When</span> 点击登录按钮
+    <span class="token atrule">Then</span> 跳转团队首页<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可通过文件头添加 <code># language:</code> 确定要使用什么样的语言, 如果省略此属性将默认使用英语 <code>en</code></p>
+<pre class="line-numbers language-gherkin" data-language="gherkin"><code class="language-gherkin"><span class="token comment"># language: zh-CN</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="keyword">Keyword</h4>
+<p>Cucumber 关键字查看 <a target="_blank" rel="noopener" href="https://cucumber.io/docs/gherkin/reference/#keywords">keywords</a></p>
+<p><strong>Feature</strong> 每个文件都以 <code>Feature</code> 关键字开头, 后跟特性的名称和描述, 描述可以跨越多行, 该关键字完全不影响测试行为, 但是会包含在生成的报告中</p>
+<p><strong>Rule</strong> 表示一个被实现的业务规则, 用于将属于此业务规则的多个场景组合在一起</p>
+<p><strong>Example / Scenario</strong> 具体测试场景, 它由步骤列表组成, <code>Scenario</code> 关键字后面也可以跟上名称和描述</p>
+<p><strong>Step</strong> 在 <code>Scenario</code> 中定义的步骤列表, 一般使用 <code>Given</code>, <code>When</code>, <code>Then</code>, <code>But</code> 和 <code>And</code> 这些关键词, <code>Step</code> 实际上并不关心使用哪个关键字, 关键字的选择只是为了创建可读性更好的场景</p>
+<p><strong>Given</strong> 执行用例的前置条件</p>
+<p><strong>When</strong> 执行用例的交互方式</p>
+<p><strong>Then</strong> 断言, 检查交互的结果是否符合预期</p>
+<p><strong>And</strong> 同前一个步骤</p>
+<p><strong>But</strong> 反前一个步骤</p>
+<blockquote>
+<p>Gherkin 支持使用星号 <code>*</code> 代替任何常规 <code>step</code> 关键字</p>
+</blockquote>
+<p><strong>Background</strong> 在所有场景中都会重复的步骤, 可以通过将这些步骤分组到 <code>Backgroud</code>, 背景放在第一个场景之前</p>
+<p><strong>Scenario Outline / Scenario Template</strong> 可以使用不同的参数组合多次测试同一场景</p>
+<h3 id="示例">示例</h3>
+<p>示例基于 <strong>Cucumber</strong> 和 <strong>Junit5</strong> 测试环境</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置: pom.xml添加依赖 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.cucumber<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>cucumber-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;cucumber.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.cucumber<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>cucumber-junit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;cucumber.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将文件 <code>login.feature</code> 拷贝到项目文件夹 <code>/src/test/resources/feature</code> 下, 编写实现类和测试类</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: feature定义实现类 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Login</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">WebDriver</span> driver<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Before</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"webdriver.edge.driver"</span><span class="token punctuation">,</span> <span class="token string">"driver/msedgedriver.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EdgeDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">maximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">timeouts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pageLoadTimeout</span><span class="token punctuation">(</span><span class="token number">10L</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@After</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@Given</span><span class="token punctuation">(</span><span class="token string">"访问登录页面"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">loginPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"http://news.anhuai.com/user/login"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@And</span><span class="token punctuation">(</span><span class="token string">"输入手机号码 &#123;string&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">inputPhone</span><span class="token punctuation">(</span><span class="token class-name">String</span> phone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>phone<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@And</span><span class="token punctuation">(</span><span class="token string">"输入密码 &#123;string&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">inputPassword</span><span class="token punctuation">(</span><span class="token class-name">String</span> pwd<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>pwd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@When</span><span class="token punctuation">(</span><span class="token string">"点击登录按钮"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">findElement</span><span class="token punctuation">(</span><span class="token class-name">By</span><span class="token punctuation">.</span><span class="token function">className</span><span class="token punctuation">(</span><span class="token string">"ant-btn"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@Then</span><span class="token punctuation">(</span><span class="token string">"跳转团队首页"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">success</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> url <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">getCurrentUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Assertions</span><span class="token punctuation">.</span><span class="token function">assertTrue</span><span class="token punctuation">(</span><span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token string">"http://news.anhuai.com/team/"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 测试类 */</span>
+<span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span><span class="token class-name">Cucumber</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@CucumberOptions</span><span class="token punctuation">(</span>
+    <span class="token comment">// 指定feature文件夹的位置</span>
+    features <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"classpath:/feature"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token comment">// 指定插件的配置</span>
+    plugin <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"pretty"</span><span class="token punctuation">,</span> <span class="token string">"html:target/cucumber.html"</span><span class="token punctuation">,</span> <span class="token string">"json:target/cucumber.json"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 指定实现类的包路径</span>
+    glue <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"com.anhuai.test.demo"</span><span class="token punctuation">&#125;</span> 
+<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CucumberTest</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行测试, 日志输出如下, 同时文件夹 <code>/target/</code> 下生成 <code>cucumber.html</code> 和 <code>cucumber.json</code> 的测试结果</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Scenario:                         # feature&#x2F;login.feature:4
+  Given 访问登录页面              # com.anhuai.pattern2.feature.Login.loginPage()
+  And 输入手机号码 &quot;135xxxxxxxx&quot;  # com.anhuai.pattern2.feature.Login.inputPhone(java.lang.String)
+  And 输入密码 &quot;xxxxxxxx&quot;         # com.anhuai.pattern2.feature.Login.inputPassword(java.lang.String)
+  When 点击登录按钮               # com.anhuai.pattern2.feature.Login.submit()
+  Then 跳转团队首页               # com.anhuai.pattern2.feature.Login.success()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="tdd">TDD</h2>
+<p><strong>TDD(Test-Driven Development)</strong> 是敏捷开发中的一项核心实践和技术, 原理是在开发功能的代码前, 先编写单元测试用例代码, 测试代码确定需要编写的具体产品代码</p>
+<p><strong>数据驱动</strong> 设计是自动化测试中非常重要的一个环节, 同时也是自动化测试中的主流设计模式之一, 主要包括使用 DataProvider, CSV, Excel, YAML 和 MySQL 等方法进行数据驱动测试</p>
+<p>在实际设计测试用例的过程中, 经常会用等价类或边界值这样的方法, 针对一个功能用例测试数据进行测试, 比如一个输入框的正向数据, 逆向数据, 非法输入等, 即输入不同类型的数据进行测试</p>
+<h3 id="示例-1">示例</h3>
+<pre class="line-numbers language-gherkin" data-language="gherkin"><code class="language-gherkin"><span class="token comment"># 示例: login.feature</span>
+<span class="token feature"><span class="token keyword">Feature:</span><span class="token important"> 登录测试</span>
+  使用手机号码和密码登录并跳转团队首页
+</span>
+  <span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"></span></span>
+    <span class="token atrule">Given</span> 访问登录页面
+    <span class="token atrule">And</span> 输入手机号码 <span class="token string">"<span class="token outline variable">&lt;account></span>"</span>
+    <span class="token atrule">And</span> 输入密码 <span class="token string">"<span class="token outline variable">&lt;password></span>"</span>
+    <span class="token atrule">When</span> 点击登录按钮
+    <span class="token atrule">Then</span> 跳转团队首页
+
+  <span class="token scenario"><span class="token keyword">Examples:</span><span class="token important"></span></span><span class="token table-head">
+    <span class="token punctuation">|</span><span class="token th variable"> account </span><span class="token punctuation">|</span><span class="token th variable"> password </span><span class="token punctuation">|</span></span><span class="token table-body">
+    <span class="token punctuation">|</span><span class="token td string"> 135xxx1 </span><span class="token punctuation">|</span><span class="token td string"> xxxxxxxx </span><span class="token punctuation">|</span>
+    <span class="token punctuation">|</span><span class="token td string"> 135xxx2 </span><span class="token punctuation">|</span><span class="token td string"> xxxxxxxx </span><span class="token punctuation">|</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="po">PO</h2>
+<p><strong>页面对象(Page Object)</strong> 模式是 Selenium 实战中最为流行的一种设计模式, 在设计测试时, 常把页面元素定位和元素操作方法按照页面抽象出来, 分离成一定的对象, 再进行重新组织</p>
+<p>在实际自动化测试过程中, 一般将脚本的实现分为 4 层:</p>
+<ul>
+<li><p>基础层: 用于存放 <code>driver</code> 对象及初始化使用;</p></li>
+<li><p>对象层: 用于存放页面元素定位和控件操作行为;</p></li>
+<li><p>操作层: 用于封装各个模块功能用例的操作;</p></li>
+<li><p>业务层: 真正执行测试用例的操作部分</p></li>
+</ul>
+<h3 id="示例-2">示例</h3>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 基础层 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BasePage</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">WebDriver</span> driver<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token class-name">BasePage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"webdriver.edge.driver"</span><span class="token punctuation">,</span> <span class="token string">"driver/msedgedriver.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EdgeDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">maximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">timeouts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pageLoadTimeout</span><span class="token punctuation">(</span><span class="token number">5L</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">WebDriver</span> <span class="token function">driver</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> driver<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token keyword">open</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"http://news.anhuai.com/user/login"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        driver<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">LoginPage</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">LoginPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 对象层 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginPage</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">LoginPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">PageFactory</span><span class="token punctuation">.</span><span class="token function">initElements</span><span class="token punctuation">(</span><span class="token class-name">BasePage</span><span class="token punctuation">.</span><span class="token function">driver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token string">"username"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@CacheLookup</span>
+    <span class="token keyword">private</span> <span class="token class-name">WebElement</span> username<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token string">"password"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@CacheLookup</span>
+    <span class="token keyword">private</span> <span class="token class-name">WebElement</span> password<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>className <span class="token operator">=</span> <span class="token string">"ant-btn"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@CacheLookup</span>
+    <span class="token keyword">private</span> <span class="token class-name">WebElement</span> submit<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@FindBy</span><span class="token punctuation">(</span>className <span class="token operator">=</span> <span class="token string">"ant-form-item-explain"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">WebElement</span><span class="token punctuation">></span></span> message<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendUsername</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>username<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>username<span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendPassword</span><span class="token punctuation">(</span><span class="token class-name">String</span> password<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>password<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>password<span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>submit<span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token class-name">CollectionUtils</span><span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 操作层 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginMovies</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">,</span> <span class="token class-name">String</span> password<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">BasePage</span> base <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BasePage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        base<span class="token punctuation">.</span><span class="token keyword">open</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        base<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendUsername</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        base<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendPassword</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> submit <span class="token operator">=</span> base<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        base<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Assertions</span><span class="token punctuation">.</span><span class="token function">assertTrue</span><span class="token punctuation">(</span>submit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 业务层 */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PageTest</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">LoginMovies</span> movies <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LoginMovies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        movies<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span><span class="token string">"135xxxxxxxx"</span><span class="token punctuation">,</span> <span class="token string">"xxxxxxxx"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/11/16/selenium 001/" rel="bookmark">Selenium 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/11/16/selenium 002/" rel="bookmark">Selenium API</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2020/11/16/selenium%20003/" title="Selenium 设计模式">https://janz.icu/2020/11/16/selenium 003/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Selenium3/" rel="tag"><i class="fa fa-tag"></i> Selenium3</a>
+              <a href="/tags/BDD/" rel="tag"><i class="fa fa-tag"></i> BDD</a>
+              <a href="/tags/TDD/" rel="tag"><i class="fa fa-tag"></i> TDD</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/27/git%20001/" rel="prev" title="Git 入门">
+                  <i class="fa fa-chevron-left"></i> Git 入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/16/selenium%20002/" rel="next" title="Selenium API">
+                  Selenium API <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

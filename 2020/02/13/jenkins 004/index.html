@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="触发条件 可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline 触发条件, Jenkins pipeline 中使用 trigger 指令来定义触发条件  需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, trigger 指令才会生效  时间触发 时间触发 是指定义一个时间, 时间到了就触发 pipeline 执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins 触发条件">
+<meta property="og:url" content="https://janz.icu/2020/02/13/jenkins%20004/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="触发条件 可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline 触发条件, Jenkins pipeline 中使用 trigger 指令来定义触发条件  需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, trigger 指令才会生效  时间触发 时间触发 是指定义一个时间, 时间到了就触发 pipeline 执行">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-13T09:22:00.000Z">
+<meta property="article:modified_time" content="2021-05-06T03:30:51.915Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2020/02/13/jenkins%20004/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2020/02/13/jenkins%20004/","path":"2020/02/13/jenkins 004/","title":"Jenkins 触发条件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Jenkins 触发条件 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">触发条件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E8%A7%A6%E5%8F%91"><span class="nav-number">1.1.</span> <span class="nav-text">时间触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C"><span class="nav-number">1.1.1.</span> <span class="nav-text">定时执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AE%E8%AF%A2%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="nav-number">1.1.2.</span> <span class="nav-text">轮询代码库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="nav-number">1.2.</span> <span class="nav-text">事件触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%B8%B8%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">上游任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitlab-%E9%80%9A%E7%9F%A5"><span class="nav-number">1.2.2.</span> <span class="nav-text">GitLab 通知</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E5%B7%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">人工配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">插件配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">推送配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="nav-number">1.3.</span> <span class="nav-text">插件触发</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2020/02/13/jenkins%20004/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins 触发条件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-13 17:22:00" itemprop="dateCreated datePublished" datetime="2020-02-13T17:22:00+08:00">2020-02-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-06 11:30:51" itemprop="dateModified" datetime="2021-05-06T11:30:51+08:00">2021-05-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/02/13/jenkins%20004/" class="post-meta-item leancloud_visitors" data-flag-title="Jenkins 触发条件" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="触发条件">触发条件</h1>
+<p>可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline <strong>触发条件</strong>, Jenkins pipeline 中使用 <code>trigger</code> 指令来定义触发条件</p>
+<blockquote>
+<p>需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, <code>trigger</code> 指令才会生效</p>
+</blockquote>
+<h2 id="时间触发">时间触发</h2>
+<p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline 执行</p>
+<h3 id="定时执行">定时执行</h3>
+<p><strong>定时执行</strong> 的使用场景通常是执行一些周期性的工作</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: cron */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    triggers <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 每天0时0分执行</span>
+        <span class="token function">cron</span><span class="token punctuation">(</span><span class="token string">'0 0 * * *'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// Jenkins trigger cron 语法采用的是 UNIX cron 语法(有些细微区别)</span>
+<span class="token comment">/* Jenkins teigger cron 设计了一些人性化的别名
+@yearly
+@annually
+@monthly
+@weekly
+@daily
+@midnight
+@hourly
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在一些大型组织中, 会同时存在大量的同一时刻执行的定时任务, 在 Jenkins trigger cron 语法中使用 <code>H(hash)</code> 字符来解决这一问题</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: H */</span>
+triggers <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 代表在0时0分至0时59分之间任何一个时间点执行</span>
+    <span class="token function">cron</span><span class="token punctuation">(</span><span class="token string">'H 0 * * *'</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>需注意的是, <code>H</code> 应用在某一天的字段时会有不准确的情况, 因为有些月份有31天, 有些却是28天</p>
+</blockquote>
+<h3 id="轮询代码库">轮询代码库</h3>
+<p><strong>轮询代码库</strong> 是指定期到代码仓库询问代码是否有变化, 如果有变化就执行</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: pollSCM */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    triggers <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 每分钟判断一次代码是否有变化</span>
+        <span class="token function">pollSCM</span><span class="token punctuation">(</span><span class="token string">'H/1 * * * *'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="事件触发">事件触发</h2>
+<p><strong>事件触发</strong> 是指发生了某个事件就触发 pipeline 执行</p>
+<h3 id="上游任务">上游任务</h3>
+<p>当 B 任务的执行依赖 A 任务的执行结果时, A 就被称为 B 的上游任务</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: upstream */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    triggers <span class="token punctuation">&#123;</span>
+        <span class="token function">upstream</span><span class="token punctuation">(</span>upstreamProjects<span class="token punctuation">:</span> <span class="token string">'A'</span><span class="token punctuation">,</span> threshold<span class="token punctuation">:</span> hudson<span class="token punctuation">.</span>model<span class="token punctuation">.</span>Result<span class="token punctuation">.</span>SUCCESS<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// upstreamProjects 指定上游任务, 接收多个任务时, 使用逗号分隔</span>
+<span class="token comment">/* threshold 指定上游任务的执行结果，枚举值包括
+ABORTED 中止
+FAILURE 失败
+SUCCESS 成功
+UNSTABLE 不稳定
+NOT_BUILD 多阶段构建时无法执行
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="gitlab-通知">GitLab 通知</h3>
+<p><strong>GitLab 通知</strong> 是指当 GitLab 发现源代码有变化时, 触发 Jenkins 执行构建</p>
+<h4 id="人工配置">人工配置</h4>
+<p>Jenkins 安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab 插件</a> 和 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/git/">Git 插件</a>, 创建 pipeline 项目时在 <code>Build Triggers</code> 节点下勾选 <code>Build when a change is pushed to GitLab</code>, 配置会暴露一个 <code>GitLab webhook URL</code>, 点击 <code>Generate</code> 按钮生成 <code>Secret token</code></p>
+<p>GitLab 在配置页 <code>Settings / Integrations</code> 节点下输入 <code>GitLab webhook URL</code> 和 <code>Secret token</code>, 添加好后可以在表单下方通过 <code>Test</code> 按钮选择 <code>Push events</code> 进行测试</p>
+<h4 id="插件配置">插件配置</h4>
+<p>Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab 插件</a> 实现了基于 GitLab 的 <code>trigger</code>, 通过配置 pipeline 就能实现通知触发</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: gitlab */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    triggers <span class="token punctuation">&#123;</span>
+        <span class="token function">gitlab</span><span class="token punctuation">(</span>
+            triggerOnPush<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            triggerOnMergeRequest<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            branchFilterType<span class="token punctuation">:</span> <span class="token string">'All'</span><span class="token punctuation">,</span>
+            secretToken<span class="token punctuation">:</span> <span class="token string">'84b630bb7e2e6eaf307a5981927c33bc'</span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/*
+triggerOnPush          当GitLab触发push事件时, 是否执行构建
+triggerOnMergeRequest  当GitLab触发mergeRequest事件时, 是否执行构建
+branchFilterType       只有符合条件的分支才会被触发, 可以设置的值有NameBasedFilter(基于分支名进行过滤), RegexBasedFilter(基于正则表达式对分支名进行过滤), All(所有分支都会触发)
+includeBranchesSpec    基于branchFilterType值, 输入期望包括的分支的规则
+excludeBranchesSpec    基于branchFilterType值, 输入期望排除的分支的规则
+secretToken            对应人工配置的secretToken, 使用随机字符串生成即可
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="推送配置">推送配置</h4>
+<p>当 Jenkins 执行完构建后, 可以将构建结果推送到 GitLab 的相应 <code>commit</code> 记录上, 这样就将构建状态与提交记录关联起来</p>
+<p>进入 Jenkins 的 <code>Manager Jenkins / Configure System / GitLab</code> 节点下, 添加 GitLab 地址及认证等信息, 编辑 pipeline</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 推送配置 */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    post <span class="token punctuation">&#123;</span>
+        failure <span class="token punctuation">&#123;</span>
+            <span class="token function">updateGitlabCommitStatus</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'build'</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span> <span class="token string">'failed'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+        success <span class="token punctuation">&#123;</span>
+            <span class="token function">updateGitlabCommitStatus</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'build'</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span> <span class="token string">'success'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    options <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 参数值需要同GitLab节点下配置的GitLab的Connection Name一致</span>
+        <span class="token function">gitLabConnection</span><span class="token punctuation">(</span><span class="token string">'gitlab'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="插件触发">插件触发</h2>
+<p>其他系统想触发 Jenkins 项目执行, 只需要安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/generic-webhook-trigger/">Generic Webhook Trigger</a> 插件, Jenkins 会暴露一个 API 接口 <code>&#123;JENKINS_DOMAIN&#125;/generic-webhook-trigger/invoke</code> 由插件来处理, 当 Jenkins 接收到接口的请求时, 会将请求代理给 GWT 插件处理, 触发逻辑由 GWT 插件提供, 大体上可以分为五个部分：</p>
+<ol type="1">
+<li>从请求中提取参数值;</li>
+<li>根据标识的 <code>token</code> 判断是否触发;</li>
+<li>根据请求的参数值判断是否触发;</li>
+<li>日志打印控制;</li>
+<li>响应控制</li>
+</ol>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: GenericTrigger */</span>
+triggers <span class="token punctuation">&#123;</span>
+    <span class="token function">GenericTrigger</span><span class="token punctuation">(</span>
+
+<span class="token comment">/* 1.从请求中提取参数值 */</span>
+        genericVariables<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">[</span>key<span class="token punctuation">:</span> <span class="token string">'refValue'</span><span class="token punctuation">,</span>
+             value<span class="token punctuation">:</span> <span class="token string">'$.ref'</span><span class="token punctuation">,</span>
+             expressionType<span class="token punctuation">:</span> <span class="token string">'JSONPath'</span><span class="token punctuation">,</span>
+             regexpFilter<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+             defaultValue<span class="token punctuation">:</span> <span class="token string">''</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">]</span>，
+<span class="token comment">/*
+genericVariables         从POST body中提取值
+genericRequestVariables  从URL参数中提取值
+genericHeaderVariables   从HTTP header中提取值
+key             提取出的值的新变量名, 可用于pipeline其他步骤
+value           JSONPath表示式或XPath表达式, 用于从提交的参数中提取值
+expressionType  指定表达式类型, 可选, 默认为JSONPath
+defaultValue    提取不到值时, 作为返回值, 可选
+regexpFilter    过滤表达式, 对提取的值进行过滤, 可选
+*/</span>
+
+<span class="token comment">/* 2.根据标识的token判断是否触发 */</span>
+        token<span class="token punctuation">:</span> <span class="token string">'pipeline_token'</span>
+<span class="token comment">/*
+token  用于配置pipeline的标识, 与请求时的token的值一致则触发执行
+*/</span>
+
+<span class="token comment">/* 3.根据请求的参数值判断是否触发 */</span>
+        regexpFilterText<span class="token punctuation">:</span> <span class="token string">'$refValue'</span><span class="token punctuation">,</span>
+        regexFilterExpression<span class="token punctuation">:</span> <span class="token string">'refs/heads/(master|dev)'</span>
+<span class="token comment">/*
+regexpFilterText       需要进行匹配的变量
+regexFilterExpression  正则表达式, 变量的值符合时触发执行
+*/</span>
+
+<span class="token comment">/* 4.控制打印 */</span>
+        printPostContent<span class="token punctuation">:</span> <span class="token boolean">true</span>
+        printContributedVariables<span class="token punctuation">:</span> <span class="token boolean">true</span>
+        causeString<span class="token punctuation">:</span> <span class="token string">'Triggered on $refValue'</span>
+<span class="token comment">/*
+printPostContent           将请求信息打印到日志上
+printContributedVariables  将提取后的变量名及变量值打印到日志上
+causeString                触发原因
+*/</span>
+
+<span class="token comment">/* 5.响应控制 */</span>
+        silentResponse<span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token comment">/*
+silentResponse  请求成功后, GWT插件会返回HTTP 200状态码和触发结果, 当参数设置为true时不返回触发结果
+*/</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/03/30/jenkins 006/" rel="bookmark">Jenkins 扩展插件</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2020/02/13/jenkins%20004/" title="Jenkins 触发条件">https://janz.icu/2020/02/13/jenkins 004/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Jenkins/" rel="tag"><i class="fa fa-tag"></i> Jenkins</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/17/jenkins%20005/" rel="prev" title="Jenkins 认证凭证">
+                  <i class="fa fa-chevron-left"></i> Jenkins 认证凭证
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/13/jenkins%20003/" rel="next" title="Jenkins 变量参数">
+                  Jenkins 变量参数 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

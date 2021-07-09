@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Maven 简介 Maven 定义 作为 Apache 组织中的一个颇为成功的开源项目, Maven 主要服务于基于 Java 平台的项目构建, 依赖管理和项目信息管理  Maven 的用途之一是服务于构建, 它是一个异常强大的构建工具, 能够帮我们自动化构建过程, 从清理, 编译, 测试到生成报告, 再到打包和部署; Maven 不仅是构建工具, 还是一个依赖管理工具和项目信息管理工具   Ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven 001 简介">
+<meta property="og:url" content="https://janz.icu/2018/08/29/maven/001/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="Maven 简介 Maven 定义 作为 Apache 组织中的一个颇为成功的开源项目, Maven 主要服务于基于 Java 平台的项目构建, 依赖管理和项目信息管理  Maven 的用途之一是服务于构建, 它是一个异常强大的构建工具, 能够帮我们自动化构建过程, 从清理, 编译, 测试到生成报告, 再到打包和部署; Maven 不仅是构建工具, 还是一个依赖管理工具和项目信息管理工具   Ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-29T14:10:32.000Z">
+<meta property="article:modified_time" content="2021-02-07T14:47:59.393Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Maven">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2018/08/29/maven/001/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2018/08/29/maven/001/","path":"2018/08/29/maven/001/","title":"Maven 001 简介"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Maven 001 简介 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#maven-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Maven 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven-%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">Maven 定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven-%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">Maven 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">目录分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#m2_home"><span class="nav-number">1.3.1.</span> <span class="nav-text">M2_HOME</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bin"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">bin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boot"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">boot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#conf"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">lib</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#m2"><span class="nav-number">1.3.2.</span> <span class="nav-text">~&#x2F;.m2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.5.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-maven_opts-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">设置 MAVEN_OPTS 环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E8%8C%83%E5%9B%B4-settings.xml"><span class="nav-number">1.5.2.</span> <span class="nav-text">配置用户范围 settings.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8-ide-%E5%86%85%E5%B5%8C%E7%9A%84-maven"><span class="nav-number">1.5.3.</span> <span class="nav-text">不要使用 IDE 内嵌的 Maven</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2018/08/29/maven/001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Maven 001 简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-29 22:10:32" itemprop="dateCreated datePublished" datetime="2018-08-29T22:10:32+08:00">2018-08-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Maven/" itemprop="url" rel="index"><span itemprop="name">Maven</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2018/08/29/maven/001/" class="post-meta-item leancloud_visitors" data-flag-title="Maven 001 简介" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="maven-简介">Maven 简介</h1>
+<h2 id="maven-定义">Maven 定义</h2>
+<p>作为 Apache 组织中的一个颇为成功的开源项目, <strong>Maven</strong> 主要服务于基于 Java 平台的项目构建, 依赖管理和项目信息管理</p>
+<ul>
+<li>Maven 的用途之一是服务于构建, 它是一个异常强大的构建工具, 能够帮我们自动化构建过程, 从清理, 编译, 测试到生成报告, 再到打包和部署;</li>
+<li>Maven 不仅是构建工具, 还是一个依赖管理工具和项目信息管理工具</li>
+</ul>
+<blockquote>
+<p>Maven 是跨平台的, 这意味着无论是在 Windows 上, 还是在 Linux 或者 Mac 上, 都可以使用同样的命令</p>
+</blockquote>
+<p>使用 Maven 的优点:</p>
+<ol type="1">
+<li>Maven 抽象了一个完整的构建生命周期模型, 这个模型吸取了大量其他的构建脚本和构建工具的优点, 总结了大量项目的实际需求;</li>
+<li>Maven 能帮助我们标准化构建过程;</li>
+<li>Maven 给第三方类库引入了坐标系统, 让它们变得有秩序, 可以借助它来有序地管理依赖, 轻松地解决那些繁杂的依赖问题;</li>
+<li>Maven 能管理原本分散在项目中各个角落的项目信息, 包括项目描述, 开发者列表, 版本控制系统地址, 许可证, 缺陷管理系统地址等;</li>
+<li>Maven 为全世界的 Java 开发者提供了一个免费的中央仓库, 在其中几乎可以找到任何的流行开源类库;</li>
+<li>使用 Maven 还能享受一个额外的好处, 即 Maven 对于项目目录结构, 测试用例命名方式等内容都有既定的规则, 只要遵循了这些成熟的规则, 用户在项目间切换的时候就免去了额外的学习成本, 可以说是约定优于配置 (Convention Over Configuration)</li>
+</ol>
+<h2 id="maven-安装">Maven 安装</h2>
+<ol type="1">
+<li><p>安装 JDK</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 安装Java</span>
+λ scoop install adopt8<span class="token operator">-</span>openj9
+<span class="token comment"># 查看版本号</span>
+λ java <span class="token operator">-</span>version
+openjdk version <span class="token string">"1.8.0_252"</span>
+OpenJDK Runtime Environment <span class="token punctuation">(</span>build 1<span class="token punctuation">.</span>8<span class="token punctuation">.</span>0_252<span class="token operator">-</span>b09<span class="token punctuation">)</span>
+Eclipse OpenJ9 VM <span class="token punctuation">(</span>build openj9<span class="token operator">-</span>0<span class="token punctuation">.</span>20<span class="token punctuation">.</span>0<span class="token punctuation">,</span> JRE 1<span class="token punctuation">.</span>8<span class="token punctuation">.</span>0 Windows 10 amd64<span class="token operator">-</span>64<span class="token operator">-</span>Bit Compressed References 20200422_667 <span class="token punctuation">(</span>JIT enabled<span class="token punctuation">,</span> AOT enabled<span class="token punctuation">)</span>
+OpenJ9   <span class="token operator">-</span> 05fa2d361
+OMR      <span class="token operator">-</span> d4365f371
+JCL      <span class="token operator">-</span> 5e623848e9 based on jdk8u252<span class="token operator">-</span>b09<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>Maven 可以运行在 JDK 1.4 及以上的版本上</p>
+</blockquote></li>
+<li><p>安装 Maven</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 安装Maven</span>
+λ scoop install maven
+<span class="token comment"># 查看版本号</span>
+λ mvn <span class="token operator">-</span>v
+Apache Maven 3<span class="token punctuation">.</span>6<span class="token punctuation">.</span>3 <span class="token punctuation">(</span>cecedd343002696d0abb50b32b541b8a6ba2883f<span class="token punctuation">)</span>
+Maven home: D:\Scoop\apps\maven\current\bin\<span class="token punctuation">.</span><span class="token punctuation">.</span>
+Java version: 1<span class="token punctuation">.</span>8<span class="token punctuation">.</span>0_252<span class="token punctuation">,</span> vendor: Eclipse OpenJ9<span class="token punctuation">,</span> runtime: D:\Scoop\apps\adopt8<span class="token operator">-</span>openj9\current\jre
+Default locale: zh_CN<span class="token punctuation">,</span> platform encoding: UTF8
+OS name: <span class="token string">"windows 10"</span><span class="token punctuation">,</span> version: <span class="token string">"10.0"</span><span class="token punctuation">,</span> arch: <span class="token string">"amd64"</span><span class="token punctuation">,</span> family: <span class="token string">"windows"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="目录分析">目录分析</h2>
+<h3 id="m2_home">M2_HOME</h3>
+<p><code>M2_HOME</code> 环境变量指向 Maven 的安装目录</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 目录的结构和文件夹</span>
+λ  <span class="token function">Get-ChildItem</span> <span class="token operator">-</span>Directory D:\Scoop\apps\maven\current\
+
+
+    Directory: D:\Scoop\apps\maven\current
+
+
+Mode                LastWriteTime         Length Name
+<span class="token operator">--</span>-<span class="token operator">-</span>                <span class="token operator">--</span>-<span class="token operator">--</span>-<span class="token operator">--</span>-<span class="token operator">--</span>-<span class="token operator">-</span>         <span class="token operator">--</span>-<span class="token operator">--</span><span class="token operator">-</span> <span class="token operator">--</span>-<span class="token operator">-</span>
+d-<span class="token operator">--</span>-<span class="token operator">-</span>         2020<span class="token operator">/</span>3<span class="token operator">/</span>9      7:43                bin
+d-<span class="token operator">--</span>-<span class="token operator">-</span>         2020<span class="token operator">/</span>3<span class="token operator">/</span>9      7:43                boot
+d<span class="token operator">-</span>r-<span class="token operator">-</span>l         2020<span class="token operator">/</span>3<span class="token operator">/</span>9      7:43                conf
+d-<span class="token operator">--</span>-<span class="token operator">-</span>         2020<span class="token operator">/</span>3<span class="token operator">/</span>9      7:43                lib<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="bin">bin</h4>
+<p>该目录包含了 <code>mvn</code> 运行的脚本, 这些脚本用来配置 Java 命令, 准备好 <code>classpath</code> 和相关的 Java 系统属性, 然后执行 Java 命令</p>
+<blockquote>
+<p>其中 <code>mvn</code> 是基于 UNIX 平台的 shell 脚本, <code>mvn.bat</code> 是基于 Windows 平台的 bat 脚本, 该目录还包含了 <code>mvnDebug</code> 和 <code>mvnDebug.bat</code> 两个文件, 同样, 前者是 UNIX 平台的 shell 脚本, 后者是 Windows 平台的 bat 脚本, <code>mvnDebug</code> 相比 <code>mvn</code> 多了一条 <code>MAVEN_DEBUG_OPTS</code> 配置, 其作用就是在运行 Maven 时开启 debug, 以便调试 Maven 本身</p>
+</blockquote>
+<h4 id="boot">boot</h4>
+<p>该目录只包含一个文件, 以 <code>maven 3.6.3</code> 为例, 该文件为 <code>plexus-classworlds-2.6.0.jar</code>, <code>plexus-classworlds</code> 是一个类加载器框架, 相对于默认的 Java 类加载器, 它提供了更丰富的语法以方便配置, Maven 使用该框架加载自己的类库</p>
+<blockquote>
+<p>更多关于 <code>classworlds</code> 的信息请参考 <a target="_blank" rel="noopener" href="http://classworlds.codehaus.org/">classworlds</a></p>
+</blockquote>
+<h4 id="conf">conf</h4>
+<p>该目录包含了一个非常重要的文件 <code>settings.xml</code>, 直接修改该文件, 就能在机器上全局地定制 Maven 的行为</p>
+<blockquote>
+<p>一般情况下, 我们更偏向于复制该文件至 <code>~/.m2/</code> 目录下 (<code>~</code> 表示用户目录), 然后修改该文件, 在用户范围定制 Maven 的行为</p>
+</blockquote>
+<h4 id="lib">lib</h4>
+<p>该目录包含了所有 Maven 运行时需要的 Java 类库</p>
+<h3 id="m2">~/.m2</h3>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">λ mvn help:system
+<span class="token comment"># 该命令会打印出所有的Java系统属性和环境变量, 这些信息对日常的编程工作很有帮助</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>在用户目录下可以发现 <code>.m2</code> 文件夹, 默认情况下, 该文件夹下放置了 Maven 本地仓库 <code>.m2/repository</code>, 所有的 Maven 构件都被存储到该仓库中, 以方便重用</p>
+<blockquote>
+<p>默认情况下, <code>~/.m2</code> 目录下除了 <code>repository</code> 仓库之外就没有其他目录和文件了, 不过大多数 Maven 用户需要复制 <code>$env:M2_HOME/conf/settings.xml</code> 文件到 <code>~/.m2/settings.xml</code>, 这是一条最佳实践</p>
+</blockquote>
+<h2 id="配置代理">配置代理</h2>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">λ ping repo1<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>org
+<span class="token comment"># 运行该命令可以检查网络是否可以直接访问公共的Maven中央仓库</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>编辑 <code>~/.m2/settings.xml</code> (用户配置) 文件或 <code>$env:M2_HOME/conf/settings.xml</code> (全局配置) 文件</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>proxies</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- proxies下可以有多个proxy元素, 如果声明了多个proxy, 则默认情况下第一个被激活的proxy会生效 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>proxy</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>my-proxy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- active的值为true表示激活该代理 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>active</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>active</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- protocol表示使用的代理协议 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>protocol</span><span class="token punctuation">></span></span>http<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>protocol</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">></span></span> <span class="token comment">&lt;!-- 主机名 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">></span></span> <span class="token comment">&lt;!-- 端口 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>username</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>username</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- nonProxyHost元素用来指定哪些主机名不需要代理, 可以使用 "|" 符号来分隔多个主机名, 此外, 该配置也支持通配符 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nonProxyHosts</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nonProxyHosts</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>proxy</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>proxies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="最佳实践">最佳实践</h2>
+<h3 id="设置-maven_opts-环境变量">设置 MAVEN_OPTS 环境变量</h3>
+<p>通常需要设置 <code>MAVEN_OPTS</code> 的值为 <code>-Xms128m -Xmx512m</code>, 因为 Java 默认的最大可用内存往往不能够满足 Maven 运行的需要, 比如在项目较大时, 使用 Maven 生成项目站点需要占用大量的内存, 如果没有该配置, 则很容易得到 <code>java.lang.OutOfMemeoryError</code>, 因此, 一开始就配置该变量是推荐的做法</p>
+<h3 id="配置用户范围-settings.xml">配置用户范围 settings.xml</h3>
+<p>Maven 用户可以选择配置 <code>$env:M2_HOME/conf/settings.xml</code> 或者 <code>~/.m2/settings.xml</code>, 前者是全局范围的, 整台机器上的所有用户都会直接受到该配置的影响, 而后者是用户范围的, 只有当前用户才会受到该配置的影响</p>
+<p>推荐使用用户范围的 <code>settings.xml</code>, 主要是为了避免无意识地影响到系统中的其他用户, 除了影响范围这一因素, 配置用户范围 <code>settings.xml</code> 文件还便于 Maven 升级</p>
+<h3 id="不要使用-ide-内嵌的-maven">不要使用 IDE 内嵌的 Maven</h3>
+<p>无论 Eclipse 还是 NetBeans, 当集成 Maven 时, 都会安装上一个内嵌的 Maven, 这个内嵌的 Maven 通常会比较新, 但不一定很稳定, 而且往往也会和在命令行使用的 Maven 不是同一个版本, 这里又会出现两个潜在的问题:</p>
+<ol type="1">
+<li>较新版本的 Maven 存在很多不稳定因素, 容易造成一些难以理解的问题;</li>
+<li>除了 IDE, 也经常还会使用命令行的 Maven, 如果版本不一致, 容易造成构建行为的不一致, 这是我们所不希望看到的, 因此, 应该在 IDE 中配置 Maven 插件时使用与命令行一致的 Maven</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/09/01/maven/002/" rel="bookmark">Maven 002 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/09/04/maven/003/" rel="bookmark">Maven 003 坐标和依赖</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/09/05/maven/004/" rel="bookmark">Maven 004 聚合与继承</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/09/12/maven/006/" rel="bookmark">Maven 006 生命周期和插件</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/09/08/maven/005/" rel="bookmark">Maven 005 仓库</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2018/08/29/maven/001/" title="Maven 001 简介">https://janz.icu/2018/08/29/maven/001/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/09/01/maven/002/" rel="prev" title="Maven 002 入门">
+                  <i class="fa fa-chevron-left"></i> Maven 002 入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/29/spring/001/" rel="next" title="Spring 001 简介">
+                  Spring 001 简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

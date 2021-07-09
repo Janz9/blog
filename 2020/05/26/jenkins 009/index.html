@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="管理 制品 制品 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等 最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 Nexus, Artifactory 等 Maven 制品">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins 管理">
+<meta property="og:url" content="https://janz.icu/2020/05/26/jenkins%20009/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="管理 制品 制品 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等 最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 Nexus, Artifactory 等 Maven 制品">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-26T04:57:52.000Z">
+<meta property="article:modified_time" content="2021-05-06T06:58:49.856Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2020/05/26/jenkins%20009/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2020/05/26/jenkins%20009/","path":"2020/05/26/jenkins 009/","title":"Jenkins 管理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Jenkins 管理 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B6%E5%93%81"><span class="nav-number">1.1.</span> <span class="nav-text">制品</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven-%E5%88%B6%E5%93%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">Maven 制品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipeline-%E5%88%B6%E5%93%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">Pipeline 制品</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%9F%A5"><span class="nav-number">1.3.</span> <span class="nav-text">通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E9%80%9A%E7%9F%A5"><span class="nav-number">1.3.1.</span> <span class="nav-text">邮件通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E8%AF%B7%E6%B1%82%E9%80%9A%E7%9F%A5"><span class="nav-number">1.3.2.</span> <span class="nav-text">HTTP 请求通知</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">1.4.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7"><span class="nav-number">1.5.</span> <span class="nav-text">监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD"><span class="nav-number">1.6.</span> <span class="nav-text">备份</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2020/05/26/jenkins%20009/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins 管理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-26 12:57:52" itemprop="dateCreated datePublished" datetime="2020-05-26T12:57:52+08:00">2020-05-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-06 14:58:49" itemprop="dateModified" datetime="2021-05-06T14:58:49+08:00">2021-05-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/05/26/jenkins%20009/" class="post-meta-item leancloud_visitors" data-flag-title="Jenkins 管理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="管理">管理</h1>
+<h2 id="制品">制品</h2>
+<p><strong>制品</strong> 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等</p>
+<p>最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 <a target="_blank" rel="noopener" href="https://www.sonatype.com/nexus-repository-oss">Nexus</a>, <a target="_blank" rel="noopener" href="https://jfrog.com/artifactory/">Artifactory</a> 等</p>
+<h3 id="maven-制品">Maven 制品</h3>
+<p>Maven 团队提供的官方插件支持将打包后的制品发布到配置的仓库中</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: deploy */</span>
+stages <span class="token punctuation">&#123;</span>
+    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'deploy'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        sh <span class="token string gstring">"mvn deploy"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Nexus 提供了 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/nexus-jenkins-plugin/">Nexus Platform</a> 插件发布 Maven 制品, 安装好插件后, 在 <code>Manage Jenkins / Configure System / Sonatype Nexus</code> 节点下配置 Nexus 服务器地址</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: nexusPublisher */</span>
+stages <span class="token punctuation">&#123;</span>
+    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'deploy'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">nexusPublisher</span><span class="token punctuation">(</span>
+            <span class="token comment">// 需要与配置的Nexus的ServerId一致</span>
+            nexusInstanceId<span class="token punctuation">:</span> <span class="token string gstring">"Nexus3"</span><span class="token punctuation">,</span>
+            <span class="token comment">// 指定发布到Nexus服务器的仓库</span>
+            nexusRepositoryId<span class="token punctuation">:</span> <span class="token string gstring">"JENKINS_DEPLOY"</span><span class="token punctuation">,</span>
+            packages<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>
+                <span class="token punctuation">$</span><span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string gstring">"MavenPackage"</span><span class="token punctuation">,</span>
+                <span class="token comment">// 指定要发布的文件</span>
+                mavenAssetList<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>
+                    classifier<span class="token punctuation">:</span> <span class="token string gstring">""</span><span class="token punctuation">,</span>
+                    extension<span class="token punctuation">:</span> <span class="token string gstring">""</span><span class="token punctuation">,</span>
+                    filePath<span class="token punctuation">:</span> <span class="token string gstring">"target/app.jar"</span>
+                <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token comment">// Maven包的坐标</span>
+                mavenCoordinate<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                    groupId<span class="token punctuation">:</span> <span class="token string gstring">"com.janz.jenkins"</span><span class="token punctuation">,</span>
+                    artifactId<span class="token punctuation">:</span> <span class="token string gstring">"project-nexus"</span><span class="token punctuation">,</span>
+                    packaging<span class="token punctuation">:</span> <span class="token string gstring">"jar"</span><span class="token punctuation">,</span>
+                    version<span class="token punctuation">:</span> <span class="token string gstring">"1.0.0"</span>
+                <span class="token punctuation">]</span>
+            <span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="pipeline-制品">Pipeline 制品</h3>
+<p>可以使用 <code>archiveArtifacts</code> 指令对制品进行归档, 构建的结果页面提供了归档文件的下载链接</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: archiveArtifacts */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    stages <span class="token punctuation">&#123;</span>
+        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            sh <span class="token string gstring">"mvn package"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    post <span class="token punctuation">&#123;</span>
+        success <span class="token punctuation">&#123;</span>
+            <span class="token function">archiveArtifacts</span><span class="token punctuation">(</span>artifacts<span class="token punctuation">:</span> <span class="token string gstring">"**/target/*.jar"</span><span class="token punctuation">,</span> fingerprint<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* archiveArtifacts指令参数
+artifacts         需要归档的文件路径
+fingerprint       是否对归档的文件进行签名
+excludes          需要排除的文件路径
+caseSensitive     是否对路径大小写敏感
+onlyIfSuccessful  是否只在构建成功时进行归档
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在某些场景下, 需要在 pipeline 之间拷贝制品, 使用 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/copyartifact/">Copy Artifact</a> 插件可以实现</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: copyArtifacts */</span>
+steps <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 从project项目中拿到最后一次归档的制品</span>
+    <span class="token function">copyArtifacts</span><span class="token punctuation">(</span>
+        projectName<span class="token punctuation">:</span> <span class="token string gstring">"project"</span><span class="token punctuation">,</span>
+        selector<span class="token punctuation">:</span> <span class="token function">lastSuccessful</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* copyArtifacts指令参数
+projectName           归档制品的项目名称
+selector              拷贝制品的选择器, 默认拷贝最后一个制品
+parameters            使用逗号分隔的键值对字符串, 用于过滤从哪些构建中拷贝制品
+filter                用于过滤需要拷贝的文件
+excludes              用于排除不需要拷贝的文件
+target                拷贝制品的目标路径, 默认为当前pipeline的工作目录
+optional              如果为true则拷贝失败也不影响本次构建结果
+fingerprintArtifacts  是否对制品进行签名, 默认值为true
+resultVariableSuffix  用于获取制品的原构建序号
+*/</span>
+<span class="token comment">/* 常用的选择器
+lastSuccessful(boolean stable)  最后一次构建成功的制品, stable为true表示只取构建成功的制品, 为false表示只要构建结果比UNSTABLE好就行
+specific(String number)         指定某一次构建的制品
+lastCompleted()                 最后一次完成构建的制品, 不论构建的最终状态如何
+latestSavedBuild()              最后一次被标记为keep forever的构建的制品
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>插件会将拷贝的制品的原构建序号放到环境变量 <code>COPYARTIFACT_BUILD_NUMBER_(resultVariableSuffix)</code> 中, 在当前 pipeline 中可以通过此变量拿到原构建序号</p>
+</blockquote>
+<h2 id="版本号">版本号</h2>
+<p><strong>版本号</strong> 的制定并没有所谓的行业标准, GitHub 提出了一种具有指导意义, 统一的版本号表示规则, 称为 Semantic Versioning(语义化版本表示), 先行版本号及版本编译元数据可以加到后面作为延伸</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 语义化版本格式
+主版本号.次版本号.修订号
+# 常用修饰词
+alpha  内部版本
+beta   测试版本
+rc     即将作为正式版本发布
+lts    长期维护<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Jenkins 的插件 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/versionnumber/">Version Number</a> 是一款用于生成版本号的插件, 提供了 <code>VersionNumber</code> 指令</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: VersionNumber */</span>
+script <span class="token punctuation">&#123;</span>
+    <span class="token keyword">def</span> version <span class="token operator">=</span> <span class="token function">VersionNumber</span><span class="token punctuation">(</span>
+        versionPrefix<span class="token punctuation">:</span> <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>JOB_NAME<span class="token punctuation">&#125;</span></span>-"</span><span class="token punctuation">,</span>
+        versionNumberString<span class="token punctuation">:</span> <span class="token string">'v1.1.1.$&#123;BUILDS_ALL_TIME&#125;'</span>
+    <span class="token punctuation">)</span>
+    echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>version<span class="token punctuation">&#125;</span></span>"</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 指令参数
+versionNumberString      字符串类型, 版本号格式, 用于生成版本号, 只能使用单引号, 以防格式中的占位符被转义, 版本号格式支持多种占位符
+versionPrefix            字符串类型, 版本号前缀
+projectStartDate         字符串类型, 项目开始时间, 格式为yyyy-MM-dd, 用于计算项目开始后的月数和年数
+worstResultForIncrement  字符串类型, 如果本次构建状态比上一次构建状态更糟糕, 则占位符的值不会增加, 可以设置的值有SUCCESS, UNSTABLE, FAILURE, ABORTED, NOT_BUILT(默认值)
+*/</span>
+<span class="token comment">/* 常用的占位符
+BUILD_DATE_FORMATTED  格式化的构建日期, 支持参数化, 如$&#123;BUILD_DATE_FORMATTED, "yyyy-MM"&#125;
+BUILD_DAY             构建日期, 支持X和XX参数, 如$&#123;BUILD_DAY, XX&#125;
+BUILD_WEEK            今年构建的星期数, 支持X和XX参数
+BUILD_MONTH           今年构建的月数, 支持X和XX参数
+BUILD_YEAR            今年构建的年份
+BUILDS_TODAY          当天完成的构建数
+BUILDS_THIS_WEEK      本星期完成的构建数
+BUILDS_THIS_MONTH     本月完成的构建数
+BUILDS_THIS_YEAR      本年完成的构建数
+BUILDS_ALL_TIME       自从项目开始后完成的总构建数
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="通知">通知</h2>
+<p>实时知道构建的状态很重要, 最好的方式就是构建系统本身知道出现情况时发起通知</p>
+<h3 id="邮件通知">邮件通知</h3>
+<p><strong>邮件通知</strong> 是最常用的通知方式, Jenkins 默认支持</p>
+<p>进入 <code>Manage Jenkins / Configure System / Jenkins Location</code> 页面, 设置管理员邮箱, 并配置 <code>Email Notification</code> 节点的信息</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: mail */</span>
+post <span class="token punctuation">&#123;</span>
+    failure <span class="token punctuation">&#123;</span>
+        <span class="token function">mail</span><span class="token punctuation">(</span>body<span class="token punctuation">:</span> <span class="token string">'failure body'</span><span class="token punctuation">,</span> subject<span class="token punctuation">:</span> <span class="token string">'build status'</span><span class="token punctuation">,</span> from<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 指令参数
+subject  邮件主题
+body     邮件内容
+from     发件地址
+to       收件地址
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/email-ext/">Email Extension</a> 插件对邮件通知的功能进行了扩展, 支持更多的特性</p>
+<p>进入 <code>Manage Jenkins / Configure System / Extended Email Notification</code> 页面配置信息</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: emailext */</span>
+post <span class="token punctuation">&#123;</span>
+    failure <span class="token punctuation">&#123;</span>
+        <span class="token function">emailext</span><span class="token punctuation">(</span>body<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span> subject<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span> attachLog<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> compressLog<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/* 指令参数
+subject             邮件主题
+body                邮件内容
+attachLog           可选, 是否将构建日志以附件形式发送
+attachmentsPattern  可选, String类型, 需要发送的附件的路径
+compressLog         可选, 是否压缩日志
+from                可选, 收件人邮件
+to                  可选, 发件人邮件
+recipientProviders  可选, List类型, 收件人列表类型
+replyTo             可选, 回复邮箱
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="http-请求通知">HTTP 请求通知</h3>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/http_request/">HTTP Request</a> 插件能在 Jenkins pipeline 中发送 HTTP 请求给第三方系统</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: httpRequest */</span>
+steps <span class="token punctuation">&#123;</span>
+    script <span class="token punctuation">&#123;</span>
+        <span class="token keyword">def</span> response <span class="token operator">=</span> <span class="token function">httpRequest</span><span class="token punctuation">(</span>
+            url<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+            acceptType<span class="token punctuation">:</span> <span class="token string">'APPLICATION_JSON'</span><span class="token punctuation">,</span>
+            contentType<span class="token punctuation">:</span> <span class="token string">'APPLICATION_JSON'</span><span class="token punctuation">,</span>
+            httpMethod<span class="token punctuation">:</span> <span class="token string">'POST'</span><span class="token punctuation">,</span>
+            authentication<span class="token punctuation">:</span> <span class="token string">'http_request'</span><span class="token punctuation">,</span>
+            requestBody<span class="token punctuation">:</span> <span class="token string gstring">"&#123;'buildNumber':'<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>env<span class="token punctuation">.</span>BUILD_NUMBER<span class="token punctuation">&#125;</span></span>'&#125;"</span><span class="token punctuation">,</span>
+            timeout<span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+            vaildResponseCodes<span class="token punctuation">:</span> <span class="token string gstring">"200:302"</span>
+        <span class="token punctuation">)</span>
+        echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>response<span class="token punctuation">.</span>status<span class="token punctuation">&#125;</span></span>"</span>
+        echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>response<span class="token punctuation">.</span>content<span class="token punctuation">&#125;</span></span>"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 指令参数
+url                     字符串类型, 请求URL
+acceptType              枚举类型, HTTP请求Header的Accept的值
+contentType             枚举类型, HTTP请求Header的ContentType的值
+httpMethod              枚举类型, HTTP方法
+authentication          字符串类型, HTTP Basic认证方式
+consoleLogResponseBody  布尔类型, 是否将请求的响应打印出来
+customHeaders           对象数组, HTTP请求Header部分的内容
+httpProxy               字符串类型, HTTP代理地址
+ignoreSslErrors         布尔类型, 是否忽略SSL错误
+requestBody             字符串类型, 请求体的内容
+timeout                 整形, 超时时间, 单位为秒, 默认值为0代表不设置超时时间
+validResponseCodes      字符串类型, 代表HTTP请求成功的状态码, 多值用逗号分隔, 范围用冒号分隔
+validResponseContent    字符串类型, 代表HTTP请求成功的响应体
+quiet                   布尔类型, 是否关闭所有的日志打印, 默认值为false
+responseHandle          枚举类型, 获取HTTP响应内容的方式
+outputFile              字符串类型, 请求响应内容的输出路径
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="视图">视图</h2>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/greenballs/">Green Balls</a> 插件的作用让构建成功的状态图标变成绿色的</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/build-monitor-plugin/">Build Monitor View</a> 插件可以将 Jenkins 项目以一块看板的形式呈现</p>
+<h2 id="监控">监控</h2>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a> 是一款开源的监控和告警系统, 服务器端主动从客户端拉取指标数据, Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/prometheus/">Prometheus</a> 插件的目的就是为了暴露一个数据接口, 这样 Prometheus 就可以拉取到指标数据了</p>
+<p>Prometheus 本身提供的界面过于简陋, 所以一般会使用 <a target="_blank" rel="noopener" href="https://grafana.com/">Grafana</a> 对指标进行展示</p>
+<pre class="mermaid">graph LR
+A(Jenkins master)
+B(Prometheus)
+C(Grafana)
+B --pull--> A
+C --query--> B</pre>
+<h2 id="备份">备份</h2>
+<p>Jenkins 的所有数据都是存放在文件中的, 所以 Jenkins 备份其实就是备份 <code>JENKINS_HOME</code> 目录</p>
+<blockquote>
+<p>如果启动 Jenkins 时没有指定 <code>JENKINS_HOME</code> 环境变量, 那么 Jenkins 将在当前用户目录下创建一个 <code>.jenkins</code> 目录作为 <code>JENKINS_HOME</code> 目录</p>
+</blockquote>
+<p>Jenkins 本身并不提供备份功能, 而是交给插件来完成, 安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/periodicbackup/">Periodic Backup</a> 插件后, 在 <code>Manage Jenkins / Periodic Backup Manager</code> 节点下管理备份功能</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2020/05/26/jenkins%20009/" title="Jenkins 管理">https://janz.icu/2020/05/26/jenkins 009/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Jenkins/" rel="tag"><i class="fa fa-tag"></i> Jenkins</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/09/jenkins%20007/" rel="prev" title="Jenkins 架构">
+                  <i class="fa fa-chevron-left"></i> Jenkins 架构
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/05/26/jenkins%20008/" rel="next" title="Jenkins 代码质量">
+                  Jenkins 代码质量 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

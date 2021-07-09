@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="定制 用户界面 Vim 用户界面是可扩展的, 用户可以改变 Vim 的主题, 修改某些界面元素的显示方式, 并且增强状态栏中的信息显示 配色 Vim 中可以使用多种配色, 一部分是 Vim 自带的, 一部分则由社区成员提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim 定制">
+<meta property="og:url" content="https://janz.icu/2021/04/25/vim%20003/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="定制 用户界面 Vim 用户界面是可扩展的, 用户可以改变 Vim 的主题, 修改某些界面元素的显示方式, 并且增强状态栏中的信息显示 配色 Vim 中可以使用多种配色, 一部分是 Vim 自带的, 一部分则由社区成员提供">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-25T10:15:28.000Z">
+<meta property="article:modified_time" content="2021-04-30T02:13:15.375Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Vim">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2021/04/25/vim%20003/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2021/04/25/vim%20003/","path":"2021/04/25/vim 003/","title":"Vim 定制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vim 定制 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">定制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">用户界面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E8%89%B2"><span class="nav-number">1.1.1.</span> <span class="nav-text">配色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A0%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">状态栏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">1.2.</span> <span class="nav-text">同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vimscript"><span class="nav-number">1.3.</span> <span class="nav-text">Vimscript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.3.2.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.3.3.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.4.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lambda"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">Lambda</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB"><span class="nav-number">1.3.5.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.6.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92"><span class="nav-number">1.3.7.</span> <span class="nav-text">交互</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/04/25/vim%20003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vim 定制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-25 18:15:28" itemprop="dateCreated datePublished" datetime="2021-04-25T18:15:28+08:00">2021-04-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-30 10:13:15" itemprop="dateModified" datetime="2021-04-30T10:13:15+08:00">2021-04-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/04/25/vim%20003/" class="post-meta-item leancloud_visitors" data-flag-title="Vim 定制" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="定制">定制</h1>
+<h2 id="用户界面">用户界面</h2>
+<p>Vim 用户界面是可扩展的, 用户可以改变 Vim 的主题, 修改某些界面元素的显示方式, 并且增强状态栏中的信息显示</p>
+<h3 id="配色">配色</h3>
+<p>Vim 中可以使用多种配色, 一部分是 Vim 自带的, 一部分则由社区成员提供</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
+set background&#x3D;dark  &quot; 设置背景色
+colorscheme murphy   &quot; 设置主题<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/flazz/vim-colorschemes">Colorschemes</a> 提供了大量的 Vim 配色</p>
+<h3 id="状态栏">状态栏</h3>
+<p>状态栏是屏幕底部用于显示信息的一个区域</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
+set laststatus&#x3D;2  &quot; 总显示状态栏
+set showcmd       &quot; 在状态栏中显示最后执行的命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/vim-airline/vim-airline">Airline</a> 插件提供了轻量级, 信息足够丰富的状态栏</p>
+<h2 id="同步">同步</h2>
+<p>一般而言, 文件的同步方式有很多, 用户通常会将文件存储在一个 Git 仓库中, 这些配置文件常常称为点文件(dotfiles), 并在主目录中用符号链接文件指向点文件目录中的相应文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: Git同步配置
+&gt; mkdir ~&#x2F;.dotfiles              # 创建点文件目录
+&gt; git clone &lt;URL&gt; ~&#x2F;.dotfiles    # 克隆版本库
+&gt; ln -s ~&#x2F;.dotfiles&#x2F;.vim ~&#x2F;.vim  # 创建符号链接<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/tpope/vim-fugitive">Fugitive</a> 插件可以使用户在不离开 Vim 的情况下进行 Git 操作, 用户在使用 Vim 编辑文件时, 也可以同时利用版本管理系统记录编辑的位置</p>
+<h2 id="vimscript">Vimscript</h2>
+<p>Vimscript 是一门用于定制 Vim 的脚本语言, 脚本的命令都可在 Vim 的命令行模式下运行, 习惯上 Vimscript 都采用后缀名 <code>.vim</code></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 运行Vim脚本文件
+:source xxx.vim
+:source %  # 运行当前文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看Vim脚本相关的帮助文档
+:help eval<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="变量">变量</h3>
+<p>Vim 中变量和函数的作用域是通过前缀实现的</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 变量
+set background&#x3D;dark         &quot; set关键字为内部选项赋值
+let g:airline_theme&#x3D;&#39;term&#39;  &quot; let关键字为非内部变量赋值
+let &amp;ignorecase&#x3D;0           &quot; let赋值Vim选项(布尔1真0假)
+let @a&#x3D;&#39;&#39;                   &quot; let赋值寄存器(寄存器a)
+
+# 常用的作用域
+g  # 全局作用域(若未指定作用域, 则默认为全局作用域)
+v  # 为Vim所定义的全局作用域
+l  # 局部作用域(在函数内部, 若未指定作用域, 则默认为局部作用域)
+b  # 表示当前缓冲区
+w  # 表示当前窗口
+t  # 表示当前标签页
+a  # 表示函数的参数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>整数变量之间可以进行常用的加减乘除, 字符串拼接使用点运算符</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 点运算符
+let b:message&#x3D;&#39;theme: &#39;.g:airline_theme
+echo b:message  &quot; 打印变量内容到状态栏中<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Vim 支持更复杂的数据结构, 比如列表和字典</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 数据结构
+let b:lan &#x3D; [&#39;zh&#39;, &#39;en&#39;, &#39;fr&#39;]  &quot; 列表
+let b:lan2 &#x3D; &#123;                  &quot; 字典
+  \ &#39;zh&#39;: &#39;中文&#39;,               &quot; 代码跨多行则需要用反斜划线表示换行
+  \ &#39;en&#39;: &#39;英文&#39;,
+  \ &#39;fr&#39;: &#39;法文&#39;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="条件">条件</h3>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 条件
+if b:value &#x3D;&#x3D; &#39;zh&#39;
+  echo &#39;中文&#39;
+elseif b:value &#x3D;&#x3D; &#39;en&#39;
+  echo &#39;英文&#39;
+else
+  echo &#39;其它&#39;
+endif
+&quot; 三元运算符
+echo b:value&#x3D;&#x3D;&#39;zh&#39;?&#39;中文&#39;:&#39;其它&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>条件表达式支持常用的 与<code>&amp;&amp;</code>, 或<code>||</code>, 非<code>!</code> 逻辑运算符, 因为文本编辑本质是字符串操作, Vim 提供了一些文本比较运算符:</p>
+<ul>
+<li><code>==</code> 字符串匹配</li>
+<li><code>=~</code> 正则匹配</li>
+<li><code>!~</code> 正则不匹配</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 逻辑运算符
+&#39;zh&#39; &#x3D;&#x3D; &#39;ZH&#39;          &quot; 是否忽略大小写的默认行为取决于ignorecase的设置
+&#39;zh-cn&#39; &#x3D;~ &#39;\vzh\w*&#39;  &quot; 真
+&#39;zh-cn&#39; !~ &#39;\v\W+&#39;    &quot; 真
+
+&quot; 在逻辑运算符后接?强制忽略
+&quot; 在逻辑运算符后接#强制考虑
+&#39;zh&#39; &#x3D;&#x3D;? &#39;ZH&#39;         &quot; 真
+&#39;zh&#39; &#x3D;&#x3D;# &#39;ZH&#39;         &quot; 假
+&#39;zh-cn&#39; !~# &#39;\vzh.*&#39;  &quot; 假<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>检查当前正在运行的 Vim 是否支持某个功能</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 判断功能
+if has(&#39;python3&#39;)               &quot; Vim提供了几个系统标示符, 它们对于编写跨平台的脚本非常有用
+  let g:gundo_prefer_python3&#x3D;1  &quot; 当前Vim支持python3时配置插件
+endif<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看完整的功能列表
+:help feature-list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="循环">循环</h3>
+<p>循环控制流支持用 <code>continue</code> 和 <code>break</code> 来控制流程</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 循环
+for l in lan              &quot; 循环列表
+  echo &#39;value: &#39;.l
+endfor
+
+for k in keys(lan2)       &quot; 循环字典
+  echo &#39;key: &#39;.k.&#39;, value: &#39;.lan2[k]
+endfor
+
+for [k,v] in items(lan2)  &quot; 循环字典
+  if k &#x3D;&#x3D; &#39;zh&#39;
+    break                 &quot; 跳出
+  else
+    continue              &quot; 继续
+  endif
+  echo &#39;key: &#39;.k.&#39;, value: &#39;.v
+endfor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="函数">函数</h3>
+<p>在 Vim 中, 定义的函数必须以大写字母开头, 除非函数在脚本作用域或命名空间中, 否则会报错</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 定义函数
+function Translate(lan, ...)               &quot; 固定参数和可变数目参数可以结合使用
+  echo &#39;value: &#39;.a:lan                     &quot; 在函数内访问参数时需要使用a:作用域
+  echo &#39;values: &#39;.join(a:000, &#39;, &#39;)        &quot; a:000获取可变数目参数的列表, join是内置的列表操作函数
+  echo &#39;values: &#39;.a:lan.&#39;, &#39;.a:1.&#39;, &#39;.a:2  &quot; 通过序号获取可变数目参数的单个参数
+endfunction<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 调用函数
+:call Translate(&#39;zh&#39;, &#39;en&#39;, &#39;fr&#39;)  &quot; 调用
+# 状态栏输出
+value: zh
+values: en, fr
+values: zh, en, fr
+请按 ENTER 或其它命令继续<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>Vim 脚本可能会被加载多次, 但函数不一定会被重加载(比如修改参数个数时), 解决方案是使用 <code>function!</code> 来定义函数, 加载时强制使用最新的函数定义, 这在测试时非常有用</p>
+</blockquote>
+<h4 id="lambda">Lambda</h4>
+<p>Lambda 表达式是一种匿名函数, 它有助于编写逻辑清晰的代码</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: Lambda表达式
+let b:Func &#x3D; &#123;arg -&gt; &#39;arg: &#39;.arg&#125;
+
+# 调用
+:echo b:Func(&#39;zh&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Vim 支持将函数作为参数传递给另一个函数</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 函数传递
+function! Echo(frag, func)  &quot; 第二个参数为函数引用
+  echo a:func(a:frag, &#39;-&#39;)
+endfunction
+
+# 调用
+:call Echo([&#39;zh&#39;, &#39;cn&#39;], function(&#39;join&#39;))                     # function引入一个函数
+:call Echo([&#39;zh&#39;, &#39;cn&#39;], &#123;frag,flag -&gt; frag[0].flag.frag[1]&#125;)  # 匿名函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="类">类</h3>
+<p>Vim 本身没有类, 但是它支持在字典上定义方法, 因此可以实现面向对象编程范式, 有两种方式可以在字典上定义方法</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 方法一
+function b:lan2.Translate(key)                  &quot; 添加函数
+  return &#39;key: &#39;.a:key.&#39;, value: &#39;.self[a:key]  &quot; self指向字典自身
+endfunction<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 方法二
+function Translate(key) dict                     &quot; 函数名后添加dict关键字
+  return &#39;key: &#39;.a:key.&#39;, value: &#39;.self[a:key]
+endfunction
+let b:lan2[&#39;Translate&#39;] &#x3D; function(&#39;Translate&#39;)  &quot; 将函数绑定到字典的键上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 调用
+:echo b:lan2.Translate(&#39;zh&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="命令">命令</h3>
+<p>Vim 提供了几个常用的命令, 用于将参数作为执行命令</p>
+<ul>
+<li><code>execute</code> 将参数解析为Vim命令并执行</li>
+<li><code>normal</code> 将参数解析为Vim按键序列(与正常模式的操作相似)</li>
+<li><code>silent</code> 用于隐藏命令的输出</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 命令
+execute &#39;echo &amp;ignorecase&#39;  &quot; 同命令行模式执行:echo &amp;ignorecase
+normal dd                   &quot; 同正常模式执行dd(删除当前行)
+silent echo &#39;message&#39;       &quot; 执行并且隐藏输出
+
+&quot; normal执行的按键序列会遵守用户配置的按键重映射, 如果要忽略用户配置, 需要使用normal!指令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Vim 文本编辑器的大部分操作是针对文件的, 它提供了许多文件相关的函数</p>
+<ul>
+<li><code>expand</code> 用于操作文件路径信息</li>
+<li><code>filereadable</code> 用于检查文件是否可读(是否存在)</li>
+<li><code>filewritable</code> 用于检查文件是否可写(检查权限)</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: 文件命令
+if filereadable(expand(&#39;%&#39;))
+  echo &#39;current file (&#39;.expand(&#39;%:t&#39;).&#39;) is readable.&#39;
+endif
+
+# expand的参数是文件名, 可以用特殊符号(比如%表示当前文件), 文件名还可以包含以下修饰符
+:p  # 表示展开为完整路径 
+:h  # 表示路径头(路径最后一个分量被删除)
+:t  # 表示路径尾(只保留路径最后一个分量)
+:r  # 表示根路径(删除一个文件扩展)
+:e  # 表示只保留文件扩展<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="交互">交互</h3>
+<p>Vim 中有两种方式提示用户输入:</p>
+<ul>
+<li><code>confirm</code> 显示多选对话框</li>
+<li><code>input</code> 自定义复杂的输入</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: confirm
+let b:answer &#x3D; confirm(&#39;quit?&#39;, &quot;&amp;yes\n&amp;no&quot;)
+echo b:answer
+
+# 执行如下
+:source %
+quit?
+[y]es, [n]o: # 此处等待用户输入, 输入y则输出1, 输入n则输出2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: input
+let b:answer &#x3D; input(&#39;what is your preferred language?&#39;)
+echo &quot;\n&quot;.b:answer
+
+# 执行如下
+:source %
+what is your preferred language?  # 此处等待用户输入
+# 此处输出用户的输入<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果用户在按键重映射中使用了 <code>input</code> 函数, 则必须先调用 <code>inputsave()</code>, 并在之后调用 <code>inputrestore()</code>, 否则映射中剩余字符会被 <code>input</code> 函数获取</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: input
+function! Func()
+  call inputsave()
+  let opera &#x3D; input(&#39;what is your operation?&#39;)
+  call inputrestore()
+  return opera
+endfunction
+nnoremap &lt;LEADER&gt;o :let b:temp &#x3D; Func()&lt;CR&gt;:echo b:temp&lt;CR&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="插件">插件</h2>
+<p>Vim8 的插件布局应该包含如下目录结构, 它与主流插件管理器兼容</p>
+<ul>
+<li><code>autoload</code> 用于保存插件延迟加载的内容</li>
+<li><code>colors</code> 用于保存配色</li>
+<li><code>compiler</code> 用于保存编译器相关的功能</li>
+<li><code>doc</code> 文档目录</li>
+<li><code>ftdetect</code> 用于保存文件类型检测设置</li>
+<li><code>ftplugin</code> 用于保存文件类型相关的代码</li>
+<li><code>indent</code> 用于保存缩进相关的设置</li>
+<li><code>plugin</code> 用于保存插件的核心功能</li>
+<li><code>syntax</code> 用于保存语言语法分组</li>
+</ul>
+<h3 id="示例">示例</h3>
+<p>示例实现一个简单的功能, 即添加一个按键绑定, 用于在当前行的行首添加 Java 风格的注释符号</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 创建项目
+&gt; mkdir -p ~&#x2F;.vim&#x2F;pack&#x2F;plugins&#x2F;start&#x2F;vim-commenter
+&gt; touch ~&#x2F;.vim&#x2F;pack&#x2F;plugins&#x2F;start&#x2F;vim-commenter&#x2F;plugin&#x2F;commenter.vim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 文件: commenter.vim
+function! g:commenter#Comment()
+  let l:line &#x3D; getline(&#39;.&#39;)       &quot; 获取当前行的内容
+  call setline(&#39;.&#39;, &#39;&#x2F;&#x2F;&#39;.l:line)  &quot; 在当前行的行首添加注释符号
+endfunction
+nnoremap gc :call g:commenter#Comment()&lt;CR&gt;  &quot; 将函数映射到gc按键<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 
+:source $MYVIMRC  # 重加载配置
+gc                # 光标移到需要注释的行, 执行gc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/24/vim 001/" rel="bookmark">Vim 简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/24/vim 002/" rel="bookmark">Vim 工作区</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2021/04/25/vim%20003/" title="Vim 定制">https://janz.icu/2021/04/25/vim 003/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vim/" rel="tag"><i class="fa fa-tag"></i> Vim</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/17/graphql%20001/" rel="prev" title="GraphQL 入门">
+                  <i class="fa fa-chevron-left"></i> GraphQL 入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/24/vim%20002/" rel="next" title="Vim 工作区">
+                  Vim 工作区 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

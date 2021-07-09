@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Pipeline 结构 Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言), 用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试, 输出测试报告等步骤 Jenkins 对这个过程进行抽象, 设计出一个基本的 pipeline 结构 &#x2F;* pipeline最简结构 *&#x2F; pipeline &amp;#123;     agent any">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins Pipeline">
+<meta property="og:url" content="https://janz.icu/2020/02/11/jenkins%20002/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="Pipeline 结构 Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言), 用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试, 输出测试报告等步骤 Jenkins 对这个过程进行抽象, 设计出一个基本的 pipeline 结构 &#x2F;* pipeline最简结构 *&#x2F; pipeline &amp;#123;     agent any">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-11T07:38:42.000Z">
+<meta property="article:modified_time" content="2021-05-06T03:15:57.050Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2020/02/11/jenkins%20002/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2020/02/11/jenkins%20002/","path":"2020/02/11/jenkins 002/","title":"Jenkins Pipeline"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Jenkins Pipeline | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pipeline"><span class="nav-number">1.</span> <span class="nav-text">Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#post"><span class="nav-number">1.2.1.</span> <span class="nav-text">post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#options"><span class="nav-number">1.2.2.</span> <span class="nav-text">options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#when"><span class="nav-number">1.2.3.</span> <span class="nav-text">when</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">内置指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">文件目录相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%B6%E5%93%81%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">制品相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">命令相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.2.</span> <span class="nav-text">插件指令</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2020/02/11/jenkins%20002/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins Pipeline
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-11 15:38:42" itemprop="dateCreated datePublished" datetime="2020-02-11T15:38:42+08:00">2020-02-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-06 11:15:57" itemprop="dateModified" datetime="2021-05-06T11:15:57+08:00">2021-05-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/02/11/jenkins%20002/" class="post-meta-item leancloud_visitors" data-flag-title="Jenkins Pipeline" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="pipeline">Pipeline</h1>
+<h2 id="结构">结构</h2>
+<p>Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言), 用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试, 输出测试报告等步骤</p>
+<p>Jenkins 对这个过程进行抽象, 设计出一个基本的 <code>pipeline</code> 结构</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* pipeline最简结构 */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    stages <span class="token punctuation">&#123;</span>
+        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            steps <span class="token punctuation">&#123;</span>
+                echo <span class="token string gstring">"hello world"</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// pipeline  代表整条流水线, 包含整条流水线的逻辑</span>
+<span class="token comment">// stages    流水线中多个stage的容器, 至少包含一个stage</span>
+<span class="token comment">// stage     代表流水线的阶段, 每个阶段都必须有名称, 示例名称为build</span>
+<span class="token comment">// agent     指定流水线的执行位置, 流水线中的每个阶段都必须在某个地方(物理机, 虚拟机或Docker容器)执行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="指令">指令</h2>
+<p>基本结构满足不了现实多变的需求, 所以 Jenkins pipeline 通过各种指令来丰富自己, 指令可以被理解为对 Jenkins pipeline 基本结构的补充</p>
+<p><strong>Jenkins pipeline 支持的指令</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>post</code></td>
+<td>在执行完成后一些附加的步骤</td>
+</tr>
+<tr class="even">
+<td><code>environment</code></td>
+<td>用于设置环境变量</td>
+</tr>
+<tr class="odd">
+<td><code>tools</code></td>
+<td>自动下载并安装指定的工具, 并将其加入 PATH 变量</td>
+</tr>
+<tr class="even">
+<td><code>input</code></td>
+<td>暂停 pipeline, 提示输入内容</td>
+</tr>
+<tr class="odd">
+<td><code>options</code></td>
+<td>用于配置 Jenkins pipeline 本身的选项</td>
+</tr>
+<tr class="even">
+<td><code>parallel</code></td>
+<td>并行执行多个 step</td>
+</tr>
+<tr class="odd">
+<td><code>parameters</code></td>
+<td>执行 pipeline 前传入一些参数</td>
+</tr>
+<tr class="even">
+<td><code>triggers</code></td>
+<td>用于定义执行 pipeline 的触发器</td>
+</tr>
+<tr class="odd">
+<td><code>when</code></td>
+<td>根据给定的条件, 决定是否执行阶段内的步骤</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>在使用指令时, 需要注意的是每个指令都有自己的作用域, 如果指令使用的位置不正确, Jenkins 将会报错</p>
+</blockquote>
+<h3 id="post">post</h3>
+<p><code>post</code> 指令用于 <code>pipeline</code> 或 <code>stage</code> 完成后执行一些附加的步骤, 根据完成的状态, <code>post</code> 部分分成多种条件块, 并且可以同时包含多种条件块</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: post */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    stages <span class="token punctuation">&#123;</span>
+        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            echo <span class="token string gstring">"build stage"</span>
+        <span class="token punctuation">&#125;</span>
+        post <span class="token punctuation">&#123;</span>
+            always <span class="token punctuation">&#123;</span>
+                echo <span class="token string gstring">"stage post always"</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    post <span class="token punctuation">&#123;</span>
+        changed <span class="token punctuation">&#123;</span>
+            echo <span class="token string gstring">"pipeline post changed"</span>
+        <span class="token punctuation">&#125;</span>
+        success <span class="token punctuation">&#123;</span>
+            echo <span class="token string gstring">"pipeline post success"</span>
+        <span class="token punctuation">&#125;</span>
+        failure <span class="token punctuation">&#123;</span>
+            mail to<span class="token punctuation">:</span> <span class="token string">'team@example.com'</span><span class="token punctuation">,</span> subject<span class="token punctuation">:</span> <span class="token string">'the pipeline failed.'</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 可选条件
+always      不论当前完成状态是什么都执行
+changed     只要当前完成状态与上一次完成状态不同就执行
+fixed       上一次完成状态为失败或不稳定, 当前完成状态为成功时执行
+regression  上一次完成状态为成功, 当前完成状态为失败, 不稳当或中止时执行
+aborted     当前执行结果是中止状态时执行
+failure     当前完成状态为失败时执行
+success     当前完成状态为成功时执行
+unstable    当前完成状态为不稳定时执行
+cleanup     清理条件块, 不论当前完成状态是什么, 在其他所有条件块执行完成后都执行
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="options">options</h3>
+<p><code>options</code> 指令用于配置整个 Jenkins pipeline 本身的选项</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: options */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    stages <span class="token punctuation">&#123;</span>
+        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            echo <span class="token string gstring">"build stage"</span>
+            <span class="token function">error</span><span class="token punctuation">(</span><span class="token string gstring">"emmm..."</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    options <span class="token punctuation">&#123;</span>
+        <span class="token function">retry</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+        <span class="token function">timeout</span><span class="token punctuation">(</span>time<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> unit<span class="token punctuation">:</span> <span class="token string">'MINUTES'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 常用选项
+buildDiscarder           保存最近历史构建记录的数量
+checkoutToSubdirectory   从版本控制库拉取源码时, 指定检出到工作空间的子目录
+disableConcurrentBuilds  禁止pipeline并行执行
+newContainerPerStage     当agent为docker或dockerfile时, 指定在同一个Jenkins节点上, 每个stage都分别运行在一个新的容器中
+retry                    指定发生失败时进行重试的次数
+timeout                  指定超时时间, 超出设置的时间将中止pipeline
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="when">when</h3>
+<p><code>when</code> 指令允许 <code>pipeline</code> 根据给定的条件, 决定是否执行阶段内的步骤, 必须至少包含一个条件</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: when */</span>
+pipeline <span class="token punctuation">&#123;</span>
+    agent any
+    stages <span class="token punctuation">&#123;</span>
+        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            echo <span class="token string gstring">"build stage"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    when <span class="token punctuation">&#123;</span>
+        branch <span class="token string">'master'</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/* 常用指令
+branch       如果分支名称与给定值相同则执行
+changelog    版本库的changelog符合正则表达式则执行
+changeset    版本库的变更集合中包含一个或多个文件符合给定Ant风格路径表达式则执行
+environment  环境变量的值与给定的值相同则执行
+equals       期望值与给定的值相同则执行
+expression   如果Groovy表达式返回的是true则执行
+buildingTag  如果pipeline所执行的代码被打了tag则执行
+tag          如果pipeline所执行的代码被打了tag且名称符合规则则执行
+allOf        多条件, 所有条件都必须符合才执行
+anyOf        多条件, 其中一个条件符合就执行
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="步骤">步骤</h2>
+<p><code>pipeline</code> 结构决定的是 pipeline 整体流程, 但是真正做事的还是 <code>pipeline</code> 中的每一个步骤(step), 步骤是 <code>pipeline</code> 中不能再拆分的最小操作</p>
+<h3 id="内置指令">内置指令</h3>
+<h4 id="文件目录相关">文件目录相关</h4>
+<ul>
+<li><p><code>deleteDir</code> 删除当前目录</p></li>
+<li><p><code>dir</code> 切换到目录</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">dir</span><span class="token punctuation">(</span><span class="token string gstring">"/var/logs"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">deleteDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p><code>fileExists</code> 判断文件是否存在</p></li>
+<li><p><code>isUnix</code> 判断是否为类 UNIX 系统</p></li>
+<li><p><code>pwd</code> 确认当前目录</p></li>
+<li><p><code>writeFile</code> 将内容写入指定文件中</p></li>
+<li><p><code>readFile</code> 读取文件内容</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy">script <span class="token punctuation">&#123;</span>
+    <span class="token function">writeFile</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> <span class="token string gstring">"base64File"</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string gstring">"amVua2lucyBib29r"</span><span class="token punctuation">,</span> encoding<span class="token punctuation">:</span> <span class="token string gstring">"Base64"</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> content <span class="token operator">=</span> <span class="token function">readFile</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> <span class="token string gstring">"base64File"</span><span class="token punctuation">,</span> encoding<span class="token punctuation">:</span> <span class="token string gstring">"UTF-8"</span><span class="token punctuation">)</span>
+    echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span></span>"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h4 id="制品相关">制品相关</h4>
+<ul>
+<li><p><code>stash</code> 保存临时文件</p></li>
+<li><p><code>unstash</code> 取出之前保存的文件</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy">stages <span class="token punctuation">&#123;</span>
+    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'stash'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        agent <span class="token punctuation">&#123;</span> label <span class="token string gstring">"master"</span> <span class="token punctuation">&#125;</span>
+        steps <span class="token punctuation">&#123;</span>
+            <span class="token function">writeFile</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> <span class="token string gstring">"a.txt"</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span>BUILD_NUMBER</span>"</span><span class="token punctuation">)</span>
+            <span class="token function">stash</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string gstring">"temp"</span><span class="token punctuation">,</span> includes<span class="token punctuation">:</span> <span class="token string gstring">"a.txt"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'unstage'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        agent <span class="token punctuation">&#123;</span> label <span class="token string gstring">"node"</span> <span class="token punctuation">&#125;</span>
+        steps <span class="token punctuation">&#123;</span>
+            script <span class="token punctuation">&#123;</span>
+                <span class="token function">unstash</span><span class="token punctuation">(</span><span class="token string gstring">"temp"</span><span class="token punctuation">)</span>
+                <span class="token keyword">def</span> content <span class="token operator">=</span> <span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string gstring">"a.txt"</span><span class="token punctuation">)</span>
+                echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span></span>"</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h4 id="命令相关">命令相关</h4>
+<ul>
+<li><code>sh</code> 执行 shell 命令</li>
+<li><code>bat</code> 执行批处理命令</li>
+<li><code>powershell</code> 执行 PowerShell 脚本</li>
+</ul>
+<h4 id="其他">其他</h4>
+<ul>
+<li><p><code>error</code> 主动报错, 中止当前 pipeline</p></li>
+<li><p><code>tool</code> 使用预定义的工具</p></li>
+<li><p><code>timeout</code> 代码块超时时间</p></li>
+<li><p><code>waitUntil</code> 等待条件满足</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">timeout</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    waitUntil <span class="token punctuation">&#123;</span>
+        script <span class="token punctuation">&#123;</span>
+            <span class="token keyword">def</span> r <span class="token operator">=</span> sh script<span class="token punctuation">:</span> <span class="token string">'curl http://www.baidu.com'</span><span class="token punctuation">,</span> returnStatus<span class="token punctuation">:</span> <span class="token boolean">true</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>r <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><code>entry</code> 重复执行块</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">retry</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    script <span class="token punctuation">&#123;</span>
+        sh script<span class="token punctuation">:</span> <span class="token string">'curl http://www.baidu.com'</span><span class="token punctuation">,</span> returnStatus<span class="token punctuation">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><code>sleep</code> 让 pipeline 休眠一段时间</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span> unit<span class="token punctuation">:</span> <span class="token string">'MINUTES'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<h3 id="插件指令">插件指令</h3>
+<p>步骤是可插拔的, 就像 Jenkins 的插件一样, 只需要对现有的插件进行一些修改, 就可以在 pipeline 中被当成一个步骤使用</p>
+<p>pipeline plugin 的 GitHub 仓库给出了一个 <a target="_blank" rel="noopener" href="https://github.com/jenkinsci/pipeline-plugin/blob/master/COMPATIBILITY.md">列表</a> 记录已经适配了 Jenkins pipeline 的插件</p>
+<p>Jenkins 官方提供了 pipeline 步骤参考 <a target="_blank" rel="noopener" href="https://jenkins.io/doc/pipeline/steps/">文档</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/03/30/jenkins 006/" rel="bookmark">Jenkins 扩展插件</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2020/02/11/jenkins%20002/" title="Jenkins Pipeline">https://janz.icu/2020/02/11/jenkins 002/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Jenkins/" rel="tag"><i class="fa fa-tag"></i> Jenkins</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/13/jenkins%20003/" rel="prev" title="Jenkins 变量参数">
+                  <i class="fa fa-chevron-left"></i> Jenkins 变量参数
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/11/jenkins%20001/" rel="next" title="Jenkins 简介">
+                  Jenkins 简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

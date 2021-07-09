@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="API Prometheus 控制台的对象信息查询和表达式查询, 是通过服务端提供的基于 http 协议的 api 接口实现的, 当前稳定的接口可以在服务端的 &#x2F;api&#x2F;v1&#x2F; 路由端点下访问, 详见 http-api 接口响应格式基于 Json 形式, 每个成功的请求都会返回一个 2xx 的状态码, 可能返回的其它状态码如下:  400 参数缺少或不正确时 422 表达式不能被执行时 503 服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus API">
+<meta property="og:url" content="https://janz.icu/2021/07/01/prometheus-003/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="API Prometheus 控制台的对象信息查询和表达式查询, 是通过服务端提供的基于 http 协议的 api 接口实现的, 当前稳定的接口可以在服务端的 &#x2F;api&#x2F;v1&#x2F; 路由端点下访问, 详见 http-api 接口响应格式基于 Json 形式, 每个成功的请求都会返回一个 2xx 的状态码, 可能返回的其它状态码如下:  400 参数缺少或不正确时 422 表达式不能被执行时 503 服">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-01T04:58:39.000Z">
+<meta property="article:modified_time" content="2021-07-03T08:34:25.057Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Prometheus">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2021/07/01/prometheus-003/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2021/07/01/prometheus-003/","path":"2021/07/01/prometheus-003/","title":"Prometheus API"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Prometheus API | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#api"><span class="nav-number">1.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">1.3.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E5%88%99"><span class="nav-number">1.4.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81"><span class="nav-number">1.5.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">1.6.</span> <span class="nav-text">管理员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9E%AC%E6%97%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">瞬时查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">区间查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%A0%87-1"><span class="nav-number">1.7.2.</span> <span class="nav-text">指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">元数据查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E6%A0%87%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">指标查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">标签查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E5%80%BC%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.2.4.</span> <span class="nav-text">标签值查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-1"><span class="nav-number">1.7.3.</span> <span class="nav-text">目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2-1"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">元数据查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">目标查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E5%88%99-1"><span class="nav-number">1.7.4.</span> <span class="nav-text">规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.4.1.</span> <span class="nav-text">规则查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%8A%E8%AD%A6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.4.2.</span> <span class="nav-text">告警查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81-1"><span class="nav-number">1.7.5.</span> <span class="nav-text">状态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.5.1.</span> <span class="nav-text">配置查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.5.2.</span> <span class="nav-text">标志查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.5.3.</span> <span class="nav-text">运行时查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.5.4.</span> <span class="nav-text">构建查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.5.5.</span> <span class="nav-text">统计查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.5.6.</span> <span class="nav-text">重载查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%91%98-1"><span class="nav-number">1.7.6.</span> <span class="nav-text">管理员</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E7%85%A7%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.7.6.1.</span> <span class="nav-text">快照接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.7.6.2.</span> <span class="nav-text">删除接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.7.6.3.</span> <span class="nav-text">清理接口</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/07/01/prometheus-003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prometheus API
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-01 12:58:39" itemprop="dateCreated datePublished" datetime="2021-07-01T12:58:39+08:00">2021-07-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-03 16:34:25" itemprop="dateModified" datetime="2021-07-03T16:34:25+08:00">2021-07-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/07/01/prometheus-003/" class="post-meta-item leancloud_visitors" data-flag-title="Prometheus API" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>21k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>19 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="api">API</h1>
+<p>Prometheus 控制台的对象信息查询和表达式查询, 是通过服务端提供的基于 http 协议的 api 接口实现的, 当前稳定的接口可以在服务端的 <code>/api/v1/</code> 路由端点下访问, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/">http-api</a></p>
+<p>接口响应格式基于 Json 形式, 每个成功的请求都会返回一个 <code>2xx</code> 的状态码, 可能返回的其它状态码如下:</p>
+<ul>
+<li><code>400</code> 参数缺少或不正确时</li>
+<li><code>422</code> 表达式不能被执行时</li>
+<li><code>503</code> 服务超时或中止时</li>
+</ul>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// 响应体样例</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span>|<span class="token string">"error"</span><span class="token punctuation">,</span>
+    <span class="token property">"data"</span><span class="token operator">:</span> &lt;data><span class="token punctuation">,</span>
+    <span class="token comment">// 当status=error时返回错误信息</span>
+    <span class="token property">"errorType"</span><span class="token operator">:</span> <span class="token string">"&lt;string>"</span><span class="token punctuation">,</span>
+    <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"&lt;string>"</span><span class="token punctuation">,</span>
+    <span class="token comment">// 如果存在不限制请求执行的错误时, 可能返回警告数组</span>
+    <span class="token property">"warnings"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"&lt;string>"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="表达式">表达式</h2>
+<p>表达式查询分为瞬时和区间 2 个接口, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#expression-queries">expression-queries</a></p>
+<ol type="1">
+<li><p>瞬时查询接口, 用于在单个时间点计算表达式的结果</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET/POST /api/v1/query
+<span class="token comment"># 入参</span>
+<span class="token key property">query</span>   <span class="token punctuation">=</span> &lt;string>                  <span class="token comment"># 查询的表达式</span>
+<span class="token key property">time</span>    <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>  <span class="token comment"># 可选, 查询的时间戳</span>
+<span class="token key property">timeout</span> <span class="token punctuation">=</span> &lt;duration>                <span class="token comment"># 可选, 超时的时间</span>
+<span class="token comment"># 出参</span>
+<span class="token key property">resultType</span> <span class="token punctuation">=</span> <span class="token string">"matrix"</span>|<span class="token string">"vector"</span>|<span class="token string">"scalar"</span>|<span class="token string">"string"</span>
+<span class="token key property">result</span>     <span class="token punctuation">=</span> &lt;value><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>区间查询接口, 用于在一段时间内计算表达式的结果</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET/POST /api/v1/query_range
+<span class="token comment"># 入参</span>
+<span class="token key property">query</span>   <span class="token punctuation">=</span> &lt;string>                  <span class="token comment"># 查询的表达式</span>
+<span class="token key property">start</span>   <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>  <span class="token comment"># 起始时间戳</span>
+<span class="token key property">end</span>     <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>  <span class="token comment"># 结束时间戳</span>
+<span class="token key property">step</span>    <span class="token punctuation">=</span> &lt;duration|float>          <span class="token comment"># 查询的步宽</span>
+<span class="token key property">timeout</span> <span class="token punctuation">=</span> &lt;duration>                <span class="token comment"># 可选, 超时的时间</span>
+<span class="token comment"># 出参</span>
+<span class="token key property">resultType</span> <span class="token punctuation">=</span> <span class="token string">"matrix"</span>
+<span class="token key property">result</span>     <span class="token punctuation">=</span> &lt;value><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<p>当表达式查询成功时, 对应 PromQL 计算结果的 4 种类型, 响应体中 <code>data</code> 字段的返回值如下:</p>
+<ul>
+<li><p>区间向量(range vectors)</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"resultType"</span><span class="token operator">:</span> <span class="token string">"matrix"</span><span class="token punctuation">,</span>
+    <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token property">"metric"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                <span class="token property">"&lt;label_name>"</span><span class="token operator">:</span> <span class="token string">"&lt;label_value>"</span><span class="token punctuation">,</span> ...
+            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token property">"values"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">[</span> <span class="token punctuation">[</span>&lt;unix_time><span class="token punctuation">,</span> <span class="token string">"&lt;sample_value>"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> ... <span class="token punctuation">]</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> ...
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>瞬时向量(instant vectors)</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"resultType"</span><span class="token operator">:</span> <span class="token string">"vector"</span><span class="token punctuation">,</span>
+    <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token property">"metric"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                <span class="token property">"&lt;label_name>"</span><span class="token operator">:</span> <span class="token string">"&lt;label_value>"</span><span class="token punctuation">,</span> ...
+            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token property">"values"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                &lt;unix_time><span class="token punctuation">,</span> <span class="token string">"&lt;sample_value>"</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> ...
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>标量(scalars)</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"resultType"</span><span class="token operator">:</span> <span class="token string">"scalar"</span><span class="token punctuation">,</span>
+    <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">[</span> &lt;unix_time><span class="token punctuation">,</span> <span class="token string">"&lt;scalar_value>"</span> <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>字符串(strings)</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"resultType"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+    <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">[</span> &lt;unix_time><span class="token punctuation">,</span> <span class="token string">"&lt;string_value>"</span> <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="指标">指标</h2>
+<p>指标元数据查询接口, 用于查询指标的类型和描述信息, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#querying-metric-metadata">querying-metric-metadata</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/metadata
+<span class="token comment"># 入参</span>
+<span class="token key property">metric</span> <span class="token punctuation">=</span> &lt;string>  <span class="token comment"># 指定指标的名称</span>
+<span class="token key property">limit</span>  <span class="token punctuation">=</span> &lt;number>  <span class="token comment"># 返回指标列表的最大数量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>元数据查询有 3 个接口, 用于查询指标, 标签和标签值, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#querying-metadata">querying-metadata</a></p>
+<ol type="1">
+<li><p>查询指标, 用于查询指标的标签和标签值</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET/POST /api/v1/series
+<span class="token comment"># 入参</span>
+match<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">=</span> &lt;series_selector>  <span class="token comment"># 标签选择器, 必须至少提供一个标签名称</span>
+<span class="token key property">start</span>   <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>
+<span class="token key property">end</span>     <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>查询标签</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET/POST /api/v1/labels
+<span class="token comment"># 入参</span>
+match<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">=</span> &lt;series_selector>
+<span class="token key property">start</span>   <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>
+<span class="token key property">end</span>     <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>查询标签值</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET/POST /api/v1/label/&lt;label_name>/values
+<span class="token comment"># 入参</span>
+match<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">=</span> &lt;series_selector>
+<span class="token key property">start</span>   <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>
+<span class="token key property">end</span>     <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="目标">目标</h2>
+<p>目标元数据查询接口, 用于获取目标和其指标的元数据, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#querying-target-metadata">querying-target-metadata</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/targets/metadata
+<span class="token comment"># 入参</span>
+<span class="token key property">metric</span>       <span class="token punctuation">=</span> &lt;string>           <span class="token comment"># 指定指标的名称, 如果为空则返回目标下的所有指标</span>
+<span class="token key property">match_target</span> <span class="token punctuation">=</span> &lt;label_selectors>  <span class="token comment"># 标签选择器, 提供标签和标签值</span>
+<span class="token key property">limit</span>        <span class="token punctuation">=</span> &lt;number>           <span class="token comment"># 返回的目标列表的最大数量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>目标查询接口, 用于获取目标的配置信息和状态, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#targets">targets</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/targets
+<span class="token comment"># 入参</span>
+<span class="token key property">state</span> <span class="token punctuation">=</span> <span class="token string">"any"</span>|<span class="token string">"active"</span>|<span class="token string">"dropped"</span>  <span class="token comment"># 指定目标的状态, 默认any返回全部结果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="规则">规则</h2>
+<p>规则查询接口, 用于获取当前加载的记录规则和告警规则, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#rules">rules</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/rules
+<span class="token comment"># 入参</span>
+<span class="token key property">type</span> <span class="token punctuation">=</span> <span class="token string">"alert"</span>|<span class="token string">"record"</span>  <span class="token comment"># 指定规则的类型, 默认为空不做过滤</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>告警查询接口, 用于获取当前状态为活动的告警列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#alerts">alerts</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/alerts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>告警管理器接口, 用于获取当前配置的告警管理器列表及其状态, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#alertmanagers">alertmanagers</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/alertmanagers<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="状态">状态</h2>
+<p>状态查询有 6 个接口, 用于获取当前 Prometheus 的配置, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#status">status</a></p>
+<ol type="1">
+<li><p>配置接口, 用于获取当前的配置信息</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status/config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>标志接口, 用于获取 Prometheus 配置的标志值</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status/flags<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>运行时接口, 用于获取服务的各种运行时信息</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status/runtimeinfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>构建接口, 用于获取服务构建时的信息属性</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status/buildinfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>TSDB 统计接口, 用于获取 Prometheus TSDB 的各种基数统计信息</p>
+<ul>
+<li><code>headStats</code> 提供以下统计数据
+<ul>
+<li><code>numSeries</code> 时序的数量</li>
+<li><code>chunkCount</code> 块的数量</li>
+<li><code>minTime</code> 当前最小的时间戳</li>
+<li><code>maxTime</code> 当前最大的时间戳</li>
+</ul></li>
+<li><code>seriesCountByMetricName</code> 提供基于指标名称的时序数量</li>
+<li><code>labelValueCountByLabelName</code> 提供基于标签名称的标签值数量</li>
+<li><code>memoryInBytesByLabelName</code> 提供基于标签名称的内存使用量(单位字节)</li>
+<li><code>seriesCountByLabelPair</code> 提供基于标签键值对的时序数量</li>
+</ul>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status/tsdb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>WAL 重载统计接口, 用于获取预写入数据恢复的次数</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status/walreplay<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h2 id="管理员">管理员</h2>
+<p>管理员接口对运维和开发人员非常实用, 它给用户开放了时序数据库 TSDB 的操作权限, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#tsdb-admin-apis">tsdb-admin-apis</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 管理员接口默认不启用, 需要在启动服务时指定选项
+$ prometheus --web.enable-admin-api<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>管理员接口有 3 个可操作的端口</p>
+<ol type="1">
+<li><p>snapshot 快照接口将当前所有数据在 tsdb 目录下的 <code>snapshots/&lt;datetime&gt;-&lt;rand&gt;</code> 文件夹内创建快照, 并将文件夹作为响应中的一个字段值返回</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">POST/PUT /api/v1/admin/tsdb/snapshot
+<span class="token comment"># 入参</span>
+<span class="token key property">skip_head</span> <span class="token punctuation">=</span> &lt;bool>  <span class="token comment"># 可选, 是否跳过块中未压缩到磁盘的数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p>delete series 删除时序接口可以将指定的时序标记为删除, 并在下次 tsdb 执行定期清理操作时移除</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">POST/PUT /api/v1/admin/tsdb/delete_series
+<span class="token comment"># 入参</span>
+match<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">=</span> &lt;series_selector>         <span class="token comment"># 标签选择器, 选择要删除的时序</span>
+<span class="token key property">start</span>   <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp>
+<span class="token key property">end</span>     <span class="token punctuation">=</span> &lt;rfc3999|unix_timestamp><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>clean tombstones 清理里程碑接口将从磁盘中移除标记为删除的数据</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">POST/PUT /api/v1/admin/tsdb/clean_tombstones<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h2 id="示例">示例</h2>
+<h3 id="表达式-1">表达式</h3>
+<h4 id="瞬时查询">瞬时查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 瞬时查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;query?query&#x3D;up&amp;time&#x3D;2021-06-30T12:00:00.000Z8&amp;timeout&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;resultType&quot;: &quot;vector&quot;,
+        &quot;result&quot;: [
+            &#123;
+                &quot;metric&quot;: &#123;
+                    &quot;__name__&quot;: &quot;up&quot;,
+                    &quot;instance&quot;: &quot;172.17.0.1:9100&quot;,
+                    &quot;job&quot;: &quot;node&quot;
+                &#125;,
+                &quot;value&quot;: [
+                    1625054400,
+                    &quot;1&quot;
+                ]
+            &#125;,
+            &#123;
+                &quot;metric&quot;: &#123;
+                    &quot;__name__&quot;: &quot;up&quot;,
+                    &quot;instance&quot;: &quot;localhost:9090&quot;,
+                    &quot;job&quot;: &quot;prometheus&quot;
+                &#125;,
+                &quot;value&quot;: [
+                    1625054400,
+                    &quot;1&quot;
+                ]
+            &#125;
+        ]
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="区间查询">区间查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 区间查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;query_range?query&#x3D;node_memory_MemFree_bytes&amp;start&#x3D;2021-06-30T12:00:00.000Z&amp;end&#x3D;2021-06-30T12:01:00.000Z&amp;step&#x3D;15&amp;timeout&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;resultType&quot;: &quot;matrix&quot;,
+        &quot;result&quot;: [
+            &#123;
+                &quot;metric&quot;: &#123;
+                    &quot;__name__&quot;: &quot;node_memory_MemFree_bytes&quot;,
+                    &quot;instance&quot;: &quot;172.17.0.1:9100&quot;,
+                    &quot;job&quot;: &quot;node&quot;
+                &#125;,
+                &quot;values&quot;: [
+                    [
+                        1625054400,
+                        &quot;4337102848&quot;
+                    ],
+                    [
+                        1625054415,
+                        &quot;4337377280&quot;
+                    ],
+                    [
+                        1625054430,
+                        &quot;4337602560&quot;
+                    ],
+                    [
+                        1625054445,
+                        &quot;4336943104&quot;
+                    ],
+                    [
+                        1625054460,
+                        &quot;4336541696&quot;
+                    ]
+                ]
+            &#125;
+        ]
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="指标-1">指标</h3>
+<h4 id="元数据查询">元数据查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指标查询, 结果返回指标的名称和类型
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;metadata?metric&#x3D;prometheus_http_requests_total&amp;limit&#x3D;&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;prometheus_http_requests_total&quot;: [
+            &#123;
+                &quot;type&quot;: &quot;counter&quot;,
+                &quot;help&quot;: &quot;Counter of HTTP requests.&quot;,
+                &quot;unit&quot;: &quot;&quot;
+            &#125;
+        ]
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="指标查询">指标查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指标查询, 结果返回指标的标签和标签值
+$ curl --location -g --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;series?match[]&#x3D;up&amp;start&#x3D;2021-06-30T12:00:00.000Z&amp;end&#x3D;2021-06-30T12:01:00.000Z&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: [
+        &#123;
+            &quot;__name__&quot;: &quot;up&quot;,
+            &quot;instance&quot;: &quot;172.17.0.1:9100&quot;,
+            &quot;job&quot;: &quot;node&quot;
+        &#125;,
+        &#123;
+            &quot;__name__&quot;: &quot;up&quot;,
+            &quot;instance&quot;: &quot;localhost:9090&quot;,
+            &quot;job&quot;: &quot;prometheus&quot;
+        &#125;
+    ]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="标签查询">标签查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 标签查询
+$ curl --location -g --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;labels?match[]&#x3D;up&amp;start&amp;end&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: [
+        &quot;__name__&quot;,
+        &quot;instance&quot;,
+        &quot;job&quot;
+    ]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="标签值查询">标签值查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 标签值查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;label&#x2F;job&#x2F;values&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: [
+        &quot;prometheus&quot;,
+        &quot;node&quot;
+    ]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="目标-1">目标</h3>
+<h4 id="元数据查询-1">元数据查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 目标查询, 结果返回目标和其指标的元数据
+$ curl --location -g --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;targets&#x2F;metadata?metric&#x3D;go_goroutines&amp;match_target&#x3D;&#123;job&#x3D;%22prometheus%22&#125;&amp;limit&#x3D;&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: [
+        &#123;
+            &quot;target&quot;: &#123;
+                &quot;instance&quot;: &quot;localhost:9090&quot;,
+                &quot;job&quot;: &quot;prometheus&quot;
+            &#125;,
+            &quot;type&quot;: &quot;gauge&quot;,
+            &quot;help&quot;: &quot;Number of goroutines that currently exist.&quot;,
+            &quot;unit&quot;: &quot;&quot;
+        &#125;
+    ]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="目标查询">目标查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 目标查询, 结果按状态划分, 返回目标的配置信息
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;targets&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;activeTargets&quot;: [
+            &#123;
+                &quot;discoveredLabels&quot;: &#123;
+                    &quot;__address__&quot;: &quot;localhost:9090&quot;,
+                    &quot;__metrics_path__&quot;: &quot;&#x2F;metrics&quot;,
+                    &quot;__scheme__&quot;: &quot;http&quot;,
+                    &quot;job&quot;: &quot;prometheus&quot;
+                &#125;,
+                &quot;labels&quot;: &#123;
+                    &quot;instance&quot;: &quot;localhost:9090&quot;,
+                    &quot;job&quot;: &quot;prometheus&quot;
+                &#125;,
+                &quot;scrapePool&quot;: &quot;prometheus&quot;,
+                &quot;scrapeUrl&quot;: &quot;http:&#x2F;&#x2F;localhost:9090&#x2F;metrics&quot;,
+                &quot;globalUrl&quot;: &quot;http:&#x2F;&#x2F;6f464fc27554:9090&#x2F;metrics&quot;,
+                &quot;lastError&quot;: &quot;&quot;,
+                &quot;lastScrape&quot;: &quot;2021-06-30T17:13:44.334177173Z&quot;,
+                &quot;lastScrapeDuration&quot;: 0.011411324,
+                &quot;health&quot;: &quot;up&quot;
+            &#125;,
+            &#123;
+                &quot;discoveredLabels&quot;: &#123;
+                    &quot;__address__&quot;: &quot;172.17.0.1:9100&quot;,
+                    &quot;__metrics_path__&quot;: &quot;&#x2F;metrics&quot;,
+                    &quot;__scheme__&quot;: &quot;http&quot;,
+                    &quot;job&quot;: &quot;node&quot;
+                &#125;,
+                &quot;labels&quot;: &#123;
+                    &quot;instance&quot;: &quot;172.17.0.1:9100&quot;,
+                    &quot;job&quot;: &quot;node&quot;
+                &#125;,
+                &quot;scrapePool&quot;: &quot;node&quot;,
+                &quot;scrapeUrl&quot;: &quot;http:&#x2F;&#x2F;172.17.0.1:9100&#x2F;metrics&quot;,
+                &quot;globalUrl&quot;: &quot;http:&#x2F;&#x2F;172.17.0.1:9100&#x2F;metrics&quot;,
+                &quot;lastError&quot;: &quot;&quot;,
+                &quot;lastScrape&quot;: &quot;2021-06-30T17:13:51.450626205Z&quot;,
+                &quot;lastScrapeDuration&quot;: 0.102887838,
+                &quot;health&quot;: &quot;up&quot;
+            &#125;
+        ],
+        &quot;droppedTargets&quot;: []
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="规则-1">规则</h3>
+<h4 id="规则查询">规则查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 规则查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;rules?type&#x3D;record&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;groups&quot;: [
+            &#123;
+                &quot;name&quot;: &quot;instance_alerts&quot;,
+                &quot;file&quot;: &quot;&#x2F;etc&#x2F;prometheus&#x2F;node.rules.yml&quot;,
+                &quot;rules&quot;: [],
+                &quot;interval&quot;: 15,
+                &quot;evaluationTime&quot;: 0.000715755,
+                &quot;lastEvaluation&quot;: &quot;2021-06-30T18:50:48.167936761Z&quot;
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;node_rules&quot;,
+                &quot;file&quot;: &quot;&#x2F;etc&#x2F;prometheus&#x2F;node.rules.yml&quot;,
+                &quot;rules&quot;: [
+                    &#123;
+                        &quot;name&quot;: &quot;instance_mode:node_cpu_seconds_total:rate5m&quot;,
+                        &quot;query&quot;: &quot;sum without(cpu)(rate(node_cpu_seconds_total&#123;job&#x3D;\&quot;node\&quot;&#125;[5m]))&quot;,
+                        &quot;health&quot;: &quot;ok&quot;,
+                        &quot;evaluationTime&quot;: 0.003344801,
+                        &quot;lastEvaluation&quot;: &quot;2021-06-30T18:50:40.652989552Z&quot;,
+                        &quot;type&quot;: &quot;recording&quot;
+                    &#125;,
+                    &#123;
+                        &quot;name&quot;: &quot;mode:node_cpu_seconds_total:rate5m&quot;,
+                        &quot;query&quot;: &quot;sum without(instance) (instance_mode:node_cpu_seconds_total:rate5m)&quot;,
+                        &quot;health&quot;: &quot;ok&quot;,
+                        &quot;evaluationTime&quot;: 0.000686561,
+                        &quot;lastEvaluation&quot;: &quot;2021-06-30T18:50:40.656349439Z&quot;,
+                        &quot;type&quot;: &quot;recording&quot;
+                    &#125;
+                ],
+                &quot;interval&quot;: 15,
+                &quot;evaluationTime&quot;: 0.004074525,
+                &quot;lastEvaluation&quot;: &quot;2021-06-30T18:50:40.652975653Z&quot;
+            &#125;
+        ]
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="告警查询">告警查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 告警查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;alerts&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;alerts&quot;: [
+            &#123;
+                &quot;labels&quot;: &#123;
+                    &quot;alertname&quot;: &quot;instance:down&quot;,
+                    &quot;instance&quot;: &quot;172.17.0.1:8080&quot;,
+                    &quot;job&quot;: &quot;jenkins&quot;
+                &#125;,
+                &quot;annotations&quot;: &#123;
+                    &quot;description&quot;: &quot;172.17.0.1:8080 of job jenkins has been down for more than 5 minutes.&quot;,
+                    &quot;summary&quot;: &quot;Instance 172.17.0.1:8080 down&quot;
+                &#125;,
+                &quot;state&quot;: &quot;pending&quot;,
+                &quot;activeAt&quot;: &quot;2021-06-30T18:41:33.165603645Z&quot;,
+                &quot;value&quot;: &quot;0e+00&quot;
+            &#125;
+        ]
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="状态-1">状态</h3>
+<h4 id="配置查询">配置查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 配置查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;status&#x2F;config&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;yaml&quot;: &quot;global:\n  scrape_interval: 15s\n  scrape_timeout: 10s\n  evaluation_interval: 15s\nalerting:\n  alertmanagers:\n  - follow_redirects: true\n    scheme: http\n    timeout: 10s\n    api_version: v2\n    static_configs:\n    - targets: []\nrule_files:\n- &#x2F;etc&#x2F;prometheus&#x2F;node.rules.yml\nscrape_configs:\n- job_name: prometheus\n  honor_timestamps: true\n  scrape_interval: 15s\n  scrape_timeout: 10s\n  metrics_path: &#x2F;metrics\n  scheme: http\n  follow_redirects: true\n  static_configs:\n  - targets:\n    - localhost:9090\n- job_name: server2\n  honor_timestamps: true\n  scrape_interval: 15s\n  scrape_timeout: 10s\n  metrics_path: &#x2F;metrics\n  scheme: http\n  follow_redirects: true\n  static_configs:\n  - targets:\n    - 172.17.0.1:9100\n- job_name: jenkins\n  honor_timestamps: true\n  scrape_interval: 15s\n  scrape_timeout: 10s\n  metrics_path: prometheus\n  scheme: http\n  basic_auth:\n    username: admin\n    password: &lt;secret&gt;\n  follow_redirects: true\n  static_configs:\n  - targets:\n    - 172.17.0.1:8080\n&quot;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="标志查询">标志查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 标志查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;status&#x2F;flags&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;alertmanager.notification-queue-capacity&quot;: &quot;10000&quot;,
+        &quot;alertmanager.timeout&quot;: &quot;&quot;,
+        &quot;config.file&quot;: &quot;&#x2F;etc&#x2F;prometheus&#x2F;prometheus.yml&quot;,
+        &quot;enable-feature&quot;: &quot;&quot;,
+        &quot;log.format&quot;: &quot;logfmt&quot;,
+        &quot;log.level&quot;: &quot;info&quot;,
+        &quot;query.lookback-delta&quot;: &quot;5m&quot;,
+        &quot;query.max-concurrency&quot;: &quot;20&quot;,
+        &quot;query.max-samples&quot;: &quot;50000000&quot;,
+        &quot;query.timeout&quot;: &quot;2m&quot;,
+        &quot;rules.alert.for-grace-period&quot;: &quot;10m&quot;,
+        &quot;rules.alert.for-outage-tolerance&quot;: &quot;1h&quot;,
+        &quot;rules.alert.resend-delay&quot;: &quot;1m&quot;,
+        &quot;scrape.adjust-timestamps&quot;: &quot;true&quot;,
+        &quot;storage.exemplars.exemplars-limit&quot;: &quot;0&quot;,
+        &quot;storage.remote.flush-deadline&quot;: &quot;1m&quot;,
+        &quot;storage.remote.read-concurrent-limit&quot;: &quot;10&quot;,
+        &quot;storage.remote.read-max-bytes-in-frame&quot;: &quot;1048576&quot;,
+        &quot;storage.remote.read-sample-limit&quot;: &quot;50000000&quot;,
+        &quot;storage.tsdb.allow-overlapping-blocks&quot;: &quot;false&quot;,
+        &quot;storage.tsdb.max-block-duration&quot;: &quot;1d12h&quot;,
+        &quot;storage.tsdb.min-block-duration&quot;: &quot;2h&quot;,
+        &quot;storage.tsdb.no-lockfile&quot;: &quot;false&quot;,
+        &quot;storage.tsdb.path&quot;: &quot;&#x2F;prometheus&quot;,
+        &quot;storage.tsdb.retention&quot;: &quot;0s&quot;,
+        &quot;storage.tsdb.retention.size&quot;: &quot;0B&quot;,
+        &quot;storage.tsdb.retention.time&quot;: &quot;0s&quot;,
+        &quot;storage.tsdb.wal-compression&quot;: &quot;true&quot;,
+        &quot;storage.tsdb.wal-segment-size&quot;: &quot;0B&quot;,
+        &quot;web.config.file&quot;: &quot;&quot;,
+        &quot;web.console.libraries&quot;: &quot;&#x2F;usr&#x2F;share&#x2F;prometheus&#x2F;console_libraries&quot;,
+        &quot;web.console.templates&quot;: &quot;&#x2F;usr&#x2F;share&#x2F;prometheus&#x2F;consoles&quot;,
+        &quot;web.cors.origin&quot;: &quot;.*&quot;,
+        &quot;web.enable-admin-api&quot;: &quot;false&quot;,
+        &quot;web.enable-lifecycle&quot;: &quot;false&quot;,
+        &quot;web.external-url&quot;: &quot;&quot;,
+        &quot;web.listen-address&quot;: &quot;0.0.0.0:9090&quot;,
+        &quot;web.max-connections&quot;: &quot;512&quot;,
+        &quot;web.page-title&quot;: &quot;Prometheus Time Series Collection and Processing Server&quot;,
+        &quot;web.read-timeout&quot;: &quot;5m&quot;,
+        &quot;web.route-prefix&quot;: &quot;&#x2F;&quot;,
+        &quot;web.user-assets&quot;: &quot;&quot;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="运行时查询">运行时查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 运行时查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;status&#x2F;runtimeinfo&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;startTime&quot;: &quot;2021-06-29T07:25:02.837486394Z&quot;,
+        &quot;CWD&quot;: &quot;&#x2F;prometheus&quot;,
+        &quot;reloadConfigSuccess&quot;: true,
+        &quot;lastConfigTime&quot;: &quot;2021-06-29T07:25:03Z&quot;,
+        &quot;corruptionCount&quot;: 0,
+        &quot;goroutineCount&quot;: 35,
+        &quot;GOMAXPROCS&quot;: 12,
+        &quot;GOGC&quot;: &quot;&quot;,
+        &quot;GODEBUG&quot;: &quot;&quot;,
+        &quot;storageRetention&quot;: &quot;15d&quot;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="构建查询">构建查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 构建查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;status&#x2F;buildinfo&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;version&quot;: &quot;2.26.0&quot;,
+        &quot;revision&quot;: &quot;3cafc58827d1ebd1a67749f88be4218f0bab3d8d&quot;,
+        &quot;branch&quot;: &quot;HEAD&quot;,
+        &quot;buildUser&quot;: &quot;root@a67cafebe6d0&quot;,
+        &quot;buildDate&quot;: &quot;20210331-11:56:23&quot;,
+        &quot;goVersion&quot;: &quot;go1.16.2&quot;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="统计查询">统计查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: TSDB统计查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;status&#x2F;tsdb&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;headStats&quot;: &#123;
+            &quot;numSeries&quot;: 3243,
+            &quot;numLabelPairs&quot;: 1282,
+            &quot;chunkCount&quot;: 9209,
+            &quot;minTime&quot;: 1625076006450,
+            &quot;maxTime&quot;: 1625080240651
+        &#125;,
+        &quot;seriesCountByMetricName&quot;: [
+            &#123;
+                &quot;name&quot;: &quot;prometheus_http_request_duration_seconds_bucket&quot;,
+                &quot;value&quot;: 210
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;prometheus_http_response_size_bytes_bucket&quot;,
+                &quot;value&quot;: 189
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;node_cpu_seconds_total&quot;,
+                &quot;value&quot;: 96
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;node_scrape_collector_success&quot;,
+                &quot;value&quot;: 40
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;node_scrape_collector_duration_seconds&quot;,
+                &quot;value&quot;: 40
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;node_cpu_guest_seconds_total&quot;,
+                &quot;value&quot;: 24
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;prometheus_http_requests_total&quot;,
+                &quot;value&quot;: 24
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;prometheus_http_request_duration_seconds_sum&quot;,
+                &quot;value&quot;: 21
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;prometheus_http_response_size_bytes_sum&quot;,
+                &quot;value&quot;: 21
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;prometheus_http_response_size_bytes_count&quot;,
+                &quot;value&quot;: 21
+            &#125;
+        ],
+        &quot;labelValueCountByLabelName&quot;: [
+            &#123;
+                &quot;name&quot;: &quot;__name__&quot;,
+                &quot;value&quot;: 915
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;le&quot;,
+                &quot;value&quot;: 70
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;collector&quot;,
+                &quot;value&quot;: 40
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;handler&quot;,
+                &quot;value&quot;: 21
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;device&quot;,
+                &quot;value&quot;: 17
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;name&quot;,
+                &quot;value&quot;: 15
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;quantile&quot;,
+                &quot;value&quot;: 12
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;cpu&quot;,
+                &quot;value&quot;: 12
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;address&quot;,
+                &quot;value&quot;: 10
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;sensor&quot;,
+                &quot;value&quot;: 10
+            &#125;
+        ],
+        &quot;memoryInBytesByLabelName&quot;: [
+            &#123;
+                &quot;name&quot;: &quot;__name__&quot;,
+                &quot;value&quot;: 31961
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;handler&quot;,
+                &quot;value&quot;: 342
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;le&quot;,
+                &quot;value&quot;: 323
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;collector&quot;,
+                &quot;value&quot;: 266
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;address&quot;,
+                &quot;value&quot;: 170
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;device&quot;,
+                &quot;value&quot;: 143
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;pool&quot;,
+                &quot;value&quot;: 93
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;version&quot;,
+                &quot;value&quot;: 91
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;rule_group&quot;,
+                &quot;value&quot;: 87
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;revision&quot;,
+                &quot;value&quot;: 80
+            &#125;
+        ],
+        &quot;seriesCountByLabelValuePair&quot;: [
+            &#123;
+                &quot;name&quot;: &quot;job&#x3D;jenkins&quot;,
+                &quot;value&quot;: 1263
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;instance&#x3D;172.17.0.1:8080&quot;,
+                &quot;value&quot;: 1263
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;job&#x3D;node&quot;,
+                &quot;value&quot;: 1085
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;instance&#x3D;172.17.0.1:9100&quot;,
+                &quot;value&quot;: 1077
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;instance&#x3D;localhost:9090&quot;,
+                &quot;value&quot;: 895
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;job&#x3D;prometheus&quot;,
+                &quot;value&quot;: 895
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;__name__&#x3D;prometheus_http_request_duration_seconds_bucket&quot;,
+                &quot;value&quot;: 210
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;__name__&#x3D;prometheus_http_response_size_bytes_bucket&quot;,
+                &quot;value&quot;: 189
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;quantile&#x3D;0.5&quot;,
+                &quot;value&quot;: 162
+            &#125;,
+            &#123;
+                &quot;name&quot;: &quot;quantile&#x3D;0.99&quot;,
+                &quot;value&quot;: 160
+            &#125;
+        ]
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="重载查询">重载查询</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: WAL重载查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;status&#x2F;walreplay&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;min&quot;: 0,
+        &quot;max&quot;: 2,
+        &quot;current&quot;: 2
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="管理员-1">管理员</h3>
+<h4 id="快照接口">快照接口</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 快照接口
+$ curl --location --request POST &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;admin&#x2F;tsdb&#x2F;snapshot?skip_head&#x3D;true&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;name&quot;: &quot;20210701T030533Z-3a65069574a85c2f&quot;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="删除接口">删除接口</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 删除时序接口
+$ curl --location -g --request POST &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;admin&#x2F;tsdb&#x2F;delete_series?match[]&#x3D;jenkins_plugins_failed&amp;start&amp;end&#39;
+# 响应返回204状态码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="清理接口">清理接口</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 清理里程碑接口
+$ curl --location --request POST &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#x2F;v1&#x2F;admin&#x2F;tsdb&#x2F;clean_tombstones&#39;
+# 响应返回204状态码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2021/07/01/prometheus-003/" title="Prometheus API">https://janz.icu/2021/07/01/prometheus-003/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Prometheus/" rel="tag"><i class="fa fa-tag"></i> Prometheus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/04/prometheus-004/" rel="prev" title="Prometheus 数据采集">
+                  <i class="fa fa-chevron-left"></i> Prometheus 数据采集
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/25/prometheus-002/" rel="next" title="Prometheus 数据模型">
+                  Prometheus 数据模型 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

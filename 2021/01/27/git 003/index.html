@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="分支 合并 当不发生冲突时, Git 会计算合并结果, 并创建一个新的提交来代表新的统一状态, 当分支冲突时, Git 并不解决冲突, 这通常出现在对同一个文件的同一行进行修改的时候, 相反 Git 把这种争议性的修改在索引中标记为未合并(unmerged), 留给开发人员来处理, 当 Git 无法自动合并时, 需要在所有冲突都解决后做一次最终提交 退化合并 退化合并 的情况下执行合并实际都不引入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 分支">
+<meta property="og:url" content="https://janz.icu/2021/01/27/git%20003/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="分支 合并 当不发生冲突时, Git 会计算合并结果, 并创建一个新的提交来代表新的统一状态, 当分支冲突时, Git 并不解决冲突, 这通常出现在对同一个文件的同一行进行修改的时候, 相反 Git 把这种争议性的修改在索引中标记为未合并(unmerged), 留给开发人员来处理, 当 Git 无法自动合并时, 需要在所有冲突都解决后做一次最终提交 退化合并 退化合并 的情况下执行合并实际都不引入">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-27T09:09:35.000Z">
+<meta property="article:modified_time" content="2021-04-30T03:39:29.266Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://janz.icu/2021/01/27/git%20003/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2021/01/27/git%20003/","path":"2021/01/27/git 003/","title":"Git 分支"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git 分支 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%94%AF"><span class="nav-number">1.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6"><span class="nav-number">1.1.</span> <span class="nav-text">合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%8C%96%E5%90%88%E5%B9%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">退化合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E5%90%88%E5%B9%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">常规合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%90%88%E5%B9%B6"><span class="nav-number">1.1.3.</span> <span class="nav-text">特殊合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82"><span class="nav-number">1.2.</span> <span class="nav-text">差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5"><span class="nav-number">1.3.</span> <span class="nav-text">排查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bisect"><span class="nav-number">1.3.1.</span> <span class="nav-text">bisect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blame"><span class="nav-number">1.3.2.</span> <span class="nav-text">blame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pickaxe"><span class="nav-number">1.3.3.</span> <span class="nav-text">pickaxe</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4"><span class="nav-number">1.4.</span> <span class="nav-text">提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reset"><span class="nav-number">1.4.1.</span> <span class="nav-text">reset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cherry-pick"><span class="nav-number">1.4.2.</span> <span class="nav-text">cherry-pick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#revert"><span class="nav-number">1.4.3.</span> <span class="nav-text">revert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rebase"><span class="nav-number">1.4.4.</span> <span class="nav-text">rebase</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5"><span class="nav-number">1.5.</span> <span class="nav-text">忽略</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/01/27/git%20003/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git 分支
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-27 17:09:35" itemprop="dateCreated datePublished" datetime="2021-01-27T17:09:35+08:00">2021-01-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-30 11:39:29" itemprop="dateModified" datetime="2021-04-30T11:39:29+08:00">2021-04-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/01/27/git%20003/" class="post-meta-item leancloud_visitors" data-flag-title="Git 分支" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="分支">分支</h1>
+<h2 id="合并">合并</h2>
+<p>当不发生冲突时, Git 会计算合并结果, 并创建一个新的提交来代表新的统一状态, 当分支冲突时, Git 并不解决冲突, 这通常出现在对同一个文件的同一行进行修改的时候, 相反 Git 把这种争议性的修改在索引中标记为未合并(unmerged), 留给开发人员来处理, 当 Git 无法自动合并时, 需要在所有冲突都解决后做一次最终提交</p>
+<h3 id="退化合并">退化合并</h3>
+<p><strong>退化合并</strong> 的情况下执行合并实际都不引入新的提交, Git 只将目标分支的当前指针前移到最新的位置</p>
+<p>当来自合并分支的所有提交都存在于目标分支上时, 即使它已经在自己的分支上前进了, 目标分支还是已经更新到最新的, 因此没有新的提交添加到目标分支上, 称为 <strong>already up-to-date</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: already up-to-date
+&gt; git merge master
+Already up to date.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>当目标分支已经在合并分支中完全存在或表示时, 就会发生快进合并 <strong>fast-forward</strong></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: fast-forward
+&gt; git merge master
+Updating 81764e6..b8e7a19
+Fast-forward<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常规合并">常规合并</h3>
+<p><strong>常规合并</strong> 都会产生一个最终提交, 添加到当前分支中, 表示合并的组合状态, Git 实现了 3 种不同的合并算法:</p>
+<ul>
+<li><strong>解决(resolve)</strong> 解决策略只操作两个分支, 定位共同的祖先作为合并基础, 然后执行一个直接的三方合并, 通过对目标分支施加从合并基础到合并分支的变化</li>
+<li><strong>递归(recursive)</strong> 递归策略只操作两个分支, 它能处理在两个分支之间有多个合并基础的情况, 在这种情况下, Git 会生成一个临时合并来包含所有相同的合并基础, 然后以此为基础, 通过三方合并算法导出两个给定分支的最终合并</li>
+<li><strong>章鱼(octopus)</strong> 章鱼策略是专为合并两个以上分支而设计的, 在内部, 它多次调用 recursive 合并策略, 要合并的每个分支调一次, 然而这个策略不能处理需要用户交互解决的冲突, 在这种情况下, 必须做一系列常规合并, 一次解决一个冲突</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指定resolve策略
+&gt; git merge -s resolve master
+# 默认情况下, 不使用-s指定合并策略时, 单个合并分支使用recursive策略, 多个合并分支使用octopus策略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="特殊合并">特殊合并</h3>
+<p><strong>特殊合并</strong> 有两个特别的合并策略:</p>
+<ul>
+<li><strong>我们的(ours)</strong> 策略合并任意数量的其他分支, 但它实际上丢弃那些分支的修改, 只使用当前分支的文件, ours 合并结果跟当前分支是相同的, 但是其他分支也记为父提交</li>
+<li><strong>子树(subtree)</strong> 子树策略合并到另一个分支, 但是那个分支会合并到当前树的特定子树</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指定ours策略
+&gt; git pull -s ours &lt;repository&gt; &lt;refspec&gt;
+
+# 示例: 指定subtree策略
+&gt; git pull -s subtree &lt;repository&gt; &lt;refspec&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="差异">差异</h2>
+<p>通常, 差异比较时可以通过提交名, 分支名或者标签名</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 比较暂存区和工作区
+&gt; git diff
+# 一般情况下, Git 会逐行比较两个文件, 因为在源代码中, 开发人员往往修改的都是单行内容, 其邻近行通常不会被波及
+
+# 示例: 比较暂存区和指定提交
+&gt; git diff --staged  # 默认为HEAD
+&gt; git diff --staged HEAD<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 按单词比较
+&gt; git diff --word-diff
+&gt; git diff --word-diff&#x3D;color  # 以不同颜色显示<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>可以将提交视为自上一次提交以来项目中所纳入的一组修改, 所以版本库实质上也是一部项目的修改历史</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 比较两次提交
+&gt; git diff 01ac6b50 HEAD
+
+# 示例: 比较提交与前次提交
+&gt; git diff 01ac6b50^!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指定路径限制输出版本库的子集
+&gt; git diff .&#x2F;src
+
+# 示例: 差异的统计数据, 显示文件修改的行数
+&gt; git diff --stat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="排查">排查</h2>
+<p>Git 提供了几种机制, 有助于开发人员在版本库中找到符合特定条件的提交</p>
+<h3 id="bisect">bisect</h3>
+<p>在开发过程中, 开发人员经常会突然遇到一个错误, 是之前早期版本在成功通过测试时没有出现的, Git 支持用二分法来搜索引发问题的提交</p>
+<blockquote>
+<p><strong>二分法</strong> 是基于二分搜索的一种查找方法, 查找的起点是已确认没问题的提交, 终点是已明确有错误的提交, 两者之间这段提交历史将会被分半, 位于中间的提交会在工作区中被激活, 开发人员对被激活的提交进行错误检查, 接着再根据是否在被激活提交中找到该错误的情况, 再对错误必然会隐藏的那段剩余的提交历史进行重新分半, 并检查新的中间提交, 如此反复, 最终就会找到第一次出现该错误的提交</p>
+</blockquote>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 执行二分法排错
+&gt; git bisect start HEAD b8e7a192
+# Git使用一个分离的HEAD来管理版本库的当前检出版本, 这个分离的HEAD本质上是一个匿名分支, 第一个提交被标志成bad, 第二个提交被标志为good<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 对当前提交进行标志
+&gt; git bisect good  # 错误不在其中
+&gt; git bisect bad   # 错误就在其中
+&gt; git bisect skip  # 当前提交无法被测试<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 停止或取消二分查找
+&gt; git bisect reset
+# 工作区中的内容重置回正常的开发版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="blame">blame</h3>
+<p>Git 可以查找文件中代码的来源, 确定最终修改的开发人员以及修改的时间, 即使这些代码已被移动或复制到别处</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查找指定文件中2-4行的提交
+&gt;  git blame -L 2,4 src\Hello.java
+53d4cf4c (xxxx 2021-01-18 16:42:27 +0800 2)     public String println() &#123;
+53d4cf4c (xxxx 2021-01-18 16:42:27 +0800 3)         return &quot;hello!&quot;
+53d4cf4c (xxxx 2021-01-18 16:42:27 +0800 4)     &#125;
+# -L 指定行范围, 可以指定多次, 允许重叠范围
+# -M 检测文件中移动或复制的行
+# -C 检测从同一提交中修改的其他文件移动或复制的行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="pickaxe">pickaxe</h3>
+<p>Git 通过搜索修订版本间的差异可以找到执行改变的提交</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查找日志中改变包含指定表达式的记录
+&gt; git log -S&lt;string&gt; --pickaxe-regex
+&gt; git log -G&lt;regex&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="提交">提交</h2>
+<p>作为一般原则, 只要没有其他开发人员已经获得版本库的副本, 就可以自由的修改和完善版本库提交历史记录, 一般情况下, 如果能让提交更简洁和利于理解, 开发人员应该力求简练且结构良好的补丁, Git 提供了几个工具和命令, 专门用来修改完善版本库中的提交序列</p>
+<h3 id="reset">reset</h3>
+<p><code>git reset</code> 命令会把版本库和工作目录改变为已知状态</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 将HEAD指向给定提交, 默认使用--mixed模式
+&gt; git reset &lt;commit&gt;
+# --soft   索引和工作目录的内容保持不变
+# --mixed  索引改变以符合提交的树结构, 工作目录中的内容保持不变
+# --hard   索引改变以符合提交的树结构, 工作目录中的内容也改变以反映提交表示的树状态
+
+# 示例: 将HEAD指向前一次提交, 并保留工作目录中的内容
+&gt; git reset HEAD^<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="cherry-pick">cherry-pick</h3>
+<p><code>git cherry-pick</code> 命令会在当前分支上应用给定提交引入的变更, 这将引入一个新的提交</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 应用指定提交的变更
+&gt; git cherry-pick &lt;commit&gt;
+
+# 示例: 在master分支上应用dev分支的最新提交的变更
+&gt; git checkout master
+&gt; git cherry-pick dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 重建一系列提交, 在master分支上倒序应用dev分支的最新3次提交的变更
+&gt; git checkout master
+&gt; git cherry-pick dev
+&gt; git cherry-pick dev^
+&gt; git cherry-pick dev~2
+# 在这种情况下, 提交的顺序改变很可能不得不解决冲突, 这完全取决于提交之间的关系, 如果它们是高度耦合的, 并且修改的行有重叠, 那就有冲突需要解决
+
+# 示例: 发生冲突时可以执行的命令
+&gt; git cherry-out (--continue | --skip | --abort | --quit)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="revert">revert</h3>
+<p><code>git revert</code> 命令会在当前分支上应用给定提交的逆过程, 这将引入一个新的提交</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 撤销指定提交的变更
+&gt; git revert &lt;commit&gt;
+
+# 示例: 撤销前第3次提交的变更
+&gt; git revert HEAD~3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="rebase">rebase</h3>
+<p><code>git rebase</code> 命令用来改变分支的基础提交</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 变基
+&gt; git rebase master
+
+# 通常不会直接调用rebase命令, 而是对远程版本库中的修改进行变基处理
+&gt; git pull --rebase<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 将dev分支的基础提交改成master分支的最新提交
+&gt; git checkout dev
+&gt; git rebase master
+# 变基操作后, 按旧基础的提交还会保留在版本库中, 虽然它们不再直接可见, 但是依然可以用过提交散列值进行访问, 只有在执行gc命令清理后才会真正从版本库中删除
+
+# 示例: 发生冲突时可以执行的命令
+&gt; git rebase (--continue | --skip | --abort | --quit | --edit-todo | --show-current-patch)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="忽略">忽略</h2>
+<p>可以通过往项目根目录下的 <code>.gitignore</code> 文件中添加条目的方式让 Git 忽略这些文件, 并且可以使用通配符, 也可以在项目的子目录中创建一个 <code>.gitignore</code> 文件, 这样该文件只能影响该目录下的文件和路径</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: .gitignore
+target&#x2F;
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn&#x2F;timing.properties
+# https:&#x2F;&#x2F;github.com&#x2F;takari&#x2F;maven-wrapper#usage-without-binary-jar
+.mvn&#x2F;wrapper&#x2F;maven-wrapper.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>模板参考 <a target="_blank" rel="noopener" href="https://github.com/github/gitignore">gitignore</a></p>
+</blockquote>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 忽略已经被版本化的文件
+&gt; git update-index --assume-unchanged &lt;file&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/01/27/git 001/" rel="bookmark">Git 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/01/27/git 002/" rel="bookmark">Git 版本库</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/01/30/git 004/" rel="bookmark">Git 工具</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2021/01/27/git%20003/" title="Git 分支">https://janz.icu/2021/01/27/git 003/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/30/git%20004/" rel="prev" title="Git 工具">
+                  <i class="fa fa-chevron-left"></i> Git 工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/27/git%20002/" rel="next" title="Git 版本库">
+                  Git 版本库 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">378k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
