@@ -67,7 +67,6 @@
   </div>
 
   <div class="site-meta">
-      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
@@ -307,7 +306,6 @@
 <li>Delegate to servlet container</li>
 <li>Jenkins' own user database</li>
 </ol>
-<p>在 <code>Manager Jenkins ／ Configure Global Security ／ Security Realm</code> 节点下可以配置</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/17/jenkins%20005/#more" rel="contents">
@@ -423,7 +421,6 @@
 <p>需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, <code>trigger</code> 指令才会生效</p>
 </blockquote>
 <h2 id="时间触发">时间触发</h2>
-<p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline 执行</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/13/jenkins%20004/#more" rel="contents">
@@ -537,7 +534,6 @@
 <h2 id="环境变量">环境变量</h2>
 <p><strong>环境变量</strong> 可以看作是 pipeline 与 Jenkins 交互的媒介, 可以分为 <strong>Jenkins 内置变量</strong> 和 <strong>自定义变量</strong></p>
 <h3 id="内置变量">内置变量</h3>
-<p>在 <code>pipeline</code> 执行时, Jenkins 通过一个名为 <code>env</code> 的全局变量, 将 Jenkins 内置环境变量暴露出来</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/13/jenkins%20003/#more" rel="contents">
@@ -651,22 +647,6 @@
 <h2 id="结构">结构</h2>
 <p>Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言), 用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试, 输出测试报告等步骤</p>
 <p>Jenkins 对这个过程进行抽象, 设计出一个基本的 <code>pipeline</code> 结构</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* pipeline最简结构 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"hello world"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// pipeline  代表整条流水线, 包含整条流水线的逻辑</span>
-<span class="token comment">// stages    流水线中多个stage的容器, 至少包含一个stage</span>
-<span class="token comment">// stage     代表流水线的阶段, 每个阶段都必须有名称, 示例名称为build</span>
-<span class="token comment">// agent     指定流水线的执行位置, 流水线中的每个阶段都必须在某个地方(物理机, 虚拟机或Docker容器)执行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/11/jenkins%20002/#more" rel="contents">
@@ -780,7 +760,6 @@ pipeline <span class="token punctuation">&#123;</span>
 <h2 id="jenkins">Jenkins</h2>
 <p><strong>Jenkins</strong> 是一款使用 Java 语言开发的开源的自动化服务器, 通过界面或 Jenkinsfile 告诉它执行什么任务, 何时执行, 理论上, 可以让它执行任何任务, 但是通常只应用于持续集成和持续交付</p>
 <p><strong>Jenkinsfile</strong> 是一个文本文件, 也就是部署流水线概念在 Jenkins 中的表现形式, 所有部署流水线的逻辑都写在 Jenkinsfile 中</p>
-<h3 id="安装">安装</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/11/jenkins%20001/#more" rel="contents">
@@ -894,7 +873,6 @@ pipeline <span class="token punctuation">&#123;</span>
 <h2 id="数据访问体系">数据访问体系</h2>
 <p>当开发应用的持久层的时候, 会面临多种选择, 可以使用 JDBC, Hibernate, JPA 或者其他任意的持久化框架, 可能还会考虑使用 NoSQL 数据库, 不管选择哪种持久化方式, Spring 都能够提供支持</p>
 <h3 id="模板">模板</h3>
-<p>Spring 将数据访问过程中固定的和可变的部分明确划分为两个不同的类:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/09/08/spring/010/#more" rel="contents">
@@ -1008,7 +986,6 @@ pipeline <span class="token punctuation">&#123;</span>
 <h2 id="multipart-数据">multipart 数据</h2>
 <p>multipart 格式的数据会将一个表单拆分为多个部分, 每个部分对应一个输入域, 在一般的表单输入域中, 它所对应的部分中会放置文本型数据, 但是如果上传文件的话, 它所对应的部分可以是二进制</p>
 <h3 id="解析器">解析器</h3>
-<p><code>DispatcherServlet</code> 并没有实现任何解析 <code>multipart</code> 请求数据的功能, 它将该任务委托给了 Spring 中 <code>MultipartResolver</code> 策略接口的实现, 通过这个实现类来解析 <code>multipart</code> 请求中的内容, 从 Spring 3.1 开始, Spring 内置了两个 <code>MultipartResolver</code> 的实现供选择:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/29/spring/007/#more" rel="contents">
@@ -1127,7 +1104,6 @@ pipeline <span class="token punctuation">&#123;</span>
 <li><code>@LastModifiedBy</code> 修改实体的用户;</li>
 <li><code>@LastModifiedDate</code> 最后修改的时间</li>
 </ul>
-<h3 id="配置">配置</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/05/22/jpa/005/#more" rel="contents">
@@ -1249,7 +1225,6 @@ pipeline <span class="token punctuation">&#123;</span>
     <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span> <span class="token keyword">extends</span> <span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token keyword">long</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token class-name">Example</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span><span class="token punctuation">></span></span> example<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span> <span class="token keyword">extends</span> <span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token keyword">boolean</span> <span class="token function">exists</span><span class="token punctuation">(</span><span class="token class-name">Example</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">S</span><span class="token punctuation">></span></span> example<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="使用示例">使用示例</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/05/08/jpa/004/#more" rel="contents">
@@ -1363,32 +1338,6 @@ pipeline <span class="token punctuation">&#123;</span>
 <h2 id="repository">Repository</h2>
 <p><code>Repository</code> 位于 Spring Data Common 的 lib 里面, 是 Spring Data 里面做数据库操作的最底层的抽象接口, 最顶级的父类, 源码里面其实什么方法都没有, 仅仅起到一个标识作用, 管理域类以及域类的 <code>id</code> 类型作为类型参数, 此接口主要作为标记接口捕获要使用的类型, Spring 底层做动态代理的时候发现只要是它的子类或者实现类, 都代表储存库操作</p>
 <h3 id="类层次关系">类层次关系</h3>
-<pre class="mermaid">graph BT
-title[图 Repository层级关系]
-title --> L
-style title fill:#FFF,stroke:#FFF
-linkStyle 0 stroke:#FFF,stroke-width:0;
-B[Repository]
-C[CrudRepository]
-D[QueryByExampleExecutor]
-E[PagingAndSortingRepository]
-F[JpaSpecificationExecutor]
-G[JpaRepository]
-H[JpaRepositoryImplementation]
-I[Serializable]
-J[QuerydslPredicateExecutor]
-K(SimpleJpaRepository)
-L(QuerydslJpaRepository)
-L -.-> I
-L -.-> J
-L --> K
-K -.-> H
-H --> F
-H --> G
-G --> D
-G --> E
-E --> C
-C --> B</pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/05/08/jpa/003/#more" rel="contents">

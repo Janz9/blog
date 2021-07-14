@@ -67,7 +67,6 @@
   </div>
 
   <div class="site-meta">
-      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
@@ -304,7 +303,6 @@
 <p><strong>Selenium</strong> 是一个 Web 自动化测试工具, 支持多语言, 多平台, 多浏览器</p>
 <h2 id="组件">组件</h2>
 <p><strong>Selenium WebDriver</strong> 支持市场上所有主流浏览器, 尽可能模拟真实用户与浏览器的交互, 在不同的浏览器中, 这可能在不同的级别上发生, 下载地址 <a target="_blank" rel="noopener" href="https://www.selenium.dev/documentation/en/webdriver/driver_requirements/#quick-reference">webdriver</a></p>
-<p><strong>Selenium Grid</strong> 允许测试将命令路由到远程浏览器实例, 旨在提供一种在多台计算机上并行运行测试的简便方法, 并集中管理不同的浏览器版本和浏览器配置, 下载地址 <a target="_blank" rel="noopener" href="https://www.selenium.dev/downloads/">grid</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/16/selenium%20001/#more" rel="contents">
@@ -418,11 +416,6 @@
 <p><strong>自动化测试</strong> 是指通过工具录制或编写脚本模拟手工测试的过程, 并通过回放或运行脚本来执行测试, 从而代替人工检查被测软件或系统的功能是否符合预期要求</p>
 <p>通过手工测试稳定的功能, 可以采用自动化测试, 机械重复的测试场景也可以采用自动化测试, 这样效率反而更高</p>
 <p><strong>手工测试</strong></p>
-<ol type="1">
-<li>手工测试需要人的较强的思考能力, 通过人的逻辑思考来验证当前测试步骤是否正确;</li>
-<li>在执行用例的过程中, 步骤更具有灵活性和跳跃性, 凭借个人的经验积累可以快速发现并准确定位问题;</li>
-<li>如果版本迭代中有大量测试用例需要回归测试, 在人员有限的情况下, 在开展回归测试的过程中手工测试就会变得异常困难和吃力</li>
-</ol>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/16/test%20001/#more" rel="contents">
@@ -536,10 +529,6 @@
 <p>虽然流水线脚本和传统的 Web 页面是大多数人使用 Jenkins 的主要接口, 但 Jenkins 同时还提供了命令行接口 (CLI) 以及应用程序接口 (REST API), 这些接口所能做的事情是有限的, 但是它们可以用于一些基本操作</p>
 <h2 id="cli">CLI</h2>
 <p>Jenkins 的命令行接口可以通过两种方法访问:</p>
-<ul>
-<li>通过 <code>ssh</code> 命令;</li>
-<li>通过 <code>jenkins-cli.jar</code> 客户端</li>
-</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/23/jenkins%20010/#more" rel="contents">
@@ -653,7 +642,6 @@
 <p>Jenkins 项目都是在 executor 上执行的, 假如单机足够强大, 让更多项目同时执行的方法就是增加 executor, 但单机的容量总会遇到上限, 而且还会有单节点问题, 解决办法就是将 Jenkins 项目分配到多台机器上执行</p>
 <h2 id="节点">节点</h2>
 <p>Jenkins 采用的是 <code>master/agent</code> 架构, Jenkins master 负责提供界面, 处理 HTTP 请求及管理构建环境, 构建的执行则由 Jenkins agent 负责</p>
-<p>基于这样的架构, 只需要增加 agent 就可以轻松支持更多的项目同时执行, 这种方式称为 Jenkins agent 的 <strong>横向扩容</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/09/jenkins%20007/#more" rel="contents">
@@ -767,7 +755,6 @@
 <h2 id="制品">制品</h2>
 <p><strong>制品</strong> 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等</p>
 <p>最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 <a target="_blank" rel="noopener" href="https://www.sonatype.com/nexus-repository-oss">Nexus</a>, <a target="_blank" rel="noopener" href="https://jfrog.com/artifactory/">Artifactory</a> 等</p>
-<h3 id="maven-制品">Maven 制品</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/26/jenkins%20009/#more" rel="contents">
@@ -881,7 +868,6 @@
 <h2 id="静态代码分析">静态代码分析</h2>
 <p><strong>静态代码分析</strong> 是指在不运行程序的前提下, 对源代码进行分析或检查, 范围包括代码风格, 可能出现的空指针, 代码块大小, 重复的代码等</p>
 <p><a target="_blank" rel="noopener" href="https://pmd.github.io/">PMD</a> 是一款可扩展的静态代码分析器, 它不仅可以对代码风格进行检查, 还可以检查设计, 多线程, 性能等方面的问题</p>
-<p>安装 Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/pmd/">PMD</a> 插件可以将 PMD 报告呈现在任务详情页中</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/26/jenkins%20008/#more" rel="contents">
@@ -996,7 +982,6 @@
 <p>curl 默认使用 <code>HTTP/1.1</code> 连接 HTTP 服务器, 当 HTTP 客户端被指定一个 URL, URL 将被分成多个部分, 并用于向服务器发起的请求中</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例
 curl http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>如果路径中包含 <code>/../</code> 或 <code>/./</code> 这样的字符串, curl 会在将路径发送到服务器前自动压缩它们, 这些字符串的含义与本地文件系统中的路径含义是一样的</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/21/curl%20003/#more" rel="contents">
@@ -1110,7 +1095,6 @@ curl http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numb
 <p>curl 很少会自己决定做什么, 它试图在最大程度上让开发人员做自己想做的事, 这是一种设计选择, 它允许通过传递选项的方式, 调整 curl 与服务器的交互</p>
 <h2 id="调试">调试</h2>
 <p>当执行 curl 命令没有返回所期望的数据时, 可以通过选项来输出更多详细的信息</p>
-<h3 id="详细模式">详细模式</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/19/curl%20002/#more" rel="contents">
@@ -1227,7 +1211,6 @@ curl http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numb
 <li>提供 C API 的 <a target="_blank" rel="noopener" href="https://curl.haxx.se/libcurl/">libcurl</a> 库</li>
 </ul>
 <h2 id="命令行">命令行</h2>
-<p><strong>命令行选项</strong> 可以将想要用 curl 执行的任务的信息传给 curl</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/18/curl%20001/#more" rel="contents">
@@ -1341,7 +1324,6 @@ curl http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numb
 <h2 id="扩展">扩展</h2>
 <p>在大量使用 pipeline 后会发现 Jenkins 内置的功能并不能照顾到所有的需求, 这时就需要扩展 pipeline</p>
 <h3 id="函数">函数</h3>
-<p>pipeline 本质是一个 Groovy 脚本, 所以可以在 pipeline 中定义函数, 并使用 Groovy 语言自带的特性</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/03/30/jenkins%20006/#more" rel="contents">

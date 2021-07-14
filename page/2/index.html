@@ -67,7 +67,6 @@
   </div>
 
   <div class="site-meta">
-      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
@@ -306,7 +305,6 @@
 <p>原来的 Vi 版本是针对远程终端开发出来的, 那时的带宽和网速都有限, 但正是这些限制使 Vi 的文本编辑流程变得高效而专业, 从而演变为如今的 Vim(Vi Improved) 的核心</p>
 </blockquote>
 <h2 id="安装">安装</h2>
-<p>Vim 可在各种操作系统中安装, 官网 <a target="_blank" rel="noopener" href="https://www.vim.org/download.php">download</a> 提供了详细的安装说明</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/04/24/vim%20001/#more" rel="contents">
@@ -432,7 +430,6 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>net.devh<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>grpc-client-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="server">server</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/03/03/grpc%20003/#more" rel="contents">
@@ -550,8 +547,6 @@
 <p>gRPC 支持的语言及示例, 参考 <a target="_blank" rel="noopener" href="https://grpc.io/docs/languages/">languages</a></p>
 <h2 id="grpc-java">grpc-java</h2>
 <p>Java 开发, 参考 <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-java">grpc-java</a> <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-java/blob/master/examples/README.md">examples</a></p>
-<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token keyword">syntax</span> <span class="token operator">=</span> <span class="token string">"proto3"</span><span class="token punctuation">;</span>  <span class="token comment">// 指定所使用的版本</span>
-<span class="token keyword">import</span> <span class="token string">"google/protobuf/wrappers.proto"</span><span class="token punctuation">;</span>  <span class="token comment">// 导入其他文件中定义的消息结构</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/03/02/grpc%20002/#more" rel="contents">
@@ -665,22 +660,6 @@
 <p><strong>gRPC</strong> 是一项进程间通信技术, 可以用来连接, 调用, 操作和调试分布式异构应用程序</p>
 <h2 id="简介">简介</h2>
 <p>在开发 gRPC 应用程序时, 先要定义服务接口, 借助服务定义, 可以生成服务端代码 (骨架 skeleton), 它通过提供低层级的通信抽象简化了服务端的逻辑, 同时, 还可以生成客户端代码 (存根 stub), 它使用抽象简化了客户端的通信, 为不同的编程语言隐藏了低层级的通信</p>
-<pre class="mermaid">flowchart LR
-TITLE["图 基于gRPC的微服务"]
-A(服务定义)
-subgraph 提供者
-    B(服务端骨架)
-end
-subgraph 消费者
-    C(客户端存根)
-end
-TITLE --- B
-A -.生成.-> B
-A -.生成.-> C
-B <--protocol buffers--> C
-
-style TITLE fill:#FFF,stroke:#FFF
-linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/03/01/grpc%20001/#more" rel="contents">
@@ -799,7 +778,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
 &gt; git clone file:&#x2F;&#x2F;&#x2F;d&#x2F;bare.git dev.git  # 从裸版本库克隆一个开发版本库
 
 # 如果没有使用--initial-branch指定初始分支名称时, 则默认使用名称master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>默认情况下, 每个新的克隆版本库都通过一个称为 <code>origin</code> 的远程版本库, 建立一个链接指回它的父版本库, 但是, 原始版本库并不知道任何克隆版本库, 也不维护指向克隆版本库的链接, 这是一个单向关系</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/30/git%20004/#more" rel="contents">
@@ -913,7 +891,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
 <h2 id="合并">合并</h2>
 <p>当不发生冲突时, Git 会计算合并结果, 并创建一个新的提交来代表新的统一状态, 当分支冲突时, Git 并不解决冲突, 这通常出现在对同一个文件的同一行进行修改的时候, 相反 Git 把这种争议性的修改在索引中标记为未合并(unmerged), 留给开发人员来处理, 当 Git 无法自动合并时, 需要在所有冲突都解决后做一次最终提交</p>
 <h3 id="退化合并">退化合并</h3>
-<p><strong>退化合并</strong> 的情况下执行合并实际都不引入新的提交, Git 只将目标分支的当前指针前移到最新的位置</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/27/git%20003/#more" rel="contents">
@@ -1032,14 +1009,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
 
 # 示例: 列出远程跟踪分支
 &gt; git branch -r<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 为当前提交创建分支
-&gt; git branch dev
-
-# 示例: 切换分支
-&gt; git checkout dev
-
-# 示例: 删除分支
-&gt; git branch -d dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/27/git%20002/#more" rel="contents">
@@ -1153,7 +1122,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
 <p><strong>集中式版本控制系统</strong> 中央服务器存储着版本库的当前版本和历史记录, 每个开发者都从该服务器检出到本地工作目录, 修改后定期将修改提交到中央服务器</p>
 <p><strong>分布式版本控制系统</strong> 开发者环境和服务器环境之间是没有分隔的, 每个开发者同时拥有一个用于当前文件操作的工作区与一个存储该项目所以版本, 分支以及标签的本地版本库</p>
 <h2 id="git">Git</h2>
-<p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> 是一个免费的开源分布式版本控制系统, 主要由两个层面构成, 其顶层结构就是开发者常用的命令, 称为 <strong>瓷质命令(porcelain command)</strong>, 其底层结构是一组带有少量选项的简单命令, 称为 <strong>管道(plumbing)</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/27/git%20001/#more" rel="contents">
@@ -1267,7 +1235,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
 <h2 id="bdd">BDD</h2>
 <p><strong>BDD(Behaviour-Driven Development)</strong> 行为驱动开发是一种敏捷的软件开发技术, 使用自然语言编写用例的好处是能够让非技术人员 (客户和用户) 看懂测试用例, 可以最大程度的减少技术语言和领域语言的翻译成本</p>
 <h3 id="cucumber">Cucumber</h3>
-<p><strong>Cucumber</strong> 是一款支持行为驱动开发, 读取以纯文本形式编写的可执行规范, 验证该软件是否满足规范的内容, 并生成报告, 官网 <a target="_blank" rel="noopener" href="https://cucumber.io/">Cucumber</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/16/selenium%20003/#more" rel="contents">
@@ -1381,39 +1348,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</--protocol></pre>
 <p>WebDriver 使用浏览器供应商提供的浏览器自动化 API 来控制浏览器并运行测试, 就像真实用户操作浏览器一样, 由于 WebDriver 不需要使用应用程序代码来编译其 API, 因此它不是侵入式的</p>
 <p>WebDriver API 是用于操作 WebDriver 的命令集</p>
 <h2 id="浏览器操作">浏览器操作</h2>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 浏览器操作 */</span>
-<span class="token annotation punctuation">@Test</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-
-    <span class="token comment">// 打开页面</span>
-    driver<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"http://news.anhuai.com/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 跳转页面</span>
-    driver<span class="token punctuation">.</span><span class="token function">navigate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span><span class="token string">"http://news.anhuai.com/user/login"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 后退操作</span>
-    driver<span class="token punctuation">.</span><span class="token function">navigate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 前进操作</span>
-    driver<span class="token punctuation">.</span><span class="token function">navigate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 刷新操作</span>
-    driver<span class="token punctuation">.</span><span class="token function">navigate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">refresh</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 窗口最大化</span>
-    driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">maximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 窗口高宽</span>
-    driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setSize</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Dimension</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 窗口全屏</span>
-    driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fullscreen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 获取标题</span>
-    <span class="token class-name">String</span> title <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 获取当前URL</span>
-    <span class="token class-name">String</span> url <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">getCurrentUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 获取源码</span>
-    <span class="token class-name">String</span> source <span class="token operator">=</span> driver<span class="token punctuation">.</span><span class="token function">getPageSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 关闭当前窗口</span>
-    driver<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/11/16/selenium%20002/#more" rel="contents">

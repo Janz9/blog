@@ -67,7 +67,6 @@
   </div>
 
   <div class="site-meta">
-      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
@@ -318,26 +317,6 @@ war<span class="token operator">/</span>
 ├─js<span class="token operator">/</span>
 ├─index<span class="token punctuation">.</span>html
 └─sample<span class="token punctuation">.</span>jsp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 一个典型的Web项目的Maven目录结构如下:</span>
-project<span class="token operator">/</span>
-├─pom<span class="token punctuation">.</span>xml
-└─src<span class="token operator">/</span>
-   ├─main<span class="token operator">/</span>
-   │  ├─java<span class="token operator">/</span>
-   │  │  └─ServletA<span class="token punctuation">.</span>java
-   │  ├─resources<span class="token operator">/</span>
-   │  │  └─config<span class="token punctuation">.</span>properties
-   │  └─webapp<span class="token operator">/</span>
-   │     ├─WEB<span class="token operator">-</span>INF<span class="token operator">/</span>
-   │     │  └─web<span class="token punctuation">.</span>xml
-   │     ├─img<span class="token operator">/</span>
-   │     ├─css<span class="token operator">/</span>
-   │     ├─js<span class="token operator">/</span>
-   │     ├─index<span class="token punctuation">.</span>html
-   │     └─sample<span class="token punctuation">.</span>jsp
-   └─test<span class="token operator">/</span>
-       ├─java<span class="token operator">/</span>
-       └─resources<span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/11/27/maven/009/#more" rel="contents">
@@ -451,35 +430,6 @@ project<span class="token operator">/</span>
 <h2 id="maven-属性">Maven 属性</h2>
 <p>Maven 为了支持构建的灵活性, 内置了三大特性, 即 <strong>属性</strong>, <strong>Profile</strong> 和 <strong>资源过滤</strong></p>
 <p>Maven 属性分为 6 类, 分别为:</p>
-<ul>
-<li><p><strong>内置属性</strong> 主要有两个常用内置属性:</p>
-<ul>
-<li><code>$&#123;basedir&#125;</code> 表示项目根目录, 即包含 <code>pom.xml</code> 文件的目录;</li>
-<li><code>$&#123;version&#125;</code> 表示项目版本;</li>
-</ul></li>
-<li><p><strong>POM 属性</strong> 用户可以使用该类属性引用 POM 文件中对应元素的值, 常用的 POM 属性包括:</p>
-<ul>
-<li><code>$&#123;project.build.sourceDirectory&#125;</code> 项目的主源码目录, 默认为<code>src/main/java/</code>;</li>
-<li><code>$&#123;project.build.testSourceDirectory&#125;</code> 项目的测试源码目录, 默认为 <code>src/test/java/</code>;</li>
-<li><code>$&#123;project.build.directory&#125;</code> 项目构建输出目录, 默认为 <code>target/</code>;</li>
-<li><code>$&#123;project.outputDirectory&#125;</code> 项目主代码编译输出目录, 默认为 <code>target/classes/</code>;</li>
-<li><code>$&#123;project.testOutputDirectory&#125;</code> 项目测试代码编译输出目录, 默认为 <code>target/test-classes/</code>;</li>
-<li><code>$&#123;project.groupId&#125;</code> 项目的 <code>groupId</code>;</li>
-<li><code>$&#123;project.artifactId&#125;</code> 项目的 <code>artifactId</code>;</li>
-<li><code>$&#123;project.version&#125;</code> 项目的 <code>version</code>, 与 <code>$&#123;version&#125;</code> 等价;</li>
-<li><code>$&#123;project.build.finalName&#125;</code> 项目打包输出文件的名称, 默认为 <code>$&#123;project.artifactId&#125;-$&#123;project.version&#125;</code></li>
-</ul></li>
-<li><p><strong>自定义属性</strong> 用户可以在 POM 的 <code>&lt;properties&gt;</code> 元素下自定义 Maven 属性, 例如</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my.prop</span><span class="token punctuation">></span></span>hello<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my.prop</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后在 POM 中其他地方使用 <code>$&#123;my.prop&#125;</code> 的时候会被替换成 <code>hello</code>;</p></li>
-<li><p><strong>Settings 属性</strong> 与 POM 属性同理, 用户使用以 <code>settings.</code> 开头的属性引用 <code>settings.xml</code> 文件中 XML 元素的值, 如常用的 <code>$&#123;settings.localRepository&#125;</code> 指向用户本地仓库的地址;</p></li>
-<li><p><strong>Java 系统属性</strong> 所有 Java 系统属性都可以使用 Maven 属性引用, 例如 <code>$&#123;user.home&#125;</code> 指向了用户目录, 用户可以使用 <code>mvn help:system</code> 查看所有的 Java 系统属性;</p></li>
-<li><p><strong>环境变量属性</strong> 所有环境变量都可以使用以 <code>env.</code> 开头的 Maven 属性引用, 例如 <code>$&#123;env.JAVA_HOME&#125;</code> 指代了 <code>JAVA_HOME</code> 环境变量的值, 用户可以使用 <code>mvn help:system</code> 查看所有的环境变量</p></li>
-</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/11/05/maven/008/#more" rel="contents">
@@ -593,7 +543,6 @@ project<span class="token operator">/</span>
 <p>Maven 的重要职责之一就是自动运行 <strong>单元测试</strong>, 它通过 <code>maven-surefire-plugin</code> 与主流的单元测试框架 JUnit 3, JUnit 4 以及 TestNG 集成, 并且能够自动生成丰富的结果报告</p>
 <h2 id="maven-surefire-plugin-简介">maven-surefire-plugin 简介</h2>
 <p>Maven 本身并不是一个单元测试框架, Java 世界中主流的单元测试框架为 <a target="_blank" rel="noopener" href="http://www.junit.org/">JUnit</a> 和 <a target="_blank" rel="noopener" href="http://testng.org/">TestNG</a>, Maven 所做的只是在构建执行到特定生命周期阶段的时候, 通过插件来执行 JUnit 或者 TestNG 的测试用例, 这一插件就是 <code>maven-surefire-plugin</code>, 可以称之为 <strong>测试运行器 (Test Runner)</strong>, 它能很好地兼容 JUnit 3, JUnit 4 以及 TestNG</p>
-<p>在默认情况下, <code>maven-surefire-plugin</code> 的 <code>test</code> 目标会自动执行测试源码路径 (默认为 <code>src/test/java/</code>) 下所有符合一组命名模式的测试类, 这组模式为:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/16/maven/007/#more" rel="contents">
@@ -707,22 +656,6 @@ project<span class="token operator">/</span>
 <h2 id="生命周期">生命周期</h2>
 <p>Maven 的 <strong>生命周期</strong> 就是为了对所有的构建过程进行抽象和统一, Maven 从大量项目和构建工具中学习和反思, 然后总结了一套高度完善的, 易扩展的生命周期, 这个生命周期包含了项目的清理, 初始化, 编译, 测试, 打包, 集成测试, 验证, 部署和站点生成等几乎所有构建步骤</p>
 <p>Maven 的生命周期是抽象的, 这意味着生命周期本身不做任何实际的工作, 在 Maven 的设计中, 实际的任务 (如编译源代码) 都交由 <strong>插件</strong> 来完成, Maven 设计了插件机制, 每个构建步骤都可以绑定一个或者多个插件行为, 而且 Maven 为大多数构建步骤编写并绑定了默认插件</p>
-<pre class="mermaid">graph LR
-title[图 生命周期和插件的关系]
-title --> C
-style title fill:#FFF,stroke:#FFF
-linkStyle 0 stroke:#FFF,stroke-width:0;
-A(编译)
-B(测试)
-C(打包)
-D(部署)
-E("maven-compiler-plugin")
-F("maven-surefire-plugin")
-A ==> B
-B ==> C
-C ==> D
-A --> E
-B --> F</pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/12/maven/006/#more" rel="contents">
@@ -836,7 +769,6 @@ B --> F</pre>
 <h2 id="maven-仓库">Maven 仓库</h2>
 <p>在 Maven 世界中, 任何一个依赖, 插件或者项目构建的输出, 都可以称为 <strong>构件</strong>, 任何一个构件都有一组坐标唯一标识</p>
 <p>得益于坐标机制, 任何 Maven 项目使用任何一个构件的方式都是完全相同的, 在此基础上, Maven 可以在某个位置统一存储所有 Maven 项目共享的构件, 这个统一的位置就是 <strong>仓库</strong>, 实际的 Maven 项目将不再各自存储其依赖文件, 它们只需要声明这些依赖的坐标, 在需要的时候 (例如, 编译项目的时候需要将依赖加入到 <code>classpath</code> 中), Maven 会自动根据坐标找到仓库中的构件, 并使用它们, 为了实现重用, 项目构建完毕后生成的构件也可以安装或者部署到仓库中, 供其他项目使用</p>
-<h2 id="仓库的布局">仓库的布局</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/08/maven/005/#more" rel="contents">
@@ -967,7 +899,6 @@ B --> F</pre>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>module</span><span class="token punctuation">></span></span>project-child-b<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>module</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modules</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>为了方便用户构建项目, 通常将聚合模块放在项目目录的最顶层, 其他模块则作为聚合模块的子目录存在, 这样当用户得到源码的时候, 第一眼发现的就是聚合模块的 <code>POM</code>, 不用从多个模块中去寻找聚合模块来构建整个项目</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/05/maven/004/#more" rel="contents">
@@ -1081,7 +1012,6 @@ B --> F</pre>
 <h2 id="maven-坐标">Maven 坐标</h2>
 <p>Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 <strong>Maven 坐标</strong> 唯一标识, Maven 坐标的元素包括<code>groupId</code>, <code>artifactId</code>, <code>version</code>, <code>packaging</code>, <code>classifier</code>, Maven 内置了一个中央仓库的地址, 该中央仓库包含了世界上大部分流行的开源项目构件, Maven 会在需要的时候去那里下载</p>
 <h3 id="坐标详解">坐标详解</h3>
-<p><code>nexus-indexer</code> 是一个对 Maven 仓库编纂索引并提供搜索功能的类库, 它是 Nexus 项目的一个子模块, 下面是 <code>nexus-indexer</code> 的坐标定义</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/04/maven/003/#more" rel="contents">
@@ -1227,9 +1157,6 @@ B --> F</pre>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>没有任何实际的 Java 代码, 就能够定义一个 Maven 项目的 <code>POM</code>, 这体现了 Maven 的一大优点, 它能让项目对象模型最大程度地与实际代码相独立, 可以称之为解耦, 或者正交性, 这在很大程度上避免了 Java 代码和 <code>POM</code> 代码的相互影响, 比如当项目需要升级版本时, 只需要修改 <code>POM</code>, 而不需要更改 Java 代码, 而在 <code>POM</code> 稳定之后, 日常的 Java 代码开发工作基本不涉及 <code>POM</code> 的修改</p>
-</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/01/maven/002/#more" rel="contents">
@@ -1346,9 +1273,6 @@ B --> F</pre>
 <li>Maven 的用途之一是服务于构建, 它是一个异常强大的构建工具, 能够帮我们自动化构建过程, 从清理, 编译, 测试到生成报告, 再到打包和部署;</li>
 <li>Maven 不仅是构建工具, 还是一个依赖管理工具和项目信息管理工具</li>
 </ul>
-<blockquote>
-<p>Maven 是跨平台的, 这意味着无论是在 Windows 上, 还是在 Linux 或者 Mac 上, 都可以使用同样的命令</p>
-</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/08/29/maven/001/#more" rel="contents">
@@ -1462,12 +1386,6 @@ B --> F</pre>
 <h2 id="定义">定义</h2>
 <p><strong>Spring</strong> 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益</p>
 <p>Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:</p>
-<ul>
-<li>基于 POJO 的轻量级和最小侵入性编程;</li>
-<li>通过依赖注入和面向接口实现松耦合;</li>
-<li>基于切面和惯例进行声明式编程;</li>
-<li>通过切面和模板减少样板式代码</li>
-</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/08/29/spring/001/#more" rel="contents">

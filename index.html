@@ -67,7 +67,6 @@
   </div>
 
   <div class="site-meta">
-      <img class="custom-logo-image" src="/images/logo.jpg" alt="Jbot">
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
@@ -247,8 +246,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-07-15 00:10:37" itemprop="dateCreated datePublished" datetime="2021-07-15T00:10:37+08:00">2021-07-15</time>
+      <time title="创建时间：2021-07-15 00:10:37 / 修改时间：00:19:27" itemprop="dateCreated datePublished" datetime="2021-07-15T00:10:37+08:00">2021-07-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -301,7 +301,6 @@
 <li>速率聚合(rate aggregation) 对于不支持速率聚合的监控系统, 增量采样的数据可以进行速率聚合再返回新样本, 对于支持速率聚合的监控系统, 直接返回增量数据</li>
 <li>发布(publishing) 支持不同的监控系统对采样数据的推模式和拉模式</li>
 </ul>
-<h2 id="注册表">注册表</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/15/micrometer-001/#more" rel="contents">
@@ -419,7 +418,6 @@
 <li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端</li>
 </ul>
 <p>Prometheus 服务拉取数据的规范基于简单的文本格式, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exposition_formats/">exposition-formats</a></p>
-<h2 id="exporter">Exporter</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/04/prometheus-004/#more" rel="contents">
@@ -537,16 +535,6 @@
 <li><code>422</code> 表达式不能被执行时</li>
 <li><code>503</code> 服务超时或中止时</li>
 </ul>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// 响应体样例</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span>|<span class="token string">"error"</span><span class="token punctuation">,</span>
-    <span class="token property">"data"</span><span class="token operator">:</span> &lt;data><span class="token punctuation">,</span>
-    <span class="token comment">// 当status=error时返回错误信息</span>
-    <span class="token property">"errorType"</span><span class="token operator">:</span> <span class="token string">"&lt;string>"</span><span class="token punctuation">,</span>
-    <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"&lt;string>"</span><span class="token punctuation">,</span>
-    <span class="token comment">// 如果存在不限制请求执行的错误时, 可能返回警告数组</span>
-    <span class="token property">"warnings"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"&lt;string>"</span><span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/01/prometheus-003/#more" rel="contents">
@@ -660,15 +648,6 @@
 <p>每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/data_model/">data-model</a></p>
 <h2 id="时间序列">时间序列</h2>
 <p>Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都将被忽略</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: http:&#x2F;&#x2F;localhost:9090&#x2F;metrics
-
-# HELP prometheus_http_requests_total Counter of HTTP requests.
-# TYPE prometheus_http_requests_total counter
-prometheus_http_requests_total&#123;code&#x3D;&quot;200&quot;,handler&#x3D;&quot;&#x2F;metrics&quot;&#125; 5357
-
-# 此处示例仅截取返回的文本数据中的单个指标
-# HELP 是指标的描述
-# TYPE 是指标的类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/25/prometheus-002/#more" rel="contents">
@@ -733,7 +712,7 @@ prometheus_http_requests_total&#123;code&#x3D;&quot;200&quot;,handler&#x3D;&quot
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-04 08:48:53" itemprop="dateModified" datetime="2021-07-04T08:48:53+08:00">2021-07-04</time>
+        <time title="修改时间：2021-07-15 00:17:04" itemprop="dateModified" datetime="2021-07-15T00:17:04+08:00">2021-07-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -789,9 +768,6 @@ prometheus_http_requests_total&#123;code&#x3D;&quot;200&quot;,handler&#x3D;&quot
 <li><strong>Dashboard</strong> 除了内置的查询语言 PromQL 以外, Prometheus 还支持表达式浏览器和基于表达式浏览器的数据图形界面, 实际工作中使用 Grafana 等作为前端展示界面</li>
 <li><strong>Alertmanager</strong> 是独立于 Prometheus 的一个告警组件, 需要单独安装部署, Alertmanager 通过接收 Prometheus 推送过来的告警, 用于管理, 整合和分发告警到不同的目的地, Alertmanager 提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook 通知的支持</li>
 </ul>
-<center>
-Prometheus 架构图
-</center>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/21/prometheus-001/#more" rel="contents">
@@ -909,7 +885,6 @@ Prometheus 架构图
 <p>使用 GraphQL 时, 最常见被选用的跨端协议是 HTTP, 通常使用单个端点来提供服务的完整功能, 服务通常使用文本格式的 Json 语法返回数据, <a target="_blank" rel="noopener" href="https://graphql.cn/learn/serving-over-http/">serving-over-http</a> 页面提供了使用 HTTP 服务的最佳实践</p>
 <h2 id="准则">准则</h2>
 <p>GraphQL 规范特意忽略了网络处理的问题, 但这并不意味着在使用 GraphQL 时没有针对这些问题的解决方案, 可代以工程上通行的准则来实现, 这些准则是基于服务端与 <a target="_blank" rel="noopener" href="https://relay.dev/">relay</a> 客户端兼容来写的, 但是对于任何客户端都有用</p>
-<h3 id="路由">路由</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/20/graphql%20003/#more" rel="contents">
@@ -1032,7 +1007,6 @@ Prometheus 架构图
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>graphql-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;latest-version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="schema">Schema</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/19/graphql%20002/#more" rel="contents">
@@ -1146,24 +1120,6 @@ Prometheus 架构图
 <p><a target="_blank" rel="noopener" href="https://graphql.org/">GraphQL</a> 是一种用于 API 的查询语言, 也是一个满足数据查询的运行时, GraphQL 对 API 中的数据提供了一套易于理解的完整描述, 使得客户端能够准确的获得它需要的数据, 而且没有任何冗余, 也让 API 更容易的随着时间推移而演进, 规范详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/">spec</a></p>
 <h2 id="schema">Schema</h2>
 <p>GraphQL 使用模板定义语言(Schema Definitin Language, SDL) 用于定义强类型的文档, 无论使用何种语言或框架构建应用程序, GraphQL SDL 都是相同的, GraphQL Schema 定义了应用程序中的可用类型, 服务端和客户端通过它来验证 GraphQL 请求</p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">"文件: schema.graphql"</span>
-schema &#123;
-    query: Query           <span class="token string">"操作类型"</span>
-&#125;
-type Query &#123;               <span class="token string">"定义初始类型"</span>
-    hero<span class="token punctuation">(</span><span class="token function">id:</span> ID<span class="token punctuation">)</span>: Hero
-&#125;
-type Hero &#123;                <span class="token string">"定义对象类型"</span>
-    id: ID!                <span class="token string">"ID用于对象类型中的唯一标识符"</span>
-    name: String!          <span class="token string">"感叹号表示字段是非空字段"</span>
-    appearsIn: <span class="token punctuation">[</span><span class="token function">Episode</span><span class="token punctuation">]</span>!  <span class="token string">"方括号用于列表字段"</span>
-    totalCredits: Int
-&#125;
-enum Episode &#123;             <span class="token string">"定义枚举类型"</span>
-    NEWHOPE
-    EMPIRE
-    JEDI
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/17/graphql%20001/#more" rel="contents">
@@ -1277,7 +1233,6 @@ enum Episode &#123;             <span class="token string">"定义枚举类型"<
 <h2 id="用户界面">用户界面</h2>
 <p>Vim 用户界面是可扩展的, 用户可以改变 Vim 的主题, 修改某些界面元素的显示方式, 并且增强状态栏中的信息显示</p>
 <h3 id="配色">配色</h3>
-<p>Vim 中可以使用多种配色, 一部分是 Vim 自带的, 一部分则由社区成员提供</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/04/25/vim%20003/#more" rel="contents">
@@ -1391,17 +1346,6 @@ enum Episode &#123;             <span class="token string">"定义枚举类型"<
 <p>在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件</p>
 <h2 id="缓冲区">缓冲区</h2>
 <p>缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看缓冲区列表
-:ls
-  1 %a   &quot;.&#x2F;a_owner.proto&quot;              line 1
-  2 #    &quot;.&#x2F;b_address.proto&quot;            line 1
-
-# 输出结果显示了缓冲区的相关信息
-n       # 为缓冲区的编号, 具有唯一性
-%       # 表示该缓冲区位于当前窗口中
-a       # 表示该缓冲区处于活动状态, 即它已被加载并可见
-&quot;&quot;      # 为文件名
-line n  # 表示当前光标位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/04/24/vim%20002/#more" rel="contents">
