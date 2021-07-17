@@ -32,13 +32,13 @@
 <meta property="og:site_name" content="Jbot">
 <meta property="og:description" content="入门 Prometheus 主要用于提供近实时的, 基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus 专注于现在正在发生的事情, 而不是追踪数周或数月前的数据, 它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的 Prometheus 主要由 6 个核心模块构成:  Prometheus Server 是最核心的模块, 它主要包含抓取, 存储和查询">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg">
 <meta property="article:published_time" content="2021-06-21T02:57:40.000Z">
-<meta property="article:modified_time" content="2021-07-14T16:17:04.971Z">
+<meta property="article:modified_time" content="2021-07-17T17:31:00.082Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="Prometheus">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg">
 
 
 <link rel="canonical" href="https://janz.icu/2021/06/21/prometheus-001/">
@@ -263,7 +263,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-15 00:17:04" itemprop="dateModified" datetime="2021-07-15T00:17:04+08:00">2021-07-15</time>
+        <time title="修改时间：2021-07-18 01:31:00" itemprop="dateModified" datetime="2021-07-18T01:31:00+08:00">2021-07-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,14 +290,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>12k</span>
+      <span>11k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>11 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -317,13 +317,13 @@
 <li><strong>Prometheus Targets</strong> 是 Prometheus 监控的对象, 对于长时间执行的 Job, 可以使用 Exporter 集成进行监控, Exporter 的机制是将第三方系统的监控数据按照 Prometheus 的格式暴露出来, Prometheus 是拉模式为主的监控系统</li>
 <li><strong>Pushgateway</strong> 是用于支持临时性 Job 主动推送指标的中间网关, 它使用推模式收集数据, 本质上是用于解决 Prometheus 服务器和监控目标有网络隔离的场景</li>
 <li><strong>Dashboard</strong> 除了内置的查询语言 PromQL 以外, Prometheus 还支持表达式浏览器和基于表达式浏览器的数据图形界面, 实际工作中使用 Grafana 等作为前端展示界面</li>
-<li><strong>Alertmanager</strong> 是独立于 Prometheus 的一个告警组件, 需要单独安装部署, Alertmanager 通过接收 Prometheus 推送过来的告警, 用于管理, 整合和分发告警到不同的目的地, Alertmanager 提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook 通知的支持</li>
+<li><strong>AlertManager</strong> 是独立于 Prometheus 的一个告警组件, 需要单独安装部署, AlertManager 通过接收 Prometheus 推送过来的告警, 用于管理, 整合和分发告警到不同的目的地, AlertManager 提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook 通知的支持</li>
 </ul>
 <figure>
-<img src="https://cdn.jsdelivr.net/gh/prometheus/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg" alt="Prometheus 架构图" /><figcaption aria-hidden="true">Prometheus 架构图</figcaption>
+<img src="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg" alt="Prometheus 架构图" /><figcaption aria-hidden="true">Prometheus 架构图</figcaption>
 </figure>
 <h2 id="安装">安装</h2>
-<p>Prometheus 官网提供了预编译的二进制文件, 也支持使用 Docker 容器的方式部署, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/installation/">installation</a></p>
+<p>Prometheus 官网提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/releases">releases</a>, 也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/prometheus">prom/prometheus</a>, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/installation/">installation</a></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: docekr部署
 $ docker run -d
   -p 9090:9090
@@ -348,7 +348,7 @@ $ brew  install prometheus  # macos<span aria-hidden="true" class="line-numbers-
 <li>Ansible <a target="_blank" rel="noopener" href="https://github.com/cloudalchemy/ansible-prometheus">cloudalchemy/ansible-prometheus</a></li>
 <li>SaltStack <a target="_blank" rel="noopener" href="https://github.com/saltstack-formulas/prometheus-formula">saltstack-formulas/prometheus-formula</a></li>
 </ul>
-<p>可以通过 Kubernetes 或 Operator 部署</p>
+<p>可以通过 Kubernetes 集群部署</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/kayrus/prometheus-kubernetes">kayrus/prometheus-kubernetes</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/prometheus-operator">prometheus-operator/prometheus-operator</a></li>
@@ -384,46 +384,12 @@ $ promtool check config prometheus.yml<span aria-hidden="true" class="line-numbe
 <p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/config">/config</a> 查看当前服务使用的配置信息</p>
 <h3 id="认证">认证</h3>
 <p>Prometheus 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code> 指定配置文件, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/https/">authentication</a></p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 认证配置样例</span>
-<span class="token key atrule">tls_server_config</span><span class="token punctuation">:</span>
-  <span class="token comment"># Certificate and key files for server to use to authenticate to client.</span>
-  <span class="token key atrule">cert_file</span><span class="token punctuation">:</span> &lt;filename<span class="token punctuation">></span>
-  <span class="token key atrule">key_file</span><span class="token punctuation">:</span> &lt;filename<span class="token punctuation">></span>
-  <span class="token comment"># Server policy for client authentication. Maps to ClientAuth Policies.</span>
-  <span class="token comment"># For more detail on clientAuth options:</span>
-  <span class="token comment"># https://golang.org/pkg/crypto/tls/#ClientAuthType</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">client_auth_type</span><span class="token punctuation">:</span> &lt;string<span class="token punctuation">></span> <span class="token punctuation">|</span> default = "NoClientCert" <span class="token punctuation">]</span>
-  <span class="token comment"># CA certificate for client certificate authentication to the server.</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">client_ca_file</span><span class="token punctuation">:</span> &lt;filename<span class="token punctuation">></span> <span class="token punctuation">]</span>
-  <span class="token comment"># Minimum TLS version that is acceptable.</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">min_version</span><span class="token punctuation">:</span> &lt;string<span class="token punctuation">></span> <span class="token punctuation">|</span> default = "TLS12" <span class="token punctuation">]</span>
-  <span class="token comment"># Maximum TLS version that is acceptable.</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">max_version</span><span class="token punctuation">:</span> &lt;string<span class="token punctuation">></span> <span class="token punctuation">|</span> default = "TLS13" <span class="token punctuation">]</span>
-  <span class="token comment"># List of supported cipher suites for TLS versions up to TLS 1.2. If empty,</span>
-  <span class="token comment"># Go default cipher suites are used. Available cipher suites are documented</span>
-  <span class="token comment"># in the go documentation:</span>
-  <span class="token comment"># https://golang.org/pkg/crypto/tls/#pkg-constants</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">cipher_suites</span><span class="token punctuation">:</span>
-    <span class="token punctuation">[</span> <span class="token punctuation">-</span> &lt;string<span class="token punctuation">></span> <span class="token punctuation">]</span> <span class="token punctuation">]</span>
-  <span class="token comment"># prefer_server_cipher_suites controls whether the server selects the</span>
-  <span class="token comment"># client's most preferred ciphersuite, or the server's most preferred</span>
-  <span class="token comment"># ciphersuite. If true then the server's preference, as expressed in</span>
-  <span class="token comment"># the order of elements in cipher_suites, is used.</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">prefer_server_cipher_suites</span><span class="token punctuation">:</span> &lt;bool<span class="token punctuation">></span> <span class="token punctuation">|</span> default = true <span class="token punctuation">]</span>
-  <span class="token comment"># Elliptic curves that will be used in an ECDHE handshake, in preference</span>
-  <span class="token comment"># order. Available curves are documented in the go documentation:</span>
-  <span class="token comment"># https://golang.org/pkg/crypto/tls/#CurveID</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">curve_preferences</span><span class="token punctuation">:</span>
-    <span class="token punctuation">[</span> <span class="token punctuation">-</span> &lt;string<span class="token punctuation">></span> <span class="token punctuation">]</span> <span class="token punctuation">]</span>
-<span class="token key atrule">http_server_config</span><span class="token punctuation">:</span>
-  <span class="token comment"># Enable HTTP/2 support. Note that HTTP/2 is only supported with TLS.</span>
-  <span class="token comment"># This can not be changed on the fly.</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">http2</span><span class="token punctuation">:</span> &lt;boolean<span class="token punctuation">></span> <span class="token punctuation">|</span> default = true <span class="token punctuation">]</span>
-<span class="token comment"># Usernames and hashed passwords that have full access to the web</span>
-<span class="token comment"># server via basic authentication. If empty, no basic authentication is</span>
-<span class="token comment"># required. Passwords are hashed with bcrypt.</span>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 认证配置</span>
 <span class="token key atrule">basic_auth_users</span><span class="token punctuation">:</span>
-  <span class="token punctuation">[</span> <span class="token key atrule">&lt;string></span><span class="token punctuation">:</span> &lt;secret<span class="token punctuation">></span> <span class="token punctuation">...</span> <span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token key atrule">admin</span><span class="token punctuation">:</span> $2y$10$mDwo.lAisC94iLAyP81MCesa29IzH37oigHC/42V2pdJlUprsJPze<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>密码参考 <a target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
+</blockquote>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 验证认证配置
 $ promtool check web-config web-config.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>使用 Nginx 反向代理 Prometheus 时, 配置 basic 认证和 TLS 的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/basic-auth/">basic</a> <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/tls-encryption/">tls</a></p>
@@ -534,7 +500,12 @@ $ curl -X POST http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;reload<span aria-hidd
         <span class="token key atrule">annotations</span><span class="token punctuation">:</span>  <span class="token comment"># 指定信息标签, 可用于存储更长的附加信息, 例如告警描述</span>
           <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance &#123;&#123; $labels.instance &#125;&#125; down"</span>
           <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"&#123;&#123; $labels.instance &#125;&#125; of job &#123;&#123; $labels.job &#125;&#125; has been down for more than 5 minutes."</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/alerts">/alerts</a> 查看监控中的告警列表, 告警有三种状态: 非活动(Inactive), 挂起(Pending), 触发(Firing)</p>
+<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/alerts">/alerts</a> 查看监控中的告警列表, 告警规则有三种状态:</p>
+<ul>
+<li>非活动(Inactive) 没有触发阈值</li>
+<li>挂起(Pending) 已触发阈值但未满足告警持续时间</li>
+<li>触发(Firing) 已触发阈值且满足告警持续时间</li>
+</ul>
 <h2 id="存储">存储</h2>
 <p>Prometheus 包括一个本地磁盘上的时间序列数据库, 但也可以选择与远程存储系统集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/storage/">storage</a></p>
 <h3 id="本地存储">本地存储</h3>
@@ -799,14 +770,14 @@ Flags:
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">387k</span>
+    <span title="站点总字数">385k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:51</span>
+    <span title="站点阅读时长">5:50</span>
   </span>
 </div>
 <div class="busuanzi-count">
