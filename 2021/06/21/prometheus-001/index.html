@@ -34,7 +34,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg">
 <meta property="article:published_time" content="2021-06-21T02:57:40.000Z">
-<meta property="article:modified_time" content="2021-07-17T17:31:00.082Z">
+<meta property="article:modified_time" content="2021-07-18T23:13:14.494Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="Prometheus">
 <meta name="twitter:card" content="summary">
@@ -170,7 +170,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -183,7 +183,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -263,7 +263,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-18 01:31:00" itemprop="dateModified" datetime="2021-07-18T01:31:00+08:00">2021-07-18</time>
+        <time title="修改时间：2021-07-19 07:13:14" itemprop="dateModified" datetime="2021-07-19T07:13:14+08:00">2021-07-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -354,7 +354,7 @@ $ brew  install prometheus  # macos<span aria-hidden="true" class="line-numbers-
 <li><a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/prometheus-operator">prometheus-operator/prometheus-operator</a></li>
 </ul>
 <h3 id="配置">配置</h3>
-<p>Prometheus 通过 YAML 文件来配置, 初始的配置文件 <code>prometheus.yml</code> 位于执行文件的根目录, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file">configuration-file</a></p>
+<p>Prometheus 通过 YAML 文件来配置, 初始的配置文件 <code>prometheus.yml</code> 位于执行文件的根目录, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file">configuration</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: prometheus.yml</span>
 <span class="token key atrule">global</span><span class="token punctuation">:</span>  <span class="token comment"># 全局配置</span>
   <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span>     15s  <span class="token comment"># 指定应用程序或服务抓取数据的时间间隔, 默认1m</span>
@@ -404,7 +404,7 @@ $ prometheus
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 通过端点关闭服务
 $ curl -X POST http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;quit
 # 前提启动时指定选项--web.enable-lifecycle<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>服务启动之后, 可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/targets">/targets</a> 查看当前的监控目标列表, 每个目标都提供了简单的信息和状态信息</p>
+<p>服务启动之后, 可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/targets">/targets</a> 查看当前的监控目标列表</p>
 <p>初始配置中只有一个作业 <code>prometheus</code> 的监控目标, 目标的监控数据从本地的 <code>9090</code> 端口返回指标, 可以通过配置的端点默认值 <a target="_blank" rel="noopener" href="http://localhost:9090/metrics">/metrics</a> 查看抓取的指标数据</p>
 <p>Prometheus 提供了一组管理 API, 以促进自动化和集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/management_api/">management-api</a></p>
 <ul>
@@ -497,14 +497,14 @@ $ curl -X POST http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;reload<span aria-hidd
       <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> InstanceDown
         <span class="token key atrule">expr</span><span class="token punctuation">:</span> up == 0
         <span class="token key atrule">for</span><span class="token punctuation">:</span> 5m       <span class="token comment"># 控制在触发告警之前表达式必须满足的持续时间</span>
-        <span class="token key atrule">annotations</span><span class="token punctuation">:</span>  <span class="token comment"># 指定信息标签, 可用于存储更长的附加信息, 例如告警描述</span>
+        <span class="token key atrule">annotations</span><span class="token punctuation">:</span>  <span class="token comment"># 指定信息标签, 可用于存储更长的附加信息, 例如告警描述等</span>
           <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance &#123;&#123; $labels.instance &#125;&#125; down"</span>
           <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"&#123;&#123; $labels.instance &#125;&#125; of job &#123;&#123; $labels.job &#125;&#125; has been down for more than 5 minutes."</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/alerts">/alerts</a> 查看监控中的告警列表, 告警规则有三种状态:</p>
 <ul>
 <li>非活动(Inactive) 没有触发阈值</li>
-<li>挂起(Pending) 已触发阈值但未满足告警持续时间</li>
-<li>触发(Firing) 已触发阈值且满足告警持续时间</li>
+<li>挂起(Pending) 已触发阈值但未满足告警的持续时间</li>
+<li>触发(Firing) 已触发阈值且满足告警的持续时间</li>
 </ul>
 <h2 id="存储">存储</h2>
 <p>Prometheus 包括一个本地磁盘上的时间序列数据库, 但也可以选择与远程存储系统集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/storage/">storage</a></p>
@@ -676,16 +676,19 @@ Flags:
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/07/19/alertmanager-001/" rel="bookmark">AlertManager 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
+      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
+      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
     </li>
   </ul>
 
@@ -770,14 +773,14 @@ Flags:
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">385k</span>
+    <span title="站点总字数">390k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:50</span>
+    <span title="站点阅读时长">5:55</span>
   </span>
 </div>
 <div class="busuanzi-count">

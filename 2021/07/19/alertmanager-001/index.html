@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="15KaUGpMnZUVGs_JmpIVryoJqLY7dznadS6gXsMfQy4">
+  <meta name="msvalidate.01" content="4F6BAC7001B48D6F40FFF99CB872CABE">
+  <meta name="baidu-site-verification" content="code-xRaoVOYLkA">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="入门 AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络回调 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AlertManager 入门">
+<meta property="og:url" content="https://janz.icu/2021/07/19/alertmanager-001/index.html">
+<meta property="og:site_name" content="Jbot">
+<meta property="og:description" content="入门 AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络回调 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg">
+<meta property="article:published_time" content="2021-07-19T00:33:03.000Z">
+<meta property="article:modified_time" content="2021-07-19T00:33:03.479Z">
+<meta property="article:author" content="Janz">
+<meta property="article:tag" content="AlertManager">
+<meta property="article:tag" content="Prometheus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg">
+
+
+<link rel="canonical" href="https://janz.icu/2021/07/19/alertmanager-001/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://janz.icu/2021/07/19/alertmanager-001/","path":"2021/07/19/alertmanager-001/","title":"AlertManager 入门"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AlertManager 入门 | Jbot</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jbot</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%9F%A5"><span class="nav-number">1.2.</span> <span class="nav-text">通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%91%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">抑制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E9%BB%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">静默</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4"><span class="nav-number">1.3.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.4.</span> <span class="nav-text">工具</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Janz"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Janz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Janz9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Janz9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:janz9@foxmail.com" title="E-Mail → mailto:janz9@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/07/19/alertmanager-001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AlertManager 入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-19 08:33:03" itemprop="dateCreated datePublished" datetime="2021-07-19T08:33:03+08:00">2021-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/07/19/alertmanager-001/" class="post-meta-item leancloud_visitors" data-flag-title="AlertManager 入门" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="入门">入门</h1>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络回调 (webhook), 微信等多种通知方式</p>
+<p>AlertManager 的架构可分为以下 6 个模块:</p>
+<ol type="1">
+<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于 http 协议的告警事件</li>
+<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中, 可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
+<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警, 并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中, 以实现告警事件的分组处理</li>
+<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑 (如抑制, 静默, 去重等) 来优化告警的质量</li>
+<li>Silence Provider 模块用于提供静默处理的实现, 静默规则可用来关闭部分告警的通知, 并通过 Cluster 以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
+<li>Notify Provider 模块会在本地记录日志, 用于提供通知的具体实现</li>
+</ol>
+<figure>
+<img src="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg" alt="AlertManager 架构图" /><figcaption aria-hidden="true">AlertManager 架构图</figcaption>
+</figure>
+<h2 id="安装">安装</h2>
+<p>AlertManager 提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/releases">releases</a>, 也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/alertmanager">prom/alertmanager</a>, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager#install">install</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: docker部署
+$ docker run -d
+  -p 9093:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置">配置</h3>
+<p>AlertManager 通过 YAML 文件来配置, 命令行可以配置不可变的系统参数, 而配置文件定义的限制规则用于通知路由和接收者, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/">configuration</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: alertmanager.yml</span>
+<span class="token key atrule">global</span><span class="token punctuation">:</span>  <span class="token comment"># 全局配置</span>
+<span class="token comment"># The smarthost and SMTP sender used for mail notifications.</span>
+
+<span class="token key atrule">templates</span><span class="token punctuation">:</span>  <span class="token comment"># 模板配置</span>
+<span class="token comment"># - '/etc/alertmanager/template/*.tmpl'</span>
+
+<span class="token key atrule">route</span><span class="token punctuation">:</span>  <span class="token comment"># 告警路由</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'job'</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 5m
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 1h
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'webhook'</span>
+
+<span class="token key atrule">receivers</span><span class="token punctuation">:</span>  <span class="token comment"># 接收配置</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'webhook'</span>
+  <span class="token key atrule">webhook_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'http://127.0.0.1:5001/'</span>
+
+<span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span>  <span class="token comment"># 静默规则</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">source_match</span><span class="token punctuation">:</span>
+      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'critical'</span>
+    <span class="token key atrule">target_match</span><span class="token punctuation">:</span>
+      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'warning'</span>
+    <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'instance'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="认证">认证</h3>
+<p>AlertManager 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code> 指定配置文件, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/#configuration-file">authentication</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 认证配置</span>
+<span class="token key atrule">basic_auth_users</span><span class="token punctuation">:</span>
+  <span class="token key atrule">admin</span><span class="token punctuation">:</span> $2y$10$mDwo.lAisC94iLAyP81MCesa29IzH37oigHC/42V2pdJlUprsJPze<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>密码参考 <a target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
+</blockquote>
+<h3 id="启动">启动</h3>
+<p>通过运行 <code>alertmanager</code> 执行文件启动服务</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 启动服务
+$ alertmanager
+  --config.file&#x3D;&quot;.&#x2F;alertmanager.yml&quot;    # 指定配置文件
+  --web.config.file&#x3D;&quot;.&#x2F;web-config.yml&quot;  # 指定认证配置
+# 可通过-h选项查看帮助内容<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>服务启动之后, 可以在控制台 <a target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/status">/status</a> 查看服务状态和配置信息</p>
+<p>AlertManager 提供了一组管理 API, 以促进自动化和集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/management_api/">management-api</a></p>
+<ul>
+<li><code>GET /-/healthy</code> 该端点用于显示服务的健康状态</li>
+<li><code>GET /-/ready</code> 当服务准备好时, 该端点返回 <code>200</code> 状态码</li>
+<li><code>POST /-/reload</code> 该端点用于触发重新加载服务的配置和规则文件</li>
+</ul>
+<h2 id="通知">通知</h2>
+<p>根据 Prometheus 和 AlertManager 的告警配置, 会影响告警事件的通知逻辑和时间</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: prometheus.yml</span>
+<span class="token key atrule">global</span><span class="token punctuation">:</span>
+  <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span> 1m
+  <span class="token key atrule">scrape_timeout</span><span class="token punctuation">:</span> 10s
+  <span class="token key atrule">evaluation_interval</span><span class="token punctuation">:</span> 1m
+<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> 127.0.0.1<span class="token punctuation">:</span><span class="token number">9093</span>
+<span class="token key atrule">rule_files</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">"rules/instance.alerts.yml"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: alertmanager.yml</span>
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">...</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 5m
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 4h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: rules/instance.alerts.yml</span>
+<span class="token key atrule">groups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> instance_alerts
+    <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> InstanceDown
+        <span class="token key atrule">expr</span><span class="token punctuation">:</span> up == 0
+        <span class="token key atrule">for</span><span class="token punctuation">:</span> 5m
+        <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+          <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance &#123;&#123; $labels.instance &#125;&#125; down"</span>
+          <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"&#123;&#123; $labels.instance &#125;&#125; of job &#123;&#123; $labels.job &#125;&#125; has been down for more than 5 minutes."</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol type="1">
+<li>Prometheus 以 <code>scrape_interval</code> 采样周期的间隔从客户端拉取时序, 根据时序的采样值, 以 <code>evaluation_interval</code> 评估周期的间隔对告警规则的表达式 <code>expr</code> 进行评估;</li>
+<li>当采集对象出现问题时, Prometheus 会持续尝试拉取时序, 直到经过 <code>scrape_timeout</code> 超时时间后停止;</li>
+<li>告警规则的表达式评估为真时, 告警状态切换到挂起 (Pending);</li>
+<li>告警状态挂起的持续时间超过 <code>for</code> 指定的时间后, 告警状态切换为触发(Firing), 并将告警事件发送给 AlertManager;</li>
+<li>下个评估周期若表达式评估仍为真, 且持续时间超过 <code>for</code> 指定的时间, 则持续发送告警事件给 AlertManager;</li>
+<li>直到表达式评估为假, 告警状态切换为非活动(Inactive), 并发送通知 AlertManager 告警事件已解决;</li>
+<li>AlertManager 接收到告警事件后, 先根据分组中的 <code>group_wait</code> 等待时间, 等待过后再发出告警通知;</li>
+<li>同个分组的告警事件, 在等待时间内可能产生新的告警事件, 在前一个告警成功发出后, 经过 <code>group_interval</code> 周期时间后, 再发送新的告警通知;</li>
+<li>如果分组里的告警一直没发生变化, 则在成功发出告警通知之后, 再经过 <code>repeat_interval</code> 重复周期的时间后, 重复发出相同的告警通知;</li>
+<li>如果告警通知没有成功发出, 则等待 <code>group_interval</code> 周期时间后, 会再次尝试发出告警通知</li>
+</ol>
+<h3 id="分组">分组</h3>
+<p>分组是指将性质类似的告警分成一个通知类, 不同分组之间互相独立, 互不影响, 分组可以聚合同类告警以减少告警数量, 通过精简的方式帮助分析问题, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#grouping">grouping</a></p>
+<p>分组由配置文件中的路由树节点配置, 可按匹配规则细分成多个子节点, 子节点未配置的可选参数将从父节点继承配置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 分组配置</span>
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">...</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 5m
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 4h
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'webhook'</span>   <span class="token comment"># 该分组的接收配置, 对应receivers节点配置</span>
+  <span class="token key atrule">routes</span><span class="token punctuation">:</span>               <span class="token comment"># 子分组</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">matchers</span><span class="token punctuation">:</span>           <span class="token comment"># 匹配规则</span>
+    <span class="token punctuation">-</span> application="myapp"
+    <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'email'</span>   <span class="token comment"># 覆盖父节点的接收配置</span>
+
+<span class="token comment"># 此处配置myapp应用告警使用email方式, 其它使用webhook方式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="抑制">抑制</h3>
+<p>抑制是指当源告警通知已经发出时, 停止再发送目标告警的通知, 抑制主要用于消除冗余的告警, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#inhibition">inhibition</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 抑制配置</span>
+<span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">source_matchers</span><span class="token punctuation">:</span>  <span class="token comment"># 匹配源告警</span>
+  <span class="token punctuation">-</span> job='node'
+  <span class="token key atrule">target_matchers</span><span class="token punctuation">:</span>  <span class="token comment"># 匹配目标告警</span>
+  <span class="token punctuation">-</span> application='myapp'
+  <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>         <span class="token comment"># 配置需要在源和目标中必须具有相等值的标签</span>
+
+<span class="token comment"># 此处配置当node主机发出告警通知时, 不再发出myapp应用的告警通知</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="静默">静默</h3>
+<p>静默通过配置静默表达式, 使匹配的告警事件不再发送告警通知, 管理员可以在控制台 <a target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/silences">/silences</a> 中添加静默表达式, 通常用于主机维护时或夜间运行批处理作业等场景, 添加临时的静默规则可以防止产生不必要的告警, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#silences">silences</a></p>
+<p>静默提供了一种简单的机制, 可以在给定的时间内忽略可存在的告警, 静默基于 <code>matchers</code> 配置实现, 类似于路由树, 对接收的告警事件进行检查, 判断它们是否和活跃的静默表达式匹配, 如果匹配成功, 就不会将这些告警发送给接收端</p>
+<h2 id="集群">集群</h2>
+<p>为了避免单节点问题, 通常会对多个 AlertManager 进行集群部署, AlertManager 之间通过 Gossip 机制进行集群成员管理和成员故障检测, 以确保在多个 AlertManager 分别接收到相同告警事件的情况下, 只有一个告警通知被发送给接收端, 要创建 AlertManager 的高可用集群, 可使用 <code>--cluster.*</code> 标志进行配置, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/blob/main/README.md#high-availability">high-availability</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 启动服务
+$ docker run -d -p 9094:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager
+  --config.file&#x3D;&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;alertmanager
+  --cluster.listen-address&#x3D;&quot;172.17.0.1:9094&quot;
+$ docker run -d -p 9095:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager
+  --config.file&#x3D;&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;alertmanager
+  --cluster.listen-address&#x3D;&quot;172.17.0.2:9095&quot; --cluster.peer&#x3D;&quot;172.17.0.1:9094&quot;
+$ docker run -d -p 9096:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager
+  --config.file&#x3D;&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;alertmanager
+  --cluster.listen-address&#x3D;&quot;172.17.0.3:9096&quot; --cluster.peer&#x3D;&quot;172.17.0.1:9094&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: prometheus.yml</span>
+<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 172.17.0.1<span class="token punctuation">:</span><span class="token number">9094</span>
+      <span class="token punctuation">-</span> 172.17.0.2<span class="token punctuation">:</span><span class="token number">9095</span>
+      <span class="token punctuation">-</span> 172.17.0.3<span class="token punctuation">:</span><span class="token number">9096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="工具">工具</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/tree/main/cmd/amtool">AMTool</a> 是用于与 AlertManager 架构中的 API 模块进行交互的 CLI 工具, 它可以使用 AlertManager 提供的查询语法, 进行告警事件的查询, 并且支持添加临时的静默规则</p>
+<p><a target="_blank" rel="noopener" href="https://www.prometheus.io/webtools/alerting/routing-tree-editor/">RoutingTreeEditor</a> 是一个在线支持可视化的路由树编辑器, 通过生成直观的图例, 确保开发人员编写正确的规则逻辑</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Janz 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Janz
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://janz.icu/2021/07/19/alertmanager-001/" title="AlertManager 入门">https://janz.icu/2021/07/19/alertmanager-001/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AlertManager/" rel="tag"><i class="fa fa-tag"></i> AlertManager</a>
+              <a href="/tags/Prometheus/" rel="tag"><i class="fa fa-tag"></i> Prometheus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/07/15/micrometer-001/" rel="next" title="Micrometer">
+                  Micrometer <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Janz</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">390k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:55</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"dark","js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js","integrity":"sha256-sVAx+v/Q7v0Q2xm5vN7h5ccSna6gaLREhG9sF8pKT6I="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="nprogress" type="application/json">{"enable":true,"spinner":true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PL9VMrx5HV1Ism9DS4TNVsl7-gzGzoHsz","app_key":"g7nEAMnwrow0lPGzLIK8jQ3r","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

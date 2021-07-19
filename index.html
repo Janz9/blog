@@ -162,7 +162,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -175,7 +175,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,6 +223,119 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/07/19/alertmanager-001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Janz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jbot">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/07/19/alertmanager-001/" class="post-title-link" itemprop="url">AlertManager 入门</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-19 08:33:03" itemprop="dateCreated datePublished" datetime="2021-07-19T08:33:03+08:00">2021-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/07/19/alertmanager-001/" class="post-meta-item leancloud_visitors" data-flag-title="AlertManager 入门" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="入门">入门</h1>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络回调 (webhook), 微信等多种通知方式</p>
+<p>AlertManager 的架构可分为以下 6 个模块:</p>
+<ol type="1">
+<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于 http 协议的告警事件</li>
+<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中, 可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
+<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警, 并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中, 以实现告警事件的分组处理</li>
+<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑 (如抑制, 静默, 去重等) 来优化告警的质量</li>
+<li>Silence Provider 模块用于提供静默处理的实现, 静默规则可用来关闭部分告警的通知, 并通过 Cluster 以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
+<li>Notify Provider 模块会在本地记录日志, 用于提供通知的具体实现</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/19/alertmanager-001/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/07/15/micrometer-001/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -246,10 +359,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-07-15 00:10:37 / 修改时间：10:17:01" itemprop="dateCreated datePublished" datetime="2021-07-15T00:10:37+08:00">2021-07-15</time>
+      <time title="创建时间：2021-07-15 00:10:37" itemprop="dateCreated datePublished" datetime="2021-07-15T00:10:37+08:00">2021-07-15</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-19 00:50:07" itemprop="dateModified" datetime="2021-07-19T00:50:07+08:00">2021-07-19</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -712,7 +831,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-18 01:31:00" itemprop="dateModified" datetime="2021-07-18T01:31:00+08:00">2021-07-18</time>
+        <time title="修改时间：2021-07-19 07:13:14" itemprop="dateModified" datetime="2021-07-19T07:13:14+08:00">2021-07-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1258,121 +1377,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://janz.icu/2021/04/24/vim%20002/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Janz">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jbot">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/24/vim%20002/" class="post-title-link" itemprop="url">Vim 工作区</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-24 21:06:31" itemprop="dateCreated datePublished" datetime="2021-04-24T21:06:31+08:00">2021-04-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-30 10:13:06" itemprop="dateModified" datetime="2021-04-30T10:13:06+08:00">2021-04-30</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/04/24/vim%20002/" class="post-meta-item leancloud_visitors" data-flag-title="Vim 工作区" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="工作区">工作区</h1>
-<p>在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件</p>
-<h2 id="缓冲区">缓冲区</h2>
-<p>缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/24/vim%20002/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -1396,14 +1402,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">385k</span>
+    <span title="站点总字数">390k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:50</span>
+    <span title="站点阅读时长">5:55</span>
   </span>
 </div>
 <div class="busuanzi-count">

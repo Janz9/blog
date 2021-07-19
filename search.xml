@@ -1,6 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>AlertManager 入门</title>
+    <url>/2021/07/19/alertmanager-001/</url>
+    <content><![CDATA[<h1 id="入门">入门</h1>
+<p><a href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a href="https://www.pagerduty.com/">PagerDuty</a>, <a href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络回调 (webhook), 微信等多种通知方式</p>
+<p>AlertManager 的架构可分为以下 6 个模块:</p>
+<ol type="1">
+<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于 http 协议的告警事件</li>
+<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中, 可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
+<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警, 并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中, 以实现告警事件的分组处理</li>
+<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑 (如抑制, 静默, 去重等) 来优化告警的质量</li>
+<li>Silence Provider 模块用于提供静默处理的实现, 静默规则可用来关闭部分告警的通知, 并通过 Cluster 以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
+<li>Notify Provider 模块会在本地记录日志, 用于提供通知的具体实现</li>
+</ol>
+<figure>
+<img src="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg" alt="AlertManager 架构图" /><figcaption aria-hidden="true">AlertManager 架构图</figcaption>
+</figure>
+<h2 id="安装">安装</h2>
+<p>AlertManager 提供了预编译的二进制文件 <a href="https://github.com/prometheus/alertmanager/releases">releases</a>, 也支持使用容器的方式部署 <a href="https://hub.docker.com/r/prom/alertmanager">prom/alertmanager</a>, 详见 <a href="https://github.com/prometheus/alertmanager#install">install</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: docker部署
+$ docker run -d
+  -p 9093:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="配置">配置</h3>
+<p>AlertManager 通过 YAML 文件来配置, 命令行可以配置不可变的系统参数, 而配置文件定义的限制规则用于通知路由和接收者, 详见 <a href="https://prometheus.io/docs/alerting/latest/configuration/">configuration</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: alertmanager.yml</span>
+<span class="token key atrule">global</span><span class="token punctuation">:</span>  <span class="token comment"># 全局配置</span>
+<span class="token comment"># The smarthost and SMTP sender used for mail notifications.</span>
+
+<span class="token key atrule">templates</span><span class="token punctuation">:</span>  <span class="token comment"># 模板配置</span>
+<span class="token comment"># - '/etc/alertmanager/template/*.tmpl'</span>
+
+<span class="token key atrule">route</span><span class="token punctuation">:</span>  <span class="token comment"># 告警路由</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'job'</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 5m
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 1h
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'webhook'</span>
+
+<span class="token key atrule">receivers</span><span class="token punctuation">:</span>  <span class="token comment"># 接收配置</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'webhook'</span>
+  <span class="token key atrule">webhook_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'http://127.0.0.1:5001/'</span>
+
+<span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span>  <span class="token comment"># 静默规则</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">source_match</span><span class="token punctuation">:</span>
+      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'critical'</span>
+    <span class="token key atrule">target_match</span><span class="token punctuation">:</span>
+      <span class="token key atrule">severity</span><span class="token punctuation">:</span> <span class="token string">'warning'</span>
+    <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'instance'</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="认证">认证</h3>
+<p>AlertManager 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code> 指定配置文件, 详见 <a href="https://prometheus.io/docs/alerting/latest/configuration/#configuration-file">authentication</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 认证配置</span>
+<span class="token key atrule">basic_auth_users</span><span class="token punctuation">:</span>
+  <span class="token key atrule">admin</span><span class="token punctuation">:</span> $2y$10$mDwo.lAisC94iLAyP81MCesa29IzH37oigHC/42V2pdJlUprsJPze<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>密码参考 <a href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
+</blockquote>
+<h3 id="启动">启动</h3>
+<p>通过运行 <code>alertmanager</code> 执行文件启动服务</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 启动服务
+$ alertmanager
+  --config.file&#x3D;&quot;.&#x2F;alertmanager.yml&quot;    # 指定配置文件
+  --web.config.file&#x3D;&quot;.&#x2F;web-config.yml&quot;  # 指定认证配置
+# 可通过-h选项查看帮助内容<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>服务启动之后, 可以在控制台 <a href="http://127.0.0.1:9093/#/status">/status</a> 查看服务状态和配置信息</p>
+<p>AlertManager 提供了一组管理 API, 以促进自动化和集成, 详见 <a href="https://prometheus.io/docs/alerting/latest/management_api/">management-api</a></p>
+<ul>
+<li><code>GET /-/healthy</code> 该端点用于显示服务的健康状态</li>
+<li><code>GET /-/ready</code> 当服务准备好时, 该端点返回 <code>200</code> 状态码</li>
+<li><code>POST /-/reload</code> 该端点用于触发重新加载服务的配置和规则文件</li>
+</ul>
+<h2 id="通知">通知</h2>
+<p>根据 Prometheus 和 AlertManager 的告警配置, 会影响告警事件的通知逻辑和时间</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: prometheus.yml</span>
+<span class="token key atrule">global</span><span class="token punctuation">:</span>
+  <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span> 1m
+  <span class="token key atrule">scrape_timeout</span><span class="token punctuation">:</span> 10s
+  <span class="token key atrule">evaluation_interval</span><span class="token punctuation">:</span> 1m
+<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> 127.0.0.1<span class="token punctuation">:</span><span class="token number">9093</span>
+<span class="token key atrule">rule_files</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">"rules/instance.alerts.yml"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: alertmanager.yml</span>
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">...</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 5m
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 4h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: rules/instance.alerts.yml</span>
+<span class="token key atrule">groups</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> instance_alerts
+    <span class="token key atrule">rules</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> InstanceDown
+        <span class="token key atrule">expr</span><span class="token punctuation">:</span> up == 0
+        <span class="token key atrule">for</span><span class="token punctuation">:</span> 5m
+        <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+          <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance &#123;&#123; $labels.instance &#125;&#125; down"</span>
+          <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"&#123;&#123; $labels.instance &#125;&#125; of job &#123;&#123; $labels.job &#125;&#125; has been down for more than 5 minutes."</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol type="1">
+<li>Prometheus 以 <code>scrape_interval</code> 采样周期的间隔从客户端拉取时序, 根据时序的采样值, 以 <code>evaluation_interval</code> 评估周期的间隔对告警规则的表达式 <code>expr</code> 进行评估;</li>
+<li>当采集对象出现问题时, Prometheus 会持续尝试拉取时序, 直到经过 <code>scrape_timeout</code> 超时时间后停止;</li>
+<li>告警规则的表达式评估为真时, 告警状态切换到挂起 (Pending);</li>
+<li>告警状态挂起的持续时间超过 <code>for</code> 指定的时间后, 告警状态切换为触发(Firing), 并将告警事件发送给 AlertManager;</li>
+<li>下个评估周期若表达式评估仍为真, 且持续时间超过 <code>for</code> 指定的时间, 则持续发送告警事件给 AlertManager;</li>
+<li>直到表达式评估为假, 告警状态切换为非活动(Inactive), 并发送通知 AlertManager 告警事件已解决;</li>
+<li>AlertManager 接收到告警事件后, 先根据分组中的 <code>group_wait</code> 等待时间, 等待过后再发出告警通知;</li>
+<li>同个分组的告警事件, 在等待时间内可能产生新的告警事件, 在前一个告警成功发出后, 经过 <code>group_interval</code> 周期时间后, 再发送新的告警通知;</li>
+<li>如果分组里的告警一直没发生变化, 则在成功发出告警通知之后, 再经过 <code>repeat_interval</code> 重复周期的时间后, 重复发出相同的告警通知;</li>
+<li>如果告警通知没有成功发出, 则等待 <code>group_interval</code> 周期时间后, 会再次尝试发出告警通知</li>
+</ol>
+<h3 id="分组">分组</h3>
+<p>分组是指将性质类似的告警分成一个通知类, 不同分组之间互相独立, 互不影响, 分组可以聚合同类告警以减少告警数量, 通过精简的方式帮助分析问题, 详见 <a href="https://prometheus.io/docs/alerting/latest/alertmanager/#grouping">grouping</a></p>
+<p>分组由配置文件中的路由树节点配置, 可按匹配规则细分成多个子节点, 子节点未配置的可选参数将从父节点继承配置</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 分组配置</span>
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">group_by</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">...</span><span class="token punctuation">]</span>
+  <span class="token key atrule">group_wait</span><span class="token punctuation">:</span> 30s
+  <span class="token key atrule">group_interval</span><span class="token punctuation">:</span> 5m
+  <span class="token key atrule">repeat_interval</span><span class="token punctuation">:</span> 4h
+  <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'webhook'</span>   <span class="token comment"># 该分组的接收配置, 对应receivers节点配置</span>
+  <span class="token key atrule">routes</span><span class="token punctuation">:</span>               <span class="token comment"># 子分组</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">matchers</span><span class="token punctuation">:</span>           <span class="token comment"># 匹配规则</span>
+    <span class="token punctuation">-</span> application="myapp"
+    <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'email'</span>   <span class="token comment"># 覆盖父节点的接收配置</span>
+
+<span class="token comment"># 此处配置myapp应用告警使用email方式, 其它使用webhook方式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="抑制">抑制</h3>
+<p>抑制是指当源告警通知已经发出时, 停止再发送目标告警的通知, 抑制主要用于消除冗余的告警, 详见 <a href="https://prometheus.io/docs/alerting/latest/alertmanager/#inhibition">inhibition</a></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 抑制配置</span>
+<span class="token key atrule">inhibit_rules</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">source_matchers</span><span class="token punctuation">:</span>  <span class="token comment"># 匹配源告警</span>
+  <span class="token punctuation">-</span> job='node'
+  <span class="token key atrule">target_matchers</span><span class="token punctuation">:</span>  <span class="token comment"># 匹配目标告警</span>
+  <span class="token punctuation">-</span> application='myapp'
+  <span class="token key atrule">equal</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>         <span class="token comment"># 配置需要在源和目标中必须具有相等值的标签</span>
+
+<span class="token comment"># 此处配置当node主机发出告警通知时, 不再发出myapp应用的告警通知</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="静默">静默</h3>
+<p>静默通过配置静默表达式, 使匹配的告警事件不再发送告警通知, 管理员可以在控制台 <a href="http://127.0.0.1:9093/#/silences">/silences</a> 中添加静默表达式, 通常用于主机维护时或夜间运行批处理作业等场景, 添加临时的静默规则可以防止产生不必要的告警, 详见 <a href="https://prometheus.io/docs/alerting/latest/alertmanager/#silences">silences</a></p>
+<p>静默提供了一种简单的机制, 可以在给定的时间内忽略可存在的告警, 静默基于 <code>matchers</code> 配置实现, 类似于路由树, 对接收的告警事件进行检查, 判断它们是否和活跃的静默表达式匹配, 如果匹配成功, 就不会将这些告警发送给接收端</p>
+<h2 id="集群">集群</h2>
+<p>为了避免单节点问题, 通常会对多个 AlertManager 进行集群部署, AlertManager 之间通过 Gossip 机制进行集群成员管理和成员故障检测, 以确保在多个 AlertManager 分别接收到相同告警事件的情况下, 只有一个告警通知被发送给接收端, 要创建 AlertManager 的高可用集群, 可使用 <code>--cluster.*</code> 标志进行配置, 详见 <a href="https://github.com/prometheus/alertmanager/blob/main/README.md#high-availability">high-availability</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 启动服务
+$ docker run -d -p 9094:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager
+  --config.file&#x3D;&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;alertmanager
+  --cluster.listen-address&#x3D;&quot;172.17.0.1:9094&quot;
+$ docker run -d -p 9095:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager
+  --config.file&#x3D;&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;alertmanager
+  --cluster.listen-address&#x3D;&quot;172.17.0.2:9095&quot; --cluster.peer&#x3D;&quot;172.17.0.1:9094&quot;
+$ docker run -d -p 9096:9093
+  -v alertmanager.yml:&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml
+  prom&#x2F;alertmanager
+  --config.file&#x3D;&#x2F;etc&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;alertmanager
+  --cluster.listen-address&#x3D;&quot;172.17.0.3:9096&quot; --cluster.peer&#x3D;&quot;172.17.0.1:9094&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: prometheus.yml</span>
+<span class="token key atrule">alerting</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alertmanagers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">static_configs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">targets</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 172.17.0.1<span class="token punctuation">:</span><span class="token number">9094</span>
+      <span class="token punctuation">-</span> 172.17.0.2<span class="token punctuation">:</span><span class="token number">9095</span>
+      <span class="token punctuation">-</span> 172.17.0.3<span class="token punctuation">:</span><span class="token number">9096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="工具">工具</h2>
+<p><a href="https://github.com/prometheus/alertmanager/tree/main/cmd/amtool">AMTool</a> 是用于与 AlertManager 架构中的 API 模块进行交互的 CLI 工具, 它可以使用 AlertManager 提供的查询语法, 进行告警事件的查询, 并且支持添加临时的静默规则</p>
+<p><a href="https://www.prometheus.io/webtools/alerting/routing-tree-editor/">RoutingTreeEditor</a> 是一个在线支持可视化的路由树编辑器, 通过生成直观的图例, 确保开发人员编写正确的规则逻辑</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>AlertManager</tag>
+        <tag>Prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cURL 基础</title>
     <url>/2020/05/18/curl%20001/</url>
     <content><![CDATA[<h1 id="基础">基础</h1>
@@ -4977,12 +5160,11 @@ registry<span class="token punctuation">.</span><span class="token function">con
 <h2 id="指标">指标</h2>
 <p>Micrometer 定义了可以采集的指标接口 <code>Meter</code>, 并提供了以下原生的指标类型, 详见 <a href="https://micrometer.io/docs/concepts#_meters">meter</a></p>
 <ul>
-<li><code>Counter</code> 单调递增且必须为正数的指标</li>
-<li><code>Gauge</code> 实时变化的数值的指标</li>
+<li><code>Counter</code> <code>FunctionCounter</code> 单调递增且必须为正数的指标</li>
+<li><code>Gauge</code> <code>TimeGauge</code> 实时变化的数值/时间的指标</li>
 <li><code>DistributionSummary</code> 直方图和分位图的指标</li>
-<li><code>Timer</code> 短时间任务的总次数和总时间的指标</li>
+<li><code>Timer</code> <code>FunctionTimer</code> 短时间任务的总次数和总时间的指标</li>
 <li><code>LongTaskTimer</code> 长时间任务的当前次数和已用时的指标</li>
-<li><code>FunctionCounter</code> <code>FunctionTimer</code> <code>TimeGauge</code></li>
 </ul>
 <p>Micrometer 为了一致性和可移植性的原因, 指标名称的生成方案与 Prometheus 不完全一致, 如果希望使用 Prometheus 标准的指标名称, 可以通过配置重命名过滤器</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 配置过滤器 */</span>
@@ -5138,6 +5320,7 @@ sample<span class="token punctuation">.</span><span class="token function">stop<
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 获取样本
 $ curl --location --request GET &#39;http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;actuator&#x2F;prometheus&#39;
 
+# 此处示例仅截取返回的文本数据中的业务指标
 # HELP biz_request_seconds_max
 # TYPE biz_request_seconds_max gauge
 biz_request_seconds_max&#123;application&#x3D;&quot;myapp&quot;,class&#x3D;&quot;com.janz.micrometer.BizApi&quot;,exception&#x3D;&quot;none&quot;,method&#x3D;&quot;hello&quot;,&#125; 0.001108587
@@ -5169,7 +5352,7 @@ biz_order_time_sum&#123;application&#x3D;&quot;myapp&quot;,&#125; 0.0
 biz_order_time_max&#123;application&#x3D;&quot;myapp&quot;,&#125; 0.0
 # HELP biz_order_total Total number of orders.
 # TYPE biz_order_total counter
-biz_order_total&#123;application&#x3D;&quot;myapp&quot;,&#125; 0.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+biz_order_total&#123;application&#x3D;&quot;myapp&quot;,&#125; 0.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="仪表盘">仪表盘</h2>
 <p>Prometheus 通常使用 Grafana 作为可视化的仪表盘, Micrometer 提供了 Grafana 的现成模板, 参考 <a href="https://grafana.com/grafana/dashboards/4701">dashboards/4701</a></p>
 <figure>
@@ -5234,7 +5417,7 @@ $ brew  install prometheus  # macos<span aria-hidden="true" class="line-numbers-
 <li><a href="https://github.com/prometheus-operator/prometheus-operator">prometheus-operator/prometheus-operator</a></li>
 </ul>
 <h3 id="配置">配置</h3>
-<p>Prometheus 通过 YAML 文件来配置, 初始的配置文件 <code>prometheus.yml</code> 位于执行文件的根目录, 详见 <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file">configuration-file</a></p>
+<p>Prometheus 通过 YAML 文件来配置, 初始的配置文件 <code>prometheus.yml</code> 位于执行文件的根目录, 详见 <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file">configuration</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: prometheus.yml</span>
 <span class="token key atrule">global</span><span class="token punctuation">:</span>  <span class="token comment"># 全局配置</span>
   <span class="token key atrule">scrape_interval</span><span class="token punctuation">:</span>     15s  <span class="token comment"># 指定应用程序或服务抓取数据的时间间隔, 默认1m</span>
@@ -5284,7 +5467,7 @@ $ prometheus
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 通过端点关闭服务
 $ curl -X POST http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;quit
 # 前提启动时指定选项--web.enable-lifecycle<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>服务启动之后, 可以在控制台 <a href="http://localhost:9090/targets">/targets</a> 查看当前的监控目标列表, 每个目标都提供了简单的信息和状态信息</p>
+<p>服务启动之后, 可以在控制台 <a href="http://localhost:9090/targets">/targets</a> 查看当前的监控目标列表</p>
 <p>初始配置中只有一个作业 <code>prometheus</code> 的监控目标, 目标的监控数据从本地的 <code>9090</code> 端口返回指标, 可以通过配置的端点默认值 <a href="http://localhost:9090/metrics">/metrics</a> 查看抓取的指标数据</p>
 <p>Prometheus 提供了一组管理 API, 以促进自动化和集成, 详见 <a href="https://prometheus.io/docs/prometheus/latest/management_api/">management-api</a></p>
 <ul>
@@ -5377,14 +5560,14 @@ $ curl -X POST http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;reload<span aria-hidd
       <span class="token punctuation">-</span> <span class="token key atrule">alert</span><span class="token punctuation">:</span> InstanceDown
         <span class="token key atrule">expr</span><span class="token punctuation">:</span> up == 0
         <span class="token key atrule">for</span><span class="token punctuation">:</span> 5m       <span class="token comment"># 控制在触发告警之前表达式必须满足的持续时间</span>
-        <span class="token key atrule">annotations</span><span class="token punctuation">:</span>  <span class="token comment"># 指定信息标签, 可用于存储更长的附加信息, 例如告警描述</span>
+        <span class="token key atrule">annotations</span><span class="token punctuation">:</span>  <span class="token comment"># 指定信息标签, 可用于存储更长的附加信息, 例如告警描述等</span>
           <span class="token key atrule">summary</span><span class="token punctuation">:</span> <span class="token string">"Instance &#123;&#123; $labels.instance &#125;&#125; down"</span>
           <span class="token key atrule">description</span><span class="token punctuation">:</span> <span class="token string">"&#123;&#123; $labels.instance &#125;&#125; of job &#123;&#123; $labels.job &#125;&#125; has been down for more than 5 minutes."</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以在控制台 <a href="http://localhost:9090/alerts">/alerts</a> 查看监控中的告警列表, 告警规则有三种状态:</p>
 <ul>
 <li>非活动(Inactive) 没有触发阈值</li>
-<li>挂起(Pending) 已触发阈值但未满足告警持续时间</li>
-<li>触发(Firing) 已触发阈值且满足告警持续时间</li>
+<li>挂起(Pending) 已触发阈值但未满足告警的持续时间</li>
+<li>触发(Firing) 已触发阈值且满足告警的持续时间</li>
 </ul>
 <h2 id="存储">存储</h2>
 <p>Prometheus 包括一个本地磁盘上的时间序列数据库, 但也可以选择与远程存储系统集成, 详见 <a href="https://prometheus.io/docs/prometheus/latest/storage/">storage</a></p>
@@ -6092,6 +6275,234 @@ a or b * c + d 等价 a or ((b * c) + d)
 \hline
 \end{array}
 \]</span></p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Prometheus 数据采集</title>
+    <url>/2021/07/04/prometheus-004/</url>
+    <content><![CDATA[<h1 id="数据采集">数据采集</h1>
+<p>Prometheus 服务采集数据, 通常可以分为以下三种方式:</p>
+<ul>
+<li>独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据</li>
+<li>集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集</li>
+<li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端</li>
+</ul>
+<p>Prometheus 服务拉取数据的规范基于简单的文本格式, 详见 <a href="https://prometheus.io/docs/instrumenting/exposition_formats/">exposition-formats</a></p>
+<h2 id="exporter">Exporter</h2>
+<p>现成的 exporter 列表, 详见 <a href="https://prometheus.io/docs/instrumenting/exporters/#third-party-exporters">exporter</a>, 自定义编写 exporter 的示例, 参考 <a href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing-exporters</a></p>
+<p>常用系统和应用的 exporter 的配置部署示例:</p>
+<ol type="1">
+<li><p><a href="https://github.com/prometheus/node_exporter">node-exporter</a> 基于 Linux 内核的系统指标采集, 详见 <a href="https://prometheus.io/docs/guides/node-exporter/">node-exporter-guides</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: node-exporter部署
+$ docker run -d
+  --net&#x3D;host
+  --pid&#x3D;host
+  -v &#x2F;:&#x2F;host:ro,rslave
+  prom&#x2F;node-exporter
+  --path.rootfs&#x3D;&#x2F;host
+  --web.listen-address&#x3D;:9100
+  --web.telemetry-path&#x3D;&#x2F;metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><a href="https://github.com/prometheus/mysqld_exporter">mysqld-exporter</a> 基于 MySQL 的数据库指标采集</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: mysqld-exporter部署
+$ docker run -d
+  --net&#x3D;host
+  -e DATA_SOURCE_NAME&#x3D;&quot;user:password@(hostname:3306)&#x2F;&quot;
+  -v $(pwd)&#x2F;config.my.cnf:~&#x2F;config.my.cnf
+  prom&#x2F;mysqld-exporter
+  --config.my-cnf&#x3D;~&#x2F;config.my.cnf
+  --web.listen-address&#x3D;:9104
+  --web.telemetry-path&#x3D;&#x2F;metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><a href="https://github.com/oliver006/redis_exporter">redis-exporter</a> 基于 Redis 的数据库指标采集</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: redis_exporter部署
+$ docker run -d
+  --net&#x3D;host
+  oliver006&#x2F;redis_exporter
+  --redis.password&#x3D;password
+  --web.listen-address&#x3D;:9121
+  --web.telemetry-path&#x3D;&#x2F;metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><a href="https://github.com/google/cadvisor">google-cadvisor</a> 基于一个正在运行的 Docker 守护进程, 用于收集, 聚合, 处理和导出进程和容器的指标, 它为每个容器记录资源隔离参数, 资源使用情况, 网络统计信息等数据, 并支持按 Prometheus 的规范格式导出, 详见 <a href="https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md">cadvisor-prometheus</a></p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: google-cadvisor部署
+$ sudo docker run -d
+  --volume&#x3D;&#x2F;:&#x2F;rootfs:ro
+  --volume&#x3D;&#x2F;var&#x2F;run:&#x2F;var&#x2F;run:ro
+  --volume&#x3D;&#x2F;sys:&#x2F;sys:ro
+  --volume&#x3D;&#x2F;var&#x2F;lib&#x2F;docker&#x2F;:&#x2F;var&#x2F;lib&#x2F;docker:ro
+  --volume&#x3D;&#x2F;dev&#x2F;disk&#x2F;:&#x2F;dev&#x2F;disk:ro
+  --publish&#x3D;8080:8080
+  --detach&#x3D;true
+  --privileged
+  google&#x2F;cadvisor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="clientlibs">ClientLibs</h2>
+<p>Prometheus 提供了与应用开发语言相匹配的客户端库, 详见 <a href="https://prometheus.io/docs/instrumenting/clientlibs/">clientlibs</a>, 辅助开发的工具库列表, 详见 <a href="https://prometheus.io/docs/instrumenting/exporters/#other-third-party-utilities">utilities</a>, 自定义编写客户端库的示例, 参考 <a href="https://prometheus.io/docs/instrumenting/writing_clientlibs/">writing-clientlibs</a></p>
+<p>已集成 prometheus 采集规范的应用列表, 详见 <a href="https://prometheus.io/docs/instrumenting/exporters/#software-exposing-prometheus-metrics">software</a></p>
+<p>常用的集成采集规范的应用配置示例:</p>
+<ol type="1">
+<li><a href="https://www.docker.com/">Docker</a> 通过守护进程的命令行配置以开启公开指标的功能, 当前这是一个实验性功能, 需要守护进程运行在实验模式, 此配置才能生效, 详见 <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-metrics">dockerd-metrics</a></li>
+<li><a href="https://about.gitlab.com">GitLab</a> 通过管理员权限在设置中可以开启公开指标的功能, 详见 <a href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/gitlab_metrics.html#gitlab-prometheus-metrics">gitlab-prometheus-metrics</a></li>
+<li><a href="https://www.jenkins.io/">Jenkins</a> 通过安装插件以公开指标的功能, 详见 <a href="https://plugins.jenkins.io/prometheus/">jenkins-plugin</a></li>
+<li><a href="https://www.nginx.com/">Nginx</a> 通过添加模块以公开指标的功能, 详见 <a href="https://github.com/vozlt/nginx-module-vts">nginx-module</a></li>
+</ol>
+<h2 id="pushgateway">Pushgateway</h2>
+<p>Pushgateway 作为一个独立的服务, 位于被采集监控数据的应用程序和 Prometheus 服务之间, 与网关类似, 它被建议用于临时性的解决方案, 应用程序主动推送采样数据到 Pushgateway 集中保存, 然后 Pushgateway 作为 Prometheus 服务配置的作业被定时拉取, 详见 <a href="https://prometheus.io/docs/practices/pushing/">pushgateway</a></p>
+<p>它的使用场景主要有如下 3 种:</p>
+<ol type="1">
+<li>临时或短时间的作业</li>
+<li>批处理的作业</li>
+<li>与服务存在网络隔离的作业</li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: pushgateway部署
+$ docekr run -d
+  --net host
+  prom&#x2F;pushgateway
+  --web.listen-address&#x3D;:9091
+  --web.telemetry-path&#x3D;&#x2F;metrics
+  --web.enable-admin-api  # 启用管理员接口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>应用程序可以通过基于 http 协议的 api 与网关 Pushgateway 进行交互, 使用示例参考 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#use-it">pushgateway-use</a></p>
+<h3 id="查询">查询</h3>
+<p>查询接口有 2 个端点, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#query-api">query-api</a></p>
+<ol type="1">
+<li><p>状态查询接口, 用于获取网关的构建信息, 命令行标志和启动时间等信息</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>指标查询接口, 用于获取网关已接收的指标信息</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/metrics<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h3 id="推送">推送</h3>
+<p>推送接口使用类似 REST 风格的端点, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#api">push-api</a></p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token comment"># 推送接口使用指标的名称和标签信息作为路径参数</span>
+/metrics/job/&lt;JOB_NAME>/<span class="token punctuation">[</span>&lt;LABEL_NAME>/&lt;LABEL_VALUE><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>提交方式有以下 2 类:</p>
+<ol type="1">
+<li><p>推送数据</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">PUT     <span class="token comment"># 推送或更新一组指标, 空请求体会删除指定路径参数的所有数据</span>
+POST    <span class="token comment"># 同PUT, 更新时限定路径参数完全相同的指标, 空请求体不会删除数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>删除数据</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">DELETE  <span class="token comment"># 删除指定路径参数的所有数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h3 id="管理">管理</h3>
+<p>管理员接口用于维护或开发人员对网关的管理, 需要在网关启动时的命令行标志中使用 <code>--web.enable-admin-api</code> 启用管理员接口, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#admin-api">admin-api</a></p>
+<ol type="1">
+<li><p>擦除接口, 用于安全的删除网关已接收的所有指标数据</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">PUT /api/v1/admin/wipe<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<p>管理接口有 3 个端点, 用于 Pushgateway 的自动化和集成等场景, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#management-api">management-api</a></p>
+<ol type="1">
+<li><p>用于获取网关的健康度</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /-/healthy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>用于判断网关是否已准备好接收推送</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /-/ready<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>用于触发网关正常退出</p>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">PUT /-/quit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h3 id="示例">示例</h3>
+<h4 id="查询接口">查询接口</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 状态查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;api&#x2F;v1&#x2F;status&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: &#123;
+        &quot;build_information&quot;: &#123;
+            &quot;branch&quot;: &quot;HEAD&quot;,
+            &quot;buildDate&quot;: &quot;20210528-14:30:10&quot;,
+            &quot;buildUser&quot;: &quot;root@da864be5f3f0&quot;,
+            &quot;goVersion&quot;: &quot;go1.16.4&quot;,
+            &quot;revision&quot;: &quot;6fa509bbf4f082ab8455057aafbb5403bd6e37a5&quot;,
+            &quot;version&quot;: &quot;1.4.1&quot;
+        &#125;,
+        &quot;flags&quot;: &#123;
+            &quot;log.format&quot;: &quot;logfmt&quot;,
+            &quot;log.level&quot;: &quot;info&quot;,
+            &quot;persistence.file&quot;: &quot;&quot;,
+            &quot;persistence.interval&quot;: &quot;5m0s&quot;,
+            &quot;push.disable-consistency-check&quot;: &quot;false&quot;,
+            &quot;web.config.file&quot;: &quot;&quot;,
+            &quot;web.enable-admin-api&quot;: &quot;false&quot;,
+            &quot;web.enable-lifecycle&quot;: &quot;false&quot;,
+            &quot;web.external-url&quot;: &quot;&quot;,
+            &quot;web.listen-address&quot;: &quot;:9091&quot;,
+            &quot;web.route-prefix&quot;: &quot;&quot;,
+            &quot;web.telemetry-path&quot;: &quot;&#x2F;metrics&quot;
+        &#125;,
+        &quot;start_time&quot;: &quot;2021-07-04T05:07:29.885822042Z&quot;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指标查询
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;api&#x2F;v1&#x2F;metrics&#39;
+&#123;
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;data&quot;: [
+        &#123;
+            &quot;labels&quot;: &#123;
+                &quot;instance&quot;: &quot;myapp&quot;,
+                &quot;job&quot;: &quot;myjob&quot;
+            &#125;,
+            &quot;last_push_successful&quot;: true,
+            &quot;push_failure_time_seconds&quot;: &#123;
+                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,
+                &quot;type&quot;: &quot;GAUGE&quot;,
+                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway failed.&quot;,
+                &quot;metrics&quot;: [
+                    &#123;
+                        &quot;labels&quot;: &#123;
+                            &quot;instance&quot;: &quot;myapp&quot;,
+                            &quot;job&quot;: &quot;myjob&quot;
+                        &#125;,
+                        &quot;value&quot;: &quot;0&quot;
+                    &#125;
+                ]
+            &#125;,
+            &quot;push_time_seconds&quot;: &#123;
+                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,
+                &quot;type&quot;: &quot;GAUGE&quot;,
+                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway succeeded.&quot;,
+                &quot;metrics&quot;: [
+                    &#123;
+                        &quot;labels&quot;: &#123;
+                            &quot;instance&quot;: &quot;myapp&quot;,
+                            &quot;job&quot;: &quot;myjob&quot;
+                        &#125;,
+                        &quot;value&quot;: &quot;1.6253803555253766e+09&quot;
+                    &#125;
+                ]
+            &#125;
+        &#125;
+    ]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="推送接口">推送接口</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 推送数据
+$ echo &#39;&#39;&#39;
+# TYPE some_metric counter
+# HELP some_metric Just an example.
+some_metric&#123;label&#x3D;&quot;val1&quot;&#125; 42
+# TYPE another_metric gauge
+# HELP another_metric Just an example.
+another_metric 2398.283
+&#39;&#39;&#39; |
+curl --location --request PUT &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;metrics&#x2F;job&#x2F;myjob&#x2F;instance&#x2F;myapp&#39; --data-binary @-
+# 响应返回200状态码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 删除数据
+$ curl --location --request DELETE &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;metrics&#x2F;job&#x2F;myjob&#x2F;instance&#x2F;myapp&#39;
+# 响应返回202状态码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="采集接口">采集接口</h4>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 采集接口
+$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;metrics&#39;
+# 截取应用指标的输出如下
+
+# HELP another_metric Just an example.
+# TYPE another_metric gauge
+another_metric&#123;instance&#x3D;&quot;myapp&quot;,job&#x3D;&quot;myjob&quot;&#125; 2398.283
+# HELP some_metric Just an example.
+# TYPE some_metric counter
+some_metric&#123;instance&#x3D;&quot;myapp&quot;,job&#x3D;&quot;myjob&quot;,label&#x3D;&quot;val1&quot;&#125; 42<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="telegraf">Telegraf</h2>
+<p>Prometheus 采集数据的方式和种类繁多, 每个组件相互独立各司其职, 随着组件部署越多, 维护压力也越大, 尤其是内部自行开发的组件需要大量的人力来完成资源控制, 特性添加, 版本升级等工作, 可以考虑使用 Telegraf 统一进行管理</p>
+<p><a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> 是开源的服务代理, 主要用于收集时间序列型数据, 其支持从堆栈, 传感器或系统中收集指标数据, 因此可以实现不同组件的多合一管理</p>
 ]]></content>
       <categories>
         <category>运维</category>
@@ -6859,234 +7270,6 @@ $ curl --location --request POST &#39;http:&#x2F;&#x2F;localhost:9090&#x2F;api&#
       </tags>
   </entry>
   <entry>
-    <title>Prometheus 数据采集</title>
-    <url>/2021/07/04/prometheus-004/</url>
-    <content><![CDATA[<h1 id="数据采集">数据采集</h1>
-<p>Prometheus 服务采集数据, 通常可以分为以下三种方式:</p>
-<ul>
-<li>独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据</li>
-<li>集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集</li>
-<li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端</li>
-</ul>
-<p>Prometheus 服务拉取数据的规范基于简单的文本格式, 详见 <a href="https://prometheus.io/docs/instrumenting/exposition_formats/">exposition-formats</a></p>
-<h2 id="exporter">Exporter</h2>
-<p>现成的 exporter 列表, 详见 <a href="https://prometheus.io/docs/instrumenting/exporters/#third-party-exporters">exporter</a>, 自定义编写 exporter 的示例, 参考 <a href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing-exporters</a></p>
-<p>常用系统和应用的 exporter 的配置部署示例:</p>
-<ol type="1">
-<li><p><a href="https://github.com/prometheus/node_exporter">node-exporter</a> 基于 Linux 内核的系统指标采集, 详见 <a href="https://prometheus.io/docs/guides/node-exporter/">node-exporter-guides</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: node-exporter部署
-$ docker run -d
-  --net&#x3D;host
-  --pid&#x3D;host
-  -v &#x2F;:&#x2F;host:ro,rslave
-  prom&#x2F;node-exporter
-  --path.rootfs&#x3D;&#x2F;host
-  --web.listen-address&#x3D;:9100
-  --web.telemetry-path&#x3D;&#x2F;metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p><a href="https://github.com/prometheus/mysqld_exporter">mysqld-exporter</a> 基于 MySQL 的数据库指标采集</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: mysqld-exporter部署
-$ docker run -d
-  --net&#x3D;host
-  -e DATA_SOURCE_NAME&#x3D;&quot;user:password@(hostname:3306)&#x2F;&quot;
-  -v $(pwd)&#x2F;config.my.cnf:~&#x2F;config.my.cnf
-  prom&#x2F;mysqld-exporter
-  --config.my-cnf&#x3D;~&#x2F;config.my.cnf
-  --web.listen-address&#x3D;:9104
-  --web.telemetry-path&#x3D;&#x2F;metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p><a href="https://github.com/oliver006/redis_exporter">redis-exporter</a> 基于 Redis 的数据库指标采集</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: redis_exporter部署
-$ docker run -d
-  --net&#x3D;host
-  oliver006&#x2F;redis_exporter
-  --redis.password&#x3D;password
-  --web.listen-address&#x3D;:9121
-  --web.telemetry-path&#x3D;&#x2F;metrics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p><a href="https://github.com/google/cadvisor">google-cadvisor</a> 基于一个正在运行的 Docker 守护进程, 用于收集, 聚合, 处理和导出进程和容器的指标, 它为每个容器记录资源隔离参数, 资源使用情况, 网络统计信息等数据, 并支持按 Prometheus 的规范格式导出, 详见 <a href="https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md">cadvisor-prometheus</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: google-cadvisor部署
-$ sudo docker run -d
-  --volume&#x3D;&#x2F;:&#x2F;rootfs:ro
-  --volume&#x3D;&#x2F;var&#x2F;run:&#x2F;var&#x2F;run:ro
-  --volume&#x3D;&#x2F;sys:&#x2F;sys:ro
-  --volume&#x3D;&#x2F;var&#x2F;lib&#x2F;docker&#x2F;:&#x2F;var&#x2F;lib&#x2F;docker:ro
-  --volume&#x3D;&#x2F;dev&#x2F;disk&#x2F;:&#x2F;dev&#x2F;disk:ro
-  --publish&#x3D;8080:8080
-  --detach&#x3D;true
-  --privileged
-  google&#x2F;cadvisor<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-<h2 id="clientlibs">ClientLibs</h2>
-<p>Prometheus 提供了与应用开发语言相匹配的客户端库, 详见 <a href="https://prometheus.io/docs/instrumenting/clientlibs/">clientlibs</a>, 辅助开发的工具库列表, 详见 <a href="https://prometheus.io/docs/instrumenting/exporters/#other-third-party-utilities">utilities</a>, 自定义编写客户端库的示例, 参考 <a href="https://prometheus.io/docs/instrumenting/writing_clientlibs/">writing-clientlibs</a></p>
-<p>已集成 prometheus 采集规范的应用列表, 详见 <a href="https://prometheus.io/docs/instrumenting/exporters/#software-exposing-prometheus-metrics">software</a></p>
-<p>常用的集成采集规范的应用配置示例:</p>
-<ol type="1">
-<li><a href="https://www.docker.com/">Docker</a> 通过守护进程的命令行配置以开启公开指标的功能, 当前这是一个实验性功能, 需要守护进程运行在实验模式, 此配置才能生效, 详见 <a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-metrics">dockerd-metrics</a></li>
-<li><a href="https://about.gitlab.com">GitLab</a> 通过管理员权限在设置中可以开启公开指标的功能, 详见 <a href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/gitlab_metrics.html#gitlab-prometheus-metrics">gitlab-prometheus-metrics</a></li>
-<li><a href="https://www.jenkins.io/">Jenkins</a> 通过安装插件以公开指标的功能, 详见 <a href="https://plugins.jenkins.io/prometheus/">jenkins-plugin</a></li>
-<li><a href="https://www.nginx.com/">Nginx</a> 通过添加模块以公开指标的功能, 详见 <a href="https://github.com/vozlt/nginx-module-vts">nginx-module</a></li>
-</ol>
-<h2 id="pushgateway">Pushgateway</h2>
-<p>Pushgateway 作为一个独立的服务, 位于被采集监控数据的应用程序和 Prometheus 服务之间, 与网关类似, 它被建议用于临时性的解决方案, 应用程序主动推送采样数据到 Pushgateway 集中保存, 然后 Pushgateway 作为 Prometheus 服务配置的作业被定时拉取, 详见 <a href="https://prometheus.io/docs/practices/pushing/">pushgateway</a></p>
-<p>它的使用场景主要有如下 3 种:</p>
-<ol type="1">
-<li>临时或短时间的作业</li>
-<li>批处理的作业</li>
-<li>与服务存在网络隔离的作业</li>
-</ol>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: pushgateway部署
-$ docekr run -d
-  --net host
-  prom&#x2F;pushgateway
-  --web.listen-address&#x3D;:9091
-  --web.telemetry-path&#x3D;&#x2F;metrics
-  --web.enable-admin-api  # 启用管理员接口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>应用程序可以通过基于 http 协议的 api 与网关 Pushgateway 进行交互, 使用示例参考 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#use-it">pushgateway-use</a></p>
-<h3 id="查询">查询</h3>
-<p>查询接口有 2 个端点, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#query-api">query-api</a></p>
-<ol type="1">
-<li><p>状态查询接口, 用于获取网关的构建信息, 命令行标志和启动时间等信息</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/status<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>指标查询接口, 用于获取网关已接收的指标信息</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /api/v1/metrics<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-</ol>
-<h3 id="推送">推送</h3>
-<p>推送接口使用类似 REST 风格的端点, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#api">push-api</a></p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token comment"># 推送接口使用指标的名称和标签信息作为路径参数</span>
-/metrics/job/&lt;JOB_NAME>/<span class="token punctuation">[</span>&lt;LABEL_NAME>/&lt;LABEL_VALUE><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>提交方式有以下 2 类:</p>
-<ol type="1">
-<li><p>推送数据</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">PUT     <span class="token comment"># 推送或更新一组指标, 空请求体会删除指定路径参数的所有数据</span>
-POST    <span class="token comment"># 同PUT, 更新时限定路径参数完全相同的指标, 空请求体不会删除数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>删除数据</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">DELETE  <span class="token comment"># 删除指定路径参数的所有数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-</ol>
-<h3 id="管理">管理</h3>
-<p>管理员接口用于维护或开发人员对网关的管理, 需要在网关启动时的命令行标志中使用 <code>--web.enable-admin-api</code> 启用管理员接口, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#admin-api">admin-api</a></p>
-<ol type="1">
-<li><p>擦除接口, 用于安全的删除网关已接收的所有指标数据</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">PUT /api/v1/admin/wipe<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-</ol>
-<p>管理接口有 3 个端点, 用于 Pushgateway 的自动化和集成等场景, 详见 <a href="https://github.com/prometheus/pushgateway/blob/master/README.md#management-api">management-api</a></p>
-<ol type="1">
-<li><p>用于获取网关的健康度</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /-/healthy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>用于判断网关是否已准备好接收推送</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">GET /-/ready<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li><p>用于触发网关正常退出</p>
-<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml">PUT /-/quit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-</ol>
-<h3 id="示例">示例</h3>
-<h4 id="查询接口">查询接口</h4>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 状态查询
-$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;api&#x2F;v1&#x2F;status&#39;
-&#123;
-    &quot;status&quot;: &quot;success&quot;,
-    &quot;data&quot;: &#123;
-        &quot;build_information&quot;: &#123;
-            &quot;branch&quot;: &quot;HEAD&quot;,
-            &quot;buildDate&quot;: &quot;20210528-14:30:10&quot;,
-            &quot;buildUser&quot;: &quot;root@da864be5f3f0&quot;,
-            &quot;goVersion&quot;: &quot;go1.16.4&quot;,
-            &quot;revision&quot;: &quot;6fa509bbf4f082ab8455057aafbb5403bd6e37a5&quot;,
-            &quot;version&quot;: &quot;1.4.1&quot;
-        &#125;,
-        &quot;flags&quot;: &#123;
-            &quot;log.format&quot;: &quot;logfmt&quot;,
-            &quot;log.level&quot;: &quot;info&quot;,
-            &quot;persistence.file&quot;: &quot;&quot;,
-            &quot;persistence.interval&quot;: &quot;5m0s&quot;,
-            &quot;push.disable-consistency-check&quot;: &quot;false&quot;,
-            &quot;web.config.file&quot;: &quot;&quot;,
-            &quot;web.enable-admin-api&quot;: &quot;false&quot;,
-            &quot;web.enable-lifecycle&quot;: &quot;false&quot;,
-            &quot;web.external-url&quot;: &quot;&quot;,
-            &quot;web.listen-address&quot;: &quot;:9091&quot;,
-            &quot;web.route-prefix&quot;: &quot;&quot;,
-            &quot;web.telemetry-path&quot;: &quot;&#x2F;metrics&quot;
-        &#125;,
-        &quot;start_time&quot;: &quot;2021-07-04T05:07:29.885822042Z&quot;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指标查询
-$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;api&#x2F;v1&#x2F;metrics&#39;
-&#123;
-    &quot;status&quot;: &quot;success&quot;,
-    &quot;data&quot;: [
-        &#123;
-            &quot;labels&quot;: &#123;
-                &quot;instance&quot;: &quot;myapp&quot;,
-                &quot;job&quot;: &quot;myjob&quot;
-            &#125;,
-            &quot;last_push_successful&quot;: true,
-            &quot;push_failure_time_seconds&quot;: &#123;
-                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,
-                &quot;type&quot;: &quot;GAUGE&quot;,
-                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway failed.&quot;,
-                &quot;metrics&quot;: [
-                    &#123;
-                        &quot;labels&quot;: &#123;
-                            &quot;instance&quot;: &quot;myapp&quot;,
-                            &quot;job&quot;: &quot;myjob&quot;
-                        &#125;,
-                        &quot;value&quot;: &quot;0&quot;
-                    &#125;
-                ]
-            &#125;,
-            &quot;push_time_seconds&quot;: &#123;
-                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,
-                &quot;type&quot;: &quot;GAUGE&quot;,
-                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway succeeded.&quot;,
-                &quot;metrics&quot;: [
-                    &#123;
-                        &quot;labels&quot;: &#123;
-                            &quot;instance&quot;: &quot;myapp&quot;,
-                            &quot;job&quot;: &quot;myjob&quot;
-                        &#125;,
-                        &quot;value&quot;: &quot;1.6253803555253766e+09&quot;
-                    &#125;
-                ]
-            &#125;
-        &#125;
-    ]
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="推送接口">推送接口</h4>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 推送数据
-$ echo &#39;&#39;&#39;
-# TYPE some_metric counter
-# HELP some_metric Just an example.
-some_metric&#123;label&#x3D;&quot;val1&quot;&#125; 42
-# TYPE another_metric gauge
-# HELP another_metric Just an example.
-another_metric 2398.283
-&#39;&#39;&#39; |
-curl --location --request PUT &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;metrics&#x2F;job&#x2F;myjob&#x2F;instance&#x2F;myapp&#39; --data-binary @-
-# 响应返回200状态码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 删除数据
-$ curl --location --request DELETE &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;metrics&#x2F;job&#x2F;myjob&#x2F;instance&#x2F;myapp&#39;
-# 响应返回202状态码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h4 id="采集接口">采集接口</h4>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 采集接口
-$ curl --location --request GET &#39;http:&#x2F;&#x2F;localhost:9091&#x2F;metrics&#39;
-# 截取应用指标的输出如下
-
-# HELP another_metric Just an example.
-# TYPE another_metric gauge
-another_metric&#123;instance&#x3D;&quot;myapp&quot;,job&#x3D;&quot;myjob&quot;&#125; 2398.283
-# HELP some_metric Just an example.
-# TYPE some_metric counter
-some_metric&#123;instance&#x3D;&quot;myapp&quot;,job&#x3D;&quot;myjob&quot;,label&#x3D;&quot;val1&quot;&#125; 42<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="telegraf">Telegraf</h2>
-<p>Prometheus 采集数据的方式和种类繁多, 每个组件相互独立各司其职, 随着组件部署越多, 维护压力也越大, 尤其是内部自行开发的组件需要大量的人力来完成资源控制, 特性添加, 版本升级等工作, 可以考虑使用 Telegraf 统一进行管理</p>
-<p><a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> 是开源的服务代理, 主要用于收集时间序列型数据, 其支持从堆栈, 传感器或系统中收集指标数据, 因此可以实现不同组件的多合一管理</p>
-]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>Prometheus</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Selenium 入门</title>
     <url>/2020/11/16/selenium%20001/</url>
     <content><![CDATA[<h1 id="入门">入门</h1>
@@ -7606,6 +7789,73 @@ java -Dwebdriver.edge.driver&#x3D;&quot;.&#x2F;driver&#x2F;msedgedriver.exe&quot
       </tags>
   </entry>
   <entry>
+    <title>自动化测试</title>
+    <url>/2020/11/16/test%20001/</url>
+    <content><![CDATA[<h1 id="自动化测试">自动化测试</h1>
+<p><strong>自动化测试</strong> 是指通过工具录制或编写脚本模拟手工测试的过程, 并通过回放或运行脚本来执行测试, 从而代替人工检查被测软件或系统的功能是否符合预期要求</p>
+<p>通过手工测试稳定的功能, 可以采用自动化测试, 机械重复的测试场景也可以采用自动化测试, 这样效率反而更高</p>
+<p><strong>手工测试</strong></p>
+<ol type="1">
+<li>手工测试需要人的较强的思考能力, 通过人的逻辑思考来验证当前测试步骤是否正确;</li>
+<li>在执行用例的过程中, 步骤更具有灵活性和跳跃性, 凭借个人的经验积累可以快速发现并准确定位问题;</li>
+<li>如果版本迭代中有大量测试用例需要回归测试, 在人员有限的情况下, 在开展回归测试的过程中手工测试就会变得异常困难和吃力</li>
+</ol>
+<p><strong>自动化测试</strong></p>
+<ol type="1">
+<li>执行用例的对象是测试脚本, 能通过提供的测试用例判断, 验证当前的步骤是否正确;</li>
+<li>用例步骤之间的依赖性强, 在自动执行的过程中不需要思考, 因为这个过程是事先依靠人的思考来设计的;</li>
+<li>对于复杂烦琐, 机械重复的测试, 绝对是测试利器, 更能让测试人员从繁重的工作中解脱出来, 从而节省大量时间;</li>
+<li>自动化测试先期投入的工作量比较大, 而且对测试人员有一定的要求</li>
+</ol>
+<h2 id="误区">误区</h2>
+<p><strong>误区一</strong> 自动化测试就是用工具录制和回放</p>
+<p>通过录制确实可以生成对应语言的脚本, 但得到的不是有效的自动化测试脚本, 录制操作步骤是否正确以及生成的脚本是否稳定, 能否重复使用等, 都会直接影响整个测试结果</p>
+<p><strong>误区二</strong> 自动化测试能发现新 Bug</p>
+<p>新 Bug 一般是在新功能的手工测试过程中发现的, 自动化测试主要用于大批量的回归测试, 可以发现一些偶发性 Bug, 从而节省更多测试时间</p>
+<p><strong>误区三</strong> 有了自动化测试就什么都不用做了</p>
+<p>能做自动化测试的项目一定是经过了很多次测试, 并且对框架和功能相对稳定的项目才能编写自动化测试代码, 如果产品版本迭代速度比脚本开发速度还快, 那么自动化测试就只能是说说而已了, 所以自动化测试是一种辅助测试的方式, 最重要的是一切要以做好功能测试为前提</p>
+<h2 id="用例">用例</h2>
+<p>自动化用例的好坏对自动化测试的开展有着重要的作用和影响</p>
+<p><strong>选择</strong></p>
+<ul>
+<li>有目的地选择用例, 不是所有用例都适合做自动化测试;</li>
+<li>对相对稳定的模块进行自动化测试, 而变动较大的模块仍使用手工测试;</li>
+<li>优先选择主流程测试用例, 用于冒烟测试;</li>
+<li>选取的用例应以步骤烦琐和重复执行率较高的优先</li>
+</ul>
+<p><strong>编写</strong></p>
+<ul>
+<li>测试人员应该了解自动化测试是如何模拟手工进行测试的;</li>
+<li>编写的测试用例一定要做到步骤清晰明了;</li>
+<li>当前的测试用例前置条件信息要写清楚;</li>
+<li>不需要每一步都写验证点, 抓重点即可;</li>
+<li>用例之间保持独立, 尽量少关联;</li>
+<li>用例要以模块和场景去划分, 这样做的好处是方便参数化测试</li>
+</ul>
+<p><strong>脚本</strong></p>
+<ul>
+<li>保持测试脚本的独立性, 减少依赖;</li>
+<li>保持测试脚本的可移植性;</li>
+<li>减少测试脚本对执行环境的依赖;</li>
+<li>如果有对执行条件的检查, 检查失败就尽快退出执行;</li>
+<li>抽离登录, 初始化实现自动登录;</li>
+<li>多元化数据驱动扩展;</li>
+<li>减少硬性等待时间</li>
+</ul>
+<h2 id="场景">场景</h2>
+<p>适合自动化测试的情况:</p>
+<ul>
+<li>需求变更不频繁, 稳定的项目;</li>
+<li>项目周期长, 回归测试频率高的项目;</li>
+<li>需要大量用户重复执行相同测试的场景;</li>
+<li>被测软件功能相对稳定, 并且具备可测试性</li>
+</ul>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Selenium 设计模式</title>
     <url>/2020/11/16/selenium%20003/</url>
     <content><![CDATA[<h1 id="设计模式">设计模式</h1>
@@ -7824,73 +8074,6 @@ java -Dwebdriver.edge.driver&#x3D;&quot;.&#x2F;driver&#x2F;msedgedriver.exe&quot
         <tag>BDD</tag>
         <tag>TDD</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>自动化测试</title>
-    <url>/2020/11/16/test%20001/</url>
-    <content><![CDATA[<h1 id="自动化测试">自动化测试</h1>
-<p><strong>自动化测试</strong> 是指通过工具录制或编写脚本模拟手工测试的过程, 并通过回放或运行脚本来执行测试, 从而代替人工检查被测软件或系统的功能是否符合预期要求</p>
-<p>通过手工测试稳定的功能, 可以采用自动化测试, 机械重复的测试场景也可以采用自动化测试, 这样效率反而更高</p>
-<p><strong>手工测试</strong></p>
-<ol type="1">
-<li>手工测试需要人的较强的思考能力, 通过人的逻辑思考来验证当前测试步骤是否正确;</li>
-<li>在执行用例的过程中, 步骤更具有灵活性和跳跃性, 凭借个人的经验积累可以快速发现并准确定位问题;</li>
-<li>如果版本迭代中有大量测试用例需要回归测试, 在人员有限的情况下, 在开展回归测试的过程中手工测试就会变得异常困难和吃力</li>
-</ol>
-<p><strong>自动化测试</strong></p>
-<ol type="1">
-<li>执行用例的对象是测试脚本, 能通过提供的测试用例判断, 验证当前的步骤是否正确;</li>
-<li>用例步骤之间的依赖性强, 在自动执行的过程中不需要思考, 因为这个过程是事先依靠人的思考来设计的;</li>
-<li>对于复杂烦琐, 机械重复的测试, 绝对是测试利器, 更能让测试人员从繁重的工作中解脱出来, 从而节省大量时间;</li>
-<li>自动化测试先期投入的工作量比较大, 而且对测试人员有一定的要求</li>
-</ol>
-<h2 id="误区">误区</h2>
-<p><strong>误区一</strong> 自动化测试就是用工具录制和回放</p>
-<p>通过录制确实可以生成对应语言的脚本, 但得到的不是有效的自动化测试脚本, 录制操作步骤是否正确以及生成的脚本是否稳定, 能否重复使用等, 都会直接影响整个测试结果</p>
-<p><strong>误区二</strong> 自动化测试能发现新 Bug</p>
-<p>新 Bug 一般是在新功能的手工测试过程中发现的, 自动化测试主要用于大批量的回归测试, 可以发现一些偶发性 Bug, 从而节省更多测试时间</p>
-<p><strong>误区三</strong> 有了自动化测试就什么都不用做了</p>
-<p>能做自动化测试的项目一定是经过了很多次测试, 并且对框架和功能相对稳定的项目才能编写自动化测试代码, 如果产品版本迭代速度比脚本开发速度还快, 那么自动化测试就只能是说说而已了, 所以自动化测试是一种辅助测试的方式, 最重要的是一切要以做好功能测试为前提</p>
-<h2 id="用例">用例</h2>
-<p>自动化用例的好坏对自动化测试的开展有着重要的作用和影响</p>
-<p><strong>选择</strong></p>
-<ul>
-<li>有目的地选择用例, 不是所有用例都适合做自动化测试;</li>
-<li>对相对稳定的模块进行自动化测试, 而变动较大的模块仍使用手工测试;</li>
-<li>优先选择主流程测试用例, 用于冒烟测试;</li>
-<li>选取的用例应以步骤烦琐和重复执行率较高的优先</li>
-</ul>
-<p><strong>编写</strong></p>
-<ul>
-<li>测试人员应该了解自动化测试是如何模拟手工进行测试的;</li>
-<li>编写的测试用例一定要做到步骤清晰明了;</li>
-<li>当前的测试用例前置条件信息要写清楚;</li>
-<li>不需要每一步都写验证点, 抓重点即可;</li>
-<li>用例之间保持独立, 尽量少关联;</li>
-<li>用例要以模块和场景去划分, 这样做的好处是方便参数化测试</li>
-</ul>
-<p><strong>脚本</strong></p>
-<ul>
-<li>保持测试脚本的独立性, 减少依赖;</li>
-<li>保持测试脚本的可移植性;</li>
-<li>减少测试脚本对执行环境的依赖;</li>
-<li>如果有对执行条件的检查, 检查失败就尽快退出执行;</li>
-<li>抽离登录, 初始化实现自动登录;</li>
-<li>多元化数据驱动扩展;</li>
-<li>减少硬性等待时间</li>
-</ul>
-<h2 id="场景">场景</h2>
-<p>适合自动化测试的情况:</p>
-<ul>
-<li>需求变更不频繁, 稳定的项目;</li>
-<li>项目周期长, 回归测试频率高的项目;</li>
-<li>需要大量用户重复执行相同测试的场景;</li>
-<li>被测软件功能相对稳定, 并且具备可测试性</li>
-</ul>
-]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
   </entry>
   <entry>
     <title>Vim 简介</title>
@@ -10237,270 +10420,6 @@ A --> D</pre>
       </tags>
   </entry>
   <entry>
-    <title>Maven 005 仓库</title>
-    <url>/2018/09/08/maven/005/</url>
-    <content><![CDATA[<h1 id="仓库">仓库</h1>
-<h2 id="maven-仓库">Maven 仓库</h2>
-<p>在 Maven 世界中, 任何一个依赖, 插件或者项目构建的输出, 都可以称为 <strong>构件</strong>, 任何一个构件都有一组坐标唯一标识</p>
-<p>得益于坐标机制, 任何 Maven 项目使用任何一个构件的方式都是完全相同的, 在此基础上, Maven 可以在某个位置统一存储所有 Maven 项目共享的构件, 这个统一的位置就是 <strong>仓库</strong>, 实际的 Maven 项目将不再各自存储其依赖文件, 它们只需要声明这些依赖的坐标, 在需要的时候 (例如, 编译项目的时候需要将依赖加入到 <code>classpath</code> 中), Maven 会自动根据坐标找到仓库中的构件, 并使用它们, 为了实现重用, 项目构建完毕后生成的构件也可以安装或者部署到仓库中, 供其他项目使用</p>
-<h2 id="仓库的布局">仓库的布局</h2>
-<p>任何一个构件都有其唯一的坐标, 根据这个坐标可以定义其在仓库中的唯一存储路径, 这便是 Maven 的 <strong>仓库布局</strong> 方式, 例如 <code>log4j:log4j:1.2.15</code> 这一依赖, 其对应的仓库路径为 <code>log4j/log4j/1.2.15/log4j-1.2.15.jar</code>, 该路径与坐标的大致对应关系为 <code>groupId/artifactId/version/artifactId-version.packaging</code></p>
-<blockquote>
-<p>Maven 仓库是基于简单文件系统存储的, 我们也理解了其存储方式, 因此, 当遇到一些与仓库相关的问题时, 可以很方便地查找相关文件, 方便定位问题</p>
-</blockquote>
-<h2 id="仓库的分类">仓库的分类</h2>
-<p>对于 Maven 来说, 仓库只分为两类: <strong>本地仓库</strong> 和 <strong>远程仓库</strong></p>
-<p>当 Maven 根据坐标寻找构件的时候, 它首先会查看本地仓库, 如果本地仓库存在此构件, 则直接使用, 如果本地仓库不存在此构件, 或者需要查看是否有更新的构件版本, Maven 就会去远程仓库查找, 发现需要的构件之后, 下载到本地仓库再使用, 如果本地仓库和远程仓库都没有需要的构件, Maven 就会报错</p>
-<p><strong>中央仓库</strong> 是 Maven 核心自带的远程仓库, 它包含了绝大部分开源的构件, 在默认配置下, 当本地仓库没有 Maven 需要的构件的时候, 它就会尝试从中央仓库下载</p>
-<p><strong>私服</strong> 是另一种特殊的远程仓库, 为了节省带宽和时间, 应该在局域网内架设一个私有的仓库服务器, 用其代理所有外部的远程仓库, 内部的项目还能部署到私服上供其他项目使用</p>
-<p>除了中央仓库和私服, 还有很多其他公开的远程仓库, 常见的有 <a href="http://download.java.net/maven/2/">Java.net Maven 库</a> 和 <a href="http://repository.jboss.com/maven2/">JBoss Maven 库</a> 等</p>
-<pre class="mermaid">graph TB
-title["图 Maven仓库的分类"]
-E --> title
-style title fill:#FFF,stroke:#FFF
-linkStyle 0 stroke:#FFF,stroke-width:0;
-A(Maven仓库)
-B(本地仓库)
-C(远程仓库)
-D(中央仓库)
-E(私服)
-F(其他公共库)
-A --- B
-A --- C
-C --- D
-C --- E
-C --- F</pre>
-<h3 id="本地仓库">本地仓库</h3>
-<p>当 Maven 在执行编译或测试时, 如果需要使用依赖文件, 它总是基于坐标使用 <strong>本地仓库</strong> 的依赖文件</p>
-<p>默认情况下, 不管是在 Windows 还是 Linux 上, 每个用户在自己的用户目录下都有一个路径名为 <code>.m2/repository/</code> 的仓库 目录, 可以编辑文件 <code>~/.m2/settings.xml</code>, 设置 <code>localRepository</code> 元素的值为想要的仓库地址</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 自定义本地仓库目录地址 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span>D:\maven\repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="远程仓库">远程仓库</h3>
-<p>安装好 Maven 后, 如果不执行任何 Maven 命令, 本地仓库目录是不存在的, 当用户输入第一条 Maven 命令之后, Maven 才会创建本地仓库, 然后根据配置和需要, 从 <strong>远程仓库</strong> 下载构件至本地仓库, 对于 Maven 来说, 每个用户只有一个本地仓库, 但可以配置访问很多远程仓库</p>
-<h3 id="中央仓库">中央仓库</h3>
-<p>由于最原始的本地仓库是空的, Maven 必须知道至少一个可用的远程仓库, 才能在执行 Maven 命令的时候下载到需要的构件, <strong>中央仓库</strong> 就是这样一个默认的远程仓库, Maven 的安装文件自带了中央仓库的配置</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 使用解压工具打开$M2_HOME/lib/maven-model-builder-3.5.4.jar --></span>
-<span class="token comment">&lt;!-- 访问org/apache/maven/model/pom-4.0.0.xml --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Central Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://repo.maven.apache.org/maven2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- 对于Maven1的仓库, 需要配置值为legacy的layout --></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span><span class="token punctuation">></span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- 不从该中央仓库下载快照版本的构件 --></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
-<span class="token comment">&lt;!-- 包含这段配置的文件是所有Maven项目都会继承的超级POM --></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="私服">私服</h3>
-<p><strong>私服</strong> 是一种特殊的远程仓库, 它是架设在局域网内的仓库服务, 私服代理广域网上的远程仓库, 供局域网内的 Maven 用户使用, 当 Maven 需要下载构件的时候, 它从私服请求, 如果私服上不存在该构件, 则从外部的远程仓库下载, 缓存在私服上之后, 再为 Maven 的下载请求提供服务, 此外, 一些无法从外部仓库下载到的构件也能从本地上传到私服上供大家使用</p>
-<pre class="mermaid">graph BT
-title["图 私服的用途图"]
-title --> D
-style title fill:#FFF,stroke:#FFF
-linkStyle 0 stroke:#FFF,stroke-width:0;
-A(Maven用户)
-B(Maven用户)
-C(私服)
-D(中央仓库)
-D -->|缓存构件| C
-subgraph 局域网
-C -->|下载构件| A
-A -->|上传构件| C
-C -->|下载构件| B
-end</pre>
-<p>即使在一台直接连入 Internet 的个人机器上使用 Maven, 也应该在本地建立私服, 因为私服可以帮助你:</p>
-<ul>
-<li><strong>节省自己的外网带宽</strong> 建立私服同样可以减少组织自己的开支, 大量的对于外部仓库的重复请求会消耗很大的带宽, 利用私服代理外部仓库之后, 对外的重复构件下载便得以消除, 即降低外网带宽的压力;</li>
-<li><strong>加速 Maven 构建</strong> 不停地连接请求外部仓库是十分耗时的, 但是 Maven 的一些内部机制 (如快照更新检查) 要求 Maven 在执行构建的时候不停地检查远程仓库数据, 因此, 当项目配置了很多外部远程仓库的时候, 构建的速度会被大大降低, 使用私服可以很好地解决这一问题, 当 Maven 只需要检查局域网内私服的数据时, 构建的速度便能得到很大程度的提高;</li>
-<li><strong>部署第三方构件</strong> 当某个构件无法从任何一个外部远程仓库获得, 如组织内部生成的私有构件肯定无法从外部仓库获得, Oracle 的 JDBC 驱动由于版权因素不能发布到公共仓库中, 建立私服之后, 便可以将这些构件部署到这个内部的仓库中, 供内部的 Maven 项目使用;</li>
-<li><strong>提高稳定性, 增强控制</strong> Maven 构建高度依赖于远程仓库, 因此, 当 Internet 不稳定的时候, Maven 构建也会变得不稳定, 甚至无法构建, 使用私服后, 即使暂时没有 Internet 连接, 由于私服中已经缓存了大量构件, Maven 也仍然可以正常运行, 此外, 一些私服软件 (如 Nexus) 还提供了很多额外的功能, 如权限管理, <code>RELEASE/SNAPSHOT</code> 区分等, 管理员可以对仓库进行一些更高级的控制;</li>
-<li><strong>降低中央仓库的负荷</strong> 运行并维护一个中央仓库不是一件容易的事情, 服务数百万的请求, 存储数 T 的数据, 需要相当大的财力, 使用私服可以避免很多对中央仓库重复的下载</li>
-</ul>
-<h2 id="远程仓库的配置">远程仓库的配置</h2>
-<p>在很多情况下, 默认的中央仓库无法满足项目的需求, 可能项目需要的构件存在于另外一个远程仓库中, 如 JBoss Maven 仓库, 这时, 可以在 <code>POM</code> 中配置该仓库</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置POM使用JBoss Maven仓库 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span><span class="token punctuation">></span></span>
-    <span class="token comment">&lt;!-- 在repositories元素下, 可以使用repository子元素声明一个或者多个远程仓库 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>jboss<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>JBoss Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://repository.jboss.com/maven2/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>releases</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>releases</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span><span class="token punctuation">></span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 对于releases和snapshots, 它们还包含另外两个子元素updatePolicy和checksumPolicy --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>daily<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>checksumPolicy</span><span class="token punctuation">></span></span>ignore<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>checksumPolicy</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
-<span class="token comment">&lt;!-- 元素updatePolicy用来配置Maven从远程仓库检查更新的频率
-    daily(默认值) 表示Maven每天检查一次
-    never 从不检查更新
-    always 每次构建都检查更新
-    interval:X 每隔X分钟检查一次更新(X为任意整数)
---></span>
-<span class="token comment">&lt;!-- 元素checksumPolicy用来配置Maven检查检验和文件的策略, 当构件被部署到Maven仓库中时, 会同时部署对应的校验和文件, 在下载构件的时候, Maven会验证校验和文件
-    warn(默认值) Maven会在执行构建时输出警告信息
-    fail Maven遇到校验和错误就让构建失败
-    ignore 使Maven完全忽略校验和错误
---></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>任何一个仓库声明的 <code>id</code> 必须是唯一的, 尤其需要注意的是, Maven 自带的中央仓库使用的 <code>id</code> 为 <code>central</code>, 如果其他的仓库声明也使用该 <code>id</code>, 就会覆盖中央仓库的配置</p>
-</blockquote>
-<h3 id="远程仓库的认证">远程仓库的认证</h3>
-<p>大部分远程仓库无须认证就可以访问, 但有时候出于安全方面的考虑, 我们需要提供认证信息才能访问一些远程仓库</p>
-<blockquote>
-<p>配置认证信息和配置仓库信息不同, 仓库信息可以直接配置在 <code>POM</code> 文件中, 但是认证信息必须配置在 <code>settings.xml</code> 文件中, 这是因为 <code>POM</code> 往往是被提交到代码仓库中供所有成员访问的, 而 <code>settings.xml</code> 一般只放在本机, 因此, 在 <code>settings.xml</code> 中配置认证信息更为安全</p>
-</blockquote>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 在settings.xml中配置仓库认证信息 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servers</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>server</span><span class="token punctuation">></span></span>
-            <span class="token comment">&lt;!-- 这里的关键是id元素, settings.xml中server元素的id必须与POM中需要认证的repository元素的id完全一致, 换句话说, 正是这个id将认证信息与仓库配置联系在了一起 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>my-proj<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>username</span><span class="token punctuation">></span></span>repo-user<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>username</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">></span></span>repo-pwd<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>server</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servers</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="部署至远程仓库">部署至远程仓库</h3>
-<p>私服的一大作用是部署第三方构件, 包括组织内部生成的构件以及一些无法从外部仓库直接获取的构件, 无论是日常开发中生成的构件, 还是正式版本发布的构件, 都需要部署到仓库中, 供其他团队成员使用</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 在POM中配置构件部署地址 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span><span class="token punctuation">></span></span>
-    <span class="token comment">&lt;!-- distributionManagement包含repository和snapshotRepository子元素, 前者表示发布版本构件的仓库, 后者表示快照版本的仓库 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>distributionManagement</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>proj-releases<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Proj Release Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://192.168.1.100/content/repositories/proj-releases<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshotRepository</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>proj-snapshots<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Proj Snapshot Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://192.168.1.100/content/repositories/proj-snapshots<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshotRepository</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>distributionManagement</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 配置正确后, 在命令行运行mvn clean deploy, Maven 就会将项目构建输出的构件部署到配置对应的远程仓库, 如果项目当前的版本是快照版本, 则部署到快照版本仓库地址, 否则就部署到发布版本仓库地址</span>
-λ mvn clean deploy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="快照版本">快照版本</h3>
-<p><strong>快照版本</strong> 只应该在组织内部的项目或模块间依赖使用, 因为这时, 组织对于这些快照版本的依赖具有完全的理解及控制权, 项目不应该依赖于任何组织外部的快照版本依赖, 由于快照版本的不稳定性, 这样的依赖会造成潜在的危险, 也就是说, 即使项目构建今天是成功的, 由于外部的快照版本依赖实际对应的构件随时可能变化, 项目的构建就可能由于这些外部的不受控制的因素而失败</p>
-<h2 id="从仓库解析依赖的机制">从仓库解析依赖的机制</h2>
-<p>当本地仓库没有依赖构件的时候, Maven 会自动从远程仓库下载, 当依赖版本为快照版本的时候, Maven 会自动找到最新的快照, 这背后的依赖解析机制可以概括如下:</p>
-<ol type="1">
-<li>当依赖的范围是 <code>system</code> 的时候, Maven 直接从本地文件系统解析构件;</li>
-<li>根据依赖坐标计算仓库路径后, 尝试直接从本地仓库寻找构件, 如果发现相应构件, 则解析成功;</li>
-<li>在本地仓库不存在相应构件的情况下, 如果依赖的版本是显式的发布版本构件, 如 <code>1.2</code>, <code>2.1-beta-1</code> 等, 则遍历所有的远程仓库, 发现后下载并解析使用;</li>
-<li>如果依赖的版本是 <code>RELEASE</code> 或者 <code>LATEST</code>, 则基于更新策略读取所有远程仓库的元数据 <code>groupId/artifactId/maven-metadata.xml</code>, 将其与本地仓库的对应元数据合并后, 计算出 <code>RELEASE</code> 或者 <code>LATEST</code> 真实的值, 然后基于这个真实的值检查本地和远程仓库, 如步骤 2 和 3;</li>
-<li>如果依赖的版本是 <code>SNAPSHOT</code>, 则基于更新策略读取所有远程仓库的元数据 <code>groupId/artifactId/version/maven-metadata.xml</code>, 将其与本地仓库的对应元数据合并后, 得到最新快照版本的值, 然后基于该值检查本地仓库, 或者从远程仓库下载;</li>
-<li>如果最后解析得到的构件版本是时间戳格式的快照, 如 <code>1.4.1-20091104.121450-121</code>, 则复制其时间戳格式的文件至非时间戳格式, 如 <code>SNAPSHOT</code>, 并使用该非时间戳格式的构件</li>
-</ol>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 基于groupId和artifactId的maven-metadata.xml --></span>
-<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>metadata</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.sonatype.nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>versioning</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- latest元素指向了这些版本中最新的那个版本 --></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>latest</span><span class="token punctuation">></span></span>1.4.2-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>latest</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- release元素指向了这些版本中最新的发布版本 --></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>release</span><span class="token punctuation">></span></span>1.4.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>release</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>versions</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.3.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.3.6<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.0.1-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.1-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.2-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>versions</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastUpdated</span><span class="token punctuation">></span></span>20091214221557<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastUpdated</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>versioning</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>metadata</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 基于groupId、artifactId和version的maven-metadata.xml --></span>
-<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>metadata</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.sonatype.nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.2-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>versioning</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshot</span><span class="token punctuation">></span></span>
-            <span class="token comment">&lt;!-- 快照的时间戳 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>timestamp</span><span class="token punctuation">></span></span>20091214.221414<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>timestamp</span><span class="token punctuation">></span></span>
-            <span class="token comment">&lt;!-- 快照的构建号 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>buildNumber</span><span class="token punctuation">></span></span>13<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>buildNumber</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshot</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastUpdated</span><span class="token punctuation">></span></span>20091214221558<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastUpdated</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>versioning</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>metadata</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>仓库元数据并不是永远正确的, 有时候当用户发现无法解析某些构件, 或者解析得到错误构件的时候, 就有可能是出现了仓库元数据错误, 这时就需要手工地, 或者使用工具 (如 Nexus) 对其进行修复</p>
-</blockquote>
-<h2 id="镜像">镜像</h2>
-<p>如果仓库 X 可以提供仓库 Y 存储的所有内容, 那么就可以认为 X 是 Y 的一个 <strong>镜像</strong>, 换句话说, 任何一个可以从仓库 Y 获得的构件, 都能够从它的镜像中获取</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置中央仓库镜像 --></span>
-<span class="token comment">&lt;!-- http://maven.net.cn/content/groups/public/是中央仓库在中国的镜像 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrors</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>maven.net.cn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>one of the central mirrors in China<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.net.cn/content/groups/public/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-            <span class="token comment">&lt;!-- 该例中, mirrorOf的值为central, 表示该配置为中央仓库的镜像, 任何对于中央仓库的请求都会转至该镜像 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrors</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>由于私服可以代理任何外部的公共仓库 (包括中央仓库), 因此, 对于组织内部的 Maven 用户来说, 使用一个私服地址就等于使用了所有需要的外部仓库, 这可以将配置集中到私服, 从而简化 Maven 本身的配置, 在这种情况下, 任何需要的构件都可以从私服获得, 私服就是所有仓库的镜像</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置使用私服作为镜像 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrors</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>internal-repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Internal Repository Manager<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://192.168.1.100/maven2/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-            <span class="token comment">&lt;!-- mirrorOf的值为星号, 表示该配置是所有Maven仓库的镜像, 任何对于远程仓库的请求都会被转至私服 --></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrors</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>为了满足一些复杂的需求, Maven 还支持更高级的镜像配置:</p>
-<ul>
-<li><strong><code>&lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</code></strong> 匹配所有远程仓库;</li>
-<li><strong><code>&lt;mirrorOf&gt;external:*&lt;/mirrorOf&gt;</code></strong> 匹配所有远程仓库, 使用 <code>localhost</code> 的除外, 使用 <code>file://</code> 协议的除外, 也就是说, 匹配所有不在本机上的远程仓库;</li>
-<li><strong><code>&lt;mirrorOf&gt;repo1,repo2&lt;/mirrorOf&gt;</code></strong> 匹配仓库 <code>repo1</code> 和 <code>repo2</code>, 使用逗号分隔多个远程仓库;</li>
-<li><strong><code>&lt;mirrorOf&gt;*,!repo1&lt;/mirrorOf&gt;</code></strong> 匹配所有远程仓库, <code>repo1</code> 除外, 使用感叹号将仓库从匹配中排除</li>
-</ul>
-<blockquote>
-<p>需要注意的是, 由于镜像仓库完全屏蔽了被镜像仓库, 当镜像仓库不稳定或者停止服务的时候, Maven 仍将无法访问被镜像仓库, 因而将无法下载构件</p>
-</blockquote>
-<h2 id="仓库搜索服务">仓库搜索服务</h2>
-<p>使用 Maven 进行日常开发的时候, 一个常见的问题就是如何寻找需要的依赖, 我们可能只知道需要使用类库的项目名称, 但添加 Maven 依赖要求提供确切的 Maven 坐标, 这时, 就可以使用 <strong>仓库搜索服务</strong> 来根据关键字得到 Maven 坐标</p>
-<p><a href="http://repository.sonatype.org/">Sonatype Nexus</a> <a href="">Jarvana</a> <a href="">MVNbrowser</a> <a href="http://mvnrepository.com/">MVNrepository</a></p>
-]]></content>
-      <categories>
-        <category>Maven</category>
-      </categories>
-      <tags>
-        <tag>Maven</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Maven 004 聚合与继承</title>
     <url>/2018/09/05/maven/004/</url>
     <content><![CDATA[<h1 id="聚合和继承">聚合和继承</h1>
@@ -10818,6 +10737,270 @@ Options:
 <blockquote>
 <p>在开发过程中, 灵活应用上述 4 个参数, 可以帮助我们跳过无须构建的模块, 从而加速构建, 在项目庞大, 模块特别多的时候, 这种效果就会异常明显</p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>Maven</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven 005 仓库</title>
+    <url>/2018/09/08/maven/005/</url>
+    <content><![CDATA[<h1 id="仓库">仓库</h1>
+<h2 id="maven-仓库">Maven 仓库</h2>
+<p>在 Maven 世界中, 任何一个依赖, 插件或者项目构建的输出, 都可以称为 <strong>构件</strong>, 任何一个构件都有一组坐标唯一标识</p>
+<p>得益于坐标机制, 任何 Maven 项目使用任何一个构件的方式都是完全相同的, 在此基础上, Maven 可以在某个位置统一存储所有 Maven 项目共享的构件, 这个统一的位置就是 <strong>仓库</strong>, 实际的 Maven 项目将不再各自存储其依赖文件, 它们只需要声明这些依赖的坐标, 在需要的时候 (例如, 编译项目的时候需要将依赖加入到 <code>classpath</code> 中), Maven 会自动根据坐标找到仓库中的构件, 并使用它们, 为了实现重用, 项目构建完毕后生成的构件也可以安装或者部署到仓库中, 供其他项目使用</p>
+<h2 id="仓库的布局">仓库的布局</h2>
+<p>任何一个构件都有其唯一的坐标, 根据这个坐标可以定义其在仓库中的唯一存储路径, 这便是 Maven 的 <strong>仓库布局</strong> 方式, 例如 <code>log4j:log4j:1.2.15</code> 这一依赖, 其对应的仓库路径为 <code>log4j/log4j/1.2.15/log4j-1.2.15.jar</code>, 该路径与坐标的大致对应关系为 <code>groupId/artifactId/version/artifactId-version.packaging</code></p>
+<blockquote>
+<p>Maven 仓库是基于简单文件系统存储的, 我们也理解了其存储方式, 因此, 当遇到一些与仓库相关的问题时, 可以很方便地查找相关文件, 方便定位问题</p>
+</blockquote>
+<h2 id="仓库的分类">仓库的分类</h2>
+<p>对于 Maven 来说, 仓库只分为两类: <strong>本地仓库</strong> 和 <strong>远程仓库</strong></p>
+<p>当 Maven 根据坐标寻找构件的时候, 它首先会查看本地仓库, 如果本地仓库存在此构件, 则直接使用, 如果本地仓库不存在此构件, 或者需要查看是否有更新的构件版本, Maven 就会去远程仓库查找, 发现需要的构件之后, 下载到本地仓库再使用, 如果本地仓库和远程仓库都没有需要的构件, Maven 就会报错</p>
+<p><strong>中央仓库</strong> 是 Maven 核心自带的远程仓库, 它包含了绝大部分开源的构件, 在默认配置下, 当本地仓库没有 Maven 需要的构件的时候, 它就会尝试从中央仓库下载</p>
+<p><strong>私服</strong> 是另一种特殊的远程仓库, 为了节省带宽和时间, 应该在局域网内架设一个私有的仓库服务器, 用其代理所有外部的远程仓库, 内部的项目还能部署到私服上供其他项目使用</p>
+<p>除了中央仓库和私服, 还有很多其他公开的远程仓库, 常见的有 <a href="http://download.java.net/maven/2/">Java.net Maven 库</a> 和 <a href="http://repository.jboss.com/maven2/">JBoss Maven 库</a> 等</p>
+<pre class="mermaid">graph TB
+title["图 Maven仓库的分类"]
+E --> title
+style title fill:#FFF,stroke:#FFF
+linkStyle 0 stroke:#FFF,stroke-width:0;
+A(Maven仓库)
+B(本地仓库)
+C(远程仓库)
+D(中央仓库)
+E(私服)
+F(其他公共库)
+A --- B
+A --- C
+C --- D
+C --- E
+C --- F</pre>
+<h3 id="本地仓库">本地仓库</h3>
+<p>当 Maven 在执行编译或测试时, 如果需要使用依赖文件, 它总是基于坐标使用 <strong>本地仓库</strong> 的依赖文件</p>
+<p>默认情况下, 不管是在 Windows 还是 Linux 上, 每个用户在自己的用户目录下都有一个路径名为 <code>.m2/repository/</code> 的仓库 目录, 可以编辑文件 <code>~/.m2/settings.xml</code>, 设置 <code>localRepository</code> 元素的值为想要的仓库地址</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 自定义本地仓库目录地址 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span>D:\maven\repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="远程仓库">远程仓库</h3>
+<p>安装好 Maven 后, 如果不执行任何 Maven 命令, 本地仓库目录是不存在的, 当用户输入第一条 Maven 命令之后, Maven 才会创建本地仓库, 然后根据配置和需要, 从 <strong>远程仓库</strong> 下载构件至本地仓库, 对于 Maven 来说, 每个用户只有一个本地仓库, 但可以配置访问很多远程仓库</p>
+<h3 id="中央仓库">中央仓库</h3>
+<p>由于最原始的本地仓库是空的, Maven 必须知道至少一个可用的远程仓库, 才能在执行 Maven 命令的时候下载到需要的构件, <strong>中央仓库</strong> 就是这样一个默认的远程仓库, Maven 的安装文件自带了中央仓库的配置</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 使用解压工具打开$M2_HOME/lib/maven-model-builder-3.5.4.jar --></span>
+<span class="token comment">&lt;!-- 访问org/apache/maven/model/pom-4.0.0.xml --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Central Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://repo.maven.apache.org/maven2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 对于Maven1的仓库, 需要配置值为legacy的layout --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span><span class="token punctuation">></span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 不从该中央仓库下载快照版本的构件 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!-- 包含这段配置的文件是所有Maven项目都会继承的超级POM --></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="私服">私服</h3>
+<p><strong>私服</strong> 是一种特殊的远程仓库, 它是架设在局域网内的仓库服务, 私服代理广域网上的远程仓库, 供局域网内的 Maven 用户使用, 当 Maven 需要下载构件的时候, 它从私服请求, 如果私服上不存在该构件, 则从外部的远程仓库下载, 缓存在私服上之后, 再为 Maven 的下载请求提供服务, 此外, 一些无法从外部仓库下载到的构件也能从本地上传到私服上供大家使用</p>
+<pre class="mermaid">graph BT
+title["图 私服的用途图"]
+title --> D
+style title fill:#FFF,stroke:#FFF
+linkStyle 0 stroke:#FFF,stroke-width:0;
+A(Maven用户)
+B(Maven用户)
+C(私服)
+D(中央仓库)
+D -->|缓存构件| C
+subgraph 局域网
+C -->|下载构件| A
+A -->|上传构件| C
+C -->|下载构件| B
+end</pre>
+<p>即使在一台直接连入 Internet 的个人机器上使用 Maven, 也应该在本地建立私服, 因为私服可以帮助你:</p>
+<ul>
+<li><strong>节省自己的外网带宽</strong> 建立私服同样可以减少组织自己的开支, 大量的对于外部仓库的重复请求会消耗很大的带宽, 利用私服代理外部仓库之后, 对外的重复构件下载便得以消除, 即降低外网带宽的压力;</li>
+<li><strong>加速 Maven 构建</strong> 不停地连接请求外部仓库是十分耗时的, 但是 Maven 的一些内部机制 (如快照更新检查) 要求 Maven 在执行构建的时候不停地检查远程仓库数据, 因此, 当项目配置了很多外部远程仓库的时候, 构建的速度会被大大降低, 使用私服可以很好地解决这一问题, 当 Maven 只需要检查局域网内私服的数据时, 构建的速度便能得到很大程度的提高;</li>
+<li><strong>部署第三方构件</strong> 当某个构件无法从任何一个外部远程仓库获得, 如组织内部生成的私有构件肯定无法从外部仓库获得, Oracle 的 JDBC 驱动由于版权因素不能发布到公共仓库中, 建立私服之后, 便可以将这些构件部署到这个内部的仓库中, 供内部的 Maven 项目使用;</li>
+<li><strong>提高稳定性, 增强控制</strong> Maven 构建高度依赖于远程仓库, 因此, 当 Internet 不稳定的时候, Maven 构建也会变得不稳定, 甚至无法构建, 使用私服后, 即使暂时没有 Internet 连接, 由于私服中已经缓存了大量构件, Maven 也仍然可以正常运行, 此外, 一些私服软件 (如 Nexus) 还提供了很多额外的功能, 如权限管理, <code>RELEASE/SNAPSHOT</code> 区分等, 管理员可以对仓库进行一些更高级的控制;</li>
+<li><strong>降低中央仓库的负荷</strong> 运行并维护一个中央仓库不是一件容易的事情, 服务数百万的请求, 存储数 T 的数据, 需要相当大的财力, 使用私服可以避免很多对中央仓库重复的下载</li>
+</ul>
+<h2 id="远程仓库的配置">远程仓库的配置</h2>
+<p>在很多情况下, 默认的中央仓库无法满足项目的需求, 可能项目需要的构件存在于另外一个远程仓库中, 如 JBoss Maven 仓库, 这时, 可以在 <code>POM</code> 中配置该仓库</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置POM使用JBoss Maven仓库 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 在repositories元素下, 可以使用repository子元素声明一个或者多个远程仓库 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>jboss<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>JBoss Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://repository.jboss.com/maven2/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>releases</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>releases</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span><span class="token punctuation">></span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 对于releases和snapshots, 它们还包含另外两个子元素updatePolicy和checksumPolicy --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>daily<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>checksumPolicy</span><span class="token punctuation">></span></span>ignore<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>checksumPolicy</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!-- 元素updatePolicy用来配置Maven从远程仓库检查更新的频率
+    daily(默认值) 表示Maven每天检查一次
+    never 从不检查更新
+    always 每次构建都检查更新
+    interval:X 每隔X分钟检查一次更新(X为任意整数)
+--></span>
+<span class="token comment">&lt;!-- 元素checksumPolicy用来配置Maven检查检验和文件的策略, 当构件被部署到Maven仓库中时, 会同时部署对应的校验和文件, 在下载构件的时候, Maven会验证校验和文件
+    warn(默认值) Maven会在执行构建时输出警告信息
+    fail Maven遇到校验和错误就让构建失败
+    ignore 使Maven完全忽略校验和错误
+--></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>任何一个仓库声明的 <code>id</code> 必须是唯一的, 尤其需要注意的是, Maven 自带的中央仓库使用的 <code>id</code> 为 <code>central</code>, 如果其他的仓库声明也使用该 <code>id</code>, 就会覆盖中央仓库的配置</p>
+</blockquote>
+<h3 id="远程仓库的认证">远程仓库的认证</h3>
+<p>大部分远程仓库无须认证就可以访问, 但有时候出于安全方面的考虑, 我们需要提供认证信息才能访问一些远程仓库</p>
+<blockquote>
+<p>配置认证信息和配置仓库信息不同, 仓库信息可以直接配置在 <code>POM</code> 文件中, 但是认证信息必须配置在 <code>settings.xml</code> 文件中, 这是因为 <code>POM</code> 往往是被提交到代码仓库中供所有成员访问的, 而 <code>settings.xml</code> 一般只放在本机, 因此, 在 <code>settings.xml</code> 中配置认证信息更为安全</p>
+</blockquote>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 在settings.xml中配置仓库认证信息 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servers</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>server</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- 这里的关键是id元素, settings.xml中server元素的id必须与POM中需要认证的repository元素的id完全一致, 换句话说, 正是这个id将认证信息与仓库配置联系在了一起 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>my-proj<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>username</span><span class="token punctuation">></span></span>repo-user<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>username</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">></span></span>repo-pwd<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>server</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servers</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="部署至远程仓库">部署至远程仓库</h3>
+<p>私服的一大作用是部署第三方构件, 包括组织内部生成的构件以及一些无法从外部仓库直接获取的构件, 无论是日常开发中生成的构件, 还是正式版本发布的构件, 都需要部署到仓库中, 供其他团队成员使用</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 在POM中配置构件部署地址 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- distributionManagement包含repository和snapshotRepository子元素, 前者表示发布版本构件的仓库, 后者表示快照版本的仓库 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>distributionManagement</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>proj-releases<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Proj Release Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://192.168.1.100/content/repositories/proj-releases<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshotRepository</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>proj-snapshots<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Proj Snapshot Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://192.168.1.100/content/repositories/proj-snapshots<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshotRepository</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>distributionManagement</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 配置正确后, 在命令行运行mvn clean deploy, Maven 就会将项目构建输出的构件部署到配置对应的远程仓库, 如果项目当前的版本是快照版本, 则部署到快照版本仓库地址, 否则就部署到发布版本仓库地址</span>
+λ mvn clean deploy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="快照版本">快照版本</h3>
+<p><strong>快照版本</strong> 只应该在组织内部的项目或模块间依赖使用, 因为这时, 组织对于这些快照版本的依赖具有完全的理解及控制权, 项目不应该依赖于任何组织外部的快照版本依赖, 由于快照版本的不稳定性, 这样的依赖会造成潜在的危险, 也就是说, 即使项目构建今天是成功的, 由于外部的快照版本依赖实际对应的构件随时可能变化, 项目的构建就可能由于这些外部的不受控制的因素而失败</p>
+<h2 id="从仓库解析依赖的机制">从仓库解析依赖的机制</h2>
+<p>当本地仓库没有依赖构件的时候, Maven 会自动从远程仓库下载, 当依赖版本为快照版本的时候, Maven 会自动找到最新的快照, 这背后的依赖解析机制可以概括如下:</p>
+<ol type="1">
+<li>当依赖的范围是 <code>system</code> 的时候, Maven 直接从本地文件系统解析构件;</li>
+<li>根据依赖坐标计算仓库路径后, 尝试直接从本地仓库寻找构件, 如果发现相应构件, 则解析成功;</li>
+<li>在本地仓库不存在相应构件的情况下, 如果依赖的版本是显式的发布版本构件, 如 <code>1.2</code>, <code>2.1-beta-1</code> 等, 则遍历所有的远程仓库, 发现后下载并解析使用;</li>
+<li>如果依赖的版本是 <code>RELEASE</code> 或者 <code>LATEST</code>, 则基于更新策略读取所有远程仓库的元数据 <code>groupId/artifactId/maven-metadata.xml</code>, 将其与本地仓库的对应元数据合并后, 计算出 <code>RELEASE</code> 或者 <code>LATEST</code> 真实的值, 然后基于这个真实的值检查本地和远程仓库, 如步骤 2 和 3;</li>
+<li>如果依赖的版本是 <code>SNAPSHOT</code>, 则基于更新策略读取所有远程仓库的元数据 <code>groupId/artifactId/version/maven-metadata.xml</code>, 将其与本地仓库的对应元数据合并后, 得到最新快照版本的值, 然后基于该值检查本地仓库, 或者从远程仓库下载;</li>
+<li>如果最后解析得到的构件版本是时间戳格式的快照, 如 <code>1.4.1-20091104.121450-121</code>, 则复制其时间戳格式的文件至非时间戳格式, 如 <code>SNAPSHOT</code>, 并使用该非时间戳格式的构件</li>
+</ol>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 基于groupId和artifactId的maven-metadata.xml --></span>
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>metadata</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.sonatype.nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>versioning</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- latest元素指向了这些版本中最新的那个版本 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>latest</span><span class="token punctuation">></span></span>1.4.2-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>latest</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- release元素指向了这些版本中最新的发布版本 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>release</span><span class="token punctuation">></span></span>1.4.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>release</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>versions</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.3.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.3.6<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.0.1-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.1-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.2-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>versions</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastUpdated</span><span class="token punctuation">></span></span>20091214221557<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastUpdated</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>versioning</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>metadata</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 基于groupId、artifactId和version的maven-metadata.xml --></span>
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>metadata</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.sonatype.nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>nexus<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.4.2-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>versioning</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshot</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- 快照的时间戳 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>timestamp</span><span class="token punctuation">></span></span>20091214.221414<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>timestamp</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- 快照的构建号 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>buildNumber</span><span class="token punctuation">></span></span>13<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>buildNumber</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshot</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastUpdated</span><span class="token punctuation">></span></span>20091214221558<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastUpdated</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>versioning</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>metadata</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>仓库元数据并不是永远正确的, 有时候当用户发现无法解析某些构件, 或者解析得到错误构件的时候, 就有可能是出现了仓库元数据错误, 这时就需要手工地, 或者使用工具 (如 Nexus) 对其进行修复</p>
+</blockquote>
+<h2 id="镜像">镜像</h2>
+<p>如果仓库 X 可以提供仓库 Y 存储的所有内容, 那么就可以认为 X 是 Y 的一个 <strong>镜像</strong>, 换句话说, 任何一个可以从仓库 Y 获得的构件, 都能够从它的镜像中获取</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置中央仓库镜像 --></span>
+<span class="token comment">&lt;!-- http://maven.net.cn/content/groups/public/是中央仓库在中国的镜像 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrors</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>maven.net.cn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>one of the central mirrors in China<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.net.cn/content/groups/public/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- 该例中, mirrorOf的值为central, 表示该配置为中央仓库的镜像, 任何对于中央仓库的请求都会转至该镜像 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrors</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>由于私服可以代理任何外部的公共仓库 (包括中央仓库), 因此, 对于组织内部的 Maven 用户来说, 使用一个私服地址就等于使用了所有需要的外部仓库, 这可以将配置集中到私服, 从而简化 Maven 本身的配置, 在这种情况下, 任何需要的构件都可以从私服获得, 私服就是所有仓库的镜像</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置使用私服作为镜像 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>settings</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrors</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>internal-repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Internal Repository Manager<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://192.168.1.100/maven2/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- mirrorOf的值为星号, 表示该配置是所有Maven仓库的镜像, 任何对于远程仓库的请求都会被转至私服 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrors</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>settings</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了满足一些复杂的需求, Maven 还支持更高级的镜像配置:</p>
+<ul>
+<li><strong><code>&lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</code></strong> 匹配所有远程仓库;</li>
+<li><strong><code>&lt;mirrorOf&gt;external:*&lt;/mirrorOf&gt;</code></strong> 匹配所有远程仓库, 使用 <code>localhost</code> 的除外, 使用 <code>file://</code> 协议的除外, 也就是说, 匹配所有不在本机上的远程仓库;</li>
+<li><strong><code>&lt;mirrorOf&gt;repo1,repo2&lt;/mirrorOf&gt;</code></strong> 匹配仓库 <code>repo1</code> 和 <code>repo2</code>, 使用逗号分隔多个远程仓库;</li>
+<li><strong><code>&lt;mirrorOf&gt;*,!repo1&lt;/mirrorOf&gt;</code></strong> 匹配所有远程仓库, <code>repo1</code> 除外, 使用感叹号将仓库从匹配中排除</li>
+</ul>
+<blockquote>
+<p>需要注意的是, 由于镜像仓库完全屏蔽了被镜像仓库, 当镜像仓库不稳定或者停止服务的时候, Maven 仍将无法访问被镜像仓库, 因而将无法下载构件</p>
+</blockquote>
+<h2 id="仓库搜索服务">仓库搜索服务</h2>
+<p>使用 Maven 进行日常开发的时候, 一个常见的问题就是如何寻找需要的依赖, 我们可能只知道需要使用类库的项目名称, 但添加 Maven 依赖要求提供确切的 Maven 坐标, 这时, 就可以使用 <strong>仓库搜索服务</strong> 来根据关键字得到 Maven 坐标</p>
+<p><a href="http://repository.sonatype.org/">Sonatype Nexus</a> <a href="">Jarvana</a> <a href="">MVNbrowser</a> <a href="http://mvnrepository.com/">MVNrepository</a></p>
 ]]></content>
       <categories>
         <category>Maven</category>
@@ -12645,6 +12828,127 @@ E --> G</pre>
       </tags>
   </entry>
   <entry>
+    <title>Spring 001 简介</title>
+    <url>/2018/08/29/spring/001/</url>
+    <content><![CDATA[<h1 id="spring-简介">Spring 简介</h1>
+<h2 id="定义">定义</h2>
+<p><strong>Spring</strong> 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益</p>
+<p>Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:</p>
+<ul>
+<li>基于 POJO 的轻量级和最小侵入性编程;</li>
+<li>通过依赖注入和面向接口实现松耦合;</li>
+<li>基于切面和惯例进行声明式编程;</li>
+<li>通过切面和模板减少样板式代码</li>
+</ul>
+<h2 id="框架">框架</h2>
+<p>在 Spring 4.0 中, <strong>Spring 框架</strong> 的发布版本包括了 20 个不同的模块, 每个模块会有 3 个 JAR 文件 (二进制类库, 源码的 JAR 文件以及 JavaDoc 的 JAR 文件), 这些模块依据其所属的功能可以划分为 6 类不同的功能</p>
+<ol type="1">
+<li>Spring 核心容器
+<ul>
+<li>Beans</li>
+<li>Core</li>
+<li>Context</li>
+<li>Expression</li>
+<li>Context support</li>
+</ul></li>
+<li>面向切面编程
+<ul>
+<li>AOP</li>
+<li>Aspects</li>
+</ul></li>
+<li>数据访问与集成
+<ul>
+<li>JDBC</li>
+<li>Transaction</li>
+<li>ORM</li>
+<li>OXM</li>
+<li>Messaging</li>
+<li>JMS</li>
+</ul></li>
+<li>Web 与远程调用
+<ul>
+<li>Web</li>
+<li>Web servlet</li>
+<li>Web portlet</li>
+<li>WebSocket</li>
+</ul></li>
+<li>Instrumentation
+<ul>
+<li>Instrument</li>
+<li>Instrument Tomcat</li>
+</ul></li>
+<li>测试
+<ul>
+<li>Test</li>
+</ul></li>
+</ol>
+<h2 id="容器">容器</h2>
+<p>在基于 Spring 的应用中, 应用对象生存于 <strong>Spring 容器(container)</strong> 中, Spring 容器负责创建对象, 装配它们, 配置它们并管理它们的整个生命周期</p>
+<p>Spring 容器并不是只有一个, Spring 自带了多个容器实现, 可以归为两种不同的类型:</p>
+<ul>
+<li><code>BeanFactory(org.springframework.beans.factory.BeanFactory)</code> 最简单的容器, 提供基本的 DI 支持;</li>
+<li><code>ApplicationContext(org.springframework.context.ApplicationContext)</code> 基于 <code>BeanFactory</code> 构建, 并提供应用框架级别的服务</li>
+</ul>
+<blockquote>
+<p>虽然可以在 <code>BeanFactory</code> 和 <code>ApplicationContext</code> 之间任选一种, 但 <code>BeanFactory</code> 对大多数应用来说往往太低级了, 因此, <code>ApplicationContext</code> 要比 <code>BeanFactory</code> 更受欢迎</p>
+</blockquote>
+<h2 id="应用上下文">应用上下文</h2>
+<p>Spring 通过 <strong>应用上下文(Application Context)</strong> 装载 bean 的定义并把它们组装起来, Spring 应用上下文全权负责对象的创建和组装</p>
+<p>Spring 自带了多种类型的应用上下文, 下面罗列几个:</p>
+<ul>
+<li><code>AnnotationConfigApplicationContext</code> 从一个或多个基于 Java 的配置类中加载 Spring 应用上下文;</li>
+<li><code>AnnotationConfigWebApplicationContext</code> 从一个或多个基于 Java 的配置类中加载 Spring Web 应用上下文;</li>
+<li><code>ClassPathXmlApplicationContext</code> 从类路径下的一个或多个 XML 配置文件中加载上下文定义, 把应用上下文的定义文件作为类资源;</li>
+<li><code>FileSystemXmlapplicationcontext</code> 从文件系统下的一个或多个 XML 配置文件中加载上下文定义;</li>
+<li><code>XmlWebApplicationContext</code> 从 Web 应用下的一个或多个 XML 配置文件中加载上下文定义。</li>
+</ul>
+<pre class="mermaid">graph TB
+title[图 bean在Spring容器中的生命周期过程]
+title --> A
+style title fill:#FFF,stroke:#FFF
+linkStyle 0 stroke:#FFF,stroke-width:0;
+A((实例化))
+B(填充属性)
+C(调用BeanNameAware的setBeanName方法)
+D(调用BeanFactoryAware的setBeanFactory方法)
+E(调用ApplicationContextAware的setApplicationContext方法)
+F(调用BeanPostProcessor的预初始化方法)
+G(调用InitializingBean的afterPropertiesSet方法)
+H(调用自定义初始化方法)
+I(调用BeanPostProcessor的初始化方法)
+J(bean可以使用了)
+K((容器关闭))
+L(调用DisposableBean的destory方法)
+M(调用自定义的销毁方法)
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+G --> H
+H --> I
+I --> J
+J --> K
+K --> L
+L --> M</pre>
+<h2 id="装配">装配</h2>
+<p>在 Spring 中, 对象无需自己查找或创建与其所关联的其他对象, 相反, 容器负责把需要相互协作的对象引用赋予各个对象, 创建对象之间协作关系的行为通常称为 <strong>装配(wiring)</strong>, 这也是 <strong>依赖注入(DI)</strong> 的本质</p>
+<p>Spring 提供了三种主要的装配机制:</p>
+<ul>
+<li>在 XML 中进行显示配置;</li>
+<li>在 Java 中进行显示配置;</li>
+<li>隐式的 bean 发现机制和自动装配</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring 002 自动化装配</title>
     <url>/2019/04/06/spring/002/</url>
     <content><![CDATA[<h1 id="自动化装配">自动化装配</h1>
@@ -12780,127 +13084,6 @@ E --> G</pre>
 <blockquote>
 <p>在测试代码中使用 <code>System.out.println()</code> 是稍微有点棘手的事情, 因此, 该样例中使用了 <code>SystemOutRule</code>, 这是来源于 <a href="https://stefanbirkner.github.io/system-rules/index.html">System Rules</a> 库的一个 <code>JUnit</code> 规则, 该规则能够基于控制台的输出编写断言</p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring 001 简介</title>
-    <url>/2018/08/29/spring/001/</url>
-    <content><![CDATA[<h1 id="spring-简介">Spring 简介</h1>
-<h2 id="定义">定义</h2>
-<p><strong>Spring</strong> 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益</p>
-<p>Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:</p>
-<ul>
-<li>基于 POJO 的轻量级和最小侵入性编程;</li>
-<li>通过依赖注入和面向接口实现松耦合;</li>
-<li>基于切面和惯例进行声明式编程;</li>
-<li>通过切面和模板减少样板式代码</li>
-</ul>
-<h2 id="框架">框架</h2>
-<p>在 Spring 4.0 中, <strong>Spring 框架</strong> 的发布版本包括了 20 个不同的模块, 每个模块会有 3 个 JAR 文件 (二进制类库, 源码的 JAR 文件以及 JavaDoc 的 JAR 文件), 这些模块依据其所属的功能可以划分为 6 类不同的功能</p>
-<ol type="1">
-<li>Spring 核心容器
-<ul>
-<li>Beans</li>
-<li>Core</li>
-<li>Context</li>
-<li>Expression</li>
-<li>Context support</li>
-</ul></li>
-<li>面向切面编程
-<ul>
-<li>AOP</li>
-<li>Aspects</li>
-</ul></li>
-<li>数据访问与集成
-<ul>
-<li>JDBC</li>
-<li>Transaction</li>
-<li>ORM</li>
-<li>OXM</li>
-<li>Messaging</li>
-<li>JMS</li>
-</ul></li>
-<li>Web 与远程调用
-<ul>
-<li>Web</li>
-<li>Web servlet</li>
-<li>Web portlet</li>
-<li>WebSocket</li>
-</ul></li>
-<li>Instrumentation
-<ul>
-<li>Instrument</li>
-<li>Instrument Tomcat</li>
-</ul></li>
-<li>测试
-<ul>
-<li>Test</li>
-</ul></li>
-</ol>
-<h2 id="容器">容器</h2>
-<p>在基于 Spring 的应用中, 应用对象生存于 <strong>Spring 容器(container)</strong> 中, Spring 容器负责创建对象, 装配它们, 配置它们并管理它们的整个生命周期</p>
-<p>Spring 容器并不是只有一个, Spring 自带了多个容器实现, 可以归为两种不同的类型:</p>
-<ul>
-<li><code>BeanFactory(org.springframework.beans.factory.BeanFactory)</code> 最简单的容器, 提供基本的 DI 支持;</li>
-<li><code>ApplicationContext(org.springframework.context.ApplicationContext)</code> 基于 <code>BeanFactory</code> 构建, 并提供应用框架级别的服务</li>
-</ul>
-<blockquote>
-<p>虽然可以在 <code>BeanFactory</code> 和 <code>ApplicationContext</code> 之间任选一种, 但 <code>BeanFactory</code> 对大多数应用来说往往太低级了, 因此, <code>ApplicationContext</code> 要比 <code>BeanFactory</code> 更受欢迎</p>
-</blockquote>
-<h2 id="应用上下文">应用上下文</h2>
-<p>Spring 通过 <strong>应用上下文(Application Context)</strong> 装载 bean 的定义并把它们组装起来, Spring 应用上下文全权负责对象的创建和组装</p>
-<p>Spring 自带了多种类型的应用上下文, 下面罗列几个:</p>
-<ul>
-<li><code>AnnotationConfigApplicationContext</code> 从一个或多个基于 Java 的配置类中加载 Spring 应用上下文;</li>
-<li><code>AnnotationConfigWebApplicationContext</code> 从一个或多个基于 Java 的配置类中加载 Spring Web 应用上下文;</li>
-<li><code>ClassPathXmlApplicationContext</code> 从类路径下的一个或多个 XML 配置文件中加载上下文定义, 把应用上下文的定义文件作为类资源;</li>
-<li><code>FileSystemXmlapplicationcontext</code> 从文件系统下的一个或多个 XML 配置文件中加载上下文定义;</li>
-<li><code>XmlWebApplicationContext</code> 从 Web 应用下的一个或多个 XML 配置文件中加载上下文定义。</li>
-</ul>
-<pre class="mermaid">graph TB
-title[图 bean在Spring容器中的生命周期过程]
-title --> A
-style title fill:#FFF,stroke:#FFF
-linkStyle 0 stroke:#FFF,stroke-width:0;
-A((实例化))
-B(填充属性)
-C(调用BeanNameAware的setBeanName方法)
-D(调用BeanFactoryAware的setBeanFactory方法)
-E(调用ApplicationContextAware的setApplicationContext方法)
-F(调用BeanPostProcessor的预初始化方法)
-G(调用InitializingBean的afterPropertiesSet方法)
-H(调用自定义初始化方法)
-I(调用BeanPostProcessor的初始化方法)
-J(bean可以使用了)
-K((容器关闭))
-L(调用DisposableBean的destory方法)
-M(调用自定义的销毁方法)
-A --> B
-B --> C
-C --> D
-D --> E
-E --> F
-F --> G
-G --> H
-H --> I
-I --> J
-J --> K
-K --> L
-L --> M</pre>
-<h2 id="装配">装配</h2>
-<p>在 Spring 中, 对象无需自己查找或创建与其所关联的其他对象, 相反, 容器负责把需要相互协作的对象引用赋予各个对象, 创建对象之间协作关系的行为通常称为 <strong>装配(wiring)</strong>, 这也是 <strong>依赖注入(DI)</strong> 的本质</p>
-<p>Spring 提供了三种主要的装配机制:</p>
-<ul>
-<li>在 XML 中进行显示配置;</li>
-<li>在 Java 中进行显示配置;</li>
-<li>隐式的 bean 发现机制和自动装配</li>
-</ul>
 ]]></content>
       <categories>
         <category>Spring</category>
