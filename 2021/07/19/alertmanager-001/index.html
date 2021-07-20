@@ -25,16 +25,16 @@
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="入门 AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络回调 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端">
+<meta name="description" content="入门 AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络触发 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AlertManager 入门">
 <meta property="og:url" content="https://janz.icu/2021/07/19/alertmanager-001/index.html">
 <meta property="og:site_name" content="Jbot">
-<meta property="og:description" content="入门 AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络回调 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端">
+<meta property="og:description" content="入门 AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络触发 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg">
 <meta property="article:published_time" content="2021-07-19T00:33:03.000Z">
-<meta property="article:modified_time" content="2021-07-19T00:33:03.479Z">
+<meta property="article:modified_time" content="2021-07-19T16:37:29.090Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="AlertManager">
 <meta property="article:tag" content="Prometheus">
@@ -154,7 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%9F%A5"><span class="nav-number">1.2.</span> <span class="nav-text">通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%91%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">抑制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E9%BB%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">静默</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4"><span class="nav-number">1.3.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.4.</span> <span class="nav-text">工具</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%9F%A5"><span class="nav-number">1.2.</span> <span class="nav-text">通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%91%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">抑制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E9%BB%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">静默</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amtool"><span class="nav-number">1.3.</span> <span class="nav-text">AMTool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4"><span class="nav-number">1.4.</span> <span class="nav-text">集群</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -259,6 +259,13 @@
 
       <time title="创建时间：2021-07-19 08:33:03" itemprop="dateCreated datePublished" datetime="2021-07-19T08:33:03+08:00">2021-07-19</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-20 00:37:29" itemprop="dateModified" datetime="2021-07-20T00:37:29+08:00">2021-07-20</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,7 +310,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="入门">入门</h1>
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络回调 (webhook), 微信等多种通知方式</p>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络触发 (webhook), 微信等多种通知方式</p>
 <p>AlertManager 的架构可分为以下 6 个模块:</p>
 <ol type="1">
 <li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于 http 协议的告警事件</li>
@@ -430,6 +437,7 @@ $ alertmanager
     <span class="token key atrule">receiver</span><span class="token punctuation">:</span> <span class="token string">'email'</span>   <span class="token comment"># 覆盖父节点的接收配置</span>
 
 <span class="token comment"># 此处配置myapp应用告警使用email方式, 其它使用webhook方式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.prometheus.io/webtools/alerting/routing-tree-editor/">RoutingTreeEditor</a> 是一个在线支持可视化的路由树编辑器, 通过生成直观的图例, 确保开发人员编写正确的路由分组</p>
 <h3 id="抑制">抑制</h3>
 <p>抑制是指当源告警通知已经发出时, 停止再发送目标告警的通知, 抑制主要用于消除冗余的告警, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#inhibition">inhibition</a></p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 示例: 抑制配置</span>
@@ -444,6 +452,8 @@ $ alertmanager
 <h3 id="静默">静默</h3>
 <p>静默通过配置静默表达式, 使匹配的告警事件不再发送告警通知, 管理员可以在控制台 <a target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/silences">/silences</a> 中添加静默表达式, 通常用于主机维护时或夜间运行批处理作业等场景, 添加临时的静默规则可以防止产生不必要的告警, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#silences">silences</a></p>
 <p>静默提供了一种简单的机制, 可以在给定的时间内忽略可存在的告警, 静默基于 <code>matchers</code> 配置实现, 类似于路由树, 对接收的告警事件进行检查, 判断它们是否和活跃的静默表达式匹配, 如果匹配成功, 就不会将这些告警发送给接收端</p>
+<h2 id="amtool">AMTool</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/tree/main/cmd/amtool">AMTool</a> 是用于与 AlertManager 架构中的 API 模块进行交互的命令行工具, 它可以使用 AlertManager 提供的查询语法, 进行告警事件的查询, 也支持管理服务的静默表达式</p>
 <h2 id="集群">集群</h2>
 <p>为了避免单节点问题, 通常会对多个 AlertManager 进行集群部署, AlertManager 之间通过 Gossip 机制进行集群成员管理和成员故障检测, 以确保在多个 AlertManager 分别接收到相同告警事件的情况下, 只有一个告警通知被发送给接收端, 要创建 AlertManager 的高可用集群, 可使用 <code>--cluster.*</code> 标志进行配置, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/blob/main/README.md#high-availability">high-availability</a></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 启动服务
@@ -470,9 +480,6 @@ $ docker run -d -p 9096:9093
       <span class="token punctuation">-</span> 172.17.0.1<span class="token punctuation">:</span><span class="token number">9094</span>
       <span class="token punctuation">-</span> 172.17.0.2<span class="token punctuation">:</span><span class="token number">9095</span>
       <span class="token punctuation">-</span> 172.17.0.3<span class="token punctuation">:</span><span class="token number">9096</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="工具">工具</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/tree/main/cmd/amtool">AMTool</a> 是用于与 AlertManager 架构中的 API 模块进行交互的 CLI 工具, 它可以使用 AlertManager 提供的查询语法, 进行告警事件的查询, 并且支持添加临时的静默规则</p>
-<p><a target="_blank" rel="noopener" href="https://www.prometheus.io/webtools/alerting/routing-tree-editor/">RoutingTreeEditor</a> 是一个在线支持可视化的路由树编辑器, 通过生成直观的图例, 确保开发人员编写正确的规则逻辑</p>
 
     </div>
 
@@ -492,10 +499,10 @@ $ docker run -d -p 9096:9093
       <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
+      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
+      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
     </li>
   </ul>
 
@@ -578,7 +585,7 @@ $ docker run -d -p 9096:9093
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">390k</span>
+    <span title="站点总字数">391k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
