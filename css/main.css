@@ -213,7 +213,7 @@ body {
 body {
   background: var(--body-bg-color);
   color: var(--text-color);
-  font-family: mplus Nerd Font, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: mplus, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1em;
   line-height: 2;
   min-height: 100%;
@@ -226,7 +226,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: mplus Nerd Font, mplus Nerd Font, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: mplus, mplus, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -391,346 +391,179 @@ td {
 }
 /*
 
-Name:       Base16 Atelier Sulphurpool Light
-Author:     Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/sulphurpool)
-
-Prism template by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/prism/)
-Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 */
-code[class*="language-"],
-pre[class*="language-"] {
-	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
-	font-size: 14px;
-	line-height: 1.375;
-	direction: ltr;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-	background: #f5f7ff;
-	color: #5e6687;
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
 }
 
-pre > code[class*="language-"] {
-	font-size: 1em;
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
 }
 
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-	text-shadow: none;
-	background: #dfe2f1;
+.hljs-comment {
+  color: #888888;
 }
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-	text-shadow: none;
-	background: #dfe2f1;
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
 }
 
-/* Code blocks */
-pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
 }
 
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
 }
 
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: #898ea4;
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
 }
 
-.token.punctuation {
-	color: #5e6687;
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
 }
 
-.token.namespace {
-	opacity: .7;
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
 }
 
-.token.operator,
-.token.boolean,
-.token.number {
-	color: #c76b29;
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
 }
 
-.token.property {
-	color: #c08b30;
+.hljs-meta-string {
+  color: #4d99bf;
 }
 
-.token.tag {
-	color: #3d8fd1;
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
 }
 
-.token.string {
-	color: #22a2c9;
+.hljs-strong {
+  font-weight: bold;
 }
-
-.token.selector {
-	color: #6679cc;
-}
-
-.token.attr-name {
-	color: #c76b29;
-}
-
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-	color: #22a2c9;
-}
-
-.token.attr-value,
-.token.keyword,
-.token.control,
-.token.directive,
-.token.unit {
-	color: #ac9739;
-}
-
-.token.statement,
-.token.regex,
-.token.atrule {
-	color: #22a2c9;
-}
-
-.token.placeholder,
-.token.variable {
-	color: #3d8fd1;
-}
-
-.token.deleted {
-	text-decoration: line-through;
-}
-
-.token.inserted {
-	border-bottom: 1px dotted #202746;
-	text-decoration: none;
-}
-
-.token.italic {
-	font-style: italic;
-}
-
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
-
-.token.important {
-	color: #c94922;
-}
-
-.token.entity {
-	cursor: help;
-}
-
-pre > code.highlight {
-	outline: 0.4em solid #c94922;
-	outline-offset: .4em;
-}
-
-/* overrides color-values for the Line Numbers plugin
- * http://prismjs.com/plugins/line-numbers/
- */
-.line-numbers .line-numbers-rows {
-	border-right-color: #dfe2f1;
-}
-
-.line-numbers-rows > span:before {
-	color: #979db4;
-}
-
-/* overrides color-values for the Line Highlight plugin
- * http://prismjs.com/plugins/line-highlight/
- */
-.line-highlight {
-	background: rgba(107, 115, 148, 0.2);
-	background: -webkit-linear-gradient(left, rgba(107, 115, 148, 0.2) 70%, rgba(107, 115, 148, 0));
-	background: linear-gradient(to right, rgba(107, 115, 148, 0.2) 70%, rgba(107, 115, 148, 0));
-}
-
-pre[class*="language-"].line-numbers {
-	position: relative;
-	padding-left: 3.8em;
-	counter-reset: linenumber;
-}
-
-pre[class*="language-"].line-numbers > code {
-	position: relative;
-	white-space: inherit;
-}
-
-.line-numbers .line-numbers-rows {
-	position: absolute;
-	pointer-events: none;
-	top: 0;
-	font-size: 100%;
-	left: -3.8em;
-	width: 3em; /* works for line-numbers below 1000 lines */
-	letter-spacing: -1px;
-	border-right: 1px solid #999;
-
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-
-}
-
-	.line-numbers-rows > span {
-		display: block;
-		counter-increment: linenumber;
-	}
-
-		.line-numbers-rows > span:before {
-			content: counter(linenumber);
-			color: #999;
-			display: block;
-			padding-right: 0.8em;
-			text-align: right;
-		}
 
 @media (prefers-color-scheme: dark) {
-/**
- * Nord Theme Originally by Arctic Ice Studio
- * https://nordtheme.com
- *
- * Ported for PrismJS by Zane Hitchcoxc (@zwhitchcox) and Gabriel Ramos (@gabrieluizramos)
- */
+/* Tomorrow Night Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 
-code[class*="language-"],
-pre[class*="language-"] {
-	color: #f8f8f2;
-	background: none;
-	font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	line-height: 1.5;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #969896;
 }
 
-/* Code blocks */
-pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-	border-radius: 0.3em;
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #cc6666;
 }
 
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-	background: #2E3440;
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #de935f;
 }
 
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
-	white-space: normal;
+/* Tomorrow Yellow */
+.hljs-attribute {
+  color: #f0c674;
 }
 
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: #636f88;
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #b5bd68;
 }
 
-.token.punctuation {
-	color: #81A1C1;
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+  color: #81a2be;
 }
 
-.namespace {
-	opacity: .7;
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b294bb;
 }
 
-.token.property,
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: #81A1C1;
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #1d1f21;
+  color: #c5c8c6;
+  padding: 0.5em;
 }
 
-.token.number {
-	color: #B48EAD;
+.hljs-emphasis {
+  font-style: italic;
 }
 
-.token.boolean {
-	color: #81A1C1;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: #A3BE8C;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string,
-.token.variable {
-	color: #81A1C1;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.function,
-.token.class-name {
-	color: #88C0D0;
-}
-
-.token.keyword {
-	color: #81A1C1;
-}
-
-.token.regex,
-.token.important {
-	color: #EBCB8B;
-}
-
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
-
-.token.italic {
-	font-style: italic;
-}
-
-.token.entity {
-	cursor: help;
+.hljs-strong {
+  font-weight: bold;
 }
 
 }
@@ -746,11 +579,29 @@ pre:hover .copy-btn {
   padding: 2px 6px;
   position: absolute;
   transition: opacity 0.2s ease-in-out;
-  background: #fff;
-  border: 0;
-  font-size: 0.8125em;
+  color: var(--highlight-foreground);
+  font-size: 14px;
   right: 0;
-  top: 0;
+  top: 2px;
+}
+figure.highlight {
+  border-radius: 5px;
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,0.4);
+  padding-top: 30px;
+}
+figure.highlight .table-container {
+  border-radius: 0 0 5px 5px;
+}
+figure.highlight::before {
+  background: #fc625d;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  left: 12px;
+  margin-top: -20px;
+  position: absolute;
+  border-radius: 50%;
+  content: ' ';
+  height: 12px;
+  width: 12px;
 }
 code,
 kbd,
@@ -766,7 +617,7 @@ pre {
 }
 pre,
 code {
-  font-family: mplus Nerd Font, consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
+  font-family: LXGW WenKai, consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
 }
 code {
   border-radius: 3px;
@@ -1491,7 +1342,7 @@ pre code {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: mplus Nerd Font, mplus Nerd Font, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: mplus, mplus, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   margin: 0;
@@ -2227,7 +2078,7 @@ pre code {
   width: 4px;
 }
 .post-body {
-  font-family: mplus Nerd Font, mplus Nerd Font, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: LXGW WenKai, mplus, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   overflow-wrap: break-word;
 }
 @media (min-width: 1200px) {
@@ -2421,7 +2272,7 @@ pre code {
 }
 .posts-expand .post-meta-container {
   color: #999;
-  font-family: mplus Nerd Font, mplus Nerd Font, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: LXGW WenKai, mplus, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 0.75em;
   margin-top: 3px;
 }
@@ -3156,7 +3007,7 @@ mjx-container[display="true"] + br {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #d1da59;
+  background: #a3ff91;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3175,4 +3026,18 @@ mjx-container[display="true"] + br {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+/* LXGW WenKai */
+@font-face {
+  font-family: 'LXGW WenKai';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('LXGW WenKai'), url("/fonts/LXGWWenKaiMono-Regular.woff2") format('woff2');
+}
+@font-face {
+  font-family: 'mplus';
+  font-style: normal;
+  font-display: swap;
+  src: local('mplus Nerd Font'), url("/fonts/M+ 1mn medium Nerd Font Complete.ttf") format('truetype');
 }

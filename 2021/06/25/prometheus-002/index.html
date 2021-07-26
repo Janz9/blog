@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -310,15 +310,7 @@
 <p>每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/data_model/">data-model</a></p>
 <h2 id="时间序列">时间序列</h2>
 <p>Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都将被忽略</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: http:&#x2F;&#x2F;localhost:9090&#x2F;metrics
-
-# HELP prometheus_http_requests_total Counter of HTTP requests.
-# TYPE prometheus_http_requests_total counter
-prometheus_http_requests_total&#123;code&#x3D;&quot;200&quot;,handler&#x3D;&quot;&#x2F;metrics&quot;&#125; 5357
-
-# 此处示例仅截取返回的文本数据中的单个指标
-# HELP 是指标的描述
-# TYPE 是指标的类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: http://localhost:9090/metrics</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_http_requests_total Counter of HTTP requests.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_http_requests_total counter</span></span><br><span class="line">prometheus_http_requests_total&#123;code=&quot;200&quot;,handler=&quot;/metrics&quot;&#125; 5357</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处示例仅截取返回的文本数据中的单个指标</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HELP 是指标的描述</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE 是指标的类型</span></span><br></pre></td></tr></table></figure>
 <p>时间序列的组成:</p>
 <ul>
 <li>指标(metric)
@@ -350,11 +342,8 @@ prometheus_http_requests_total&#123;code&#x3D;&quot;200&quot;,handler&#x3D;&quot
 }^{\large\textsf{时间戳}}
 }^{\large\textsf{样本}} \\
 \]</span></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 时间戳格式化
-$ date -d @1624636559.334 +&quot;%F %T.%N&quot;
-2021-06-25 23:55:59.334000000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 指标名称的存储方式
-&#123;__name__: &quot;prometheus_http_requests_total&quot;, code&#x3D;&quot;200&quot;, handler&#x3D;&quot;&#x2F;metrics&quot;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 时间戳格式化</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> date -d @1624636559.334 +<span class="string">&quot;%F %T.%N&quot;</span></span></span><br><span class="line">2021-06-25 23:55:59.334000000</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 指标名称的存储方式</span></span><br><span class="line">&#123;__name__: &quot;prometheus_http_requests_total&quot;, code=&quot;200&quot;, handler=&quot;/metrics&quot;&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>指标名称实际上以标签的形式保存在数据库中, <code>__name__</code> 是特定的标签(系统保留关键字), 用于表示指标名称, 这种方式是系统内部的表现形式, 官方推荐只能在系统内部使用</p>
 </blockquote>
@@ -362,9 +351,7 @@ $ date -d @1624636559.334 +&quot;%F %T.%N&quot;
 <p>Prometheus 指标分为 Counter(计数型), Gauge(测量型), Histogram(直方图) 和 Summary(摘要型) 这 4 种类型, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/metric_types/">metric-types</a></p>
 <h3 id="counter">Counter</h3>
 <p>Counter 计数型的特点是只增不减, 具有很好的不相关性, 不会因为机器重启而置零, 虽然它们是随着时间增加而不会减少的数字, 但有时可以将其重置为零并再次开始递增, 常见的监控指标如服务的请求数, 已完成的任务数, 错误发生的次数等</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP prometheus_http_requests_total Counter of HTTP requests.
-# TYPE prometheus_http_requests_total counter
-# 由下表可知: 端点&#x2F;metrics在时间戳1624639184.334时累计请求5579次, 以此类推<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_http_requests_total Counter of HTTP requests.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_http_requests_total counter</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: 端点/metrics在时间戳1624639184.334时累计请求5579次, 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
@@ -384,9 +371,7 @@ $ date -d @1624636559.334 +&quot;%F %T.%N&quot;
 \]</span></p>
 <h3 id="gauge">Gauge</h3>
 <p>Gauge 测量型的特点是实时变化, 本质上是特定度量的快照, 常见的监控指标如温度, 内存和磁盘的使用量等</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP process_resident_memory_bytes Resident memory size in bytes.
-# TYPE process_resident_memory_bytes gauge
-# 由下表可知: 常驻内存在时间戳1624640084.334时使用量为109850624(约105MB), 以此类推<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP process_resident_memory_bytes Resident memory size <span class="keyword">in</span> bytes.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE process_resident_memory_bytes gauge</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: 常驻内存在时间戳1624640084.334时使用量为109850624(约105MB), 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
@@ -406,9 +391,7 @@ $ date -d @1624636559.334 +&quot;%F %T.%N&quot;
 \]</span></p>
 <h3 id="histogram">Histogram</h3>
 <p>Histogram 直方图是对观察点进行采样的指标类型, 通过标签 <code>le</code> 指定上边界, 统计小于上边界的区间内的样本个数, 常用于应用性能等领域的分析观察</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP prometheus_tsdb_compaction_chunk_samples Final number of samples on their first compaction
-# TYPE prometheus_tsdb_compaction_chunk_samples histogram
-# 由下表可知: TSDB首次压缩样本的数量统计, 小于4的有663个, 小于6的有817个, 以此类推<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_tsdb_compaction_chunk_samples Final number of samples on their first compaction</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_tsdb_compaction_chunk_samples histogram</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: TSDB首次压缩样本的数量统计, 小于4的有663个, 小于6的有817个, 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
@@ -431,9 +414,7 @@ $ date -d @1624636559.334 +&quot;%F %T.%N&quot;
 \]</span></p>
 <h3 id="summary">Summary</h3>
 <p>Summary 摘要型是采样点分位图统计, 用于得到数据的分布情况, 常用于分位数的分析观察</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># HELP prometheus_target_interval_length_seconds Actual intervals between scrapes.
-# TYPE prometheus_target_interval_length_seconds summary
-# 由下表可知: 抓取数据的实际时间间隔的分位数的统计, 1%分布小于14.998899642, 50%分布小于15.000017863(中位数), 以此类推<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_target_interval_length_seconds Actual intervals between scrapes.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_target_interval_length_seconds summary</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: 抓取数据的实际时间间隔的分位数的统计, 1%分布小于14.998899642, 50%分布小于15.000017863(中位数), 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
@@ -648,17 +629,12 @@ $ date -d @1624636559.334 +&quot;%F %T.%N&quot;
 <li><code>or</code></li>
 </ol>
 <p>具有相同优先级的运算符满足结合律(左结合), 运算符 <code>^</code> 例外(右结合), 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#binary-operator-precedence">precedence</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 优先级
-a or b * c + d 等价 a or ((b * c) + d)
-2 ^ 3 ^ 2 等价 2 ^ (3 ^ 2)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 优先级</span></span><br><span class="line">a or b * c + d 等价 a or ((b * c) + d)</span><br><span class="line">2 ^ 3 ^ 2 等价 2 ^ (3 ^ 2)</span><br></pre></td></tr></table></figure>
 <h3 id="向量匹配">向量匹配</h3>
 <p>PromQL 中向量之间的运算操作会基于默认的匹配规则, 依次找到与左边向量的指标匹配 (标签完全一致) 的右边向量的指标进行运算, 如果没有找到, 则直接丢弃指标, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#vector-matching">vector-matching</a>, PromQL 中向量匹配有 2 种匹配模式</p>
 <h4 id="一对一">一对一</h4>
 <p>一对一匹配模式会从操作符两边表达式获取的瞬时向量依次比较 可以使用 <code>on</code> 或者 <code>ignoring</code> 修改标签的匹配行为</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 语法: 匹配时限定在指定的标签列表内
-&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) &lt;vector expr&gt;
-# 语法: 匹配时忽略指定的标签列表
-&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) &lt;vector expr&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法: 匹配时限定在指定的标签列表内</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法: 匹配时忽略指定的标签列表</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) &lt;vector expr&gt;</span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
@@ -676,11 +652,7 @@ a or b * c + d 等价 a or ((b * c) + d)
 \]</span></p>
 <h4 id="一对多">一对多</h4>
 <p>一对多匹配模式指的是一侧的每个指标可以与多侧的多个指标匹配, 必须使用 <code>group_(left/right)</code> 指定哪侧是更高的基数</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 语法: 分组匹配
-&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;
-&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;
-&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;
-&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法: 分组匹配</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;</span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
@@ -854,10 +826,10 @@ a or b * c + d 等价 a or ((b * c) + d)
       <div class="popular-posts-title"><a href="/2021/07/19/alertmanager-001/" rel="bookmark">AlertManager 入门</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
+      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
+      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
@@ -948,14 +920,14 @@ a or b * c + d 等价 a or ((b * c) + d)
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

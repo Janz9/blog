@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -318,8 +318,7 @@
 <li>项目所包含的代码已经全部提交到版本控制系统中, 项目已经发布了, 可源代码却不在版本控制系统中, 甚至丢失了, 这意味着项目丢失了某个时刻的状态, 因此这种情况必须避免, 版本发布的时候必须确保所有的源代码都已经提交了</li>
 </ul>
 <h3 id="maven的版本号定义约定">Maven的版本号定义约定</h3>
-<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># Maven 的版本号定义约定是这样的:</span>
-&lt;主版本><span class="token punctuation">.</span>&lt;次版本><span class="token punctuation">.</span>&lt;增量版本><span class="token operator">-</span>&lt;里程碑版本><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Maven 的版本号定义约定是这样的:</span></span><br><span class="line">&lt;主版本&gt;.&lt;次版本&gt;.&lt;增量版本&gt;-&lt;里程碑版本&gt;</span><br></pre></td></tr></table></figure>
 <p>主版本和次版本之间, 以及次版本和增量版本之间用点号分隔, 里程碑版本之前用连字号分隔, 下面解释其中每一个部分的意义:</p>
 <ul>
 <li><strong>主版本</strong> 表示了项目的重大架构变更;</li>
@@ -357,27 +356,8 @@
 <li><code>release:rollback</code> 回退 <code>release:prepare</code> 所执行的操作, 将 <code>POM</code> 回退至 <code>release:prepare</code> 之前的状态, 并提交, 需要注意的是, 该步骤不会删除 <code>release:prepare</code> 生成的标签, 因此用户需要手动删除;</li>
 <li><code>release:perform</code> 执行版本发布, 签出 <code>release:prepare</code> 生成的标签中的源代码, 并在此基础上执行 <code>mvn deploy</code> 命令打包并部署构件至仓库</li>
 </ul>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置maven-release-plugin --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.maven.plugins<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>maven-release-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.5.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- 标签的基础目录 --></span>
-		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tagBase</span><span class="token punctuation">></span></span>http://xxx.com/tags<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tagBase</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置SCM --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scm</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- connection表示只读的scm地址 --></span>
-		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>connection</span><span class="token punctuation">></span></span>scm:svn:http://xxx.com/project<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>connection</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- developerConnection表示可写的scm地址 --></span>
-		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>developerConnection</span><span class="token punctuation">></span></span>scm:svn:http://xxx.com/project<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>developerConnection</span><span class="token punctuation">></span></span>
-        <span class="token comment">&lt;!-- url表示可以在浏览器中访问的scm地址 --></span>
-		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://xxx.com/project<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scm</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置maven-release-plugin --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-release-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 标签的基础目录 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">tagBase</span>&gt;</span>http://xxx.com/tags<span class="tag">&lt;/<span class="name">tagBase</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置SCM --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">scm</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- connection表示只读的scm地址 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">connection</span>&gt;</span>scm:svn:http://xxx.com/project<span class="tag">&lt;/<span class="name">connection</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- developerConnection表示可写的scm地址 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">developerConnection</span>&gt;</span>scm:svn:http://xxx.com/project<span class="tag">&lt;/<span class="name">developerConnection</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- url表示可以在浏览器中访问的scm地址 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://xxx.com/project<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">scm</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>connection</code> 和 <code>developerConnection</code> 必须以 <code>scm</code> 开头, 冒号之后的部分表示版本控制工具类型 (这里是 <code>svn</code>), Maven 还支持 <code>cvs</code>, <code>git</code> 等, 接下来才是实际的 <code>scm</code> 地址</p>
 </blockquote>
@@ -496,14 +476,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

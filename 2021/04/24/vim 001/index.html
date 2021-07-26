@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -313,80 +313,33 @@
 </blockquote>
 <h2 id="安装">安装</h2>
 <p>Vim 可在各种操作系统中安装, 官网 <a target="_blank" rel="noopener" href="https://www.vim.org/download.php">download</a> 提供了详细的安装说明</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 确认Vim的版本和功能
-&gt; vim --version
-VIM - Vi IMproved 8.2 (2019 Dec 12, compiled Dec 21 2020 20:40:08)
-macOS version
-Included patches: 1-850, 1972
-Compiled by root@apple.com
-Normal version without GUI.  Features included (+) or not (-):
-# 部分截取
-+comments          +libcall           +python&#x2F;dyn        +visual
--conceal           +linebreak         -python3           +visualextra
-
-# 输出结果列出的一系列功能, 每项功能前面的(+)表示功能启用, (-)表示功能未启用
-# 示例的Vim支持python2(+python&#x2F;dyn), 而不支持python3(-python3)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 确认Vim的版本和功能</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> vim --version</span></span><br><span class="line">VIM - Vi IMproved 8.2 (2019 Dec 12, compiled Dec 21 2020 20:40:08)</span><br><span class="line">macOS version</span><br><span class="line">Included patches: 1-850, 1972</span><br><span class="line">Compiled by root@apple.com</span><br><span class="line">Normal version without GUI.  Features included (+) or not (-):</span><br><span class="line"><span class="meta">#</span><span class="bash"> 部分截取</span></span><br><span class="line">+comments          +libcall           +python/dyn        +visual</span><br><span class="line">-conceal           +linebreak         -python3           +visualextra</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出结果列出的一系列功能, 每项功能前面的(+)表示功能启用, (-)表示功能未启用</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例的Vim支持python2(+python/dyn), 而不支持python3(-python3)</span></span><br></pre></td></tr></table></figure>
 <p>需要注意的是, 包管理器软件仓库中的 Vim 版本一般会有所滞后, 安装 Vim 的最佳方式是使用源代码, 这需要编译器及其支持的文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 编译安装
-&gt; git clone https:&#x2F;&#x2F;github.com&#x2F;vim&#x2F;vim.git  # 拉取源码
-&gt; cd vim&#x2F;src
-&gt; .&#x2F;configure --with-features&#x3D;huge --enable-python3interp
-&gt; make
-&gt; sudo make install  # 默认功能的安装只需执行此命令
-
-# --with-features&#x3D;huge编译选项是为了启用Vim大部分功能
-# --enable-python3interp选项显式的启用python3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 编译安装</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/vim/vim.git  <span class="comment"># 拉取源码</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">cd</span> vim/src</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ./configure --with-features=huge --enable-python3interp</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> make</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> sudo make install  <span class="comment"># 默认功能的安装只需执行此命令</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --with-features=huge编译选项是为了启用Vim大部分功能</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --enable-python3interp选项显式的启用python3</span></span><br></pre></td></tr></table></figure>
 <h3 id="手册">手册</h3>
 <p>Vim 提供了一个学习工具 <code>:help</code> 命令, Vim 手册中附带了大量的资源和教程</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看搜索指令相关的文档
-:help search-commands<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看搜索指令相关的文档</span></span><br><span class="line">:help search-commands</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>为找到正确的词条, 可以在输入指令 <code>:help search</code> 时通过 <code>Ctrl+d</code> 组合键得到包含 <code>search</code> 的标签列表</p>
 </blockquote>
 <h3 id="配置">配置</h3>
 <p>Vim 是一个高可配置软件, 支持不同层次的配置文件, 详见 <a target="_blank" rel="noopener" href="http://vimdoc.sourceforge.net/htmldoc/usr_05.html">settings</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 显示配置层级
-&gt; vim --version
-# 部分截取
-   system vimrc file: &quot;$VIM&#x2F;vimrc&quot;
-     user vimrc file: &quot;$HOME&#x2F;.vimrc&quot;
- 2nd user vimrc file: &quot;~&#x2F;.vim&#x2F;vimrc&quot;
-      user exrc file: &quot;$HOME&#x2F;.exrc&quot;
-       defaults file: &quot;$VIMRUNTIME&#x2F;defaults.vim&quot;
-  fall-back for $VIM: &quot;&#x2F;usr&#x2F;share&#x2F;vim&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 显示配置层级</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> vim --version</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 部分截取</span></span><br><span class="line">   system vimrc file: &quot;$VIM/vimrc&quot;</span><br><span class="line">     user vimrc file: &quot;$HOME/.vimrc&quot;</span><br><span class="line"> 2nd user vimrc file: &quot;~/.vim/vimrc&quot;</span><br><span class="line">      user exrc file: &quot;$HOME/.exrc&quot;</span><br><span class="line">       defaults file: &quot;$VIMRUNTIME/defaults.vim&quot;</span><br><span class="line">  fall-back for $VIM: &quot;/usr/share/vim&quot;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>windows 系统不允许文件名中出现句号, 因此配置文件的名称为 <code>_vimrc</code></p>
 </blockquote>
 <p>如果遇到了问题, 可以在 Vim 中执行 <code>:echo $MYVIMRC</code> 指令, Vim 会显示它正在使用的 <code>.vimrc</code> 路径</p>
 <h4 id="常用配置">常用配置</h4>
 <p>可选配置参考 <a target="_blank" rel="noopener" href="http://vimdoc.sourceforge.net/htmldoc/options.html">options</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
-syntax on           &quot; 语法高亮
-filetype indent on  &quot; 根据文件类型缩进
-set autoindent      &quot; 新行自动处理缩进
-set expandtab       &quot; 将制表符展开为空格
-set hlsearch        &quot; 高亮匹配搜索项
-set incsearch       &quot; 动态高亮搜索项
-set ignorecase      &quot; 搜索时忽略大小写
-set smartcase       &quot; 搜索时智能大小写
-set number          &quot; 启用行号
-set relativenumber  &quot; 相对行号
-set wildmenu        &quot; 在状态栏上显示补全匹配<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">syntax on           &quot; 语法高亮</span><br><span class="line">filetype indent on  &quot; 根据文件类型缩进</span><br><span class="line">set autoindent      &quot; 新行自动处理缩进</span><br><span class="line">set expandtab       &quot; 将制表符展开为空格</span><br><span class="line">set hlsearch        &quot; 高亮匹配搜索项</span><br><span class="line">set incsearch       &quot; 动态高亮搜索项</span><br><span class="line">set ignorecase      &quot; 搜索时忽略大小写</span><br><span class="line">set smartcase       &quot; 搜索时智能大小写</span><br><span class="line">set number          &quot; 启用行号</span><br><span class="line">set relativenumber  &quot; 相对行号</span><br><span class="line">set wildmenu        &quot; 在状态栏上显示补全匹配</span><br></pre></td></tr></table></figure>
 <h4 id="重映射">重映射</h4>
 <p>Vim 支持将每个操作的按键映射为其他键, 创建一个新映射时, 最好先确认一下此键或按键序列是否已经被映射为其他用途了, 内置的按键绑定列表可通过 <code>:help index</code> 命令查看</p>
 <p>Vim 支持细粒度的映射控制方式, 可以针对每种模式分别定义映射</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
-noremap &lt;C-u&gt; :w&lt;CR&gt;  &quot; 配置&lt;Ctrl-u&gt;来保存文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看帮助文档
-:help map-modes     # 映射类型
-:help key-notation  # 按键表示<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">noremap &lt;C-u&gt; :w&lt;CR&gt;  &quot; 配置&lt;Ctrl-u&gt;来保存文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看帮助文档</span></span><br><span class="line">:help map-modes     # 映射类型</span><br><span class="line">:help key-notation  # 按键表示</span><br></pre></td></tr></table></figure>
 <h4 id="先导键">先导键</h4>
 <p>Vim 常用先导键来实现额外的快捷键映射, 默认情况下, 先导键为反斜线 <code>\</code>, 这个键使用起来不太方便, 在 Vim 社区中有几个替代的方案, 其中逗号 <code>,</code> 是比较流行的</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
-let mapleader &#x3D; &#39;,&#39;       &quot; 配置先导键为逗号
-noremap &lt;LEADER&gt;w :w&lt;CR&gt;  &quot; 配置,+w来保存文件
-
-&quot; 先导键配置应该放在.vimrc中的顶部, 因为新定义的先导键只会在定义之后生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">let mapleader = &#x27;,&#x27;       &quot; 配置先导键为逗号</span><br><span class="line">noremap &lt;LEADER&gt;w :w&lt;CR&gt;  &quot; 配置,+w来保存文件</span><br><span class="line"></span><br><span class="line">&quot; 先导键配置应该放在.vimrc中的顶部, 因为新定义的先导键只会在定义之后生效</span><br></pre></td></tr></table></figure>
 <h3 id="插件">插件</h3>
 <p>Vim 的功能可以通过添加插件来扩展, Vim8 提供了一种原生的插件加载方式:</p>
 <ul>
@@ -396,13 +349,9 @@ noremap &lt;LEADER&gt;w :w&lt;CR&gt;  &quot; 配置,+w来保存文件
 <p>Vim 的插件管理方式一直在与时俱进, 网上也能找到很多插件管理器, <a target="_blank" rel="noopener" href="https://github.com/junegunn/vim-plug">vim-plug</a> 是很有前景的插件管理器, 这个插件管理器是轻量级的, 易用且兼容大量的插件</p>
 <h4 id="插件配置">插件配置</h4>
 <p>Vim 插件通常会提供命令来绑定快捷键, 或提供变量用于控制插件的行为, 因此, 在使用一个插件时, 查看它提供了哪些命令和选项是一个好习惯</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 查看插件的帮助文档
-:help airline                # airline的帮助文档
-:help airline-configuration  # airline的配置文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看插件的帮助文档</span></span><br><span class="line">:help airline                # airline的帮助文档</span><br><span class="line">:help airline-configuration  # airline的配置文档</span><br></pre></td></tr></table></figure>
 <p>先导键在配置插件时尤其有用, 因为它可以为插件提供完整的命名空间</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
-let mapleader &#x3D; &quot;\&lt;space&gt;&quot;         &quot; 配置先导键为空格键
-noremap &lt;LEADER&gt;u :PlugUpdate&lt;CR&gt;  &quot; 配置空格+u执行vim-plug插件的更新插件指令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">let mapleader = &quot;\&lt;space&gt;&quot;         &quot; 配置先导键为空格键</span><br><span class="line">noremap &lt;LEADER&gt;u :PlugUpdate&lt;CR&gt;  &quot; 配置空格+u执行vim-plug插件的更新插件指令</span><br></pre></td></tr></table></figure>
 <h2 id="模式">模式</h2>
 <p>Vim 利用不同的模式来响应不同的用户输入, Vim 有 7 种主模式, 理解每一种模式的用途非常重要, 有助于更好的掌握 Vim 的方方面面</p>
 <h3 id="正常模式">正常模式</h3>
@@ -433,95 +382,33 @@ noremap &lt;LEADER&gt;u :PlugUpdate&lt;CR&gt;  &quot; 配置空格+u执行vim-pl
 </ul>
 <h3 id="光标">光标</h3>
 <p>在 Vim 中可以用方向键或字母 <code>h(左) j(下) k(上) l(右)</code> 来逐个字符的移动光标, 在命令之前可以加数字, 表示重复这条命令的次数</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 逐字符移动
-5j  # 下移5次<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 逐词移动
-w   # 移到下个狭义单词
-W   # 移到下个广义单词
-e   # 向前移到狭义单词的结尾
-E   # 向前移到广义单词的结尾
-b   # 向后移到狭义单词的开头
-B   # 向后移到广义单词的开头
-ge  # 移到上个狭义单词的结尾
-gE  # 移到上个广义单词的结尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 行内移动
-_        # 光标移到行首
-$        # 光标移到行尾
-t&lt;字符&gt;  # 在当前行内正向搜索字符, 光标置于字符之前
-T&lt;字符&gt;  # 同上反向搜索
-f&lt;字符&gt;  # 在当前行内正向搜索字符, 光标置于字符之上
-F&lt;字符&gt;  # 同上反向搜索<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 逐段移动
-&#123;        # 移动到段落开头
-&#125;        # 移动到段落结尾
-Ctrl+f   # 下翻页
-Ctrl+b   # 上翻页
-H        # 移动到窗口顶部
-L        # 移动到窗口底部
-gg       # 移动到文件开头
-G        # 移动到文件结尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 逐字符移动</span></span><br><span class="line">5j  # 下移5次</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 逐词移动</span></span><br><span class="line">w   # 移到下个狭义单词</span><br><span class="line">W   # 移到下个广义单词</span><br><span class="line">e   # 向前移到狭义单词的结尾</span><br><span class="line">E   # 向前移到广义单词的结尾</span><br><span class="line">b   # 向后移到狭义单词的开头</span><br><span class="line">B   # 向后移到广义单词的开头</span><br><span class="line">ge  # 移到上个狭义单词的结尾</span><br><span class="line">gE  # 移到上个广义单词的结尾</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 行内移动</span></span><br><span class="line">_        # 光标移到行首</span><br><span class="line"><span class="meta">$</span><span class="bash">        <span class="comment"># 光标移到行尾</span></span></span><br><span class="line">t&lt;字符&gt;  # 在当前行内正向搜索字符, 光标置于字符之前</span><br><span class="line">T&lt;字符&gt;  # 同上反向搜索</span><br><span class="line">f&lt;字符&gt;  # 在当前行内正向搜索字符, 光标置于字符之上</span><br><span class="line">F&lt;字符&gt;  # 同上反向搜索</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 逐段移动</span></span><br><span class="line">&#123;        # 移动到段落开头</span><br><span class="line">&#125;        # 移动到段落结尾</span><br><span class="line">Ctrl+f   # 下翻页</span><br><span class="line">Ctrl+b   # 上翻页</span><br><span class="line">H        # 移动到窗口顶部</span><br><span class="line">L        # 移动到窗口底部</span><br><span class="line">gg       # 移动到文件开头</span><br><span class="line">G        # 移动到文件结尾</span><br></pre></td></tr></table></figure>
 <p>Vim 支持通过行号移动</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 行号移动
-:N   # 跳转到第N行(绝对行号)
-:+N  # 向下移动N行
-:-N  # 向上移动N行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 行号移动</span></span><br><span class="line">:N   # 跳转到第N行(绝对行号)</span><br><span class="line">:+N  # 向下移动N行</span><br><span class="line">:-N  # 向上移动N行</span><br></pre></td></tr></table></figure>
 <h3 id="编辑">编辑</h3>
 <p>在 Vim 中使用 <code>i</code> 键进入插入模式, 插入文本的位置为光标的位置, 除此之外, 还有其他进入插入模式的便捷方法</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 修改命令c
-ce   # 替换光标到向前的狭义单词结尾的字符, 并进入插入模式
-c4l  # 替换光标右4个字符, 并进入插入模式
-cc   # 替换光标所在的整行, 并进入插入模式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 删除命令d
-dw   # 删除光标到下个狭义单词的字符
-d4e  # 删除光标到向前4个狭义单词结尾的字符
-dd   # 删除光标所在的整行<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 插入命令
-a   # 在光标后进入插入模式
-A   # 在光标所在行的行尾进入插入模式
-I   # 在光标所在行的行首进入插入模式
-o   # 在光标下新增一行, 在新行里进入插入模式
-O   # 在光标上新增一行, 在新行里进入插入模式
-gi  # 在最后退出的位置进入插入模式
-C   # 删除光标右边的字符, 并进入插入模式
-s   # 删除单个字符, 并进入插入模式
-S   # 等同于cc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 修改命令c</span></span><br><span class="line">ce   # 替换光标到向前的狭义单词结尾的字符, 并进入插入模式</span><br><span class="line">c4l  # 替换光标右4个字符, 并进入插入模式</span><br><span class="line">cc   # 替换光标所在的整行, 并进入插入模式</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 删除命令d</span></span><br><span class="line">dw   # 删除光标到下个狭义单词的字符</span><br><span class="line">d4e  # 删除光标到向前4个狭义单词结尾的字符</span><br><span class="line">dd   # 删除光标所在的整行</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 插入命令</span></span><br><span class="line">a   # 在光标后进入插入模式</span><br><span class="line">A   # 在光标所在行的行尾进入插入模式</span><br><span class="line">I   # 在光标所在行的行首进入插入模式</span><br><span class="line">o   # 在光标下新增一行, 在新行里进入插入模式</span><br><span class="line">O   # 在光标上新增一行, 在新行里进入插入模式</span><br><span class="line">gi  # 在最后退出的位置进入插入模式</span><br><span class="line">C   # 删除光标右边的字符, 并进入插入模式</span><br><span class="line">s   # 删除单个字符, 并进入插入模式</span><br><span class="line">S   # 等同于cc</span><br></pre></td></tr></table></figure>
 <h3 id="搜索">搜索</h3>
 <p>大多数情况下, Vim 中最快的文本浏览方式是搜索指定的字符串</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 搜索命令
-&#x2F;&lt;关键字&gt;  # 正向搜索指定字符串
-?&lt;关键字&gt;  # 反向搜索指定字符串
-
-n  # 跳转到下一个匹配的位置
-N  # 跳转到上一个匹配的位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 搜索命令</span></span><br><span class="line">/&lt;关键字&gt;  # 正向搜索指定字符串</span><br><span class="line">?&lt;关键字&gt;  # 反向搜索指定字符串</span><br><span class="line"></span><br><span class="line">n  # 跳转到下一个匹配的位置</span><br><span class="line">N  # 跳转到上一个匹配的位置</span><br></pre></td></tr></table></figure>
 <p>Vim 支持跨文件的搜索</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 跨文件搜索命令
-:vimgrep &lt;模式&gt; &lt;路径&gt;
-
-:cn      # 浏览下一个匹配项
-:cp      # 浏览上一个匹配项
-:copen   # 显示匹配项的列表
-:cclose  # 关闭匹配项的列表<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 跨文件搜索命令</span></span><br><span class="line">:vimgrep &lt;模式&gt; &lt;路径&gt;</span><br><span class="line"></span><br><span class="line">:cn      # 浏览下一个匹配项</span><br><span class="line">:cp      # 浏览上一个匹配项</span><br><span class="line">:copen   # 显示匹配项的列表</span><br><span class="line">:cclose  # 关闭匹配项的列表</span><br></pre></td></tr></table></figure>
 <h3 id="撤销">撤销</h3>
 <p>和其他编辑器一样, Vim 也记录了每一步操作</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 常用操作
-u       # 撤销
-Ctrl+r  # 重做<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 常用操作</span></span><br><span class="line">u       # 撤销</span><br><span class="line">Ctrl+r  # 重做</span><br></pre></td></tr></table></figure>
 <p>Vim 支持在不同会话之间持久保存撤销历史, 从而允许撤销几天前的操作</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
-set undofile               &quot; 启用持久性撤销, 这会对每个编辑的文件保留一个撤销历史记录文件
-set undodir&#x3D;~&#x2F;.vim&#x2F;undo&#x2F;&#x2F;  &quot; 指定撤销历史记录文件的目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">set undofile               &quot; 启用持久性撤销, 这会对每个编辑的文件保留一个撤销历史记录文件</span><br><span class="line">set undodir=~/.vim/undo//  &quot; 指定撤销历史记录文件的目录</span><br></pre></td></tr></table></figure>
 <h2 id="寄存器">寄存器</h2>
 <p>Vim 支持多种寄存器, 每个寄存器用字母, 数字或特殊符号来标识, 寄存器的访问方式是引号键 <code>"</code> 接寄存器标识符, 然后是针对指定寄存器的操作</p>
 <p>复制(<code>y</code>) 粘贴(<code>p</code>) 使用的是默认的无名寄存器, 用双引号 <code>"</code> 标识</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 无名寄存器
-&quot;&quot;p  # 从无名寄存器中粘贴文本, 等同于p<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 无名寄存器</span></span><br><span class="line">&quot;&quot;p  # 从无名寄存器中粘贴文本, 等同于p</span><br></pre></td></tr></table></figure>
 <p><code>a~z</code> 标识的寄存器用于手动复制粘贴, <code>0~9</code> 标识的寄存器存储的是最后 10 次删除操作的历史记录</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 使用指定寄存器
-&quot;ayw  # 复制单词到a寄存器
-&quot;ap   # 从a寄存器粘贴
-
-:reg      # 显示每个寄存器中内容的列表
-:echo @a  # 查看寄存器a中的内容<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 使用指定寄存器</span></span><br><span class="line">&quot;ayw  # 复制单词到a寄存器</span><br><span class="line">&quot;ap   # 从a寄存器粘贴</span><br><span class="line"></span><br><span class="line">:reg      # 显示每个寄存器中内容的列表</span><br><span class="line">:echo @a  # 查看寄存器a中的内容</span><br></pre></td></tr></table></figure>
 <p>一些很有用的只读寄存器:</p>
 <ul>
 <li><code>%</code> 存储当前文件名</li>
@@ -538,12 +425,8 @@ set undodir&#x3D;~&#x2F;.vim&#x2F;undo&#x2F;&#x2F;  &quot; 指定撤销历史记
 </ul>
 <h2 id="交换文件">交换文件</h2>
 <p>默认情况下, Vim 用交换文件跟踪文件的变化情况, 当用户编辑文件的时候, Vim 会在原始文件的目录下, 自动产生 <code>.swp</code> 后缀的交换文件, 交换文件的作用是恢复文件内容, 当用户的会话或系统崩溃, 再次用 Vim 打开同一个文件时, 就会看到交换文件的操作提示</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 交换文件操作
-r  # 从交换文件中恢复文件
-d  # 删除交换文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&quot; 示例: .vimrc配置
-set noswapfile               &quot; 不创建交换文件
-set directory&#x3D;~&#x2F;.vim&#x2F;swap&#x2F;&#x2F;  &quot; 指定交换文件创建的目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 交换文件操作</span></span><br><span class="line">r  # 从交换文件中恢复文件</span><br><span class="line">d  # 删除交换文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">set noswapfile               &quot; 不创建交换文件</span><br><span class="line">set directory=~/.vim/swap//  &quot; 指定交换文件创建的目录</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -642,14 +525,14 @@ set directory&#x3D;~&#x2F;.vim&#x2F;swap&#x2F;&#x2F;  &quot; 指定交换文件�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

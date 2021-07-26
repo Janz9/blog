@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5k</span>
+      <span>5.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -310,24 +310,7 @@
 <p><a target="_blank" rel="noopener" href="https://graphql.org/">GraphQL</a> 是一种用于 API 的查询语言, 也是一个满足数据查询的运行时, GraphQL 对 API 中的数据提供了一套易于理解的完整描述, 使得客户端能够准确的获得它需要的数据, 而且没有任何冗余, 也让 API 更容易的随着时间推移而演进, 规范详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/">spec</a></p>
 <h2 id="schema">Schema</h2>
 <p>GraphQL 使用模板定义语言(Schema Definitin Language, SDL) 用于定义强类型的文档, 无论使用何种语言或框架构建应用程序, GraphQL SDL 都是相同的, GraphQL Schema 定义了应用程序中的可用类型, 服务端和客户端通过它来验证 GraphQL 请求</p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">"文件: schema.graphql"</span>
-schema &#123;
-    query: Query           <span class="token string">"操作类型"</span>
-&#125;
-type Query &#123;               <span class="token string">"定义初始类型"</span>
-    hero<span class="token punctuation">(</span><span class="token function">id:</span> ID<span class="token punctuation">)</span>: Hero
-&#125;
-type Hero &#123;                <span class="token string">"定义对象类型"</span>
-    id: ID!                <span class="token string">"ID用于对象类型中的唯一标识符"</span>
-    name: String!          <span class="token string">"感叹号表示字段是非空字段"</span>
-    appearsIn: <span class="token punctuation">[</span><span class="token function">Episode</span><span class="token punctuation">]</span>!  <span class="token string">"方括号用于列表字段"</span>
-    totalCredits: Int
-&#125;
-enum Episode &#123;             <span class="token string">"定义枚举类型"</span>
-    NEWHOPE
-    EMPIRE
-    JEDI
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;文件: schema.graphql&quot;</span></span><br><span class="line">schema &#123;</span><br><span class="line">    query: Query           <span class="string">&quot;操作类型&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">type Query &#123;               <span class="string">&quot;定义初始类型&quot;</span></span><br><span class="line">    hero(<span class="name">id:</span> ID): Hero</span><br><span class="line">&#125;</span><br><span class="line">type Hero &#123;                <span class="string">&quot;定义对象类型&quot;</span></span><br><span class="line">    id: ID!                <span class="string">&quot;ID用于对象类型中的唯一标识符&quot;</span></span><br><span class="line">    name: String!          <span class="string">&quot;感叹号表示字段是非空字段&quot;</span></span><br><span class="line">    appearsIn: [<span class="name">Episode</span>]!  <span class="string">&quot;方括号用于列表字段&quot;</span></span><br><span class="line">    totalCredits: Int</span><br><span class="line">&#125;</span><br><span class="line">enum Episode &#123;             <span class="string">&quot;定义枚举类型&quot;</span></span><br><span class="line">    NEWHOPE</span><br><span class="line">    EMPIRE</span><br><span class="line">    JEDI</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="类型">类型</h3>
 <p>GraphQL schema 中最基本的单元是类型, 每个 GraphQL 服务都会定义一套类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Types-">types</a></p>
 <p><strong>初始类型(initial types)</strong> 定义了 schema 的入口, GraphQL 有 3 种初始类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Initial-types-">initial</a></p>
@@ -348,138 +331,44 @@ enum Episode &#123;             <span class="token string">"定义枚举类型"<
 <p>在 GraphQL 服务实现中, 可以有自定义标量类型的方式, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/schema/#scalar-types">define</a></p>
 <h3 id="接口">接口</h3>
 <p>GraphQL 接口表示一个具名字段列表以及其参数, GraphQL 对象可以实现接口, 并保证包含接口中的字段, 接口上的字段拥有和对象上相同的规则, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Interfaces-">interfaces</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">interface Character &#123;  <span class="token string">"定义接口"</span>
-    id: ID!
-    name: String!
-&#125;
-type Human implements Character &#123;
-    id: ID!
-    name: String!
-    totalCredits: Int
-&#125;
-type Droid implements Character &#123;
-    id: ID!
-    name: String!
-    primaryFunction: String
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">interface Character &#123;  <span class="string">&quot;定义接口&quot;</span></span><br><span class="line">    id: ID!</span><br><span class="line">    name: String!</span><br><span class="line">&#125;</span><br><span class="line">type Human implements Character &#123;</span><br><span class="line">    id: ID!</span><br><span class="line">    name: String!</span><br><span class="line">    totalCredits: Int</span><br><span class="line">&#125;</span><br><span class="line">type Droid implements Character &#123;</span><br><span class="line">    id: ID!</span><br><span class="line">    name: String!</span><br><span class="line">    primaryFunction: String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="联合">联合</h3>
 <p>GraphQL 联合表示一个对象的类型是对象类型列表中之一, 但不保证这些类型之间的字段, 另一个区别于接口的方面是, 对象会声明其实现的接口, 而不知道它被包含的联合, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Unions-">unions</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">type Query &#123;
-    search<span class="token punctuation">(</span><span class="token function">name:</span> String!<span class="token punctuation">)</span>: <span class="token punctuation">[</span><span class="token function">SearchResult!</span><span class="token punctuation">]</span>!
-&#125;
-union SearchResult = Human <span class="token identifier">| Droid |</span> Starship  <span class="token string">"定义联合类型"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Query &#123;</span><br><span class="line">    search(<span class="name">name:</span> String!): [<span class="name">SearchResult!</span>]!</span><br><span class="line">&#125;</span><br><span class="line">union SearchResult = Human | Droid | Starship  <span class="string">&quot;定义联合类型&quot;</span></span><br></pre></td></tr></table></figure>
 <h3 id="参数">参数</h3>
 <p>GraphQL 对象类型上的每个字段都可以有零个或者多个参数, 所有参数都是具名的, 可以是必选或者可选的, 当一个参数可选时, 可以定义其默认值, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/schema/#arguments">arguments</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">type Starship &#123;
-    id: ID!
-    name: String!
-    length<span class="token punctuation">(</span><span class="token function">unit:</span> LengthUnit = METER<span class="token punctuation">)</span>: Float  <span class="token string">"可选参数且定义默认值"</span>
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type Starship &#123;</span><br><span class="line">    id: ID!</span><br><span class="line">    name: String!</span><br><span class="line">    length(<span class="name">unit:</span> LengthUnit = METER): Float  <span class="string">&quot;可选参数且定义默认值&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="输入对象">输入对象</h3>
 <p>GraphQL 也可以使用复杂对象作为参数, 输入对象定义了输入字段的一个集合, 这在更改中特别有用, 因为有时候需要传递整个对象作为更改的参数, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Input-Objects-">input-objects</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">type Mutation &#123;
-    createReview<span class="token punctuation">(</span><span class="token function">review:</span> ReviewInput!<span class="token punctuation">)</span>: Review
-&#125;
-input ReviewInput &#123;  <span class="token string">"定义输入类型"</span>
-    stars: Int!
-    commentary: String
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type Mutation &#123;</span><br><span class="line">    createReview(<span class="name">review:</span> ReviewInput!): Review</span><br><span class="line">&#125;</span><br><span class="line">input ReviewInput &#123;  <span class="string">&quot;定义输入类型&quot;</span></span><br><span class="line">    stars: Int!</span><br><span class="line">    commentary: String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="文档">文档</h3>
 <p>在编写 GraphQL Schema 时, 可以为每个字段添加注释, 从而解释 schema 的类型和字段, 写好文档注释无疑可以帮助开发团队和其它用户理解项目的类型系统, 并且在使用相关的 GraphQL 可视化工具时, 也可以通过内省查询来查看这些描述</p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">""</span><span class="token string">"
-三个双引号添加多行注释
-"</span><span class="token string">""</span>
-
-<span class="token string">"一个双引号添加单行注释"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">三个双引号添加多行注释</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;一个双引号添加单行注释&quot;</span></span><br></pre></td></tr></table></figure>
 <h3 id="内省">内省</h3>
 <p>GraphQL 服务端支持基于 schema 来支持内省, 内省查询遵循 GraphQL 查询语言的规则, 可通过查询操作的根级类型上的元数据来接入, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Introspection-">introspection</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">"查看schema中定义的类型"</span>
-&#123;
-    __schema &#123;
-        types &#123;
-            name
-            description
-        &#125;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">"查看Hero对象类型的字段"</span>
-&#123;
-    __type<span class="token punctuation">(</span><span class="token function">name:</span> <span class="token string">"Hero"</span><span class="token punctuation">)</span> &#123;
-        name
-        fields &#123;
-            name
-            type &#123;
-                name
-            &#125;
-        &#125;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;查看schema中定义的类型&quot;</span></span><br><span class="line">&#123;</span><br><span class="line">    __schema &#123;</span><br><span class="line">        types &#123;</span><br><span class="line">            name</span><br><span class="line">            description</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;查看Hero对象类型的字段&quot;</span></span><br><span class="line">&#123;</span><br><span class="line">    __type(<span class="name">name:</span> <span class="string">&quot;Hero&quot;</span>) &#123;</span><br><span class="line">        name</span><br><span class="line">        fields &#123;</span><br><span class="line">            name</span><br><span class="line">            type &#123;</span><br><span class="line">                name</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="请求">请求</h2>
 <p>GraphQL 服务运行起来, 它就能接收 GraphQL 请求, 并验证和执行, 接收到的请求首先会被检查确保它只引用了已定义的类型和字段, 然后运行指定的解析函数来生成结果</p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">query HeroIdAndName &#123;  <span class="token string">"操作类型和名称"</span>
-    hero &#123;             <span class="token string">"选择集"</span>
-        id
-        name
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">query HeroIdAndName &#123;  <span class="string">&quot;操作类型和名称&quot;</span></span><br><span class="line">    hero &#123;             <span class="string">&quot;选择集&quot;</span></span><br><span class="line">        id</span><br><span class="line">        name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>操作类型可以是 <code>query</code>, <code>mutation</code>, <code>subscription</code>, 对应 GraphQL Schema 初始类型定义的入口</p>
 <p>操作名称是有意义和明确的名称, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/queries/#operation-name">operation-name</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme"><span class="token string">"操作类型和名称可以省略, 简化为以下示例"</span>
-&#123;
-    hero &#123;
-        id
-        name
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;操作类型和名称可以省略, 简化为以下示例&quot;</span></span><br><span class="line">&#123;</span><br><span class="line">    hero &#123;</span><br><span class="line">        id</span><br><span class="line">        name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>操作类型和名称仅在多个操作的文档中是必需的, 但是鼓励使用, 因为它对于调试和日志记录非常有用, 当网络或是服务端的日志中出现问题时, 通过名称来从代码中找到相关请求更容易</p>
 </blockquote>
 <h3 id="查询">查询</h3>
 <p>编写查询时, 把需要的字段用大括号括起来, 这些块被称为选择集(selection set), 在选择集内定义的字段和 GraphQL 类型直接相关, 可以通过指定别名来更改查询结果中返回对象的字段名称</p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">&#123;
-    empireHero: hero &#123;  <span class="token string">"字段设置别名"</span>
-        id
-        name
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    empireHero: hero &#123;  <span class="string">&quot;字段设置别名&quot;</span></span><br><span class="line">        id</span><br><span class="line">        name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="片段">片段</h4>
 <p>片段是可以在多个操作中重用的选择集, 使用片段的好处是, 可以通过修改一个片段来同时修改许多个用于不同查询的选择集, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/queries/#fragments">fragments</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">&#123;
-    leftComparison: hero<span class="token punctuation">(</span><span class="token function">episode:</span> EMPIRE<span class="token punctuation">)</span> &#123;
-        ...comparisonFields
-    &#125;
-    rightComparison: hero<span class="token punctuation">(</span><span class="token function">episode:</span> JEDI<span class="token punctuation">)</span> &#123;
-        ...comparisonFields
-    &#125;
-&#125;
-fragment comparisonFields on Character &#123;  <span class="token string">"定义具名片段"</span>
-    name
-    appearsIn
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    leftComparison: hero(<span class="name">episode:</span> EMPIRE) &#123;</span><br><span class="line">        ...comparisonFields</span><br><span class="line">    &#125;</span><br><span class="line">    rightComparison: hero(<span class="name">episode:</span> JEDI) &#123;</span><br><span class="line">        ...comparisonFields</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fragment comparisonFields on Character &#123;  <span class="string">&quot;定义具名片段&quot;</span></span><br><span class="line">    name</span><br><span class="line">    appearsIn</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="内联片段">内联片段</h4>
 <p>查询的字段返回的是接口或者联合类型时, 需要使用内联片段来取出具体类型的数据, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/queries/#inline-fragments">inline-fragments</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">query Hero &#123;
-    hero &#123;
-        name
-        __typename           <span class="token string">"通过元数据获取对象的类型名称"</span>
-        ... on Droid &#123;       <span class="token string">"类型为Droid时返回此字段"</span>
-            primaryFunction
-        &#125;
-        ... on Human &#123;       <span class="token string">"类型为Human时返回此字段"</span>
-            height
-        &#125;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">query Hero &#123;</span><br><span class="line">    hero &#123;</span><br><span class="line">        name</span><br><span class="line">        __typename           <span class="string">&quot;通过元数据获取对象的类型名称&quot;</span></span><br><span class="line">        ... on Droid &#123;       <span class="string">&quot;类型为Droid时返回此字段&quot;</span></span><br><span class="line">            primaryFunction</span><br><span class="line">        &#125;</span><br><span class="line">        ... on Human &#123;       <span class="string">&quot;类型为Human时返回此字段&quot;</span></span><br><span class="line">            height</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="变量">变量</h4>
 <p>在应用中, 字段的参数可能是动态的, 将这些动态参数直接传进查询字符串并不是好主意, GraphQL 支持将动态值提取到查询之外, 作为分离的字典传进去, 这些动态值即称为变量, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/queries/#variables">variables</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">query Hero<span class="token punctuation">(</span><span class="token function">$episode:</span> Episode = <span class="token string">"JEDI"</span><span class="token punctuation">)</span> &#123;
-    hero<span class="token punctuation">(</span><span class="token function">episode:</span> $episode<span class="token punctuation">)</span> &#123;  <span class="token string">"变量episode可选, 且默认值为JEDI"</span>
-        name
-        friends &#123;
-            name
-        &#125;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">query Hero(<span class="name">$episode:</span> Episode = <span class="string">&quot;JEDI&quot;</span>) &#123;</span><br><span class="line">    hero(<span class="name">episode:</span> $episode) &#123;  <span class="string">&quot;变量episode可选, 且默认值为JEDI&quot;</span></span><br><span class="line">        name</span><br><span class="line">        friends &#123;</span><br><span class="line">            name</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="指令">指令</h4>
 <p>GraphQL 提供了称为指令的特性, 指令可以附着在字段或者片段包含的字段上, 然后以任何服务端期待的方式来改变查询的执行, GraphQL 的核心规范包含两个指令:</p>
 <ul>
@@ -487,30 +376,13 @@ fragment comparisonFields on Character &#123;  <span class="token string">"定�
 <li><code>@skip(if: Boolean)</code> 如果参数为 <code>true</code> 时, 跳过此字段</li>
 </ul>
 <p>服务端实现也可以定义新的指令来添加新的特性, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/queries/#directives">directives</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">query Hero<span class="token punctuation">(</span><span class="token function">$withFriends:</span> Boolean!<span class="token punctuation">)</span> &#123;
-    hero &#123;
-        name
-        friends @include<span class="token punctuation">(</span><span class="token function">if:</span> $withFriends<span class="token punctuation">)</span> &#123;  <span class="token string">"参数变量为true时, 包含此字段"</span>
-            name
-        &#125;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">query Hero(<span class="name">$withFriends:</span> Boolean!) &#123;</span><br><span class="line">    hero &#123;</span><br><span class="line">        name</span><br><span class="line">        friends @include(<span class="name">if:</span> $withFriends) &#123;  <span class="string">&quot;参数变量为true时, 包含此字段&quot;</span></span><br><span class="line">            name</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="变更">变更</h3>
 <p>如同查询一样, 变更操作可以返回一个选择集, 获取对象变更后的新状态也是十分有用的, 不同之处在于, 变更操作对数据的更改会影响服务端的数据状态, 详见 <a target="_blank" rel="noopener" href="https://graphql.cn/learn/queries/#mutations">mutation</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">mutation CreateReviewForEpisode<span class="token punctuation">(</span><span class="token function">$review:</span> ReviewInput!<span class="token punctuation">)</span> &#123;
-    createReview<span class="token punctuation">(</span><span class="token function">review:</span> $review<span class="token punctuation">)</span> &#123;
-        stars
-        commentary
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mutation CreateReviewForEpisode(<span class="name">$review:</span> ReviewInput!) &#123;</span><br><span class="line">    createReview(<span class="name">review:</span> $review) &#123;</span><br><span class="line">        stars</span><br><span class="line">        commentary</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="订阅">订阅</h3>
 <p>订阅功能允许客户端监听 GraphQL API 以进行实时的数据更改, 订阅是保持开放的, 新的数据变更都会推送到该订阅, 若要停止监听需要取消订阅, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Subscription-">subscription</a></p>
-<pre class="line-numbers language-scheme" data-language="scheme"><code class="language-scheme">subscription HeroMonitor &#123;
-    hero &#123;
-        name
-        appearsIn
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">subscription HeroMonitor &#123;</span><br><span class="line">    hero &#123;</span><br><span class="line">        name</span><br><span class="line">        appearsIn</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="响应">响应</h2>
 <p>GraphQL 服务端会返回一个良好格式化的响应, 如果请求操作执行成功, 服务端的响应则描述其执行结果, 否则描述执行期间遇到的错误, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Response-">response</a></p>
 <p>GraphQL 并不要求特定的序列化格式, 然而客户端应该使用一种支持 GraphQL 响应中的映射集类型的序列化格式, 特别需要支持一下原始类型, 通常偏好于使用 Json 序列化方式</p>
@@ -625,14 +497,14 @@ fragment comparisonFields on Character &#123;  <span class="token string">"定�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

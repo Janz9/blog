@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,14 +288,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -346,70 +346,17 @@
 <li>Docker Host Certificate Authentication credentials</li>
 </ul>
 <p>添加凭证后, 安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/credentials-binding/">Credentials Binding Plugin</a> 插件, 通过其提供的 <code>withCredentials</code> 指令就可以在 pipeline 中使用凭证了</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: Secret text */</span>
-<span class="token function">withCredentials</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">string</span><span class="token punctuation">(</span>credentialsId<span class="token punctuation">:</span> <span class="token string">'secretText'</span><span class="token punctuation">,</span> variable<span class="token punctuation">:</span> <span class="token string">'st'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    echo <span class="token string gstring">"secret: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>st<span class="token punctuation">&#125;</span></span>"</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">/* 示例: Username with password */</span>
-<span class="token function">withCredentials</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">usernamePassword</span><span class="token punctuation">(</span>credentialsId<span class="token punctuation">:</span> <span class="token string">'userPwd'</span><span class="token punctuation">,</span>
-                                  usernameVariable<span class="token punctuation">:</span> <span class="token string">'username'</span><span class="token punctuation">,</span>
-                                  passwordVariable<span class="token punctuation">:</span> <span class="token string">'password'</span>
-                                 <span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    echo "username<span class="token punctuation">:</span> <span class="token punctuation">$</span><span class="token punctuation">&#123;</span>username<span class="token punctuation">&#125;</span>“
-    echo <span class="token string gstring">"password: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>password<span class="token punctuation">&#125;</span></span>"</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// credentialsId需要同已配置的凭证的ID一致, 根据凭证类型不同会有不同的参数名称可以配置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Secret text */</span></span><br><span class="line">withCredentials([string(<span class="attr">credentialsId:</span> <span class="string">&#x27;secretText&#x27;</span>, <span class="attr">variable:</span> <span class="string">&#x27;st&#x27;</span>)]) &#123;</span><br><span class="line">    echo <span class="string">&quot;secret: $&#123;st&#125;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 示例: Username with password */</span></span><br><span class="line">withCredentials([usernamePassword(<span class="attr">credentialsId:</span> <span class="string">&#x27;userPwd&#x27;</span>,</span><br><span class="line">                                  <span class="symbol">usernameVariable:</span> <span class="string">&#x27;username&#x27;</span>,</span><br><span class="line">                                  <span class="symbol">passwordVariable:</span> <span class="string">&#x27;password&#x27;</span></span><br><span class="line">                                 )]) &#123;</span><br><span class="line">    echo <span class="string">&quot;username: $&#123;username&#125;“</span></span><br><span class="line"><span class="string">    echo &quot;</span><span class="attr">password:</span> $&#123;password&#125;<span class="string">&quot;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// credentialsId需要同已配置的凭证的ID一致, 根据凭证类型不同会有不同的参数名称可以配置</span></span><br></pre></td></tr></table></figure>
 <p>插件的 <code>withCredentials</code> 指令使用过于复杂, 所以声明式 pipeline 提供了 <code>credentials</code> 指令来简化凭证的使用, 但是只能在 <code>environment</code> 指令中使用</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: Secret text */</span>
-environment <span class="token punctuation">&#123;</span>
-    SECRET_TEXT <span class="token operator">=</span> <span class="token function">credentials</span><span class="token punctuation">(</span><span class="token string">'secretText'</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-stages <span class="token punctuation">&#123;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        echo <span class="token string gstring">"secret: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>SECRET_TEXT<span class="token punctuation">&#125;</span></span>"</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: Username with password */</span>
-environment <span class="token punctuation">&#123;</span>
-    UP_CREDS <span class="token operator">=</span> <span class="token function">credentials</span><span class="token punctuation">(</span><span class="token string">'userPwd'</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-stages <span class="token punctuation">&#123;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        echo <span class="token string gstring">"up: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>UP_CREDS<span class="token punctuation">&#125;</span></span>"</span>
-        echo <span class="token string gstring">"username: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>UP_CREDS_USR<span class="token punctuation">&#125;</span></span>"</span>
-        echo <span class="token string gstring">"password: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>UP_CREDS_PSW<span class="token punctuation">&#125;</span></span>"</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// $&#123;UP_CREDS&#125;的值的格式为&lt;username>:&lt;password></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Secret text */</span></span><br><span class="line">environment &#123;</span><br><span class="line">    SECRET_TEXT = credentials(<span class="string">&#x27;secretText&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">        echo <span class="string">&quot;secret: $&#123;SECRET_TEXT&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Username with password */</span></span><br><span class="line">environment &#123;</span><br><span class="line">    UP_CREDS = credentials(<span class="string">&#x27;userPwd&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">        echo <span class="string">&quot;up: $&#123;UP_CREDS&#125;&quot;</span></span><br><span class="line">        echo <span class="string">&quot;username: $&#123;UP_CREDS_USR&#125;&quot;</span></span><br><span class="line">        echo <span class="string">&quot;password: $&#123;UP_CREDS_PSW&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// $&#123;UP_CREDS&#125;的值的格式为&lt;username&gt;:&lt;password&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>通过 <code>credentials</code> 指令可以像使用环境变量一样使用凭证, 但是该指令只支持 <code>Secret Text</code>, <code>Username with passwrod</code>, <code>Secret file</code> 三种凭证</p>
 </blockquote>
 <h3 id="hashicorp-valut">HashiCorp Valut</h3>
 <p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/hashicorp-vault-plugin/">HashiCorp Valut</a> 是一款对敏感信息进行存储, 并进行访问控制的工具, 它不仅可以存储敏感信息, 还具有滚动更新, 审计等功能</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/jenkinsci/hashicorp-vault-pipeline-plugin">Hashicorp Vault Pipeline</a> 插件提供了用于 pipeline 使用的指令 <code>valut</code></p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: valut */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    environment <span class="token punctuation">&#123;</span>
-        SECRET <span class="token operator">=</span> <span class="token function">vault</span><span class="token punctuation">(</span>path<span class="token punctuation">:</span> <span class="token string">'secret/hello'</span><span class="token punctuation">,</span> key<span class="token punctuation">:</span> <span class="token string">'value'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"value: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>SECRET<span class="token punctuation">&#125;</span></span>"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* 指令参数
-path           存储键值对的路径
-key            存储内容的键
-vaultUrl       可选, vault服务地址, 默认使用系统级别的配置
-credentialsId  可选, vault服务认证的凭证
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: valut */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    environment &#123;</span><br><span class="line">        SECRET = vault(<span class="attr">path:</span> <span class="string">&#x27;secret/hello&#x27;</span>, <span class="attr">key:</span> <span class="string">&#x27;value&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;value: $&#123;SECRET&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">path           存储键值对的路径</span></span><br><span class="line"><span class="comment">key            存储内容的键</span></span><br><span class="line"><span class="comment">vaultUrl       可选, vault服务地址, 默认使用系统级别的配置</span></span><br><span class="line"><span class="comment">credentialsId  可选, vault服务认证的凭证</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -517,14 +464,14 @@ credentialsId  可选, vault服务认证的凭证
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

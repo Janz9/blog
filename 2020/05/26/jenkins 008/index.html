@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -311,33 +311,11 @@
 <p><strong>静态代码分析</strong> 是指在不运行程序的前提下, 对源代码进行分析或检查, 范围包括代码风格, 可能出现的空指针, 代码块大小, 重复的代码等</p>
 <p><a target="_blank" rel="noopener" href="https://pmd.github.io/">PMD</a> 是一款可扩展的静态代码分析器, 它不仅可以对代码风格进行检查, 还可以检查设计, 多线程, 性能等方面的问题</p>
 <p>安装 Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/pmd/">PMD</a> 插件可以将 PMD 报告呈现在任务详情页中</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: pmd */</span>
-stages <span class="token punctuation">&#123;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'pmd'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        steps <span class="token punctuation">&#123;</span>
-            sh <span class="token string gstring">"mvn pmd:pmd"</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-post <span class="token punctuation">&#123;</span>
-    always <span class="token punctuation">&#123;</span>
-        <span class="token function">pmd</span><span class="token punctuation">(</span>canRunOnFailed<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> pattern<span class="token punctuation">:</span> <span class="token string">'**/target/pmd.xml'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: pmd */</span></span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;pmd&#x27;</span>) &#123;</span><br><span class="line">        steps &#123;</span><br><span class="line">            sh <span class="string">&quot;mvn pmd:pmd&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">post &#123;</span><br><span class="line">    always &#123;</span><br><span class="line">        pmd(<span class="attr">canRunOnFailed:</span> <span class="literal">true</span>, <span class="attr">pattern:</span> <span class="string">&#x27;**/target/pmd.xml&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="单元测试">单元测试</h2>
 <p><a target="_blank" rel="noopener" href="https://junit.org/junit4/">Junit</a> 是一个 Java 语言的单元测试框架, 可以根据执行的单元测试生成测试报告</p>
 <p>安装 Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/junit/">Junit</a> 插件可以将 Junit 的报告呈现在任务详情页中</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: junit */</span>
-stages <span class="token punctuation">&#123;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'junit'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        sh <span class="token string gstring">"mvn test"</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-post <span class="token punctuation">&#123;</span>
-    always <span class="token punctuation">&#123;</span>
-        <span class="token function">junit</span><span class="token punctuation">(</span>testResults<span class="token punctuation">:</span> <span class="token string">'**/target/surefire-reports/*.xml'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: junit */</span></span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;junit&#x27;</span>) &#123;</span><br><span class="line">        sh <span class="string">&quot;mvn test&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">post &#123;</span><br><span class="line">    always &#123;</span><br><span class="line">        junit(<span class="attr">testResults:</span> <span class="string">&#x27;**/target/surefire-reports/*.xml&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="代码覆盖率">代码覆盖率</h2>
 <p><a target="_blank" rel="noopener" href="https://www.jacoco.org/jacoco/">JaCoCo</a> 是一个免费的 Java 代码覆盖率的库, 可以检测出代码覆盖率, 并生成覆盖率报告, JaCoCo 提供了以下几个维度的覆盖率分析:</p>
 <ul>
@@ -349,51 +327,7 @@ post <span class="token punctuation">&#123;</span>
 <li>类覆盖率 (Class Coverage)</li>
 </ul>
 <p>安装 Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/jacoco/">JaCoCo</a> 插件可以将 JaCoCo 生成的代码覆盖率呈现在任务详情页中</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: jacoco */</span>
-<span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'jacoco'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    steps <span class="token punctuation">&#123;</span>
-        sh <span class="token string gstring">"mvn jacoco:report"</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-post <span class="token punctuation">&#123;</span>
-    always <span class="token punctuation">&#123;</span>
-        jacoco <span class="token punctuation">(</span>
-            <span class="token comment">// 代码覆盖率统计文件位置</span>
-            execPattern<span class="token punctuation">:</span> <span class="token string">'target/**/*.exec'</span><span class="token punctuation">,</span>
-            <span class="token comment">// classes文件位置</span>
-            classPattern<span class="token punctuation">:</span> <span class="token string">'target/classes'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 源码文件位置</span>
-            sourcePattern<span class="token punctuation">:</span> <span class="token string">'src/main/java'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 排除分析的位置</span>
-            exclusionPattern<span class="token punctuation">:</span> <span class="token string">'src/test*'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 是否禁用每行覆盖率的源文件显示</span>
-            skinCopyOfSrcFiles<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-            <span class="token comment">// 如果为true, 则对各维度的覆盖率进行比较, 如果任何一个维度的当前覆盖率小于最小覆盖率阈值, 则构建状态为失败, 如果当前覆盖率在最大阈值和最小阈值之间, 则当前构建状态为不稳定, 如果当前覆盖率大于最大阈值, 则构建成功</span>
-            changeBuildStatus<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-            <span class="token comment">// 字节码指令覆盖率</span>
-            minimumInstructionCoverage<span class="token punctuation">:</span> <span class="token string">'30'</span><span class="token punctuation">,</span> maximumInstructionCoverage<span class="token punctuation">:</span> <span class="token string">'70'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 行覆盖率</span>
-            minimumLineCoverage<span class="token punctuation">:</span> <span class="token string">'30'</span><span class="token punctuation">,</span> maximumLineCoverage<span class="token punctuation">:</span> <span class="token string">'70'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 圈复杂度覆盖率</span>
-            minimumComplexityCoverage<span class="token punctuation">:</span> <span class="token string">'30'</span><span class="token punctuation">,</span> maximumComplexityCoverage<span class="token punctuation">:</span> <span class="token string">'70'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 方法覆盖率</span>
-            minimumMethodCoverage<span class="token punctuation">:</span> <span class="token string">'30'</span><span class="token punctuation">,</span> maximumMethodCoverage<span class="token punctuation">:</span> <span class="token string">'70'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 类覆盖率</span>
-            minimumClassCoverage<span class="token punctuation">:</span> <span class="token string">'30'</span><span class="token punctuation">,</span> maximumClassCoverage<span class="token punctuation">:</span> <span class="token string">'70'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 分支覆盖率</span>
-            minimumBranchCoverage<span class="token punctuation">:</span> <span class="token string">'30'</span><span class="token punctuation">,</span> maximumBranchCoverage<span class="token punctuation">:</span> <span class="token string">'70'</span><span class="token punctuation">,</span>
-            <span class="token comment">// 如果为true, 则只有所有维度的覆盖率变化量的绝对值小于相应的变化量阈值时, 构建结果才为成功</span>
-            buildOverBuild<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-            <span class="token comment">// 各个维度覆盖率的变化量阈值</span>
-            deltaInstructionCoverage<span class="token punctuation">:</span> <span class="token string">'80'</span><span class="token punctuation">,</span>
-            deltaLineCoverage<span class="token punctuation">:</span> <span class="token string">'80'</span><span class="token punctuation">,</span>
-            deltaMethodCoverage<span class="token punctuation">:</span> <span class="token string">'80'</span><span class="token punctuation">,</span>
-            deltaClassCoverage<span class="token punctuation">:</span> <span class="token string">'80'</span><span class="token punctuation">,</span>
-            deltaComplexityCoverage<span class="token punctuation">:</span> <span class="token string">'80'</span><span class="token punctuation">,</span>
-            deltaBranchCoverage<span class="token punctuation">:</span> <span class="token string">'80'</span>
-        <span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: jacoco */</span></span><br><span class="line">stage(<span class="string">&#x27;jacoco&#x27;</span>) &#123;</span><br><span class="line">    steps &#123;</span><br><span class="line">        sh <span class="string">&quot;mvn jacoco:report&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">post &#123;</span><br><span class="line">    always &#123;</span><br><span class="line">        jacoco (</span><br><span class="line">            <span class="comment">// 代码覆盖率统计文件位置</span></span><br><span class="line">            <span class="symbol">execPattern:</span> <span class="string">&#x27;target/**/*.exec&#x27;</span>,</span><br><span class="line">            <span class="comment">// classes文件位置</span></span><br><span class="line">            <span class="symbol">classPattern:</span> <span class="string">&#x27;target/classes&#x27;</span>,</span><br><span class="line">            <span class="comment">// 源码文件位置</span></span><br><span class="line">            <span class="symbol">sourcePattern:</span> <span class="string">&#x27;src/main/java&#x27;</span>,</span><br><span class="line">            <span class="comment">// 排除分析的位置</span></span><br><span class="line">            <span class="symbol">exclusionPattern:</span> <span class="string">&#x27;src/test*&#x27;</span>,</span><br><span class="line">            <span class="comment">// 是否禁用每行覆盖率的源文件显示</span></span><br><span class="line">            <span class="symbol">skinCopyOfSrcFiles:</span> <span class="literal">false</span>,</span><br><span class="line">            <span class="comment">// 如果为true, 则对各维度的覆盖率进行比较, 如果任何一个维度的当前覆盖率小于最小覆盖率阈值, 则构建状态为失败, 如果当前覆盖率在最大阈值和最小阈值之间, 则当前构建状态为不稳定, 如果当前覆盖率大于最大阈值, 则构建成功</span></span><br><span class="line">            <span class="symbol">changeBuildStatus:</span> <span class="literal">true</span>,</span><br><span class="line">            <span class="comment">// 字节码指令覆盖率</span></span><br><span class="line">            <span class="symbol">minimumInstructionCoverage:</span> <span class="string">&#x27;30&#x27;</span>, <span class="attr">maximumInstructionCoverage:</span> <span class="string">&#x27;70&#x27;</span>,</span><br><span class="line">            <span class="comment">// 行覆盖率</span></span><br><span class="line">            <span class="symbol">minimumLineCoverage:</span> <span class="string">&#x27;30&#x27;</span>, <span class="attr">maximumLineCoverage:</span> <span class="string">&#x27;70&#x27;</span>,</span><br><span class="line">            <span class="comment">// 圈复杂度覆盖率</span></span><br><span class="line">            <span class="symbol">minimumComplexityCoverage:</span> <span class="string">&#x27;30&#x27;</span>, <span class="attr">maximumComplexityCoverage:</span> <span class="string">&#x27;70&#x27;</span>,</span><br><span class="line">            <span class="comment">// 方法覆盖率</span></span><br><span class="line">            <span class="symbol">minimumMethodCoverage:</span> <span class="string">&#x27;30&#x27;</span>, <span class="attr">maximumMethodCoverage:</span> <span class="string">&#x27;70&#x27;</span>,</span><br><span class="line">            <span class="comment">// 类覆盖率</span></span><br><span class="line">            <span class="symbol">minimumClassCoverage:</span> <span class="string">&#x27;30&#x27;</span>, <span class="attr">maximumClassCoverage:</span> <span class="string">&#x27;70&#x27;</span>,</span><br><span class="line">            <span class="comment">// 分支覆盖率</span></span><br><span class="line">            <span class="symbol">minimumBranchCoverage:</span> <span class="string">&#x27;30&#x27;</span>, <span class="attr">maximumBranchCoverage:</span> <span class="string">&#x27;70&#x27;</span>,</span><br><span class="line">            <span class="comment">// 如果为true, 则只有所有维度的覆盖率变化量的绝对值小于相应的变化量阈值时, 构建结果才为成功</span></span><br><span class="line">            <span class="symbol">buildOverBuild:</span> <span class="literal">true</span>,</span><br><span class="line">            <span class="comment">// 各个维度覆盖率的变化量阈值</span></span><br><span class="line">            <span class="symbol">deltaInstructionCoverage:</span> <span class="string">&#x27;80&#x27;</span>,</span><br><span class="line">            <span class="symbol">deltaLineCoverage:</span> <span class="string">&#x27;80&#x27;</span>,</span><br><span class="line">            <span class="symbol">deltaMethodCoverage:</span> <span class="string">&#x27;80&#x27;</span>,</span><br><span class="line">            <span class="symbol">deltaClassCoverage:</span> <span class="string">&#x27;80&#x27;</span>,</span><br><span class="line">            <span class="symbol">deltaComplexityCoverage:</span> <span class="string">&#x27;80&#x27;</span>,</span><br><span class="line">            <span class="symbol">deltaBranchCoverage:</span> <span class="string">&#x27;80&#x27;</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="性能测试">性能测试</h2>
 <p><a href="">Taurus</a> 是一个开源的自动化框架, 用于运行各种开源负载测试工具和功能测试工具, 其支持最流行的开源负载测试工具 Apache JMeter, Selenium, Gatling, The Grinder 等</p>
 
@@ -503,14 +437,14 @@ post <span class="token punctuation">&#123;</span>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

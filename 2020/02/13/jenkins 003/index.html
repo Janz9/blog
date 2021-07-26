@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
+      <span>3.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -311,50 +311,13 @@
 <p><strong>环境变量</strong> 可以看作是 pipeline 与 Jenkins 交互的媒介, 可以分为 <strong>Jenkins 内置变量</strong> 和 <strong>自定义变量</strong></p>
 <h3 id="内置变量">内置变量</h3>
 <p>在 <code>pipeline</code> 执行时, Jenkins 通过一个名为 <code>env</code> 的全局变量, 将 Jenkins 内置环境变量暴露出来</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 内置变量 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"Running <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>env<span class="token punctuation">.</span>BUILD_NUMBER<span class="token punctuation">&#125;</span></span> on <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>env<span class="token punctuation">.</span>JENKINS_URL<span class="token punctuation">&#125;</span></span>"</span>
-            echo <span class="token string gstring">"Running <span class="token expression"><span class="token punctuation">$</span>env<span class="token punctuation">.</span>BUILD_NUMBER</span> on <span class="token expression"><span class="token punctuation">$</span>env<span class="token punctuation">.</span>JENKINS_URL</span>"</span>
-            echo <span class="token string gstring">"Running <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>BUILD_NUMBER<span class="token punctuation">&#125;</span></span> on <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>JENKINS_URL<span class="token punctuation">&#125;</span></span>"</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 以上方式都是合法的, 但是不推荐方法三, 因为出现变量冲突时非常难排查</span>
-<span class="token comment">/* 常用变量
-BUILD_NUMBER  构建号, 累加的数字
-BRANCH_NAME   分支名称, 多分支pipeline项目支持
-BUILD_URL     当前构建的页面URL
-GIT_BRANCH    分支名称, 通过Git拉取源码时支持
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 内置变量 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;example&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;Running $&#123;env.BUILD_NUMBER&#125; on $&#123;env.JENKINS_URL&#125;&quot;</span></span><br><span class="line">            echo <span class="string">&quot;Running $env.BUILD_NUMBER on $env.JENKINS_URL&quot;</span></span><br><span class="line">            echo <span class="string">&quot;Running $&#123;BUILD_NUMBER&#125; on $&#123;JENKINS_URL&#125;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上方式都是合法的, 但是不推荐方法三, 因为出现变量冲突时非常难排查</span></span><br><span class="line"><span class="comment">/* 常用变量</span></span><br><span class="line"><span class="comment">BUILD_NUMBER  构建号, 累加的数字</span></span><br><span class="line"><span class="comment">BRANCH_NAME   分支名称, 多分支pipeline项目支持</span></span><br><span class="line"><span class="comment">BUILD_URL     当前构建的页面URL</span></span><br><span class="line"><span class="comment">GIT_BRANCH    分支名称, 通过Git拉取源码时支持</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>在调试 <code>pipeline</code> 时, 可以在 <code>pipeline</code> 的开始阶段通过 <code>sh 'printenv'</code> 命令将 <code>env</code> 变量的属性值打印出来</p>
 </blockquote>
 <h3 id="自定义变量">自定义变量</h3>
 <p>当 <code>pipeline</code> 变得复杂时, 就会有自定义的环境变量的需求, 声明式 pipeline 提供了 <code>environment</code> 指令, 方便自定义变量</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 自定义变量 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    <span class="token comment">// 变量作用域为整个pipeline</span>
-    environment <span class="token punctuation">&#123;</span>
-        CC <span class="token operator">=</span> <span class="token string">'clang'</span>
-    <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">// 变量作用域为当前阶段</span>
-            environment <span class="token punctuation">&#123;</span>
-                DEBUG_FLAGS <span class="token operator">=</span> <span class="token string">'-g'</span>
-            <span class="token punctuation">&#125;</span>
-            steps <span class="token punctuation">&#123;</span>
-                sh <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>CC<span class="token punctuation">&#125;</span></span> <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>DEBUG_FLAGS<span class="token punctuation">&#125;</span></span>"</span>
-                sh <span class="token string">'printenv'</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 自定义变量 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    <span class="comment">// 变量作用域为整个pipeline</span></span><br><span class="line">    environment &#123;</span><br><span class="line">        CC = <span class="string">&#x27;clang&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;example&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">// 变量作用域为当前阶段</span></span><br><span class="line">            environment &#123;</span><br><span class="line">                DEBUG_FLAGS = <span class="string">&#x27;-g&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&quot;$&#123;CC&#125; $&#123;DEBUG_FLAGS&#125;&quot;</span></span><br><span class="line">                sh <span class="string">&#x27;printenv&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果在 <code>environment</code> 中定义的变量与 <code>env</code> 中的变量重名, 那么被重名的变量的值会被覆盖掉</p>
 </blockquote>
@@ -368,112 +331,18 @@ pipeline <span class="token punctuation">&#123;</span>
 <blockquote>
 <p>至少要手动执行一次, pipeline 才会被 Jenkins 加载生效, 生效后再执行项目时, 就可以设置参数值了</p>
 </blockquote>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: parameters */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    parameters <span class="token punctuation">&#123;</span>
-        <span class="token function">booleanParam</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'flag'</span><span class="token punctuation">,</span> description<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span> defaultValue<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"param value: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>params<span class="token punctuation">.</span>flag<span class="token punctuation">&#125;</span></span>"</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* 支持的参数类型
-string        字符串类型
-text          多行文本类型, 换行使用\n
-booleanParam  布尔类型
-choice        选择参数类型, 使用\n来分隔多个选项
-file          文件类型
-password      密码类型
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: parameters */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    parameters &#123;</span><br><span class="line">        booleanParam(<span class="attr">name:</span> <span class="string">&#x27;flag&#x27;</span>, <span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">defaultValue:</span> <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;param value: $&#123;params.flag&#125;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 支持的参数类型</span></span><br><span class="line"><span class="comment">string        字符串类型</span></span><br><span class="line"><span class="comment">text          多行文本类型, 换行使用\n</span></span><br><span class="line"><span class="comment">booleanParam  布尔类型</span></span><br><span class="line"><span class="comment">choice        选择参数类型, 使用\n来分隔多个选项</span></span><br><span class="line"><span class="comment">file          文件类型</span></span><br><span class="line"><span class="comment">password      密码类型</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="参数传递">参数传递</h3>
 <p>除了可以在执行项目时设置参数值外, 也可以通过 pipeline 调用另一个 pipeline 时传递参数值, 在 Jenkins pipeline 中使用 <code>build</code> 指令实现</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: build */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                build <span class="token punctuation">(</span>
-                    job<span class="token punctuation">:</span> <span class="token string gstring">"pipeline_name"</span><span class="token punctuation">,</span>
-                    parameters<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-                        <span class="token function">booleanParam</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'flag'</span><span class="token punctuation">,</span> value<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-                    <span class="token punctuation">]</span>
-                <span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* 指令参数
-job          目标pipeline任务的名称
-parameters   可选, 数组类型, 传入目标pipeline的参数列表, 可选参数类型同定参方法
-propagate    可选, 如果值为true(默认值), 则只有当下游任务的构建状态为SUCCESS时, 上游任务才算构建成功, 如果值为false, 则不论下游任务构建状态是什么, 上游任务都忽略
-quietPeriod  可选, 整形类型, 触发下游任务后, 下游任务等待多久执行, 如果不设置此参数, 则等待时间由下游任务确定, 单位为秒
-wait         可选, 是否等待下游任务执行完成, 默认值为true
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: build */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                build (</span><br><span class="line">                    <span class="symbol">job:</span> <span class="string">&quot;pipeline_name&quot;</span>,</span><br><span class="line">                    <span class="symbol">parameters:</span> [</span><br><span class="line">                        booleanParam(<span class="attr">name:</span> <span class="string">&#x27;flag&#x27;</span>, <span class="attr">value:</span> <span class="literal">true</span>)</span><br><span class="line">                    ]</span><br><span class="line">                )</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">job          目标pipeline任务的名称</span></span><br><span class="line"><span class="comment">parameters   可选, 数组类型, 传入目标pipeline的参数列表, 可选参数类型同定参方法</span></span><br><span class="line"><span class="comment">propagate    可选, 如果值为true(默认值), 则只有当下游任务的构建状态为SUCCESS时, 上游任务才算构建成功, 如果值为false, 则不论下游任务构建状态是什么, 上游任务都忽略</span></span><br><span class="line"><span class="comment">quietPeriod  可选, 整形类型, 触发下游任务后, 下游任务等待多久执行, 如果不设置此参数, 则等待时间由下游任务确定, 单位为秒</span></span><br><span class="line"><span class="comment">wait         可选, 是否等待下游任务执行完成, 默认值为true</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果使用 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/cloudbees-folder/">Folder</a> 插件, 可以像管理文件夹下的文件一样来管理 Jenkins 项目, 此时需要注意 <code>build</code> 指令的 <code>job</code> 参数的写法, 同一目录下时可以直接使用任务名称, 不同目录下时需要指定绝对路径</p>
 </blockquote>
 <h3 id="参数输入">参数输入</h3>
 <p>执行 <code>input</code> 指令会暂停 pipeline, 直到用户输入参数, 这是一种特殊的参数化 pipeline 的方法</p>
 <p><code>input</code> 指令的返回值类型取决于要返回的值的个数, 如果只返回一个值, 返回值类型就是这个值的类型, 如果有多个返回值, 则返回值类型就是 <code>Map</code> 类型</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: input */</span>
-stages <span class="token punctuation">&#123;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        steps <span class="token punctuation">&#123;</span>
-            <span class="token function">timeout</span><span class="token punctuation">(</span>time<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> unit<span class="token punctuation">:</span> <span class="token string">'HOURS'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token function">input</span><span class="token punctuation">(</span>message<span class="token punctuation">:</span> <span class="token string">'发布或停止'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 当pipeline执行到build阶段时就会暂停, 将鼠标指针移到虚线方块上, 会出现提示信息浮层, 默认按钮为Proceed(继续)或Abort(中止), 手动点击确认</span>
-<span class="token comment">// 与timeout指令同时使用可以实现超时自动中止pipeline, 防止无限等待</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: input */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    environment <span class="token punctuation">&#123;</span>
-        pm <span class="token operator">=</span> <span class="token string">''</span>
-    <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'params'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                pm <span class="token operator">=</span> <span class="token function">input</span><span class="token punctuation">(</span>
-                    message<span class="token punctuation">:</span> <span class="token string">'发布配置'</span><span class="token punctuation">,</span>
-                    ok<span class="token punctuation">:</span> <span class="token string">'确定'</span><span class="token punctuation">,</span>
-                    parameters<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-                        <span class="token function">choice</span><span class="token punctuation">(</span>choices<span class="token punctuation">:</span> <span class="token string">'dev\ntest\nprod'</span><span class="token punctuation">,</span>
-                               description<span class="token punctuation">:</span> <span class="token string">'环境'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'build_env'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                        <span class="token function">string</span><span class="token punctuation">(</span>defaultValue<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-                               description<span class="token punctuation">:</span> <span class="token string">'域名'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'domain'</span><span class="token punctuation">)</span>
-                    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                    submitter<span class="token punctuation">:</span> <span class="token string">'admin'</span><span class="token punctuation">,</span>
-                    submitterParameter<span class="token punctuation">:</span> <span class="token string">'APPROVER'</span>
-                <span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"操作者: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>pm<span class="token punctuation">[</span><span class="token string">'APPROVER'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span>"</span>
-                echo <span class="token string gstring">"发布环境: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>pm<span class="token punctuation">[</span><span class="token string">'build_env'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span>"</span>
-                echo <span class="token string gstring">"发布域名: <span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>pm<span class="token punctuation">[</span><span class="token string">'domain'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span>"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* 指令参数
-message             指令的提示消息
-submitter           可选, 可以进行操作的用户名或用户组名, 使用逗号分隔
-submitterParameter  可选, 保存input指令的实际操作者的用户名的变量名
-ok                  可选, 自定义确定按钮的文本
-parameters          自定义输入的参数列表, 可选参数类型同定参方法
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: input */</span></span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">        steps &#123;</span><br><span class="line">            timeout(<span class="attr">time:</span> <span class="number">1</span>, <span class="attr">unit:</span> <span class="string">&#x27;HOURS&#x27;</span>) &#123;</span><br><span class="line">                input(<span class="attr">message:</span> <span class="string">&#x27;发布或停止&#x27;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当pipeline执行到build阶段时就会暂停, 将鼠标指针移到虚线方块上, 会出现提示信息浮层, 默认按钮为Proceed(继续)或Abort(中止), 手动点击确认</span></span><br><span class="line"><span class="comment">// 与timeout指令同时使用可以实现超时自动中止pipeline, 防止无限等待</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: input */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    environment &#123;</span><br><span class="line">        pm = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;params&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                pm = input(</span><br><span class="line">                    <span class="symbol">message:</span> <span class="string">&#x27;发布配置&#x27;</span>,</span><br><span class="line">                    <span class="symbol">ok:</span> <span class="string">&#x27;确定&#x27;</span>,</span><br><span class="line">                    <span class="symbol">parameters:</span> [</span><br><span class="line">                        choice(<span class="attr">choices:</span> <span class="string">&#x27;dev\ntest\nprod&#x27;</span>,</span><br><span class="line">                               <span class="symbol">description:</span> <span class="string">&#x27;环境&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;build_env&#x27;</span>),</span><br><span class="line">                        string(<span class="attr">defaultValue:</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">                               <span class="symbol">description:</span> <span class="string">&#x27;域名&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;domain&#x27;</span>)</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="symbol">submitter:</span> <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">                    <span class="symbol">submitterParameter:</span> <span class="string">&#x27;APPROVER&#x27;</span></span><br><span class="line">                )</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;操作者: $&#123;pm[&#x27;APPROVER&#x27;]&#125;&quot;</span></span><br><span class="line">                echo <span class="string">&quot;发布环境: $&#123;pm[&#x27;build_env&#x27;]&#125;&quot;</span></span><br><span class="line">                echo <span class="string">&quot;发布域名: $&#123;pm[&#x27;domain&#x27;]&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">message             指令的提示消息</span></span><br><span class="line"><span class="comment">submitter           可选, 可以进行操作的用户名或用户组名, 使用逗号分隔</span></span><br><span class="line"><span class="comment">submitterParameter  可选, 保存input指令的实际操作者的用户名的变量名</span></span><br><span class="line"><span class="comment">ok                  可选, 自定义确定按钮的文本</span></span><br><span class="line"><span class="comment">parameters          自定义输入的参数列表, 可选参数类型同定参方法</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -581,14 +450,14 @@ parameters          自定义输入的参数列表, 可选参数类型同定参�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

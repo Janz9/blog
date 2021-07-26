@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -25,12 +25,12 @@
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.6.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="协议 HTTP curl 默认使用 HTTP&#x2F;1.1 连接 HTTP 服务器, 当 HTTP 客户端被指定一个 URL, URL 将被分成多个部分, 并用于向服务器发起的请求中 # 示例 curl http:&#x2F;&#x2F;example.com&#x2F;">
+<meta name="description" content="协议 HTTP curl 默认使用 HTTP&#x2F;1.1 连接 HTTP 服务器, 当 HTTP 客户端被指定一个 URL, URL 将被分成多个部分, 并用于向服务器发起的请求中 12# 示例curl http:&#x2F;&#x2F;example.com&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cURL 协议">
 <meta property="og:url" content="https://janz.icu/2020/05/21/curl%20003/index.html">
 <meta property="og:site_name" content="Jbot">
-<meta property="og:description" content="协议 HTTP curl 默认使用 HTTP&#x2F;1.1 连接 HTTP 服务器, 当 HTTP 客户端被指定一个 URL, URL 将被分成多个部分, 并用于向服务器发起的请求中 # 示例 curl http:&#x2F;&#x2F;example.com&#x2F;">
+<meta property="og:description" content="协议 HTTP curl 默认使用 HTTP&#x2F;1.1 连接 HTTP 服务器, 当 HTTP 客户端被指定一个 URL, URL 将被分成多个部分, 并用于向服务器发起的请求中 12# 示例curl http:&#x2F;&#x2F;example.com&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-21T00:11:37.000Z">
 <meta property="article:modified_time" content="2021-05-31T02:00:35.254Z">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8k</span>
+      <span>7.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -309,25 +309,14 @@
         <h1 id="协议">协议</h1>
 <h2 id="http">HTTP</h2>
 <p>curl 默认使用 <code>HTTP/1.1</code> 连接 HTTP 服务器, 当 HTTP 客户端被指定一个 URL, URL 将被分成多个部分, 并用于向服务器发起的请求中</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例
-curl http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例</span></span><br><span class="line">curl http://example.com/</span><br></pre></td></tr></table></figure>
 <p>如果路径中包含 <code>/../</code> 或 <code>/./</code> 这样的字符串, curl 会在将路径发送到服务器前自动压缩它们, 这些字符串的含义与本地文件系统中的路径含义是一样的</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 可以使用--path-as-is选项防止curl压缩路径
-curl --path-as-is http:&#x2F;&#x2F;example.com&#x2F;.&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 可以使用--path-as-is选项防止curl压缩路径</span></span><br><span class="line">curl --path-as-is http://example.com/./</span><br></pre></td></tr></table></figure>
 <h3 id="认证">认证</h3>
 <p>每个 HTTP 请求都可以进行身份验证, 需要身份验证的服务器会发回 <code>401</code> 响应码和 <code>WWW-Authenticate:</code> 标头, 这个标头列出了服务器支持的所有身份验证方法, 需要身份验证的 HTTP 代理会发回 <code>407</code> 响应码和 <code>WWW-Authenticate:</code> 标头, 这个标头列出了代理支持的所有身份验证方法</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl默认使用basic认证
-curl --user username:password http:&#x2F;&#x2F;example.com&#x2F;
-# 使用--basic选项明确指定使用basic认证
-curl --basic --user username:password http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl也支持digest, negotiate, ntlm等认证
-curl --digest --user username:password http:&#x2F;&#x2F;example.com&#x2F;
-curl --negotiate --user username:password http:&#x2F;&#x2F;example.com&#x2F;
-curl --ntlm --user username:password http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 通过--anyauth选项确认服务器是否真的需要身份验证, 它会自动使用curl所知道的最安全的身份验证方法
-curl --anyauth --user username:password http:&#x2F;&#x2F;example.com&#x2F;
-# 同样适用于可能需要身份验证的HTTP代理
-curl --proxy-anyauth -proxy--user username:password http:&#x2F;&#x2F;example.com&#x2F; --proxy http:&#x2F;&#x2F;proxy.example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl默认使用basic认证</span></span><br><span class="line">curl --user username:password http://example.com/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用--basic选项明确指定使用basic认证</span></span><br><span class="line">curl --basic --user username:password http://example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl也支持digest, negotiate, ntlm等认证</span></span><br><span class="line">curl --digest --user username:password http://example.com/</span><br><span class="line">curl --negotiate --user username:password http://example.com/</span><br><span class="line">curl --ntlm --user username:password http://example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过--anyauth选项确认服务器是否真的需要身份验证, 它会自动使用curl所知道的最安全的身份验证方法</span></span><br><span class="line">curl --anyauth --user username:password http://example.com/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 同样适用于可能需要身份验证的HTTP代理</span></span><br><span class="line">curl --proxy-anyauth -proxy--user username:password http://example.com/ --proxy http://proxy.example.com/</span><br></pre></td></tr></table></figure>
 <h3 id="请求">请求</h3>
 <h4 id="method">method</h4>
 <p>HTTP 请求都包含了一个方法, 有时也被称为动词, 具体使用哪个方法取决于使用的选项, 默认方法是 <code>GET</code></p>
@@ -369,133 +358,58 @@ curl --proxy-anyauth -proxy--user username:password http:&#x2F;&#x2F;example.com
 </table>
 <h4 id="header">header</h4>
 <p>在 HTTP 请求中, 通常会有很多请求标头, 它们是一组键值对, curl 默认会在请求中添加一些标头, 具体取决于用户要求 curl 执行哪些操作</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用-H或--header选项让curl使用标头
-curl -H &quot;Host: test.example&quot; http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用-e或--referer选项设置referer标头
-curl --referer http:&#x2F;&#x2F;from.example.com http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用-A或--user-agent选项设置User-Agent标头, 这个标头的默认值为 curl&#x2F;[version]
-curl --user-agent &quot;Mozilla&#x2F;5.0 (X11; Linux x86_64; rv:58.0) Gecko&#x2F;20100101 Firefox&#x2F;58.0&quot; http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用-H或--header选项让curl使用标头</span></span><br><span class="line">curl -H &quot;Host: test.example&quot; http://example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用-e或--referer选项设置referer标头</span></span><br><span class="line">curl --referer http://from.example.com http://example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用-A或--user-agent选项设置User-Agent标头, 这个标头的默认值为 curl/[version]</span></span><br><span class="line">curl --user-agent &quot;Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0&quot; http://example.com/</span><br></pre></td></tr></table></figure>
 <h4 id="cookie">cookie</h4>
 <p>HTTP cookie 是存储在客户端的键值对, 在后续请求中, 它们被发回服务器, 用于保持请求间的状态, curl 默认情况下不会使用 cookie, 需要打开 cookie 引擎才能让 curl 跟踪它接收到的 cookie, 然后在后续的请求中发送它们</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl从不存在的文件中读取cookie, 那么它会打开引擎, 但内部的cookie存储是空的curl -b non-existing http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl从指定文件读取初始cookiecurl -b cookies.txt http:&#x2F;&#x2F;example.com&#x2F;# 选项-b只是从文件中读取cookie, 如果服务器更新了响应的cookie, 那么curl只会更新内存的cookie存储, 并在退出时将它们全部丢弃<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl将cookie写入文件curl -c cookies.txt http:&#x2F;&#x2F;example.com&#x2F;# 选项-c只会在curl退出时更新cookie, 而不是生命周期内<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 通过-j或--junk-session-cookies选项让curl开始新的cookie会话curl -j -b cookies.txt http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl从不存在的文件中读取cookie, 那么它会打开引擎, 但内部的cookie存储是空的curl -b non-existing http://example.com/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl从指定文件读取初始cookiecurl -b cookies.txt http://example.com/<span class="comment"># 选项-b只是从文件中读取cookie, 如果服务器更新了响应的cookie, 那么curl只会更新内存的cookie存储, 并在退出时将它们全部丢弃</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl将cookie写入文件curl -c cookies.txt http://example.com/<span class="comment"># 选项-c只会在curl退出时更新cookie, 而不是生命周期内</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过-j或--junk-session-cookies选项让curl开始新的cookie会话curl -j -b cookies.txt http://example.com/</span></span><br></pre></td></tr></table></figure>
 <h3 id="响应">响应</h3>
 <p>当 HTTP 客户端与服务器进行 HTTP 对话时, 服务器将返回 HTTP 响应消息, HTTP 响应消息包含响应码, 用来告诉客户端它是如何处理请求的一种方式</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 请求失败示例curl http:&#x2F;&#x2F;www.server.com&#x2F;# 服务器未返回响应时, curl显示错误码和错误消息curl: (52) Empty reply from server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 请求成功示例curl -v http:&#x2F;&#x2F;example.com&#x2F;# 响应体&lt; HTTP&#x2F;1.1 200 OK&lt; Age: 546477&lt; Cache-Control: max-age&#x3D;604800&lt; Content-Type: text&#x2F;html; charset&#x3D;UTF-8&lt; Date: Sun, 24 May 2020 22:54:18 GMT&lt; Etag: &quot;3147526947+ident&quot;&lt; Expires: Sun, 31 May 2020 22:54:18 GMT&lt; Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT&lt; Server: ECS (sjc&#x2F;4E68)&lt; Vary: Accept-Encoding&lt; X-Cache: HIT&lt; Content-Length: 1256&lt;(...省略网页数据...)# 即使响应码表明无法获取所请求的文档, curl也不会将其视为错误, 只要HTTP发送和接收成功, curl都将其视为正常情况<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 请求失败示例curl http://www.server.com/<span class="comment"># 服务器未返回响应时, curl显示错误码和错误消息curl: (52) Empty reply from server</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 请求成功示例curl -v http://example.com/<span class="comment"># 响应体&lt; HTTP/1.1 200 OK&lt; Age: 546477&lt; Cache-Control: max-age=604800&lt; Content-Type: text/html; charset=UTF-8&lt; Date: Sun, 24 May 2020 22:54:18 GMT&lt; Etag: &quot;3147526947+ident&quot;&lt; Expires: Sun, 31 May 2020 22:54:18 GMT&lt; Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT&lt; Server: ECS (sjc/4E68)&lt; Vary: Accept-Encoding&lt; X-Cache: HIT&lt; Content-Length: 1256&lt;(...省略网页数据...)# 即使响应码表明无法获取所请求的文档, curl也不会将其视为错误, 只要HTTP发送和接收成功, curl都将其视为正常情况</span></span></span><br></pre></td></tr></table></figure>
 <p>HTTP 响应消息能够以压缩的格式进行传输, 服务器通常会在响应中包含 <code>Content-Encoding: gzip</code> 标头, 以告诉客户端内容经过了压缩</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 通过--compressed选项让curl请求压缩数据, 并在接收gzip压缩的内容后自动对其进行解压curl --compressed http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过--compressed选项让curl请求压缩数据, 并在接收gzip压缩的内容后自动对其进行解压curl --compressed http://example.com/</span></span><br></pre></td></tr></table></figure>
 <p>curl 可以直接传递收到的数据, 不对其进行解码</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 通过--raw选项让curl直接传递数据curl --raw http:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过--raw选项让curl直接传递数据curl --raw http://example.com/</span></span><br></pre></td></tr></table></figure>
 <h2 id="ftp">FTP</h2>
 <p><strong>FTP</strong> 协议是一种命令和响应协议, 客户端发送命令, 服务器做出响应, 使用 <code>-v</code> 选项可以看到传输过程涉及的所有命令和响应</p>
 <p>当 FTP 客户端开始传输数据时, 它会向服务器指定要使用哪种 <strong>传输模式</strong>, curl 支持的两种传输模式是 <code>ASCII</code> 和 <code>BINARY</code></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl默认使用BINARY模式
-curl ftp:&#x2F;&#x2F;example.com&#x2F;foobar.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用-B或--use-ascii选项切换到ASCII模式
-curl --use-ascii ftp:&#x2F;&#x2F;example.com&#x2F;foobar.txt
-# 使用;type&#x3D;A作为URL的结尾来切换ASCII模式
-curl ftp:&#x2F;&#x2F;example.com&#x2F;foobar.txt;type&#x3D;A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl默认使用BINARY模式</span></span><br><span class="line">curl ftp://example.com/foobar.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用-B或--use-ascii选项切换到ASCII模式</span></span><br><span class="line">curl --use-ascii ftp://example.com/foobar.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用;<span class="built_in">type</span>=A作为URL的结尾来切换ASCII模式</span></span><br><span class="line">curl ftp://example.com/foobar.txt;type=A</span><br></pre></td></tr></table></figure>
 <p>有些 FTP 允许匿名访问, 使用 curl 进行 FTP 传输但没有指定用户名的情况下, 它将使用用户名 <code>anonymous</code></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 用户名和密码验证
-curl --user username:password ftp:&#x2F;&#x2F;example.com&#x2F;foobar.txt
-curl ftp:&#x2F;&#x2F;username:password@example.com&#x2F;foobar.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 用户名和密码验证</span></span><br><span class="line">curl --user username:password ftp://example.com/foobar.txt</span><br><span class="line">curl ftp://username:password@example.com/foobar.txt</span><br></pre></td></tr></table></figure>
 <h3 id="目录列表">目录列表</h3>
 <p>可以用 curl 列出远程 FTP 目录列表</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 默认使用FTP命令LIST列出目录
-curl -v ftp:&#x2F;&#x2F;example.com&#x2F;directory&#x2F;
-
-# 命令和响应(简化)
-&gt; LIST
-&lt; 150 Here comes the directory listing.
-* Maxdownload &#x3D; -1
-drwxrwxrwx    1 1000     1000         4096 Jan 11  2018 directory1
-drwxrwxrwx    1 1000     1000         4096 Jan 11  2018 directory2
-drwxrwxrwx    1 1000     1000         4096 Jan 11  2018 directory3
-# LIST命令返回的目录结构没有标准的格式, 返回的列表通常是可以被人类理解的, 但不同的服务器返回的列表结构稍有不同<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用FTP命令NLST列出目录
-curl -v --list-only ftp:&#x2F;&#x2F;example.com&#x2F;directory&#x2F;
-
-# 命令和响应(简化)
-&gt; NLST
-&lt; 150 Here comes the directory listing.
-* Maxdownload &#x3D; -1
-directory1
-directory2
-directory3
-# NLST列出目录中的所有内容并避免出现特殊格式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 默认使用FTP命令LIST列出目录</span></span><br><span class="line">curl -v ftp://example.com/directory/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令和响应(简化)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> LIST</span></span><br><span class="line">&lt; 150 Here comes the directory listing.</span><br><span class="line">* Maxdownload = -1</span><br><span class="line">drwxrwxrwx    1 1000     1000         4096 Jan 11  2018 directory1</span><br><span class="line">drwxrwxrwx    1 1000     1000         4096 Jan 11  2018 directory2</span><br><span class="line">drwxrwxrwx    1 1000     1000         4096 Jan 11  2018 directory3</span><br><span class="line"><span class="meta">#</span><span class="bash"> LIST命令返回的目录结构没有标准的格式, 返回的列表通常是可以被人类理解的, 但不同的服务器返回的列表结构稍有不同</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用FTP命令NLST列出目录</span></span><br><span class="line">curl -v --list-only ftp://example.com/directory/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令和响应(简化)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> NLST</span></span><br><span class="line">&lt; 150 Here comes the directory listing.</span><br><span class="line">* Maxdownload = -1</span><br><span class="line">directory1</span><br><span class="line">directory2</span><br><span class="line">directory3</span><br><span class="line"><span class="meta">#</span><span class="bash"> NLST列出目录中的所有内容并避免出现特殊格式</span></span><br></pre></td></tr></table></figure>
 <h3 id="目标文件">目标文件</h3>
 <p>使用 FTP 命令遍历远程文件系统时, curl 可以通过几种不同的方式来访问目标文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># multicwd
-curl -v --ftp-method multicwd ftp:&#x2F;&#x2F;example.com&#x2F;one&#x2F;two&#x2F;three&#x2F;file.txt
-
-# 命令和响应(简化)
-&gt; CWD one
-* ftp_perform ends with SECONDARY: 0
-&lt; 250 Directory successfully changed.
-&gt; CWD two
-&lt; 250 Directory successfully changed.
-&gt; CWD three
-&lt; 250 Directory successfully changed.
-&gt; RETR file.txt
-&lt; 150 Opening BINARY mode data connection for file.txt (1 bytes).
-# multicwd方式顺着文件树结构的每个目录执行一次更改目录命令CWD<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># nocwd
-curl -v --ftp-method nocwd ftp:&#x2F;&#x2F;example.com&#x2F;one&#x2F;two&#x2F;three&#x2F;file.txt
-
-# 命令和响应(简化)
-&gt; RETR one&#x2F;two&#x2F;three&#x2F;file.txt
-&lt; 150 Opening BINARY mode data connection for one&#x2F;two&#x2F;three&#x2F;file.txt (1 bytes).
-# nocwd方式不更改目录, 有时在服务器上使用会有问题, 它并不符合标准<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># singlecwd
-curl -v --ftp-method singlecwd ftp:&#x2F;&#x2F;example.com&#x2F;one&#x2F;two&#x2F;three&#x2F;file.txt
-
-# 命令和响应(简化)
-&gt; CWD one&#x2F;two&#x2F;three
-* ftp_perform ends with SECONDARY: 0
-&lt; 250 Directory successfully changed.
-&gt; RETR file.txt
-&lt; 150 Opening BINARY mode data connection for file.txt (1 bytes).
-# singlecwd方式只会向目标目录发出一个CWD命令<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> multicwd</span></span><br><span class="line">curl -v --ftp-method multicwd ftp://example.com/one/two/three/file.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令和响应(简化)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> CWD one</span></span><br><span class="line">* ftp_perform ends with SECONDARY: 0</span><br><span class="line">&lt; 250 Directory successfully changed.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> CWD two</span></span><br><span class="line">&lt; 250 Directory successfully changed.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> CWD three</span></span><br><span class="line">&lt; 250 Directory successfully changed.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> RETR file.txt</span></span><br><span class="line">&lt; 150 Opening BINARY mode data connection for file.txt (1 bytes).</span><br><span class="line"><span class="meta">#</span><span class="bash"> multicwd方式顺着文件树结构的每个目录执行一次更改目录命令CWD</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> nocwd</span></span><br><span class="line">curl -v --ftp-method nocwd ftp://example.com/one/two/three/file.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令和响应(简化)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> RETR one/two/three/file.txt</span></span><br><span class="line">&lt; 150 Opening BINARY mode data connection for one/two/three/file.txt (1 bytes).</span><br><span class="line"><span class="meta">#</span><span class="bash"> nocwd方式不更改目录, 有时在服务器上使用会有问题, 它并不符合标准</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> singlecwd</span></span><br><span class="line">curl -v --ftp-method singlecwd ftp://example.com/one/two/three/file.txt</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令和响应(简化)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> CWD one/two/three</span></span><br><span class="line">* ftp_perform ends with SECONDARY: 0</span><br><span class="line">&lt; 250 Directory successfully changed.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> RETR file.txt</span></span><br><span class="line">&lt; 150 Opening BINARY mode data connection for file.txt (1 bytes).</span><br><span class="line"><span class="meta">#</span><span class="bash"> singlecwd方式只会向目标目录发出一个CWD命令</span></span><br></pre></td></tr></table></figure>
 <h3 id="上传文件">上传文件</h3>
 <p>上传文件到 FTP 服务器, 需要在 URL 中指定整个目标文件的路径和名字</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用-T或--upload-file选项指定要上传的本地文件
-curl -T localfile ftp:&#x2F;&#x2F;example.com&#x2F;remotefile
-# 目标URL以斜杠结尾时, curl会自动将本地的文件名追加到URL中作为远程文件名
-curl -T localfile ftp:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用-T或--upload-file选项指定要上传的本地文件</span></span><br><span class="line">curl -T localfile ftp://example.com/remotefile</span><br><span class="line"><span class="meta">#</span><span class="bash"> 目标URL以斜杠结尾时, curl会自动将本地的文件名追加到URL中作为远程文件名</span></span><br><span class="line">curl -T localfile ftp://example.com/</span><br></pre></td></tr></table></figure>
 <p>curl 支持 <code>-T</code> 参数通配, 这样就可以上传一系列文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 通配
-curl -T image[1-99].jpg ftp:&#x2F;&#x2F;example.com&#x2F;images&#x2F;
-curl -T &#39;&#123;one,two,three&#125;.jpg&#39; ftp:&#x2F;&#x2F;example.com&#x2F;images&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通配</span></span><br><span class="line">curl -T image[1-99].jpg ftp://example.com/images/</span><br><span class="line">curl -T &#x27;&#123;one,two,three&#125;.jpg&#x27; ftp://example.com/images/</span><br></pre></td></tr></table></figure>
 <h2 id="sftp">SFTP</h2>
 <p><strong>SFTP</strong> 建立在 SSH 之上的协议, 使用第三方库 libssh2 来构建 curl, 那么它就可以支持 SFTP 协议</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># SFTP的使用与FTP差不多
-curl sftp:&#x2F;&#x2F;example.com&#x2F;directory&#x2F;
-curl sftp:&#x2F;&#x2F;example.com&#x2F;file<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> SFTP的使用与FTP差不多</span></span><br><span class="line">curl sftp://example.com/directory/</span><br><span class="line">curl sftp://example.com/file</span><br></pre></td></tr></table></figure>
 <p>在使用 SFTP 请求文件时, 给定的文件路径被视为远程服务器上的绝对路径, 除非特别指定要使用用户主目录的相对路径</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用&#x2F;~&#x2F;来指定用户主目录的相对路径
-curl sftp:&#x2F;&#x2F;example.com&#x2F;~&#x2F;file<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用/~/来指定用户主目录的相对路径</span></span><br><span class="line">curl sftp://example.com/~/file</span><br></pre></td></tr></table></figure>
 <h2 id="pop3">POP3</h2>
 <p><strong>POP3</strong> 是 Post Office Protocol 3 的简称, 即邮局协议的第 3 个版本, 它规定怎样将个人计算机连接到邮件服务器和下载电子邮件的电子协议, POP3 允许用户从服务器上把邮件存储到本地主机上, 同时删除保存在邮件服务器上的邮件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 列出消息编号和大小
-curl pop3:&#x2F;&#x2F;mail.example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 下载消息
-curl pop3:&#x2F;&#x2F;mail.example.com&#x2F;1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 删除消息
-curl --request DELE pop3:&#x2F;&#x2F;mail.example.com&#x2F;1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出消息编号和大小</span></span><br><span class="line">curl pop3://mail.example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载消息</span></span><br><span class="line">curl pop3://mail.example.com/1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除消息</span></span><br><span class="line">curl --request DELE pop3://mail.example.com/1</span><br></pre></td></tr></table></figure>
 <h2 id="smtp">SMTP</h2>
 <p><strong>SMTP</strong> 是简单邮件传输协议 (Simple Mail Transfer Protocol) 的简写, curl 支持将数据发送到 SMTP 服务器, 可以通过一系列命令选项将电子邮件发送给指定的一组收件人</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 发送电子邮件
-curl smtp:&#x2F;&#x2F;mail.example.com
-    --mail-from myself@example.com    # 发件人的邮件地址
-    --mail-rcpt receiver@example.com  # 收件人的邮件地址, 可以多次使用这个选项指定多个收件人
-    --upload-file email.txt           # 要发送的电子邮件数据<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例email.txt
-From: John Smith &lt;john@example.com&gt;
-To: Joe Smith &lt;smith@example.com&gt;
-Subject: an example.com example email Date: Mon, 7 Nov 2016 08:45:16 Dear Joe, Welcome to this example email. What a lovely day.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 发送电子邮件</span></span><br><span class="line">curl smtp://mail.example.com</span><br><span class="line">    --mail-from myself@example.com    # 发件人的邮件地址</span><br><span class="line">    --mail-rcpt receiver@example.com  # 收件人的邮件地址, 可以多次使用这个选项指定多个收件人</span><br><span class="line">    --upload-file email.txt           # 要发送的电子邮件数据</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例email.txt</span></span><br><span class="line">From: John Smith &lt;john@example.com&gt;</span><br><span class="line">To: Joe Smith &lt;smith@example.com&gt;</span><br><span class="line">Subject: an example.com example email Date: Mon, 7 Nov 2016 08:45:16 Dear Joe, Welcome to this example email. What a lovely day.</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>电子邮件数据是一个文本文件, 由一组标头和正文组成, 格式见 <a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc5322.html">RFC 5322</a></p>
 </blockquote>
@@ -547,12 +461,9 @@ Subject: an example.com example email Date: Mon, 7 Nov 2016 08:45:16 Dear Joe, W
 </tr>
 </tbody>
 </table>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用TLS进行连接, 如果TLS协商失败, curl将返回错误
-curl https:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用--ssl选项让curl尝试将连接升级到TLS, 如果失败, 它将继续使用明文协议
-curl --ssl ftp:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 使用--ssl-reqd选项让curl一定使用TLS连接, 如果无法进行TLS协商, 传输就会失败
-curl --ssl-reqd ftp:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用TLS进行连接, 如果TLS协商失败, curl将返回错误</span></span><br><span class="line">curl https://example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用--ssl选项让curl尝试将连接升级到TLS, 如果失败, 它将继续使用明文协议</span></span><br><span class="line">curl --ssl ftp://example.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用--ssl-reqd选项让curl一定使用TLS连接, 如果无法进行TLS协商, 传输就会失败</span></span><br><span class="line">curl --ssl-reqd ftp://example.com/</span><br></pre></td></tr></table></figure>
 <h3 id="ca-证书">CA 证书</h3>
 <p>为了确认是否与正确的 TLS 服务器通信, curl 会使用一组存储在本地的 CA 证书来验证服务器的证书签名</p>
 <p>在 Windows 上, curl 将按以下顺序在这些目录中搜索名为 <code>curl-ca-bundle.crt</code> 的 CA 证书文件:</p>
@@ -566,10 +477,7 @@ curl --ssl-reqd ftp:&#x2F;&#x2F;example.com&#x2F;<span aria-hidden="true" class=
 <p>可以用 <code>--cacert</code> 选项指定要在 TLS 握手中使用的 CA 证书 (需要采用 <code>PEM</code> 格式) 的目录, 也可以通过环境变量 <code>CURL_CA_BUNDLE</code> 设置 CA 存储的完整路径</p>
 <h3 id="客户端证书">客户端证书</h3>
 <p>TLS 客户端证书是客户端以加密的方式向服务器证明自己就是真正对等方的一种方式, 在命令行中指定证书和相应的密钥, 然后在与服务器进行 TLS 握手时传递它们</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># curl提供选项指定客户端证书或密钥文件
-curl https:&#x2F;&#x2F;example.com&#x2F;
-    --cert cert:password --cert-type PEM
-    --key key --key-type PEM<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> curl提供选项指定客户端证书或密钥文件</span></span><br><span class="line">curl https://example.com/</span><br><span class="line">    --cert cert:password --cert-type PEM</span><br><span class="line">    --key key --key-type PEM</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -668,14 +576,14 @@ curl https:&#x2F;&#x2F;example.com&#x2F;
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

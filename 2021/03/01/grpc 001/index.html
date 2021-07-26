@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -344,23 +344,7 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <p>proto 语法指南参考 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto">proto2</a> <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto3">proto3</a></p>
 <p><strong>服务(service)</strong> 是暴露给客户端的远程方法集合</p>
 <p><strong>消息(message)</strong> 是客户端和服务端交换的数据结构</p>
-<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token comment">// 示例: 服务定义文件</span>
-<span class="token keyword">syntax</span> <span class="token operator">=</span> <span class="token string">"proto3"</span><span class="token punctuation">;</span>  <span class="token comment">// 指定所使用的版本</span>
-<span class="token keyword">package</span> com<span class="token punctuation">.</span>demo<span class="token punctuation">;</span>   <span class="token comment">// 指定包名, 避免协议消息类型之间的命名冲突</span>
-
-<span class="token comment">// 服务接口的定义</span>
-<span class="token keyword">service</span> <span class="token class-name">Biz</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">rpc</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token class-name">Entity</span><span class="token punctuation">)</span> <span class="token keyword">returns</span> <span class="token punctuation">(</span><span class="token class-name">Identification</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 服务方法</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">// 消息结构的定义</span>
-<span class="token keyword">message</span> <span class="token class-name">Identification</span> <span class="token punctuation">&#123;</span>
-  <span class="token builtin">int32</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">// 结构字段</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">message</span> <span class="token class-name">Entity</span> <span class="token punctuation">&#123;</span>
-  <span class="token builtin">int32</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token builtin">string</span> code <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  <span class="token builtin">string</span> name <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 服务定义文件</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;  <span class="comment">// 指定所使用的版本</span></span><br><span class="line"><span class="keyword">package</span> com.demo;   <span class="comment">// 指定包名, 避免协议消息类型之间的命名冲突</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务接口的定义</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Biz</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> insert(Entity) <span class="keyword">returns</span> (Identification)</span>; <span class="comment">// 服务方法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 消息结构的定义</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Identification</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int32</span> id = <span class="number">1</span>; <span class="comment">// 结构字段</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Entity</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int32</span> id = <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">string</span> code = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">string</span> name = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用 protobuf 最直接的 RPC 框架是 <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc">gRPC</a>, 其它可用的第三方项目, 参考 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/blob/master/docs/third_party.md">third party</a></p>
 <h2 id="原理">原理</h2>
 <p>gRPC 应用程序使用 RPC 通过网络进行通信, 对于实现 RPC 的底层细节, 所使用的消息编码技术以及在网络中的运行方式, 这些底层通信细节都是由服务定义所生成的代码实现的, 开发人员需要做的就是处理高层级的抽象</p>
@@ -404,10 +388,7 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <p>标签(1byte) 也称字段标识符, 由字段索引和线路类型构成</p>
 <p>字段索引 是在定义消息时, 为每个消息字段所设置的唯一数字</p>
 <p>线路类型(3bit) 是基于字段类型的, 线路类型会提供信息来确定值的长度</p>
-<pre class="line-numbers language-protobuf" data-language="protobuf"><code class="language-protobuf"><span class="token comment">// 示例: 消息结构定义</span>
-<span class="token keyword">message</span> <span class="token class-name">Identification</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 定义消息名</span>
-  <span class="token builtin">int32</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">// 字段类型 字段名 字段索引</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 消息结构定义</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Identification</span> </span>&#123; <span class="comment">// 定义消息名</span></span><br><span class="line">  <span class="built_in">int32</span> id = <span class="number">1</span>; <span class="comment">// 字段类型 字段名 字段索引</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可用的线路类型及其对应的字段类型, 见表 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/encoding#structure">structure</a></p>
 <blockquote>
 <p>在设计消息定义时, 了解各种数据类型对应的编码技术很重要, 这样做能够为每个消息字段设置最合适的数据类型, 从而让消息能够在运行时高效编码</p>
@@ -555,14 +536,14 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

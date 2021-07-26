@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,14 +288,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -315,64 +315,20 @@
 <p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline 执行</p>
 <h3 id="定时执行">定时执行</h3>
 <p><strong>定时执行</strong> 的使用场景通常是执行一些周期性的工作</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: cron */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    triggers <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 每天0时0分执行</span>
-        <span class="token function">cron</span><span class="token punctuation">(</span><span class="token string">'0 0 * * *'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// Jenkins trigger cron 语法采用的是 UNIX cron 语法(有些细微区别)</span>
-<span class="token comment">/* Jenkins teigger cron 设计了一些人性化的别名
-@yearly
-@annually
-@monthly
-@weekly
-@daily
-@midnight
-@hourly
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: cron */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        <span class="comment">// 每天0时0分执行</span></span><br><span class="line">        cron(<span class="string">&#x27;0 0 * * *&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Jenkins trigger cron 语法采用的是 UNIX cron 语法(有些细微区别)</span></span><br><span class="line"><span class="comment">/* Jenkins teigger cron 设计了一些人性化的别名</span></span><br><span class="line"><span class="comment">@yearly</span></span><br><span class="line"><span class="comment">@annually</span></span><br><span class="line"><span class="comment">@monthly</span></span><br><span class="line"><span class="comment">@weekly</span></span><br><span class="line"><span class="comment">@daily</span></span><br><span class="line"><span class="comment">@midnight</span></span><br><span class="line"><span class="comment">@hourly</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p>在一些大型组织中, 会同时存在大量的同一时刻执行的定时任务, 在 Jenkins trigger cron 语法中使用 <code>H(hash)</code> 字符来解决这一问题</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: H */</span>
-triggers <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 代表在0时0分至0时59分之间任何一个时间点执行</span>
-    <span class="token function">cron</span><span class="token punctuation">(</span><span class="token string">'H 0 * * *'</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: H */</span></span><br><span class="line">triggers &#123;</span><br><span class="line">    <span class="comment">// 代表在0时0分至0时59分之间任何一个时间点执行</span></span><br><span class="line">    cron(<span class="string">&#x27;H 0 * * *&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>需注意的是, <code>H</code> 应用在某一天的字段时会有不准确的情况, 因为有些月份有31天, 有些却是28天</p>
 </blockquote>
 <h3 id="轮询代码库">轮询代码库</h3>
 <p><strong>轮询代码库</strong> 是指定期到代码仓库询问代码是否有变化, 如果有变化就执行</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: pollSCM */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    triggers <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 每分钟判断一次代码是否有变化</span>
-        <span class="token function">pollSCM</span><span class="token punctuation">(</span><span class="token string">'H/1 * * * *'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: pollSCM */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        <span class="comment">// 每分钟判断一次代码是否有变化</span></span><br><span class="line">        pollSCM(<span class="string">&#x27;H/1 * * * *&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="事件触发">事件触发</h2>
 <p><strong>事件触发</strong> 是指发生了某个事件就触发 pipeline 执行</p>
 <h3 id="上游任务">上游任务</h3>
 <p>当 B 任务的执行依赖 A 任务的执行结果时, A 就被称为 B 的上游任务</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: upstream */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    triggers <span class="token punctuation">&#123;</span>
-        <span class="token function">upstream</span><span class="token punctuation">(</span>upstreamProjects<span class="token punctuation">:</span> <span class="token string">'A'</span><span class="token punctuation">,</span> threshold<span class="token punctuation">:</span> hudson<span class="token punctuation">.</span>model<span class="token punctuation">.</span>Result<span class="token punctuation">.</span>SUCCESS<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// upstreamProjects 指定上游任务, 接收多个任务时, 使用逗号分隔</span>
-<span class="token comment">/* threshold 指定上游任务的执行结果，枚举值包括
-ABORTED 中止
-FAILURE 失败
-SUCCESS 成功
-UNSTABLE 不稳定
-NOT_BUILD 多阶段构建时无法执行
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: upstream */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        upstream(<span class="attr">upstreamProjects:</span> <span class="string">&#x27;A&#x27;</span>, <span class="attr">threshold:</span> hudson.model.Result.SUCCESS)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// upstreamProjects 指定上游任务, 接收多个任务时, 使用逗号分隔</span></span><br><span class="line"><span class="comment">/* threshold 指定上游任务的执行结果，枚举值包括</span></span><br><span class="line"><span class="comment">ABORTED 中止</span></span><br><span class="line"><span class="comment">FAILURE 失败</span></span><br><span class="line"><span class="comment">SUCCESS 成功</span></span><br><span class="line"><span class="comment">UNSTABLE 不稳定</span></span><br><span class="line"><span class="comment">NOT_BUILD 多阶段构建时无法执行</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="gitlab-通知">GitLab 通知</h3>
 <p><strong>GitLab 通知</strong> 是指当 GitLab 发现源代码有变化时, 触发 Jenkins 执行构建</p>
 <h4 id="人工配置">人工配置</h4>
@@ -380,45 +336,11 @@ NOT_BUILD 多阶段构建时无法执行
 <p>GitLab 在配置页 <code>Settings / Integrations</code> 节点下输入 <code>GitLab webhook URL</code> 和 <code>Secret token</code>, 添加好后可以在表单下方通过 <code>Test</code> 按钮选择 <code>Push events</code> 进行测试</p>
 <h4 id="插件配置">插件配置</h4>
 <p>Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab 插件</a> 实现了基于 GitLab 的 <code>trigger</code>, 通过配置 pipeline 就能实现通知触发</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: gitlab */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    triggers <span class="token punctuation">&#123;</span>
-        <span class="token function">gitlab</span><span class="token punctuation">(</span>
-            triggerOnPush<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-            triggerOnMergeRequest<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-            branchFilterType<span class="token punctuation">:</span> <span class="token string">'All'</span><span class="token punctuation">,</span>
-            secretToken<span class="token punctuation">:</span> <span class="token string">'84b630bb7e2e6eaf307a5981927c33bc'</span>
-        <span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/*
-triggerOnPush          当GitLab触发push事件时, 是否执行构建
-triggerOnMergeRequest  当GitLab触发mergeRequest事件时, 是否执行构建
-branchFilterType       只有符合条件的分支才会被触发, 可以设置的值有NameBasedFilter(基于分支名进行过滤), RegexBasedFilter(基于正则表达式对分支名进行过滤), All(所有分支都会触发)
-includeBranchesSpec    基于branchFilterType值, 输入期望包括的分支的规则
-excludeBranchesSpec    基于branchFilterType值, 输入期望排除的分支的规则
-secretToken            对应人工配置的secretToken, 使用随机字符串生成即可
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: gitlab */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        gitlab(</span><br><span class="line">            <span class="symbol">triggerOnPush:</span> <span class="literal">true</span>,</span><br><span class="line">            <span class="symbol">triggerOnMergeRequest:</span> <span class="literal">true</span>,</span><br><span class="line">            <span class="symbol">branchFilterType:</span> <span class="string">&#x27;All&#x27;</span>,</span><br><span class="line">            <span class="symbol">secretToken:</span> <span class="string">&#x27;84b630bb7e2e6eaf307a5981927c33bc&#x27;</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">triggerOnPush          当GitLab触发push事件时, 是否执行构建</span></span><br><span class="line"><span class="comment">triggerOnMergeRequest  当GitLab触发mergeRequest事件时, 是否执行构建</span></span><br><span class="line"><span class="comment">branchFilterType       只有符合条件的分支才会被触发, 可以设置的值有NameBasedFilter(基于分支名进行过滤), RegexBasedFilter(基于正则表达式对分支名进行过滤), All(所有分支都会触发)</span></span><br><span class="line"><span class="comment">includeBranchesSpec    基于branchFilterType值, 输入期望包括的分支的规则</span></span><br><span class="line"><span class="comment">excludeBranchesSpec    基于branchFilterType值, 输入期望排除的分支的规则</span></span><br><span class="line"><span class="comment">secretToken            对应人工配置的secretToken, 使用随机字符串生成即可</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h4 id="推送配置">推送配置</h4>
 <p>当 Jenkins 执行完构建后, 可以将构建结果推送到 GitLab 的相应 <code>commit</code> 记录上, 这样就将构建状态与提交记录关联起来</p>
 <p>进入 Jenkins 的 <code>Manager Jenkins / Configure System / GitLab</code> 节点下, 添加 GitLab 地址及认证等信息, 编辑 pipeline</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 推送配置 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    post <span class="token punctuation">&#123;</span>
-        failure <span class="token punctuation">&#123;</span>
-            <span class="token function">updateGitlabCommitStatus</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'build'</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span> <span class="token string">'failed'</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span>
-        success <span class="token punctuation">&#123;</span>
-            <span class="token function">updateGitlabCommitStatus</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'build'</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span> <span class="token string">'success'</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    options <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 参数值需要同GitLab节点下配置的GitLab的Connection Name一致</span>
-        <span class="token function">gitLabConnection</span><span class="token punctuation">(</span><span class="token string">'gitlab'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 推送配置 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    post &#123;</span><br><span class="line">        failure &#123;</span><br><span class="line">            updateGitlabCommitStatus(<span class="attr">name:</span> <span class="string">&#x27;build&#x27;</span>, <span class="attr">state:</span> <span class="string">&#x27;failed&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        success &#123;</span><br><span class="line">            updateGitlabCommitStatus(<span class="attr">name:</span> <span class="string">&#x27;build&#x27;</span>, <span class="attr">state:</span> <span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    options &#123;</span><br><span class="line">        <span class="comment">// 参数值需要同GitLab节点下配置的GitLab的Connection Name一致</span></span><br><span class="line">        gitLabConnection(<span class="string">&#x27;gitlab&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="插件触发">插件触发</h2>
 <p>其他系统想触发 Jenkins 项目执行, 只需要安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/generic-webhook-trigger/">Generic Webhook Trigger</a> 插件, Jenkins 会暴露一个 API 接口 <code>&#123;JENKINS_DOMAIN&#125;/generic-webhook-trigger/invoke</code> 由插件来处理, 当 Jenkins 接收到接口的请求时, 会将请求代理给 GWT 插件处理, 触发逻辑由 GWT 插件提供, 大体上可以分为五个部分：</p>
 <ol type="1">
@@ -428,61 +350,7 @@ pipeline <span class="token punctuation">&#123;</span>
 <li>日志打印控制;</li>
 <li>响应控制</li>
 </ol>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: GenericTrigger */</span>
-triggers <span class="token punctuation">&#123;</span>
-    <span class="token function">GenericTrigger</span><span class="token punctuation">(</span>
-
-<span class="token comment">/* 1.从请求中提取参数值 */</span>
-        genericVariables<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-            <span class="token punctuation">[</span>key<span class="token punctuation">:</span> <span class="token string">'refValue'</span><span class="token punctuation">,</span>
-             value<span class="token punctuation">:</span> <span class="token string">'$.ref'</span><span class="token punctuation">,</span>
-             expressionType<span class="token punctuation">:</span> <span class="token string">'JSONPath'</span><span class="token punctuation">,</span>
-             regexpFilter<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-             defaultValue<span class="token punctuation">:</span> <span class="token string">''</span>
-            <span class="token punctuation">]</span>
-        <span class="token punctuation">]</span>，
-<span class="token comment">/*
-genericVariables         从POST body中提取值
-genericRequestVariables  从URL参数中提取值
-genericHeaderVariables   从HTTP header中提取值
-key             提取出的值的新变量名, 可用于pipeline其他步骤
-value           JSONPath表示式或XPath表达式, 用于从提交的参数中提取值
-expressionType  指定表达式类型, 可选, 默认为JSONPath
-defaultValue    提取不到值时, 作为返回值, 可选
-regexpFilter    过滤表达式, 对提取的值进行过滤, 可选
-*/</span>
-
-<span class="token comment">/* 2.根据标识的token判断是否触发 */</span>
-        token<span class="token punctuation">:</span> <span class="token string">'pipeline_token'</span>
-<span class="token comment">/*
-token  用于配置pipeline的标识, 与请求时的token的值一致则触发执行
-*/</span>
-
-<span class="token comment">/* 3.根据请求的参数值判断是否触发 */</span>
-        regexpFilterText<span class="token punctuation">:</span> <span class="token string">'$refValue'</span><span class="token punctuation">,</span>
-        regexFilterExpression<span class="token punctuation">:</span> <span class="token string">'refs/heads/(master|dev)'</span>
-<span class="token comment">/*
-regexpFilterText       需要进行匹配的变量
-regexFilterExpression  正则表达式, 变量的值符合时触发执行
-*/</span>
-
-<span class="token comment">/* 4.控制打印 */</span>
-        printPostContent<span class="token punctuation">:</span> <span class="token boolean">true</span>
-        printContributedVariables<span class="token punctuation">:</span> <span class="token boolean">true</span>
-        causeString<span class="token punctuation">:</span> <span class="token string">'Triggered on $refValue'</span>
-<span class="token comment">/*
-printPostContent           将请求信息打印到日志上
-printContributedVariables  将提取后的变量名及变量值打印到日志上
-causeString                触发原因
-*/</span>
-
-<span class="token comment">/* 5.响应控制 */</span>
-        silentResponse<span class="token punctuation">:</span> <span class="token boolean">true</span>
-<span class="token comment">/*
-silentResponse  请求成功后, GWT插件会返回HTTP 200状态码和触发结果, 当参数设置为true时不返回触发结果
-*/</span>
-    <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: GenericTrigger */</span></span><br><span class="line">triggers &#123;</span><br><span class="line">    GenericTrigger(</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 1.从请求中提取参数值 */</span></span><br><span class="line">        <span class="symbol">genericVariables:</span> [</span><br><span class="line">            [<span class="attr">key:</span> <span class="string">&#x27;refValue&#x27;</span>,</span><br><span class="line">             <span class="symbol">value:</span> <span class="string">&#x27;$.ref&#x27;</span>,</span><br><span class="line">             <span class="symbol">expressionType:</span> <span class="string">&#x27;JSONPath&#x27;</span>,</span><br><span class="line">             <span class="symbol">regexpFilter:</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">             <span class="symbol">defaultValue:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">            ]</span><br><span class="line">        ]，</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">genericVariables         从POST body中提取值</span></span><br><span class="line"><span class="comment">genericRequestVariables  从URL参数中提取值</span></span><br><span class="line"><span class="comment">genericHeaderVariables   从HTTP header中提取值</span></span><br><span class="line"><span class="comment">key             提取出的值的新变量名, 可用于pipeline其他步骤</span></span><br><span class="line"><span class="comment">value           JSONPath表示式或XPath表达式, 用于从提交的参数中提取值</span></span><br><span class="line"><span class="comment">expressionType  指定表达式类型, 可选, 默认为JSONPath</span></span><br><span class="line"><span class="comment">defaultValue    提取不到值时, 作为返回值, 可选</span></span><br><span class="line"><span class="comment">regexpFilter    过滤表达式, 对提取的值进行过滤, 可选</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 2.根据标识的token判断是否触发 */</span></span><br><span class="line">        <span class="symbol">token:</span> <span class="string">&#x27;pipeline_token&#x27;</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">token  用于配置pipeline的标识, 与请求时的token的值一致则触发执行</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 3.根据请求的参数值判断是否触发 */</span></span><br><span class="line">        <span class="symbol">regexpFilterText:</span> <span class="string">&#x27;$refValue&#x27;</span>,</span><br><span class="line">        <span class="symbol">regexFilterExpression:</span> <span class="string">&#x27;refs/heads/(master|dev)&#x27;</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">regexpFilterText       需要进行匹配的变量</span></span><br><span class="line"><span class="comment">regexFilterExpression  正则表达式, 变量的值符合时触发执行</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 4.控制打印 */</span></span><br><span class="line">        <span class="symbol">printPostContent:</span> <span class="literal">true</span></span><br><span class="line">        <span class="symbol">printContributedVariables:</span> <span class="literal">true</span></span><br><span class="line">        <span class="symbol">causeString:</span> <span class="string">&#x27;Triggered on $refValue&#x27;</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">printPostContent           将请求信息打印到日志上</span></span><br><span class="line"><span class="comment">printContributedVariables  将提取后的变量名及变量值打印到日志上</span></span><br><span class="line"><span class="comment">causeString                触发原因</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 5.响应控制 */</span></span><br><span class="line">        <span class="symbol">silentResponse:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">silentResponse  请求成功后, GWT插件会返回HTTP 200状态码和触发结果, 当参数设置为true时不返回触发结果</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -590,14 +458,14 @@ silentResponse  请求成功后, GWT插件会返回HTTP 200状态码和触发结
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

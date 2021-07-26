@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -315,31 +315,17 @@
 <li>通过 <code>jenkins-cli.jar</code> 客户端</li>
 </ul>
 <p>Jenkins 默认的 SSH 服务是被禁用的, 需要进入 <code>Jenkins / Configure Global Security/ SSH Server</code> 节点下, 指定固定端口或者随机端口来启用 SSH 服务, 可以进入 <code>Jenkins / &#123;User&#125; / SSH Public Keys</code> 节点下配置用户的公钥</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: ssh方式获取可用命令的完整列表
-ssh -l username -p password localhost help<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: ssh方式获取可用命令的完整列表</span></span><br><span class="line">ssh -l username -p password localhost help</span><br></pre></td></tr></table></figure>
 <p>使用命令行接口的另一个选择是 Jenkins 自带的 CLI 客户端, 这个客户端支持几种不同的协议, 包括 HTTP 和 SSH, 可以通过链接下载该文件</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 下载CLI客户端
-curl -O https:&#x2F;&#x2F;JENKINS_URL&#x2F;jnlpJars&#x2F;jenkins-cli.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: CLI语法
-java -jar jenkins-cli.jar [-s JENKINS_URL] [global options...] command [command options...] [arguments...]
-
-# 常用选项
-# -s     指定Jenkins的URL, 如果没有指定, Jenkins会默认使用JENKINS_URL环境变量指定的值
-# -http  使用HTTP协议, 这是默认的模式
-# -ssh   使用SSH协议
-# -auth  认证方式, 不推荐明文密码, 可以通过从文件中读取<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 下载CLI客户端</span></span><br><span class="line">curl -O https://JENKINS_URL/jnlpJars/jenkins-cli.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: CLI语法</span></span><br><span class="line">java -jar jenkins-cli.jar [-s JENKINS_URL] [global options...] command [command options...] [arguments...]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 常用选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -s     指定Jenkins的URL, 如果没有指定, Jenkins会默认使用JENKINS_URL环境变量指定的值</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -http  使用HTTP协议, 这是默认的模式</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -ssh   使用SSH协议</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -auth  认证方式, 不推荐明文密码, 可以通过从文件中读取</span></span><br></pre></td></tr></table></figure>
 <p>CLI 客户端更多详细用法见官方文档 <a target="_blank" rel="noopener" href="https://www.jenkins.io/zh/doc/book/managing/cli/#%E4%BD%BF%E7%94%A8-cli-%E5%AE%A2%E6%88%B7%E7%AB%AF">CLI</a></p>
 <h2 id="rest-api">REST API</h2>
 <p>使用 REST API 调用获取数据支持 3 种格式: XML, JSON 和 Python, 添加其中的一个限定符到 URL 末尾就会提供对应格式的数据</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 获取JOB_NAME的json数据
-https:&#x2F;&#x2F;JENKINS_URL&#x2F;job&#x2F;JOB_NAME&#x2F;api&#x2F;json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 获取JOB_NAME的json数据</span></span><br><span class="line">https://JENKINS_URL/job/JOB_NAME/api/json</span><br></pre></td></tr></table></figure>
 <p>如果已经开启了跨站请求伪造保护功能, 要从 Jenkins 中获得一个 <code>crumb</code> 以便在请求中使用</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 获取crumb的链接
-https:&#x2F;&#x2F;JENKINS_URL&#x2F;crumbIssuer&#x2F;api&#x2F;xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 使用crumb调用执行构建
-curl -I -X POST https:&#x2F;&#x2F;JENKINS_URL&#x2F;job&#x2F;JOB_NAME&#x2F;build -H &quot;&lt;crumb value&gt;&quot;
-
-# -H  传递crumb参数, 也可以通过JENKINS_CRUMB环境变量设置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 获取crumb的链接</span></span><br><span class="line">https://JENKINS_URL/crumbIssuer/api/xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 使用crumb调用执行构建</span></span><br><span class="line">curl -I -X POST https://JENKINS_URL/job/JOB_NAME/build -H &quot;&lt;crumb value&gt;&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -H  传递crumb参数, 也可以通过JENKINS_CRUMB环境变量设置</span></span><br></pre></td></tr></table></figure>
 <h2 id="jcli">JCLI</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/jenkins-zh/jenkins-cli">JCLI</a> 项目提供了通过命令行操作 Jenkins 的更多指令, 其支持以下特性:</p>
 <ul>
@@ -352,41 +338,9 @@ curl -I -X POST https:&#x2F;&#x2F;JENKINS_URL&#x2F;job&#x2F;JOB_NAME&#x2F;build 
 <li>支持通过代理连接</li>
 </ul>
 <p>Jenkins 进入 <code>Jenkins / &#123;User&#125; /API Token</code> 节点下, 添加一个新的 Token</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 生成配置文件
-jcli config generate
-
-# 默认会在用户目录 ~&#x2F; 下生成配置文件.jenkins-cli.yaml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 文件: .jenkins-cli.yaml</span>
-<span class="token key atrule">current</span><span class="token punctuation">:</span> JENKINS_NAME    <span class="token comment"># 当前使用的Jenkins服务端</span>
-<span class="token key atrule">jenkins_servers</span><span class="token punctuation">:</span>         <span class="token comment"># 可配置多个Jenkins服务器</span>
-<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> JENKINS_NAME
-  <span class="token key atrule">url</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost  <span class="token comment"># 指定Jenkins的URL</span>
-  <span class="token key atrule">username</span><span class="token punctuation">:</span> username     <span class="token comment"># 指定访问的用户名</span>
-  <span class="token key atrule">token</span><span class="token punctuation">:</span> token           <span class="token comment"># 指定访问的令牌, 需要同Jenkins用户添加的Token一致</span>
-  <span class="token key atrule">insecureSkipVerify</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-<span class="token key atrule">mirrors</span><span class="token punctuation">:</span>
-<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> default
-  <span class="token key atrule">url</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//mirrors.jenkins.io/
-<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> tsinghua
-  <span class="token key atrule">url</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.tuna.tsinghua.edu.cn/jenkins/
-<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> huawei
-  <span class="token key atrule">url</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.huaweicloud.com/jenkins/
-<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> tencent
-  <span class="token key atrule">url</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//mirrors.cloud.tencent.com/jenkins/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 示例: 常用命令
-
-# 获取帮助
-jcli -h
-# 搜索项目
-jcli job search [flags]
-# 执行构建
-jcli job build &lt;jobName&gt; [flags]
-# 查看队列
-jcli queue list
-# 重启
-jcli restart
-# 浏览器访问
-jcli open<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 生成配置文件</span></span><br><span class="line">jcli config generate</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 默认会在用户目录 ~/ 下生成配置文件.jenkins-cli.yaml</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: .jenkins-cli.yaml</span></span><br><span class="line"><span class="attr">current:</span> <span class="string">JENKINS_NAME</span>    <span class="comment"># 当前使用的Jenkins服务端</span></span><br><span class="line"><span class="attr">jenkins_servers:</span>         <span class="comment"># 可配置多个Jenkins服务器</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JENKINS_NAME</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">http://localhost</span>  <span class="comment"># 指定Jenkins的URL</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">username</span>     <span class="comment"># 指定访问的用户名</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">token</span>           <span class="comment"># 指定访问的令牌, 需要同Jenkins用户添加的Token一致</span></span><br><span class="line">  <span class="attr">insecureSkipVerify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">mirrors:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">http://mirrors.jenkins.io/</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tsinghua</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://mirrors.tuna.tsinghua.edu.cn/jenkins/</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">huawei</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://mirrors.huaweicloud.com/jenkins/</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tencent</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://mirrors.cloud.tencent.com/jenkins/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 常用命令</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取帮助</span></span><br><span class="line">jcli -h</span><br><span class="line"><span class="meta">#</span><span class="bash"> 搜索项目</span></span><br><span class="line">jcli job search [flags]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行构建</span></span><br><span class="line">jcli job build &lt;jobName&gt; [flags]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看队列</span></span><br><span class="line">jcli queue list</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">jcli restart</span><br><span class="line"><span class="meta">#</span><span class="bash"> 浏览器访问</span></span><br><span class="line">jcli open</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -494,14 +448,14 @@ jcli open<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

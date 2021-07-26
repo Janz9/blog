@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -318,12 +318,7 @@
 <p><strong>Selenium IDE</strong> 用于开发 Selenium 测试用例的工具, 易于使用的 Chrome 或 Firefox 扩展程序, 通常是开发测试用例的最有效方法, IDE 使用现有的 Selenium 命令以及由该元素的上下文定义的参数, 在浏览器中记录用户的操作并支持导出多种语言, 下载地址 <a target="_blank" rel="noopener" href="https://www.selenium.dev/selenium-ide/">ide</a></p>
 <h2 id="示例">示例</h2>
 <p>示例代码基于 <strong>Junit5</strong> 测试框架的执行环境</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!-- 配置: pom.xml添加Selenium依赖 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.seleniumhq.selenium<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>selenium-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;selenium.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置: pom.xml添加Selenium依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.seleniumhq.selenium<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>selenium-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;selenium.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="selenium-webdriver">Selenium WebDriver</h3>
 <ol type="1">
 <li><p>下载 WebDriver 驱动, 复制到项目根目录 <code>/driver</code> 文件夹中</p>
@@ -331,78 +326,19 @@
 <p>需要浏览器和 WebDriver 的版本相匹配</p>
 </blockquote></li>
 <li><p>项目编写测试代码</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 启动浏览器 */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BrowserTest</span> <span class="token punctuation">&#123;</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">WebDriver</span> driver<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@BeforeAll</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 配置WebDriver位置, 示例使用edge浏览器</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"webdriver.edge.driver"</span><span class="token punctuation">,</span> <span class="token string">"driver/msedgedriver.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EdgeDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">maximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token annotation punctuation">@AfterAll</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 关闭浏览器</span>
-        driver<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 打开URL</span>
-        driver<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"http://news.anhuai.com/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 启动浏览器 */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BrowserTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WebDriver driver;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeAll</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 配置WebDriver位置, 示例使用edge浏览器</span></span><br><span class="line">        System.setProperty(<span class="string">&quot;webdriver.edge.driver&quot;</span>, <span class="string">&quot;driver/msedgedriver.exe&quot;</span>);</span><br><span class="line">        driver = <span class="keyword">new</span> EdgeDriver();</span><br><span class="line">        driver.manage().window().maximize();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterAll</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 关闭浏览器</span></span><br><span class="line">        driver.quit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 打开URL</span></span><br><span class="line">        driver.get(<span class="string">&quot;http://news.anhuai.com/&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="selenium-grid">Selenium Grid</h3>
 <ol type="1">
 <li><p>下载 <code>selenium-server-standalone.jar</code></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 运行: hub
-java -jar selenium-server-standalone-3.141.59.jar \
-     -role hub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 运行: node
-java -Dwebdriver.edge.driver&#x3D;&quot;.&#x2F;driver&#x2F;msedgedriver.exe&quot; \
-     -jar selenium-server-standalone-3.141.59.jar \
-     -role node \
-     -hub http:&#x2F;&#x2F;localhost:4444 \
-     -browser &quot;browserName&#x3D;MicrosoftEdge,maxInstances&#x3D;2,version&#x3D;86.0.622.69,platform&#x3D;WINDOWS&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 运行: hub</span></span><br><span class="line">java -jar selenium-server-standalone-3.141.59.jar \</span><br><span class="line">     -role hub</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 运行: node</span></span><br><span class="line">java -Dwebdriver.edge.driver=&quot;./driver/msedgedriver.exe&quot; \</span><br><span class="line">     -jar selenium-server-standalone-3.141.59.jar \</span><br><span class="line">     -role node \</span><br><span class="line">     -hub http://localhost:4444 \</span><br><span class="line">     -browser &quot;browserName=MicrosoftEdge,maxInstances=2,version=86.0.622.69,platform=WINDOWS&quot;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>运行成功可以通过 <a target="_blank" rel="noopener" href="http://localhost:4444/grid/console">console</a> 查看实例信息</p>
 <p><code>selenium-server-standalone.jar</code> 配置参数查看 <a target="_blank" rel="noopener" href="https://www.selenium.dev/documentation/en/grid/grid_3/setting_up_your_own_grid/">setting</a></p>
 </blockquote></li>
 <li><p>项目编写测试代码</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 示例: 启动浏览器并截图 */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BrowserTest</span> <span class="token punctuation">&#123;</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">WebDriver</span> driver<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@BeforeAll</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"webdriver.edge.driver"</span><span class="token punctuation">,</span> <span class="token string">"driver/msedgedriver.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RemoteWebDriver</span><span class="token punctuation">(</span>
-            URI<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"http://127.0.0.1:4444/wd/hub"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toURL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
-            <span class="token class-name">DesiredCapabilities</span><span class="token punctuation">.</span><span class="token function">edge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        driver<span class="token punctuation">.</span><span class="token function">manage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">maximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token annotation punctuation">@AfterAll</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        driver<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        driver<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"http://news.anhuai.com/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 截图</span>
-        <span class="token class-name">File</span> screen <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">TakesScreenshot</span><span class="token punctuation">)</span><span class="token keyword">new</span> <span class="token class-name">Augmenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">augment</span><span class="token punctuation">(</span>driver<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">getScreenshotAs</span><span class="token punctuation">(</span><span class="token class-name">OutputType</span><span class="token punctuation">.</span>FILE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">// 保存文件到node实例的机器</span>
-        <span class="token class-name">FileCopyUtils</span><span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span>screen<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"D:/save/screenshot.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 启动浏览器并截图 */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BrowserTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> WebDriver driver;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeAll</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.setProperty(<span class="string">&quot;webdriver.edge.driver&quot;</span>, <span class="string">&quot;driver/msedgedriver.exe&quot;</span>);</span><br><span class="line">        driver = <span class="keyword">new</span> RemoteWebDriver(</span><br><span class="line">            URI.create(<span class="string">&quot;http://127.0.0.1:4444/wd/hub&quot;</span>).toURL(), </span><br><span class="line">            DesiredCapabilities.edge());</span><br><span class="line">        driver.manage().window().maximize();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterAll</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        driver.quit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        driver.get(<span class="string">&quot;http://news.anhuai.com/&quot;</span>);</span><br><span class="line">        <span class="comment">// 截图</span></span><br><span class="line">        File screen = ((TakesScreenshot)<span class="keyword">new</span> Augmenter().augment(driver))</span><br><span class="line">            .getScreenshotAs(OutputType.FILE);</span><br><span class="line">        <span class="comment">// 保存文件到node实例的机器</span></span><br><span class="line">        FileCopyUtils.copy(screen, <span class="keyword">new</span> File(<span class="string">&quot;D:/save/screenshot.jpg&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="selenium-ide">Selenium IDE</h3>
 <ol type="1">
@@ -514,14 +450,14 @@ java -Dwebdriver.edge.driver&#x3D;&quot;.&#x2F;driver&#x2F;msedgedriver.exe&quot
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

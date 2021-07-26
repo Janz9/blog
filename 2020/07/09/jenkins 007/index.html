@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -343,117 +343,17 @@ B --> C2</pre>
 <p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/swarm/">Swarm</a> 插件可以不需要在 Jenkins 界面上手动操作的方式增加代理节点, 安装好插件后, 只需要在代理主机上启动 Swarm 客户端, 指定 Jenkins master 地址和认证信息, 就可以自动建立 agent 与 master 的连接</p>
 <h3 id="标签">标签</h3>
 <p>当节点数量变多时, 可以通过 <strong>标签(label)</strong> 将多个 agent 分配到同一个逻辑组中, 同一个 agent 可以拥有多个标签, 在标签名中不能包含空格和特殊字符</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: label */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent <span class="token punctuation">&#123;</span>
-        label <span class="token string">'windows &amp;&amp; jdk8'</span> <span class="token comment">// 构建任务指定在同时具有windows和jdk8标签的agent中执行</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/*
-agent       定义执行任务时所在的agent
-agent any   任何可用的agent都可以执行
-agent none  不分配任何agent, 此方式适用于每个构建阶段都运行在指定agent中
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: node */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent <span class="token punctuation">&#123;</span>
-        node <span class="token punctuation">&#123;</span> <span class="token comment">// 完整结构, 可以简写成前一示例</span>
-            label <span class="token string">'windows &amp;&amp; jdk8'</span>
-            customWorkspace <span class="token string">'/var/lib/custom'</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* node指令参数
-label            指定节点的标签
-customWorkspace  自定义工作目录
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: label */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123;</span><br><span class="line">        label <span class="string">&#x27;windows &amp;&amp; jdk8&#x27;</span> <span class="comment">// 构建任务指定在同时具有windows和jdk8标签的agent中执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">agent       定义执行任务时所在的agent</span></span><br><span class="line"><span class="comment">agent any   任何可用的agent都可以执行</span></span><br><span class="line"><span class="comment">agent none  不分配任何agent, 此方式适用于每个构建阶段都运行在指定agent中</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: node */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123;</span><br><span class="line">        node &#123; <span class="comment">// 完整结构, 可以简写成前一示例</span></span><br><span class="line">            label <span class="string">&#x27;windows &amp;&amp; jdk8&#x27;</span></span><br><span class="line">            customWorkspace <span class="string">&#x27;/var/lib/custom&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* node指令参数</span></span><br><span class="line"><span class="comment">label            指定节点的标签</span></span><br><span class="line"><span class="comment">customWorkspace  自定义工作目录</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p>在默认情况下, 阶段内所有的代码都将在指定的 Jenkins agent 上执行, <code>when</code> 指令提供了 <code>beforeAgent</code> 选项, 用于只有符合条件时才会进入该 agent, 这样就可以避免没有必要的工作空间的分配</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: beforeAgent */</span>
-pipeline <span class="token punctuation">&#123;</span>
-	agent none
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            agent <span class="token string">'jdk8'</span>
-            when <span class="token punctuation">&#123;</span> <span class="token comment">// 只有分支为production时, 才会进入该节点执行构建</span>
-                beforeAgent <span class="token boolean">true</span>
-                branch <span class="token string">'production'</span>
-            <span class="token punctuation">&#125;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"deploying"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: beforeAgent */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">	agent none</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            agent <span class="string">&#x27;jdk8&#x27;</span></span><br><span class="line">            when &#123; <span class="comment">// 只有分支为production时, 才会进入该节点执行构建</span></span><br><span class="line">                beforeAgent <span class="literal">true</span></span><br><span class="line">                branch <span class="string">&#x27;production&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;deploying&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Jenkins master 要将构建任务分配给 Docker, 就必须在 Jenkins agent 上安装 Docker, 需要注意, 要将 Jenkins agent 的用户加入 Docker 用户组中, 这样 Jenkins agent 不需要加 <code>sudo</code> 就能执行 <code>docker</code> 命令</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: docker */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent <span class="token punctuation">&#123;</span>
-        docker <span class="token punctuation">&#123;</span>
-            label<span class="token punctuation">:</span> <span class="token string">'docker'</span>
-            image<span class="token punctuation">:</span> <span class="token string">'maven:3'</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                sh <span class="token string">'mvn clean compile'</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* docker指令参数
-label       指定节点的标签
-image       字符串类型, 指定构建时使用的Docker镜像
-args        字符串类型, 执行docker run命令时所带的参数
-alwaysPull  布尔类型, 强制每次执行docker pull命令时都重新拉取镜像
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: docker */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123;</span><br><span class="line">        docker &#123;</span><br><span class="line">            <span class="symbol">label:</span> <span class="string">&#x27;docker&#x27;</span></span><br><span class="line">            <span class="symbol">image:</span> <span class="string">&#x27;maven:3&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&#x27;mvn clean compile&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* docker指令参数</span></span><br><span class="line"><span class="comment">label       指定节点的标签</span></span><br><span class="line"><span class="comment">image       字符串类型, 指定构建时使用的Docker镜像</span></span><br><span class="line"><span class="comment">args        字符串类型, 执行docker run命令时所带的参数</span></span><br><span class="line"><span class="comment">alwaysPull  布尔类型, 强制每次执行docker pull命令时都重新拉取镜像</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p>Docker 拉取镜像时, 默认是从 Docker 官方中心仓库拉取的, Jenkins 提供了 Docker 私有仓库的配置, 进入 <code>Manage Jenkins / Configure System / Declarative Pipeline (Docker)</code> 节点下, 填写私服相关信息和认证凭据</p>
 <h2 id="并行">并行</h2>
 <p>对于按环境构建或测试的情况, 按顺序执行的方式显得太慢了, 因此声明式语法提供了 <code>parallel</code> 指令</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 并行阶段 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent none
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            failFast <span class="token boolean">true</span> <span class="token comment">// 并行阶段中的某个阶段失败后, 就让其他正在执行的阶段都中止</span>
-            parallel <span class="token punctuation">&#123;</span>
-                <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'firefox'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                    agent <span class="token punctuation">&#123;</span> label <span class="token string">'firefox'</span> <span class="token punctuation">&#125;</span>
-                    steps <span class="token punctuation">&#123;</span> echo <span class="token string gstring">"test on firefox"</span> <span class="token punctuation">&#125;</span>
-                <span class="token punctuation">&#125;</span>
-                <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'chrome'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                    agent <span class="token punctuation">&#123;</span> label <span class="token string">'chrome'</span> <span class="token punctuation">&#125;</span>
-                    steps <span class="token punctuation">&#123;</span> echo <span class="token string gstring">"test on chrome"</span> <span class="token punctuation">&#125;</span>
-                <span class="token punctuation">&#125;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 并行阶段运行在不同的 executor 上</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 并发步骤 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent <span class="token punctuation">&#123;</span> label <span class="token string">'jdk'</span> <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                <span class="token function">parallel</span><span class="token punctuation">(</span>
-                    jdk8<span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
-                        echo <span class="token string gstring">"build on jdk8"</span>
-                    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                    jdk14<span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
-                        echo <span class="token string gstring">"build on jdk14"</span>
-                    <span class="token punctuation">&#125;</span>
-                <span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 并发步骤运行在同一个 executor 上</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 并行阶段 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent none</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;test&#x27;</span>) &#123;</span><br><span class="line">            failFast <span class="literal">true</span> <span class="comment">// 并行阶段中的某个阶段失败后, 就让其他正在执行的阶段都中止</span></span><br><span class="line">            parallel &#123;</span><br><span class="line">                stage(<span class="string">&#x27;firefox&#x27;</span>) &#123;</span><br><span class="line">                    agent &#123; label <span class="string">&#x27;firefox&#x27;</span> &#125;</span><br><span class="line">                    steps &#123; echo <span class="string">&quot;test on firefox&quot;</span> &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                stage(<span class="string">&#x27;chrome&#x27;</span>) &#123;</span><br><span class="line">                    agent &#123; label <span class="string">&#x27;chrome&#x27;</span> &#125;</span><br><span class="line">                    steps &#123; echo <span class="string">&quot;test on chrome&quot;</span> &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并行阶段运行在不同的 executor 上</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 并发步骤 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123; label <span class="string">&#x27;jdk&#x27;</span> &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                parallel(</span><br><span class="line">                    <span class="symbol">jdk8:</span> &#123;</span><br><span class="line">                        echo <span class="string">&quot;build on jdk8&quot;</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="symbol">jdk14:</span> &#123;</span><br><span class="line">                        echo <span class="string">&quot;build on jdk14&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发步骤运行在同一个 executor 上</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -561,14 +461,14 @@ pipeline <span class="token punctuation">&#123;</span>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

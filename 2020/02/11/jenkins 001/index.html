@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,14 +288,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -312,19 +312,11 @@
 <p><strong>Jenkinsfile</strong> 是一个文本文件, 也就是部署流水线概念在 Jenkins 中的表现形式, 所有部署流水线的逻辑都写在 Jenkinsfile 中</p>
 <h3 id="安装">安装</h3>
 <p><a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">Jenkins</a> 官网提供了 war 文件, 安装程序和 Docker 镜像的下载链接</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 下载
-curl -O http:&#x2F;&#x2F;mirrors.jenkins.io&#x2F;war-stable&#x2F;latest&#x2F;jenkins.war
-# 启动
-java -jar jenkins.war<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 安装为windows服务启动
-jenkins.exe install
-# 卸载服务
-jenkins.exe uninstall<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载</span></span><br><span class="line">curl -O http://mirrors.jenkins.io/war-stable/latest/jenkins.war</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装为windows服务启动</span></span><br><span class="line">jenkins.exe install</span><br><span class="line"><span class="meta">#</span><span class="bash"> 卸载服务</span></span><br><span class="line">jenkins.exe uninstall</span><br></pre></td></tr></table></figure>
 <h3 id="镜像">镜像</h3>
 <p>配置国内加速镜像 <a target="_blank" rel="noopener" href="https://jenkins-zh.cn/wechat/articles/2019/11/2019-11-11-update-center-mirror-announcement/">参考</a></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 提示需要密钥的话, 手动下载密钥到本地证书文件夹
-cd $JENKINS_HOME&#x2F;war&#x2F;WEB-INF&#x2F;update-center-rootCAs&#x2F;
-curl -O https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;jenkins-zh&#x2F;mirror-adapter&#x2F;master&#x2F;rootCA&#x2F;mirror-adapter.crt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 提示需要密钥的话, 手动下载密钥到本地证书文件夹</span></span><br><span class="line">cd $JENKINS_HOME/war/WEB-INF/update-center-rootCAs/</span><br><span class="line">curl -O https://raw.githubusercontent.com/jenkins-zh/mirror-adapter/master/rootCA/mirror-adapter.crt</span><br></pre></td></tr></table></figure>
 <h2 id="pipeline">Pipeline</h2>
 <p>部署流水线(Deployment <strong>pipeline</strong>) 是指从软件版本控制库到用户手中这一过程的自动化表现形式</p>
 <blockquote>
@@ -341,35 +333,8 @@ curl -O https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;jenkins-zh&#x2F;mirror-
 <p>要创建 pipeline, 首先要安装 pipeline 插件, 在 Jenkins 中新建一个 <code>pipeline</code> 项目</p>
 <h4 id="pipeline-script">pipeline script</h4>
 <p>在 pipeline 节点下选择 <code>Pipeline script</code>, 脚本中填入示例代码</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例代码: Hello World */</span>
-pipeline <span class="token punctuation">&#123;</span>
-   agent any
-
-   stages <span class="token punctuation">&#123;</span>
-      <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-         steps <span class="token punctuation">&#123;</span>
-            echo <span class="token string">'Hello World'</span>
-         <span class="token punctuation">&#125;</span>
-      <span class="token punctuation">&#125;</span>
-   <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 执行结果
-Started by user janz
-Running in Durability level: MAX_SURVIVABILITY
-[Pipeline] Start of Pipeline
-[Pipeline] node
-Running on Jenkins in $&#123;JENKINS_HOME&#125;\workspace\HELLO_WORLD
-[Pipeline] &#123;
-[Pipeline] stage
-[Pipeline] &#123; (build)
-[Pipeline] echo
-Hello World
-[Pipeline] &#125;
-[Pipeline] &#x2F;&#x2F; stage
-[Pipeline] &#125;
-[Pipeline] &#x2F;&#x2F; node
-[Pipeline] End of Pipeline
-Finished: SUCCESS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例代码: Hello World */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">   agent any</span><br><span class="line"></span><br><span class="line">   stages &#123;</span><br><span class="line">      stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">         steps &#123;</span><br><span class="line">            echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 执行结果</span></span><br><span class="line">Started by user janz</span><br><span class="line">Running in Durability level: MAX_SURVIVABILITY</span><br><span class="line">[Pipeline] Start of Pipeline</span><br><span class="line">[Pipeline] node</span><br><span class="line">Running on Jenkins in $&#123;JENKINS_HOME&#125;\workspace\HELLO_WORLD</span><br><span class="line">[Pipeline] &#123;</span><br><span class="line">[Pipeline] stage</span><br><span class="line">[Pipeline] &#123; (build)</span><br><span class="line">[Pipeline] echo</span><br><span class="line">Hello World</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">[Pipeline] // stage</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">[Pipeline] // node</span><br><span class="line">[Pipeline] End of Pipeline</span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>直接在 Jenkins 界面上填入 pipeline 脚本内容, 在试验时可以这么做, 但是不推荐, 因为这样无法做到 pipeline 的版本化</p>
 </blockquote>
@@ -378,48 +343,12 @@ Finished: SUCCESS<span aria-hidden="true" class="line-numbers-rows"><span></span
 <h3 id="multibranch-pipeline-项目">Multibranch Pipeline 项目</h3>
 <p>实际项目中, 往往需要多分支同时进行开发, 如果为每个分支都分别创建 Jenkins 项目有些多余, Jenkins 支持多分支 pipeline, 创建此类项目时, 需要选择 <code>Multibranch Pipeline</code></p>
 <p>分支扫描根据一定的策略去代码仓库扫描分支, 如果有新分支就创建一个以分支命名的任务, 如果分支被删除了, 就删除相应的任务</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: 多分支pipeline */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'master'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            when <span class="token punctuation">&#123;</span>
-                branch <span class="token string">'master'</span>
-            <span class="token punctuation">&#125;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"master build"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'release'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            when <span class="token punctuation">&#123;</span>
-                <span class="token function">tag</span><span class="token punctuation">(</span>pattern<span class="token punctuation">:</span> <span class="token string">'release-*'</span><span class="token punctuation">,</span> comparator<span class="token punctuation">:</span> <span class="token string">'GLOB'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"release build"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 多分支pipeline */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;master&#x27;</span>) &#123;</span><br><span class="line">            when &#123;</span><br><span class="line">                branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;master build&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;release&#x27;</span>) &#123;</span><br><span class="line">            when &#123;</span><br><span class="line">                tag(<span class="attr">pattern:</span> <span class="string">&#x27;release-*&#x27;</span>, <span class="attr">comparator:</span> <span class="string">&#x27;GLOB&#x27;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;release build&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="maven-构建">Maven 构建</h2>
 <p>Maven 是非常流行的一个 Java 应用构建工具, Jenkins 默认支持 Maven</p>
 <p>首先需要在 Jenkins 上安装 JDK 和 Maven, 可以登录 Jenkins 服务器手动安装, 也可以让 Jenkins 自动安装</p>
 <p>进入 <code>Manage Jenkins / Global Tool Configuration / Maven</code> 页配置自动安装的 Maven</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: Jenkinsfile文件代码 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    tools <span class="token punctuation">&#123;</span>
-        maven <span class="token string">'mvn-3.6.3'</span>
-    <span class="token punctuation">&#125;</span>
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            sh <span class="token string gstring">"mvn clean package spring-boot:repackage"</span>
-            sh <span class="token string gstring">"printenv"</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// tools命令用于自动安装指定的构建工具并将其路径放到PATH变量中, 参数'mvn-3.6.3'需要与Maven节点下配置的自动安装的Name一致</span>
-<span class="token comment">// 通过命令sh "printenv"将环境变量打印到控制台中, 可以看到MAVEN_HOME放到了当前任务的环境变量中</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Jenkinsfile文件代码 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    tools &#123;</span><br><span class="line">        maven <span class="string">&#x27;mvn-3.6.3&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            sh <span class="string">&quot;mvn clean package spring-boot:repackage&quot;</span></span><br><span class="line">            sh <span class="string">&quot;printenv&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// tools命令用于自动安装指定的构建工具并将其路径放到PATH变量中, 参数&#x27;mvn-3.6.3&#x27;需要与Maven节点下配置的自动安装的Name一致</span></span><br><span class="line"><span class="comment">// 通过命令sh &quot;printenv&quot;将环境变量打印到控制台中, 可以看到MAVEN_HOME放到了当前任务的环境变量中</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -527,14 +456,14 @@ pipeline <span class="token punctuation">&#123;</span>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>1.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -317,83 +317,23 @@
 </ul>
 <h3 id="配置">配置</h3>
 <p>实体中需要添加相应的字段, 并增加 <code>@EntityListeners</code> 注解</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 配置实体 */</span>
-<span class="token annotation punctuation">@EntityListeners</span><span class="token punctuation">(</span><span class="token class-name">AuditingEntityListener</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Entity</span>
-<span class="token annotation punctuation">@Table</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"b_user"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDO</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@CreatedBy</span>
-    <span class="token keyword">private</span> <span class="token class-name">String</span> createdUserId<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@LastModifiedBy</span>
-    <span class="token keyword">private</span> <span class="token class-name">String</span> modifiedUserId<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@CreatedDate</span>
-    <span class="token keyword">private</span> <span class="token class-name">Date</span> createDate<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@LastModifiedDate</span>
-    <span class="token keyword">private</span> <span class="token class-name">Date</span> updateDate<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 配置实体 */</span></span><br><span class="line"><span class="meta">@EntityListeners(AuditingEntityListener.class)</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;b_user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDO</span> </span>&#123;</span><br><span class="line">    <span class="meta">@CreatedBy</span></span><br><span class="line">    <span class="keyword">private</span> String createdUserId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@LastModifiedBy</span></span><br><span class="line">    <span class="keyword">private</span> String modifiedUserId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@CreatedDate</span></span><br><span class="line">    <span class="keyword">private</span> Date createDate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@LastModifiedDate</span></span><br><span class="line">    <span class="keyword">private</span> Date updateDate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>实现 <code>AuditorAware</code> 接口</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 配置获取当前用户 */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAuditorAware</span> <span class="token keyword">implements</span> <span class="token class-name">AuditorAware</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Optional</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">getCurrentAuditor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">String</span> userId <span class="token operator">=</span> <span class="token string">"XXXXXX"</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token class-name">Optional</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>userId<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 配置获取当前用户 */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAuditorAware</span> <span class="keyword">implements</span> <span class="title">AuditorAware</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Optional&lt;String&gt; <span class="title">getCurrentAuditor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String userId = <span class="string">&quot;XXXXXX&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> Optional.of(userId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>开启 JPA 的 Auditing 功能</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 配置启用 */</span>
-<span class="token annotation punctuation">@EnableJpaAuditing</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token keyword">public</span> <span class="token class-name">AuditorAware</span> <span class="token function">auditorProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MyAuditorAware</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 配置启用 */</span></span><br><span class="line"><span class="meta">@EnableJpaAuditing</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AuditorAware <span class="title">auditorProvider</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyAuditorAware();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="乐观锁">乐观锁</h2>
 <p>使用对单条数据进行版本校验和比较, 来保证本次的更新是最新的, 否则就失败, 效率要高很多</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 悲观锁的做法</span>
-<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id <span class="token operator">=</span> <span class="token number">1</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span>
-<span class="token keyword">update</span> <span class="token keyword">user</span> <span class="token keyword">set</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">where</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 乐观锁的做法</span>
-<span class="token keyword">select</span> <span class="token operator">*</span><span class="token punctuation">,</span>version <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">update</span> <span class="token keyword">user</span> <span class="token keyword">set</span> version <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">where</span> id <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">and</span> version <span class="token operator">=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 悲观锁的做法</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">for</span> update;</span><br><span class="line">update <span class="keyword">user</span> <span class="keyword">set</span> ... <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 乐观锁的做法</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span>,version <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">update <span class="keyword">user</span> <span class="keyword">set</span> version <span class="operator">=</span> <span class="number">2</span>,... <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> version <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <h3 id="配置-1">配置</h3>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/* 实体上字段加@Version */</span>
-<span class="token annotation punctuation">@Entity</span>
-<span class="token annotation punctuation">@Table</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"b_user"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDO</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Version</span>
-    <span class="token keyword">private</span> <span class="token class-name">Long</span> version<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 实体上字段加@Version */</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table(name = &quot;b_user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDO</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Version</span></span><br><span class="line">    <span class="keyword">private</span> Long version;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="事务">事务</h2>
 <p>正常情况下, 需要在配置类加上 <code>@EnableTransactionManagement</code> 注解才能开启事务管理, spring boot 默认加载的 <code>TransactionAutoConfiguration</code> 类已经加了此注解, 默认采用 <code>AdviceMode.PROXY</code></p>
 <h3 id="注解式事务">注解式事务</h3>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Transactional</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 用于设置事务的传播行为</span>
-    <span class="token class-name">TxType</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token class-name">TxType</span><span class="token punctuation">.</span>REQUIRED<span class="token punctuation">;</span>
-    <span class="token comment">// 用于设置需要进行回滚的异常类数组</span>
-    <span class="token keyword">public</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">rollbackOn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token comment">// 用于设置不需要进行回滚的异常类数组</span>
-    <span class="token keyword">public</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">dontRollbackOn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Transactional &#123;</span><br><span class="line">    <span class="comment">// 用于设置事务的传播行为</span></span><br><span class="line">    <span class="function">TxType <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> TxType.REQUIRED</span>;</span><br><span class="line">    <span class="comment">// 用于设置需要进行回滚的异常类数组</span></span><br><span class="line">    <span class="keyword">public</span> Class[] rollbackOn() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">    <span class="comment">// 用于设置不需要进行回滚的异常类数组</span></span><br><span class="line">    <span class="keyword">public</span> Class[] dontRollbackOn() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>TxType</code> 有以下值:</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">TxType</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 如果当前存在事务, 则加入该事务, 如果当前没有事务, 则创建一个新的事务</span>
-    REQUIRED<span class="token punctuation">,</span>
-    <span class="token comment">// 创建一个新的事务, 如果当前存在事务, 则把当前事务挂起</span>
-    REQUIRES_NEW<span class="token punctuation">,</span>
-    <span class="token comment">// 如果当前存在事务, 则加入该事务, 如果当前没有事务, 则抛出异常</span>
-    MANDATORY<span class="token punctuation">,</span>
-    <span class="token comment">// 如果当前存在事务, 则加入该事务, 如果当前没有事务, 则以非事务的方式继续运行</span>
-    SUPPORTS<span class="token punctuation">,</span>
-    <span class="token comment">// 以非事务的方式运行, 如果当前存在事务, 则把当前事务挂起</span>
-    NOT_SUPPORTED<span class="token punctuation">,</span>
-    <span class="token comment">// 以非事务的方式运行, 如果当前存在事务, 则抛出异常</span>
-    NEVER
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">TxType</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 如果当前存在事务, 则加入该事务, 如果当前没有事务, 则创建一个新的事务</span></span><br><span class="line">    REQUIRED,</span><br><span class="line">    <span class="comment">// 创建一个新的事务, 如果当前存在事务, 则把当前事务挂起</span></span><br><span class="line">    REQUIRES_NEW,</span><br><span class="line">    <span class="comment">// 如果当前存在事务, 则加入该事务, 如果当前没有事务, 则抛出异常</span></span><br><span class="line">    MANDATORY,</span><br><span class="line">    <span class="comment">// 如果当前存在事务, 则加入该事务, 如果当前没有事务, 则以非事务的方式继续运行</span></span><br><span class="line">    SUPPORTS,</span><br><span class="line">    <span class="comment">// 以非事务的方式运行, 如果当前存在事务, 则把当前事务挂起</span></span><br><span class="line">    NOT_SUPPORTED,</span><br><span class="line">    <span class="comment">// 以非事务的方式运行, 如果当前存在事务, 则抛出异常</span></span><br><span class="line">    NEVER</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -404,9 +344,6 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/05/07/jpa/001/" rel="bookmark">JPA 001 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2019/05/07/jpa/002/" rel="bookmark">JPA 002 Entity</a></div>
     </li>
     <li class="popular-posts-item">
@@ -414,6 +351,9 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2019/05/08/jpa/003/" rel="bookmark">JPA 003 基础查询</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2019/05/07/jpa/001/" rel="bookmark">JPA 001 简介</a></div>
     </li>
   </ul>
 
@@ -498,14 +438,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

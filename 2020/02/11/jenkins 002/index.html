@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=mplus+Nerd+Font:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -288,14 +288,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.7k</span>
+      <span>4.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -310,22 +310,7 @@
 <h2 id="结构">结构</h2>
 <p>Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言), 用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试, 输出测试报告等步骤</p>
 <p>Jenkins 对这个过程进行抽象, 设计出一个基本的 <code>pipeline</code> 结构</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* pipeline最简结构 */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            steps <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"hello world"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// pipeline  代表整条流水线, 包含整条流水线的逻辑</span>
-<span class="token comment">// stages    流水线中多个stage的容器, 至少包含一个stage</span>
-<span class="token comment">// stage     代表流水线的阶段, 每个阶段都必须有名称, 示例名称为build</span>
-<span class="token comment">// agent     指定流水线的执行位置, 流水线中的每个阶段都必须在某个地方(物理机, 虚拟机或Docker容器)执行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* pipeline最简结构 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;hello world&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pipeline  代表整条流水线, 包含整条流水线的逻辑</span></span><br><span class="line"><span class="comment">// stages    流水线中多个stage的容器, 至少包含一个stage</span></span><br><span class="line"><span class="comment">// stage     代表流水线的阶段, 每个阶段都必须有名称, 示例名称为build</span></span><br><span class="line"><span class="comment">// agent     指定流水线的执行位置, 流水线中的每个阶段都必须在某个地方(物理机, 虚拟机或Docker容器)执行</span></span><br></pre></td></tr></table></figure>
 <h2 id="指令">指令</h2>
 <p>基本结构满足不了现实多变的需求, 所以 Jenkins pipeline 通过各种指令来丰富自己, 指令可以被理解为对 Jenkins pipeline 基本结构的补充</p>
 <p><strong>Jenkins pipeline 支持的指令</strong></p>
@@ -380,94 +365,13 @@ pipeline <span class="token punctuation">&#123;</span>
 </blockquote>
 <h3 id="post">post</h3>
 <p><code>post</code> 指令用于 <code>pipeline</code> 或 <code>stage</code> 完成后执行一些附加的步骤, 根据完成的状态, <code>post</code> 部分分成多种条件块, 并且可以同时包含多种条件块</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: post */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"build stage"</span>
-        <span class="token punctuation">&#125;</span>
-        post <span class="token punctuation">&#123;</span>
-            always <span class="token punctuation">&#123;</span>
-                echo <span class="token string gstring">"stage post always"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    post <span class="token punctuation">&#123;</span>
-        changed <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"pipeline post changed"</span>
-        <span class="token punctuation">&#125;</span>
-        success <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"pipeline post success"</span>
-        <span class="token punctuation">&#125;</span>
-        failure <span class="token punctuation">&#123;</span>
-            mail to<span class="token punctuation">:</span> <span class="token string">'team@example.com'</span><span class="token punctuation">,</span> subject<span class="token punctuation">:</span> <span class="token string">'the pipeline failed.'</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* 可选条件
-always      不论当前完成状态是什么都执行
-changed     只要当前完成状态与上一次完成状态不同就执行
-fixed       上一次完成状态为失败或不稳定, 当前完成状态为成功时执行
-regression  上一次完成状态为成功, 当前完成状态为失败, 不稳当或中止时执行
-aborted     当前执行结果是中止状态时执行
-failure     当前完成状态为失败时执行
-success     当前完成状态为成功时执行
-unstable    当前完成状态为不稳定时执行
-cleanup     清理条件块, 不论当前完成状态是什么, 在其他所有条件块执行完成后都执行
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: post */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;build stage&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        post &#123;</span><br><span class="line">            always &#123;</span><br><span class="line">                echo <span class="string">&quot;stage post always&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    post &#123;</span><br><span class="line">        changed &#123;</span><br><span class="line">            echo <span class="string">&quot;pipeline post changed&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        success &#123;</span><br><span class="line">            echo <span class="string">&quot;pipeline post success&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        failure &#123;</span><br><span class="line">            mail <span class="attr">to:</span> <span class="string">&#x27;team@example.com&#x27;</span>, <span class="attr">subject:</span> <span class="string">&#x27;the pipeline failed.&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 可选条件</span></span><br><span class="line"><span class="comment">always      不论当前完成状态是什么都执行</span></span><br><span class="line"><span class="comment">changed     只要当前完成状态与上一次完成状态不同就执行</span></span><br><span class="line"><span class="comment">fixed       上一次完成状态为失败或不稳定, 当前完成状态为成功时执行</span></span><br><span class="line"><span class="comment">regression  上一次完成状态为成功, 当前完成状态为失败, 不稳当或中止时执行</span></span><br><span class="line"><span class="comment">aborted     当前执行结果是中止状态时执行</span></span><br><span class="line"><span class="comment">failure     当前完成状态为失败时执行</span></span><br><span class="line"><span class="comment">success     当前完成状态为成功时执行</span></span><br><span class="line"><span class="comment">unstable    当前完成状态为不稳定时执行</span></span><br><span class="line"><span class="comment">cleanup     清理条件块, 不论当前完成状态是什么, 在其他所有条件块执行完成后都执行</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="options">options</h3>
 <p><code>options</code> 指令用于配置整个 Jenkins pipeline 本身的选项</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: options */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"build stage"</span>
-            <span class="token function">error</span><span class="token punctuation">(</span><span class="token string gstring">"emmm..."</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    options <span class="token punctuation">&#123;</span>
-        <span class="token function">retry</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
-        <span class="token function">timeout</span><span class="token punctuation">(</span>time<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> unit<span class="token punctuation">:</span> <span class="token string">'MINUTES'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">/* 常用选项
-buildDiscarder           保存最近历史构建记录的数量
-checkoutToSubdirectory   从版本控制库拉取源码时, 指定检出到工作空间的子目录
-disableConcurrentBuilds  禁止pipeline并行执行
-newContainerPerStage     当agent为docker或dockerfile时, 指定在同一个Jenkins节点上, 每个stage都分别运行在一个新的容器中
-retry                    指定发生失败时进行重试的次数
-timeout                  指定超时时间, 超出设置的时间将中止pipeline
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: options */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;build stage&quot;</span></span><br><span class="line">            error(<span class="string">&quot;emmm...&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    options &#123;</span><br><span class="line">        retry(<span class="number">3</span>)</span><br><span class="line">        timeout(<span class="attr">time:</span> <span class="number">10</span>, <span class="attr">unit:</span> <span class="string">&#x27;MINUTES&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 常用选项</span></span><br><span class="line"><span class="comment">buildDiscarder           保存最近历史构建记录的数量</span></span><br><span class="line"><span class="comment">checkoutToSubdirectory   从版本控制库拉取源码时, 指定检出到工作空间的子目录</span></span><br><span class="line"><span class="comment">disableConcurrentBuilds  禁止pipeline并行执行</span></span><br><span class="line"><span class="comment">newContainerPerStage     当agent为docker或dockerfile时, 指定在同一个Jenkins节点上, 每个stage都分别运行在一个新的容器中</span></span><br><span class="line"><span class="comment">retry                    指定发生失败时进行重试的次数</span></span><br><span class="line"><span class="comment">timeout                  指定超时时间, 超出设置的时间将中止pipeline</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="when">when</h3>
 <p><code>when</code> 指令允许 <code>pipeline</code> 根据给定的条件, 决定是否执行阶段内的步骤, 必须至少包含一个条件</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/* 示例: when */</span>
-pipeline <span class="token punctuation">&#123;</span>
-    agent any
-    stages <span class="token punctuation">&#123;</span>
-        <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'build'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            echo <span class="token string gstring">"build stage"</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    when <span class="token punctuation">&#123;</span>
-        branch <span class="token string">'master'</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">/* 常用指令
-branch       如果分支名称与给定值相同则执行
-changelog    版本库的changelog符合正则表达式则执行
-changeset    版本库的变更集合中包含一个或多个文件符合给定Ant风格路径表达式则执行
-environment  环境变量的值与给定的值相同则执行
-equals       期望值与给定的值相同则执行
-expression   如果Groovy表达式返回的是true则执行
-buildingTag  如果pipeline所执行的代码被打了tag则执行
-tag          如果pipeline所执行的代码被打了tag且名称符合规则则执行
-allOf        多条件, 所有条件都必须符合才执行
-anyOf        多条件, 其中一个条件符合就执行
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: when */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;build stage&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    when &#123;</span><br><span class="line">        branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 常用指令</span></span><br><span class="line"><span class="comment">branch       如果分支名称与给定值相同则执行</span></span><br><span class="line"><span class="comment">changelog    版本库的changelog符合正则表达式则执行</span></span><br><span class="line"><span class="comment">changeset    版本库的变更集合中包含一个或多个文件符合给定Ant风格路径表达式则执行</span></span><br><span class="line"><span class="comment">environment  环境变量的值与给定的值相同则执行</span></span><br><span class="line"><span class="comment">equals       期望值与给定的值相同则执行</span></span><br><span class="line"><span class="comment">expression   如果Groovy表达式返回的是true则执行</span></span><br><span class="line"><span class="comment">buildingTag  如果pipeline所执行的代码被打了tag则执行</span></span><br><span class="line"><span class="comment">tag          如果pipeline所执行的代码被打了tag且名称符合规则则执行</span></span><br><span class="line"><span class="comment">allOf        多条件, 所有条件都必须符合才执行</span></span><br><span class="line"><span class="comment">anyOf        多条件, 其中一个条件符合就执行</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h2 id="步骤">步骤</h2>
 <p><code>pipeline</code> 结构决定的是 pipeline 整体流程, 但是真正做事的还是 <code>pipeline</code> 中的每一个步骤(step), 步骤是 <code>pipeline</code> 中不能再拆分的最小操作</p>
 <h3 id="内置指令">内置指令</h3>
@@ -475,43 +379,19 @@ anyOf        多条件, 其中一个条件符合就执行
 <ul>
 <li><p><code>deleteDir</code> 删除当前目录</p></li>
 <li><p><code>dir</code> 切换到目录</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">dir</span><span class="token punctuation">(</span><span class="token string gstring">"/var/logs"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">deleteDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dir(<span class="string">&quot;/var/logs&quot;</span>) &#123;</span><br><span class="line">    deleteDir()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p><code>fileExists</code> 判断文件是否存在</p></li>
 <li><p><code>isUnix</code> 判断是否为类 UNIX 系统</p></li>
 <li><p><code>pwd</code> 确认当前目录</p></li>
 <li><p><code>writeFile</code> 将内容写入指定文件中</p></li>
 <li><p><code>readFile</code> 读取文件内容</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy">script <span class="token punctuation">&#123;</span>
-    <span class="token function">writeFile</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> <span class="token string gstring">"base64File"</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string gstring">"amVua2lucyBib29r"</span><span class="token punctuation">,</span> encoding<span class="token punctuation">:</span> <span class="token string gstring">"Base64"</span><span class="token punctuation">)</span>
-    <span class="token keyword">def</span> content <span class="token operator">=</span> <span class="token function">readFile</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> <span class="token string gstring">"base64File"</span><span class="token punctuation">,</span> encoding<span class="token punctuation">:</span> <span class="token string gstring">"UTF-8"</span><span class="token punctuation">)</span>
-    echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span></span>"</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">script &#123;</span><br><span class="line">    writeFile(<span class="attr">file:</span> <span class="string">&quot;base64File&quot;</span>, <span class="attr">text:</span> <span class="string">&quot;amVua2lucyBib29r&quot;</span>, <span class="attr">encoding:</span> <span class="string">&quot;Base64&quot;</span>)</span><br><span class="line">    <span class="keyword">def</span> content = readFile(<span class="attr">file:</span> <span class="string">&quot;base64File&quot;</span>, <span class="attr">encoding:</span> <span class="string">&quot;UTF-8&quot;</span>)</span><br><span class="line">    echo <span class="string">&quot;$&#123;content&#125;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="制品相关">制品相关</h4>
 <ul>
 <li><p><code>stash</code> 保存临时文件</p></li>
 <li><p><code>unstash</code> 取出之前保存的文件</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy">stages <span class="token punctuation">&#123;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'stash'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        agent <span class="token punctuation">&#123;</span> label <span class="token string gstring">"master"</span> <span class="token punctuation">&#125;</span>
-        steps <span class="token punctuation">&#123;</span>
-            <span class="token function">writeFile</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> <span class="token string gstring">"a.txt"</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span>BUILD_NUMBER</span>"</span><span class="token punctuation">)</span>
-            <span class="token function">stash</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string gstring">"temp"</span><span class="token punctuation">,</span> includes<span class="token punctuation">:</span> <span class="token string gstring">"a.txt"</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token function">stage</span><span class="token punctuation">(</span><span class="token string">'unstage'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        agent <span class="token punctuation">&#123;</span> label <span class="token string gstring">"node"</span> <span class="token punctuation">&#125;</span>
-        steps <span class="token punctuation">&#123;</span>
-            script <span class="token punctuation">&#123;</span>
-                <span class="token function">unstash</span><span class="token punctuation">(</span><span class="token string gstring">"temp"</span><span class="token punctuation">)</span>
-                <span class="token keyword">def</span> content <span class="token operator">=</span> <span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string gstring">"a.txt"</span><span class="token punctuation">)</span>
-                echo <span class="token string gstring">"<span class="token expression"><span class="token punctuation">$</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span></span>"</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;stash&#x27;</span>) &#123;</span><br><span class="line">        agent &#123; label <span class="string">&quot;master&quot;</span> &#125;</span><br><span class="line">        steps &#123;</span><br><span class="line">            writeFile(<span class="attr">file:</span> <span class="string">&quot;a.txt&quot;</span>, <span class="attr">text:</span> <span class="string">&quot;$BUILD_NUMBER&quot;</span>)</span><br><span class="line">            stash(<span class="attr">name:</span> <span class="string">&quot;temp&quot;</span>, <span class="attr">includes:</span> <span class="string">&quot;a.txt&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    stage(<span class="string">&#x27;unstage&#x27;</span>) &#123;</span><br><span class="line">        agent &#123; label <span class="string">&quot;node&quot;</span> &#125;</span><br><span class="line">        steps &#123;</span><br><span class="line">            script &#123;</span><br><span class="line">                unstash(<span class="string">&quot;temp&quot;</span>)</span><br><span class="line">                <span class="keyword">def</span> content = readFile(<span class="string">&quot;a.txt&quot;</span>)</span><br><span class="line">                echo <span class="string">&quot;$&#123;content&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="命令相关">命令相关</h4>
 <ul>
@@ -525,22 +405,11 @@ anyOf        多条件, 其中一个条件符合就执行
 <li><p><code>tool</code> 使用预定义的工具</p></li>
 <li><p><code>timeout</code> 代码块超时时间</p></li>
 <li><p><code>waitUntil</code> 等待条件满足</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">timeout</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    waitUntil <span class="token punctuation">&#123;</span>
-        script <span class="token punctuation">&#123;</span>
-            <span class="token keyword">def</span> r <span class="token operator">=</span> sh script<span class="token punctuation">:</span> <span class="token string">'curl http://www.baidu.com'</span><span class="token punctuation">,</span> returnStatus<span class="token punctuation">:</span> <span class="token boolean">true</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span>r <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">timeout(<span class="number">50</span>) &#123;</span><br><span class="line">    waitUntil &#123;</span><br><span class="line">        script &#123;</span><br><span class="line">            <span class="keyword">def</span> r = sh <span class="attr">script:</span> <span class="string">&#x27;curl http://www.baidu.com&#x27;</span>, <span class="attr">returnStatus:</span> <span class="literal">true</span></span><br><span class="line">            <span class="keyword">return</span> (r == <span class="number">0</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p><code>entry</code> 重复执行块</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">retry</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    script <span class="token punctuation">&#123;</span>
-        sh script<span class="token punctuation">:</span> <span class="token string">'curl http://www.baidu.com'</span><span class="token punctuation">,</span> returnStatus<span class="token punctuation">:</span> <span class="token boolean">true</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">retry(<span class="number">20</span>) &#123;</span><br><span class="line">    script &#123;</span><br><span class="line">        sh <span class="attr">script:</span> <span class="string">&#x27;curl http://www.baidu.com&#x27;</span>, <span class="attr">returnStatus:</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p><code>sleep</code> 让 pipeline 休眠一段时间</p>
-<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token function">sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span> unit<span class="token punctuation">:</span> <span class="token string">'MINUTES'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(<span class="attr">time:</span> <span class="string">&#x27;1&#x27;</span>, <span class="attr">unit:</span> <span class="string">&#x27;MINUTES&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="插件指令">插件指令</h3>
 <p>步骤是可插拔的, 就像 Jenkins 的插件一样, 只需要对现有的插件进行一些修改, 就可以在 pipeline 中被当成一个步骤使用</p>
@@ -653,14 +522,14 @@ anyOf        多条件, 其中一个条件符合就执行
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">391k</span>
+    <span title="站点总字数">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:55</span>
+    <span title="站点阅读时长">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
