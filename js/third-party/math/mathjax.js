@@ -23,7 +23,13 @@ document.addEventListener('page:loaded', () => {
         },
         chtml: {
           scale: 0.82
+        },
+        svg: {
+          scale: 0.82
         }
+        // ,loader: {
+        //   load: ['output/chtml']
+        // }
       };
       NexT.utils.getScript(CONFIG.mathjax.js, {
         attributes: {
