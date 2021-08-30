@@ -26,12 +26,12 @@
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="架构 Jenkins 项目都是在 executor 上执行的, 假如单机足够强大, 让更多项目同时执行的方法就是增加 executor, 但单机的容量总会遇到上限, 而且还会有单节点问题, 解决办法就是将 Jenkins 项目分配到多台机器上执行 节点 Jenkins 采用的是 master&#x2F;agent 架构, Jenkins master 负责提供界面, 处理 HTTP 请求及管理构建环境, 构">
+<meta name="description" content="Jenkins 项目都是在 executor 上执行的, 假如单机足够强大, 让更多项目同时执行的方法就是增加 executor, 但单机的容量总会遇到上限, 而且还会有单节点问题, 解决办法就是将 Jenkins 项目分配到多台机器上执行  Jenkins 采用的是 master&#x2F;agent 架构, Jenkins master 负责提供界面, 处理 HTTP 请求及管理构建环境, 构建的执行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 架构">
 <meta property="og:url" content="https://janz.icu/2020/07/09/jenkins%20007/index.html">
 <meta property="og:site_name" content="Jbot">
-<meta property="og:description" content="架构 Jenkins 项目都是在 executor 上执行的, 假如单机足够强大, 让更多项目同时执行的方法就是增加 executor, 但单机的容量总会遇到上限, 而且还会有单节点问题, 解决办法就是将 Jenkins 项目分配到多台机器上执行 节点 Jenkins 采用的是 master&#x2F;agent 架构, Jenkins master 负责提供界面, 处理 HTTP 请求及管理构建环境, 构">
+<meta property="og:description" content="Jenkins 项目都是在 executor 上执行的, 假如单机足够强大, 让更多项目同时执行的方法就是增加 executor, 但单机的容量总会遇到上限, 而且还会有单节点问题, 解决办法就是将 Jenkins 项目分配到多台机器上执行  Jenkins 采用的是 master&#x2F;agent 架构, Jenkins master 负责提供界面, 处理 HTTP 请求及管理构建环境, 构建的执行">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-09T01:00:44.000Z">
 <meta property="article:modified_time" content="2021-05-06T06:44:54.294Z">
@@ -361,13 +361,13 @@ B --> C2</pre>
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
+      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
+      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>

@@ -296,13 +296,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="maven-简介">Maven 简介</h1>
-<h2 id="maven-定义">Maven 定义</h2>
+          
+
 <p>作为 Apache 组织中的一个颇为成功的开源项目, <strong>Maven</strong> 主要服务于基于 Java 平台的项目构建, 依赖管理和项目信息管理</p>
 <ul>
 <li>Maven 的用途之一是服务于构建, 它是一个异常强大的构建工具, 能够帮我们自动化构建过程, 从清理, 编译, 测试到生成报告, 再到打包和部署;</li>
 <li>Maven 不仅是构建工具, 还是一个依赖管理工具和项目信息管理工具</li>
 </ul>
+<blockquote>
+<p>Maven 是跨平台的, 这意味着无论是在 Windows 上, 还是在 Linux 或者 Mac 上, 都可以使用同样的命令</p>
+</blockquote>
+<p>使用 Maven 的优点:</p>
+<ol type="1">
+<li>Maven 抽象了一个完整的构建生命周期模型, 这个模型吸取了大量其他的构建脚本和构建工具的优点, 总结了大量项目的实际需求;</li>
+<li>Maven 能帮助我们标准化构建过程;</li>
+<li>Maven 给第三方类库引入了坐标系统, 让它们变得有秩序, 可以借助它来有序地管理依赖, 轻松地解决那些繁杂的依赖问题;</li>
+<li>Maven 能管理原本分散在项目中各个角落的项目信息, 包括项目描述, 开发者列表, 版本控制系统地址, 许可证, 缺陷管理系统地址等;</li>
+<li>Maven 为全世界的 Java 开发者提供了一个免费的中央仓库, 在其中几乎可以找到任何的流行开源类库;</li>
+<li>使用 Maven 还能享受一个额外的好处, 即 Maven 对于项目目录结构, 测试用例命名方式等内容都有既定的规则, 只要遵循了这些成熟的规则, 用户在项目间切换的时候就免去了额外的学习成本, 可以说是约定优于配置 (Convention Over Configuration)</li>
+</ol>
+
+<ol type="1">
+<li><p>安装 JDK</p>
+
+<blockquote>
+<p>Maven 可以运行在 JDK 1.4 及以上的版本上</p>
+</blockquote></li>
+<li><p>安装 Maven</p>
+</li>
+</ol>
+
+
+<p><code>M2_HOME</code> 环境变量指向 Maven 的安装目录</p>
+
+<h4 id="bin">bin</h4>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/08/29/maven/001/#more" rel="contents">
@@ -411,10 +438,65 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="spring-简介">Spring 简介</h1>
-<h2 id="定义">定义</h2>
+          
+
 <p><strong>Spring</strong> 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益</p>
 <p>Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:</p>
+<ul>
+<li>基于 POJO 的轻量级和最小侵入性编程;</li>
+<li>通过依赖注入和面向接口实现松耦合;</li>
+<li>基于切面和惯例进行声明式编程;</li>
+<li>通过切面和模板减少样板式代码</li>
+</ul>
+
+<p>在 Spring 4.0 中, <strong>Spring 框架</strong> 的发布版本包括了 20 个不同的模块, 每个模块会有 3 个 JAR 文件 (二进制类库, 源码的 JAR 文件以及 JavaDoc 的 JAR 文件), 这些模块依据其所属的功能可以划分为 6 类不同的功能</p>
+<ol type="1">
+<li>Spring 核心容器
+<ul>
+<li>Beans</li>
+<li>Core</li>
+<li>Context</li>
+<li>Expression</li>
+<li>Context support</li>
+</ul></li>
+<li>面向切面编程
+<ul>
+<li>AOP</li>
+<li>Aspects</li>
+</ul></li>
+<li>数据访问与集成
+<ul>
+<li>JDBC</li>
+<li>Transaction</li>
+<li>ORM</li>
+<li>OXM</li>
+<li>Messaging</li>
+<li>JMS</li>
+</ul></li>
+<li>Web 与远程调用
+<ul>
+<li>Web</li>
+<li>Web servlet</li>
+<li>Web portlet</li>
+<li>WebSocket</li>
+</ul></li>
+<li>Instrumentation
+<ul>
+<li>Instrument</li>
+<li>Instrument Tomcat</li>
+</ul></li>
+<li>测试
+<ul>
+<li>Test</li>
+</ul></li>
+</ol>
+
+<p>在基于 Spring 的应用中, 应用对象生存于 <strong>Spring 容器(container)</strong> 中, Spring 容器负责创建对象, 装配它们, 配置它们并管理它们的整个生命周期</p>
+<p>Spring 容器并不是只有一个, Spring 自带了多个容器实现, 可以归为两种不同的类型:</p>
+<ul>
+<li><code>BeanFactory(org.springframework.beans.factory.BeanFactory)</code> 最简单的容器, 提供基本的 DI 支持;</li>
+<li><code>ApplicationContext(org.springframework.context.ApplicationContext)</code> 基于 <code>BeanFactory</code> 构建, 并提供应用框架级别的服务</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/08/29/spring/001/#more" rel="contents">
