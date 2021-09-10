@@ -252,7 +252,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-08-21 20:56:28" itemprop="dateModified" datetime="2021-08-21T20:56:28+08:00">2021-08-21</time>
+        <time title="修改时间：2021-09-05 12:42:43" itemprop="dateModified" datetime="2021-09-05T12:42:43+08:00">2021-09-05</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,11 +298,11 @@
     <div class="post-body" itemprop="articleBody">
           
 <p><a target="_blank" rel="noopener" href="https://grafana.com/oss/loki/">Loki</a> 是一个功能齐全的日志聚合系统的核心, 专为高效保存日志消息而优化, 与其它日志系统不同, Loki 不索引原始日志消息, 而是基于标签构建索引</p>
-<p>Loki 的组件在内部称为模块 (module), 单体模式 (monolithic mode) 部署时, 每个组件都运行在同一进程中, 通过 Loki 配置的 gRPC 端口在本地网络中连接, 以进行组件之间的相互通信, Loki 主要由 5 个组件构成:</p>
+<p>Loki 的组件在内部称为模块 (module), 单体模式部署时, 每个组件都运行在同一进程中, 通过 Loki 配置的 gRPC 端口在本地网络中连接, 以进行组件之间的相互通信, Loki 主要由 5 个组件构成:</p>
 <ul>
 <li><strong>Distributor</strong> 负责处理客户端传入的流, 这是日志数据写入路径中的第一站, 分发器将验证每个流的正确性, 确保其在配置的租户 (或全局) 限制内, 然后将有效的数据块分批, 并行发送到匹配的 Ingester</li>
-<li><strong>Ingester</strong> 负责将数据块写入路径上的本地存储或云存储, 并返回读取路径上内存查询的日志数据</li>
-<li><strong>Querier</strong> 基于 LogQL 查询语言, 处理从服务端和云存储中获取日志的查询结果</li>
+<li><strong>Ingester</strong> 负责接收数据块, 当数据达到一定数量或期限时, 将数据块刷新到数据库中, 其对数据块和索引分别使用单独的数据库, 因为它们的数据类型不同</li>
+<li><strong>Querier</strong> 基于 LogQL 查询语言, 以检索存储库和 Ingester 中尚未刷新的数据的索引, 并返回匹配的日志查询结果</li>
 <li><strong>Query Frontend</strong> 负责提供查询的 API 端点, 传入的查询请求保存在内部的队列中, 以便 Querier 提取执行</li>
 <li><strong>Ruler</strong> 分为记录规则和告警规则, 用于预计算表达式和触发告警事件</li>
 </ul>
