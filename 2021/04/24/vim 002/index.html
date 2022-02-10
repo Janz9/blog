@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件  缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区    Vim 将缓冲区加载到窗口中, 一个屏幕上可以同时显示多个窗口  使光标在不同窗口间移动, 先按 Ctrl+w 组合键, 再输入方向键   Vim 用标签页来组织一个窗口的集合, 进而支持在不">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件  缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区    Vim 将缓冲区加载到窗口中, 一个屏幕上可以同时显示多个窗口  使光标在不同窗口间移动, 先按 Ctrl+w 组合键, 再输入方向键   Vim 用标签页来组织一个窗口的集合, 进而支持在不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vim 工作区">
 <meta property="og:url" content="https://janz.icu/2021/04/24/vim%20002/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Vim 工作区 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2021-04-24 21:06:31" itemprop="dateCreated datePublished" datetime="2021-04-24T21:06:31+08:00">2021-04-24</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-30 10:13:06" itemprop="dateModified" datetime="2021-04-30T10:13:06+08:00">2021-04-30</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-04-30 10:13:06" itemprop="dateModified" datetime="2021-04-30T10:13:06+08:00">2021-04-30</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,106 +304,157 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="工作区">工作区</h1>
-<p>在编写程序时, 经常需要同时处理多个文件, 涉及来回切换, 跨文件编辑或到其他界面查询资料等操作, Vim 可以在工作中同时处理任意多个文件</p>
+<p>在编写程序时, 经常需要同时处理多个文件, 涉及来回切换,
+跨文件编辑或到其他界面查询资料等操作, Vim
+可以在工作中同时处理任意多个文件</p>
 <h2 id="缓冲区">缓冲区</h2>
 <p>缓冲区是文件的内部表示, 每个打开的文件都有一个缓冲区</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看缓冲区列表</span></span><br><span class="line">:ls</span><br><span class="line">  1 %a   &quot;./a_owner.proto&quot;              line 1</span><br><span class="line">  2 #    &quot;./b_address.proto&quot;            line 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出结果显示了缓冲区的相关信息</span></span><br><span class="line">n       # 为缓冲区的编号, 具有唯一性</span><br><span class="line"><span class="meta">%</span><span class="bash">       <span class="comment"># 表示该缓冲区位于当前窗口中</span></span></span><br><span class="line">a       # 表示该缓冲区处于活动状态, 即它已被加载并可见</span><br><span class="line">&quot;&quot;      # 为文件名</span><br><span class="line">line n  # 表示当前光标位置</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 切换缓冲区</span></span><br><span class="line">:e &lt;path-to-file&gt;  # 在当前Vim窗口中编辑指定文件</span><br><span class="line">:bd                # 从打开的缓冲区列表中删除</span><br><span class="line"></span><br><span class="line">:b &lt;n&gt;     # 指定编号, 指令中的空格可省略</span><br><span class="line">:b &lt;file&gt;  # 指定文件名, 可以使用Tab键补全文件名</span><br><span class="line">:bn        # 上一个缓冲区</span><br><span class="line">:bp        # 下一个缓冲区</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 查看缓冲区列表</span></span><br><span class="line">:ls</span><br><span class="line">  1 %a   &quot;./a_owner.proto&quot;              line 1</span><br><span class="line">  2 #    &quot;./b_address.proto&quot;            line 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">输出结果显示了缓冲区的相关信息</span></span><br><span class="line">n       # 为缓冲区的编号, 具有唯一性</span><br><span class="line"><span class="meta">% </span><span class="language-bash">      <span class="comment"># 表示该缓冲区位于当前窗口中</span></span></span><br><span class="line">a       # 表示该缓冲区处于活动状态, 即它已被加载并可见</span><br><span class="line">&quot;&quot;      # 为文件名</span><br><span class="line">line n  # 表示当前光标位置</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 切换缓冲区</span></span><br><span class="line">:e &lt;path-to-file&gt;  # 在当前Vim窗口中编辑指定文件</span><br><span class="line">:bd                # 从打开的缓冲区列表中删除</span><br><span class="line"></span><br><span class="line">:b &lt;n&gt;     # 指定编号, 指令中的空格可省略</span><br><span class="line">:b &lt;file&gt;  # 指定文件名, 可以使用Tab键补全文件名</span><br><span class="line">:bn        # 上一个缓冲区</span><br><span class="line">:bp        # 下一个缓冲区</span><br></pre></td></tr></table></figure>
 <h2 id="窗口">窗口</h2>
 <p>Vim 将缓冲区加载到窗口中, 一个屏幕上可以同时显示多个窗口</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 窗口操作</span></span><br><span class="line">:sp &lt;path-to-file&gt;  # 垂直新建窗口打开文件</span><br><span class="line">:vs &lt;path-to-file&gt;  # 水平新建窗口打开文件</span><br><span class="line">:qa                 # 关闭所有窗口并退出</span><br></pre></td></tr></table></figure>
-<p>使光标在不同窗口间移动, 先按 <code>Ctrl+w</code> 组合键, 再输入方向键</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看窗口帮助文档</span></span><br><span class="line">:help window-moving  # 窗口移动位置的文档</span><br><span class="line">:help window-resize  # 窗口调整大小的文档</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 窗口操作</span></span><br><span class="line">:sp &lt;path-to-file&gt;  # 垂直新建窗口打开文件</span><br><span class="line">:vs &lt;path-to-file&gt;  # 水平新建窗口打开文件</span><br><span class="line">:qa                 # 关闭所有窗口并退出</span><br></pre></td></tr></table></figure>
+<p>使光标在不同窗口间移动, 先按 <code>Ctrl+w</code> 组合键,
+再输入方向键</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 查看窗口帮助文档</span></span><br><span class="line">:help window-moving  # 窗口移动位置的文档</span><br><span class="line">:help window-resize  # 窗口调整大小的文档</span><br></pre></td></tr></table></figure>
 <h2 id="标签页">标签页</h2>
-<p>Vim 用标签页来组织一个窗口的集合, 进而支持在不同的窗口集合之间切换, 这让用户方便的拥有了多个工作区</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例:</span> </span><br><span class="line">:tabnew &lt;path-to-file&gt;  # 新建标签页打开文件</span><br><span class="line">:tabnext                # 切换上个标签</span><br><span class="line">:tabprevious            # 切换下个标签</span><br><span class="line">:tabmove &lt;n&gt;            # 移动标签到第n个标签页后</span><br><span class="line">:tabclose               # 关闭标签页</span><br></pre></td></tr></table></figure>
+<p>Vim 用标签页来组织一个窗口的集合, 进而支持在不同的窗口集合之间切换,
+这让用户方便的拥有了多个工作区</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例:</span> </span><br><span class="line">:tabnew &lt;path-to-file&gt;  # 新建标签页打开文件</span><br><span class="line">:tabnext                # 切换上个标签</span><br><span class="line">:tabprevious            # 切换下个标签</span><br><span class="line">:tabmove &lt;n&gt;            # 移动标签到第n个标签页后</span><br><span class="line">:tabclose               # 关闭标签页</span><br></pre></td></tr></table></figure>
 <h2 id="文件树">文件树</h2>
-<p>Netrw 是 Vim 内置的文件管理器, 支持对文件和目录的浏览, 这和操作系统下的文件管理器类似</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: Netrw</span></span><br><span class="line">:Ex</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 通过Netrw, 可以在工作区看到所有的文件, 顶部的状态栏列出了常用操作的快捷键</span></span><br><span class="line">&lt;F1&gt;   # 帮助文档</span><br><span class="line">Enter  # 打开文件或目录</span><br><span class="line">-      # 进入上一层目录</span><br><span class="line">D      # 删除文件或目录</span><br><span class="line">R      # 重命名文件或目录</span><br></pre></td></tr></table></figure>
+<p>Netrw 是 Vim 内置的文件管理器, 支持对文件和目录的浏览,
+这和操作系统下的文件管理器类似</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: Netrw</span></span><br><span class="line">:Ex</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">通过Netrw, 可以在工作区看到所有的文件, 顶部的状态栏列出了常用操作的快捷键</span></span><br><span class="line">&lt;F1&gt;   # 帮助文档</span><br><span class="line">Enter  # 打开文件或目录</span><br><span class="line">-      # 进入上一层目录</span><br><span class="line">D      # 删除文件或目录</span><br><span class="line">R      # 重命名文件或目录</span><br></pre></td></tr></table></figure>
 <p>Netrw 的窗口也可以在分割窗口或标签页中打开</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: Netrw</span></span><br><span class="line">:Vex  # 以左右分割方式打开Netrw</span><br><span class="line">:Sex  # 以上下分割方式打开Netrw</span><br><span class="line">:Lex  # 以左右分割方式打开Netrw, 位于最左边且高度占满整个屏幕</span><br><span class="line"></span><br><span class="line">:Ex sftp://&lt;domain&gt;/&lt;directory&gt;/      # 列出sftp下远程目录</span><br><span class="line">:e scp://&lt;domain&gt;/&lt;directory&gt;/&lt;file&gt;  # 编辑scp远程文件</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/preservim/nerdtree">NERDTree</a> 是一种模拟现代 IDE 行为的优秀插件, 它在屏幕边缘用一个分割的缓冲区来展示文件树, 并且支持书签</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: Netrw</span></span><br><span class="line">:Vex  # 以左右分割方式打开Netrw</span><br><span class="line">:Sex  # 以上下分割方式打开Netrw</span><br><span class="line">:Lex  # 以左右分割方式打开Netrw, 位于最左边且高度占满整个屏幕</span><br><span class="line"></span><br><span class="line">:Ex sftp://&lt;domain&gt;/&lt;directory&gt;/      # 列出sftp下远程目录</span><br><span class="line">:e scp://&lt;domain&gt;/&lt;directory&gt;/&lt;file&gt;  # 编辑scp远程文件</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/preservim/nerdtree">NERDTree</a>
+是一种模拟现代 IDE 行为的优秀插件,
+它在屏幕边缘用一个分割的缓冲区来展示文件树, 并且支持书签</p>
 <h2 id="文件">文件</h2>
 <p>Vim 拥有一些浏览复杂代码结构的功能</p>
 <h3 id="折叠">折叠</h3>
-<p>折叠功能支持文件部分内容的隐藏, 隐藏的依据既可以是预定义的规则, 也可以是手动添加的折叠标记, Vim 在折叠代码方面是比较智能的, 而且支持多种折叠方式</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">set foldmethod=manual</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可选折叠方式:</span></span><br><span class="line">manual  # 手动折叠 </span><br><span class="line">indent  # 基于缩进的折叠</span><br><span class="line">expr    # 基于正则表达式的折叠</span><br><span class="line">marker  # 使用文本中特殊的标记来定义折叠</span><br><span class="line">syntax  # 提供可识别语法的折叠</span><br><span class="line">diff    # 当Vim处于diff模式时会自动采用这种折叠方式</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 折叠操作</span></span><br><span class="line">zo  # 打开光标所在的折叠</span><br><span class="line">zc  # 关闭光标所在的折叠</span><br><span class="line">za  # 切换光标所在的折叠</span><br><span class="line">zR  # 打开所有折叠</span><br><span class="line">zM  # 关闭所有折叠</span><br></pre></td></tr></table></figure>
+<p>折叠功能支持文件部分内容的隐藏, 隐藏的依据既可以是预定义的规则,
+也可以是手动添加的折叠标记, Vim 在折叠代码方面是比较智能的,
+而且支持多种折叠方式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot; 示例: .vimrc配置</span><br><span class="line">set foldmethod=manual</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">可选折叠方式:</span></span><br><span class="line">manual  # 手动折叠 </span><br><span class="line">indent  # 基于缩进的折叠</span><br><span class="line">expr    # 基于正则表达式的折叠</span><br><span class="line">marker  # 使用文本中特殊的标记来定义折叠</span><br><span class="line">syntax  # 提供可识别语法的折叠</span><br><span class="line">diff    # 当Vim处于diff模式时会自动采用这种折叠方式</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 折叠操作</span></span><br><span class="line">zo  # 打开光标所在的折叠</span><br><span class="line">zc  # 关闭光标所在的折叠</span><br><span class="line">za  # 切换光标所在的折叠</span><br><span class="line">zR  # 打开所有折叠</span><br><span class="line">zM  # 关闭所有折叠</span><br></pre></td></tr></table></figure>
 <h3 id="自动补全">自动补全</h3>
-<p>Vim 内置了代码自动补全的功能, 通过自动补全, 用户可以在编辑时避免拼写错误, 而且无须反复输入和记忆冗长复杂的变量名</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看自动补全的帮助文档</span></span><br><span class="line">:help ins-completion</span><br></pre></td></tr></table></figure>
-<p>自动补全功能从 Vim7 开始默认启用, 输入函数名的开始几个字符, 然后按 <code>Ctrl+n</code> 组合键, Vim 会弹出一个自动补全列表, 可以通过 <code>Ctrl+n</code> 和 <code>Ctrl+p</code> 在这个列表中上下移动, 以选择合适的备选项, 如果继续输入, 列表则会消失</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ycm-core/YouCompleteMe">YouCompleteMe</a> 插件扩展了 Vim 内置的自动补全引擎, 而且还增添了大量新功能:</p>
+<p>Vim 内置了代码自动补全的功能, 通过自动补全,
+用户可以在编辑时避免拼写错误, 而且无须反复输入和记忆冗长复杂的变量名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 查看自动补全的帮助文档</span></span><br><span class="line">:help ins-completion</span><br></pre></td></tr></table></figure>
+<p>自动补全功能从 Vim7 开始默认启用, 输入函数名的开始几个字符, 然后按
+<code>Ctrl+n</code> 组合键, Vim 会弹出一个自动补全列表, 可以通过
+<code>Ctrl+n</code> 和 <code>Ctrl+p</code> 在这个列表中上下移动,
+以选择合适的备选项, 如果继续输入, 列表则会消失</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ycm-core/YouCompleteMe">YouCompleteMe</a>
+插件扩展了 Vim 内置的自动补全引擎, 而且还增添了大量新功能:</p>
 <ul>
 <li>支持程序语言感知的自动语义补全;</li>
 <li>补全建议的智能排序和过滤;</li>
-<li>能够显示代码文档, 重命名变量, 自动格式化代码以及修正某些类别的输入错误</li>
+<li>能够显示代码文档, 重命名变量,
+自动格式化代码以及修正某些类别的输入错误</li>
 </ul>
 <h3 id="标签">标签</h3>
-<p>Vim 自带了在同一文件中浏览变量定义的功能, 将光标置于一个单词上, 输入 <code>gd</code> 会优先查看变量的局部声明, 输入 <code>gD</code> 会查看全局声明</p>
+<p>Vim 自带了在同一文件中浏览变量定义的功能, 将光标置于一个单词上, 输入
+<code>gd</code> 会优先查看变量的局部声明, 输入 <code>gD</code>
+会查看全局声明</p>
 <blockquote>
-<p>此功能并没有考虑语法, 因为 Vim 本身并不了解代码的语义结构, 不过, Vim 支持标签功能, 标签文件中可存储程序代码的语义和结构关键词, 供 Vim 检索</p>
+<p>此功能并没有考虑语法, 因为 Vim 本身并不了解代码的语义结构, 不过, Vim
+支持标签功能, 标签文件中可存储程序代码的语义和结构关键词, 供 Vim
+检索</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> 是一个用于生成标签文件的外部工具</p>
+<p><a target="_blank" rel="noopener" href="http://ctags.sourceforge.net/">Exuberant Ctags</a>
+是一个用于生成标签文件的外部工具</p>
 <h3 id="撤销树">撤销树</h3>
-<p>大部分现代编辑器都支持撤销栈, 其中保存了撤销和重做操作的历史记录, Vim 则更进一步, 采用了撤销树</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看撤销树的帮助文档</span></span><br><span class="line">:help undo-tree</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/sjl/gundo.vim">Gundo</a> 是一个对撤销树进行可视化的插件</p>
-<p>执行 <code>:GundoToggle</code> 将以分割方式打开(或关闭)两个新窗口, 左上窗口为树状结构的可视化表达, 光标默认选中了最新的版本, 左下窗口则显示此版本和上一版本之间的差异, 按 <code>Enter</code> 键将恢复到选中的版本</p>
+<p>大部分现代编辑器都支持撤销栈, 其中保存了撤销和重做操作的历史记录, Vim
+则更进一步, 采用了撤销树</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 查看撤销树的帮助文档</span></span><br><span class="line">:help undo-tree</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/sjl/gundo.vim">Gundo</a>
+是一个对撤销树进行可视化的插件</p>
+<p>执行 <code>:GundoToggle</code> 将以分割方式打开(或关闭)两个新窗口,
+左上窗口为树状结构的可视化表达, 光标默认选中了最新的版本,
+左下窗口则显示此版本和上一版本之间的差异, 按 <code>Enter</code>
+键将恢复到选中的版本</p>
 <h3 id="差异">差异</h3>
-<p>在开发过程中, 经常需要比较不同文件之间的差异, 比如比较不同的输出, 或者比较一个文件的不同版本, 或者处理合并时的冲突, Vim 提供了一个独立的可执行程序 vimdiff 用于对比文件差异</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: vimdiff</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> vimdiff &lt;path-to-file&gt; &lt;path-to-file2&gt;</span></span><br></pre></td></tr></table></figure>
-<p>此命令会打开两个文件的窗口, 不同的行用一种颜色高亮显示, 而不同的字符则用另一种颜色高亮显示, 用户可以用 <code>]c</code> 和 <code>[c</code> 分别在多个修改处之间向前和向后跳转</p>
+<p>在开发过程中, 经常需要比较不同文件之间的差异, 比如比较不同的输出,
+或者比较一个文件的不同版本, 或者处理合并时的冲突, Vim
+提供了一个独立的可执行程序 vimdiff 用于对比文件差异</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: vimdiff</span></span><br><span class="line"><span class="meta">&gt; </span><span class="language-bash">vimdiff &lt;path-to-file&gt; &lt;path-to-file2&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此命令会打开两个文件的窗口, 不同的行用一种颜色高亮显示,
+而不同的字符则用另一种颜色高亮显示, 用户可以用 <code>]c</code> 和
+<code>[c</code> 分别在多个修改处之间向前和向后跳转</p>
 <p>用户可以在两个文件之间推送修改:</p>
 <ul>
-<li><code>do</code> 或 <code>:diffget</code> 将文件修改应用于当前窗口中的文件</li>
-<li><code>dp</code> 或 <code>:diffput</code> 将当前窗口中的文件修改推送给另一个文件</li>
+<li><code>do</code> 或 <code>:diffget</code>
+将文件修改应用于当前窗口中的文件</li>
+<li><code>dp</code> 或 <code>:diffput</code>
+将当前窗口中的文件修改推送给另一个文件</li>
 </ul>
-<p>若要将一个文件整体复制到另一个文件中, 可以使用 <code>:%diffget</code> 或 <code>:%diffput</code>, 当用户手动修改了文件, 则需要执行 <code>:diffupdate</code> 手动更新高亮显示</p>
+<p>若要将一个文件整体复制到另一个文件中, 可以使用 <code>:%diffget</code>
+或 <code>:%diffput</code>, 当用户手动修改了文件, 则需要执行
+<code>:diffupdate</code> 手动更新高亮显示</p>
 <h2 id="参数列表">参数列表</h2>
-<p>参数列表(argument list, arglist) 支持在多个文件中执行同一操作, 而不需要用户预先加载缓冲区</p>
+<p>参数列表(argument list, arglist) 支持在多个文件中执行同一操作,
+而不需要用户预先加载缓冲区</p>
 <p>参数列表支持如下命令:</p>
 <ul>
 <li><code>arg</code> 用于定义参数列表</li>
 <li><code>argdo</code> 对参数列表中的所有文件执行一条命令</li>
 <li><code>args</code> 用于显示参数列表中的文件列表</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 批量替换文件中的字符串</span></span><br><span class="line">:arg **/*.java  # 在参数列表中添加匹配的文件</span><br><span class="line">:argdo %s/\&lt;string\&gt;/String/ge | w</span><br><span class="line"><span class="meta">#</span><span class="bash"> %s/\&lt;public\&gt;/private/ge 通过正则将每个文件中的string单词替换成String</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> w 用于保存每个被修改过的缓冲区</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 使用:normal命令执行正常模式下的命令</span></span><br><span class="line">:argdo execute &quot;:normal dd&quot; | w</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 批量替换文件中的字符串</span></span><br><span class="line">:arg **/*.java  # 在参数列表中添加匹配的文件</span><br><span class="line">:argdo %s/\&lt;string\&gt;/String/ge | w</span><br><span class="line"><span class="meta"># </span><span class="language-bash">%s/\&lt;public\&gt;/private/ge 通过正则将每个文件中的string单词替换成String</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">w 用于保存每个被修改过的缓冲区</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 使用:normal命令执行正常模式下的命令</span></span><br><span class="line">:argdo execute &quot;:normal dd&quot; | w</span><br></pre></td></tr></table></figure>
 <h2 id="正则表达式">正则表达式</h2>
-<p>正则表达式(regular expression) 是对字符串操作的一种逻辑公式, Vim 有一套独特的正则表达式语法, 和其他很多正则表达式不同, Vim 中的正则表达式的特殊字符需要用 <code>\</code> 来转义</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看特殊符号的完整列表</span></span><br><span class="line">:help ordinary-atom</span><br></pre></td></tr></table></figure>
-<p>Vim 通过 <code>:substitute</code> 命令实现搜索和替换功能, 简写为 <code>:s</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 正则命令</span></span><br><span class="line">:s/&lt;find&gt;/&lt;replace&gt;/&lt;flags&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &lt;flags&gt;是可选的, 可选值</span></span><br><span class="line">g  # 全局替换, 而不仅是第一个</span><br><span class="line">c  # 每次替换前需要确认</span><br><span class="line">e  # 没有匹配项时不显示错误</span><br><span class="line">i  # 忽略大小写</span><br><span class="line">I  # 区分大小写</span><br></pre></td></tr></table></figure>
+<p>正则表达式(regular expression) 是对字符串操作的一种逻辑公式, Vim
+有一套独特的正则表达式语法, 和其他很多正则表达式不同, Vim
+中的正则表达式的特殊字符需要用 <code>\</code> 来转义</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 查看特殊符号的完整列表</span></span><br><span class="line">:help ordinary-atom</span><br></pre></td></tr></table></figure>
+<p>Vim 通过 <code>:substitute</code> 命令实现搜索和替换功能, 简写为
+<code>:s</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 正则命令</span></span><br><span class="line">:s/&lt;find&gt;/&lt;replace&gt;/&lt;flags&gt;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">&lt;flags&gt;是可选的, 可选值</span></span><br><span class="line">g  # 全局替换, 而不仅是第一个</span><br><span class="line">c  # 每次替换前需要确认</span><br><span class="line">e  # 没有匹配项时不显示错误</span><br><span class="line">i  # 忽略大小写</span><br><span class="line">I  # 区分大小写</span><br></pre></td></tr></table></figure>
 <h3 id="区间范围">区间范围</h3>
-<p><code>:substitute</code> 命令可以作用于一个区间范围, 即指定范围的内容中的匹配项会被替换, 常用的范围是 <code>%</code>, 即作用于整个文件, 区间范围可以用 <code>;</code> 运算符组合起来</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 区间范围替换</span></span><br><span class="line">:3;/out/s/string/String/g</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3;/out 从第3行开始到找到包含out字符串的行</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 查看区间的帮助文档</span></span><br><span class="line">:help cmdline-ranges</span><br></pre></td></tr></table></figure>
+<p><code>:substitute</code> 命令可以作用于一个区间范围,
+即指定范围的内容中的匹配项会被替换, 常用的范围是 <code>%</code>,
+即作用于整个文件, 区间范围可以用 <code>;</code> 运算符组合起来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 区间范围替换</span></span><br><span class="line">:3;/out/s/string/String/g</span><br><span class="line"><span class="meta"># </span><span class="language-bash">3;/out 从第3行开始到找到包含out字符串的行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 查看区间的帮助文档</span></span><br><span class="line">:help cmdline-ranges</span><br></pre></td></tr></table></figure>
 <h3 id="魔法模式">魔法模式</h3>
-<p>当用户需要编写较长的正则表达式时, 对每个特殊字符都使用 <code>\</code> 转义就比较繁琐, 这时候就需要用到 Vim 的魔法模式了, Vim 的魔法模式用于确定如何解析正则表达式, 有 3 种模式:</p>
+<p>当用户需要编写较长的正则表达式时, 对每个特殊字符都使用 <code>\</code>
+转义就比较繁琐, 这时候就需要用到 Vim 的魔法模式了, Vim
+的魔法模式用于确定如何解析正则表达式, 有 3 种模式:</p>
 <ul>
-<li><p>基本魔法(magic) Vim 默认模式, 大部分特殊字符都需要转义, 少数除外如 <code>. *</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 显示设置\m</span></span><br><span class="line">:s/\m.\+//g  # 此处转义符号+</span><br></pre></td></tr></table></figure></li>
-<li><p>无魔法(no magic) 类似于基本魔法, 只不过每个特殊字符都需要转义, 包括 <code>. *</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 显示设置\M</span></span><br><span class="line">:s/\M\.\+//g  # 此处转义符号.和+</span><br></pre></td></tr></table></figure></li>
-<li><p>深度魔法(very magic) 深度魔法将数字, 字母和下划线之外的字符都视为特殊字符, 不再转义</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 显示设置\v</span></span><br><span class="line">:s/\v.+//g  # 此处不用转义</span><br></pre></td></tr></table></figure></li>
+<li><p>基本魔法(magic) Vim 默认模式, 大部分特殊字符都需要转义,
+少数除外如 <code>. *</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 显示设置\m</span></span><br><span class="line">:s/\m.\+//g  # 此处转义符号+</span><br></pre></td></tr></table></figure></li>
+<li><p>无魔法(no magic) 类似于基本魔法, 只不过每个特殊字符都需要转义,
+包括 <code>. *</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 显示设置\M</span></span><br><span class="line">:s/\M\.\+//g  # 此处转义符号.和+</span><br></pre></td></tr></table></figure></li>
+<li><p>深度魔法(very magic) 深度魔法将数字,
+字母和下划线之外的字符都视为特殊字符, 不再转义</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 显示设置\v</span></span><br><span class="line">:s/\v.+//g  # 此处不用转义</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="宏">宏</h2>
-<p>宏(macro) 支持录制一系列动作, 然后用于回放, Vim 用命令 <code>q</code> 进入宏录制模式, 后面接任意寄存器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 宏录制</span></span><br><span class="line">qa  # 使用寄存器a</span><br><span class="line"><span class="meta">#</span><span class="bash"> 状态栏可以看到recording @a表示宏已经开始录制</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 宏模式下的每个移动或编辑操作都需要考虑到后续的回放</span></span><br><span class="line"></span><br><span class="line">q   # 退出录制</span><br><span class="line">@a  # 回放寄存器a中的宏</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 宏操作</span></span><br><span class="line">@@   # 回放最后一次运行的宏</span><br><span class="line">2@a  # 执行2次寄存器a中的宏</span><br><span class="line">qaq  # 清空寄存器a</span><br></pre></td></tr></table></figure>
+<p>宏(macro) 支持录制一系列动作, 然后用于回放, Vim 用命令 <code>q</code>
+进入宏录制模式, 后面接任意寄存器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 宏录制</span></span><br><span class="line">qa  # 使用寄存器a</span><br><span class="line"><span class="meta"># </span><span class="language-bash">状态栏可以看到recording @a表示宏已经开始录制</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">宏模式下的每个移动或编辑操作都需要考虑到后续的回放</span></span><br><span class="line"></span><br><span class="line">q   # 退出录制</span><br><span class="line">@a  # 回放寄存器a中的宏</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 宏操作</span></span><br><span class="line">@@   # 回放最后一次运行的宏</span><br><span class="line">2@a  # 执行2次寄存器a中的宏</span><br><span class="line">qaq  # 清空寄存器a</span><br></pre></td></tr></table></figure>
 <h3 id="递归">递归</h3>
-<p>在命令前加数字表示多次重复运行宏, 不过更好的做法是, Vim 支持递归的宏</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 递归宏</span></span><br><span class="line">qbqqb  # 清空寄存器b, 再使用寄存器b进入录制</span><br><span class="line"><span class="meta">#</span><span class="bash"> 单行操作</span></span><br><span class="line">j_  # 光标移到下一行并移至行首</span><br><span class="line">@b  # 重新运行宏b(此时寄存器b为空的, 所以不会有动作)</span><br><span class="line">q   # 退出录制</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行宏b, 递归调用会访问文件中的每一行, 并执行录制的单行操作</span></span><br><span class="line">@b</span><br></pre></td></tr></table></figure>
+<p>在命令前加数字表示多次重复运行宏, 不过更好的做法是, Vim
+支持递归的宏</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 递归宏</span></span><br><span class="line">qbqqb  # 清空寄存器b, 再使用寄存器b进入录制</span><br><span class="line"><span class="meta"># </span><span class="language-bash">单行操作</span></span><br><span class="line">j_  # 光标移到下一行并移至行首</span><br><span class="line">@b  # 重新运行宏b(此时寄存器b为空的, 所以不会有动作)</span><br><span class="line">q   # 退出录制</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">执行宏b, 递归调用会访问文件中的每一行, 并执行录制的单行操作</span></span><br><span class="line">@b</span><br></pre></td></tr></table></figure>
 <h2 id="终端">终端</h2>
-<p>Vim 中运行 shell 命令可以使用 <code>:!</code> 命令, 这种方式不太方便, 因为用户无法在运行程序的同时编辑文档</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 传统方式</span></span><br><span class="line">:!vim --version</span><br></pre></td></tr></table></figure>
-<p>Vim8.1 版本中引入终端模式, 终端模式是 Vim 会话中运行的一个终端模拟器, 当用户执行终端命令时, 可以同时使用 Vim 进行其他操作</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 终端模式</span></span><br><span class="line">:term       # 上下分割打开终端窗口</span><br><span class="line">:vert term  # 左右分割打开终端窗口</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 终端窗口初始情况下处于终端工作模式(terminal-job), 操作方式类似插入模式</span></span><br><span class="line">&lt;Ctrl-w&gt; N  # 组合键用于进入终端正常模式(terminal-normal), 按i键可回到终端工作模式</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 执行终端命令并将输出保存到新缓冲区</span></span><br><span class="line">:term vim --version</span><br></pre></td></tr></table></figure>
+<p>Vim 中运行 shell 命令可以使用 <code>:!</code> 命令, 这种方式不太方便,
+因为用户无法在运行程序的同时编辑文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 传统方式</span></span><br><span class="line">:!vim --version</span><br></pre></td></tr></table></figure>
+<p>Vim8.1 版本中引入终端模式, 终端模式是 Vim 会话中运行的一个终端模拟器,
+当用户执行终端命令时, 可以同时使用 Vim 进行其他操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 终端模式</span></span><br><span class="line">:term       # 上下分割打开终端窗口</span><br><span class="line">:vert term  # 左右分割打开终端窗口</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">终端窗口初始情况下处于终端工作模式(terminal-job), 操作方式类似插入模式</span></span><br><span class="line">&lt;Ctrl-w&gt; N  # 组合键用于进入终端正常模式(terminal-normal), 按i键可回到终端工作模式</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 执行终端命令并将输出保存到新缓冲区</span></span><br><span class="line">:term vim --version</span><br></pre></td></tr></table></figure>
 <h3 id="tmux">Tmux</h3>
-<p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">Tmux</a> 是一个终端复用工具, 可以在终端屏幕中管理多个终端窗口, Tmux 面板和 Vim 窗口可以互补, 用户可以在不同的 Tmux 面板中打开 Vim, 从而让这些实例相互独立, 实现缓冲区的分组</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/tmux/tmux">Tmux</a> 是一个终端复用工具,
+可以在终端屏幕中管理多个终端窗口, Tmux 面板和 Vim 窗口可以互补,
+用户可以在不同的 Tmux 面板中打开 Vim, 从而让这些实例相互独立,
+实现缓冲区的分组</p>
 
     </div>
 
@@ -410,15 +462,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/04/25/vim 003/" rel="bookmark">Vim 定制</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/04/24/vim 001/" rel="bookmark">Vim 简介</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -489,7 +532,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -501,7 +544,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -545,7 +588,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta property="og:type" content="website">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta property="og:type" content="website">
 <meta property="og:title" content="Jbot">
 <meta property="og:url" content="https://janz.icu/page/6/index.html">
 <meta property="og:site_name" content="Jbot">
@@ -45,6 +45,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jbot</title>
   
+
 
 
 
@@ -246,13 +247,13 @@
 
       <time title="创建时间：2018-12-16 16:14:17" itemprop="dateCreated datePublished" datetime="2018-12-16T16:14:17+08:00">2018-12-16</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -298,28 +299,48 @@
           
 <p>[TOC]</p>
 
-<p><strong>版本管理</strong> 是指项目整体版本的演变过程管理, 如从 <code>1.0-SNAPSHOT</code> 到 <code>1.0</code>, 再到 <code>1.1-SNAPSHOT</code></p>
-<p>理想的发布版本应当对应了项目某个时刻比较稳定的状态, 这包括源代码的状态以及构建的状态, 因此这个时候项目的构建应当满足以下的条件:</p>
+<p><strong>版本管理</strong> 是指项目整体版本的演变过程管理, 如从
+<code>1.0-SNAPSHOT</code> 到 <code>1.0</code>, 再到
+<code>1.1-SNAPSHOT</code></p>
+<p>理想的发布版本应当对应了项目某个时刻比较稳定的状态,
+这包括源代码的状态以及构建的状态,
+因此这个时候项目的构建应当满足以下的条件:</p>
 <ul>
-<li>所有自动化测试应当全部通过, 毫无疑问, 失败的测试代表了需要修复的问题, 因此发布版本之前应该确保所有测试都能得以正确执行;</li>
-<li>项目没有配置任何快照版本的依赖, 快照版本的依赖意味着不同时间的构建可能会引入不同内容的依赖, 这显然不能保证多次构建能够生成同样的结果;</li>
-<li>项目没有配置任何快照版本的插件, 快照版本的插件配置可能会在不同时间引入不同内容的 Maven 插件, 从而影响 Maven 的行为, 破坏构建的稳定性;</li>
-<li>项目所包含的代码已经全部提交到版本控制系统中, 项目已经发布了, 可源代码却不在版本控制系统中, 甚至丢失了, 这意味着项目丢失了某个时刻的状态, 因此这种情况必须避免, 版本发布的时候必须确保所有的源代码都已经提交了</li>
+<li>所有自动化测试应当全部通过, 毫无疑问,
+失败的测试代表了需要修复的问题,
+因此发布版本之前应该确保所有测试都能得以正确执行;</li>
+<li>项目没有配置任何快照版本的依赖,
+快照版本的依赖意味着不同时间的构建可能会引入不同内容的依赖,
+这显然不能保证多次构建能够生成同样的结果;</li>
+<li>项目没有配置任何快照版本的插件,
+快照版本的插件配置可能会在不同时间引入不同内容的 Maven 插件, 从而影响
+Maven 的行为, 破坏构建的稳定性;</li>
+<li>项目所包含的代码已经全部提交到版本控制系统中, 项目已经发布了,
+可源代码却不在版本控制系统中, 甚至丢失了,
+这意味着项目丢失了某个时刻的状态, 因此这种情况必须避免,
+版本发布的时候必须确保所有的源代码都已经提交了</li>
 </ul>
 
 
-<p>主版本和次版本之间, 以及次版本和增量版本之间用点号分隔, 里程碑版本之前用连字号分隔, 下面解释其中每一个部分的意义:</p>
+<p>主版本和次版本之间, 以及次版本和增量版本之间用点号分隔,
+里程碑版本之前用连字号分隔, 下面解释其中每一个部分的意义:</p>
 <ul>
 <li><strong>主版本</strong> 表示了项目的重大架构变更;</li>
-<li><strong>次版本</strong> 表示较大范围的功能增加和变化, 及 Bug 修复;</li>
+<li><strong>次版本</strong> 表示较大范围的功能增加和变化, 及 Bug
+修复;</li>
 <li><strong>增量版本</strong> 一般表示重大 Bug 的修复;</li>
-<li><strong>里程碑版本</strong> 顾名思义, 这往往指某一个版本的里程碑</li>
+<li><strong>里程碑版本</strong> 顾名思义,
+这往往指某一个版本的里程碑</li>
 </ul>
 <blockquote>
-<p>对于主版本, 次版本和增量版本来说, 比较是基于数字的, 因此 <code>1.5 &gt; 1.4 &gt; 1.3.11 &gt; 1.3.9</code>, 而对于里程碑版本, Maven 则只进行简单的字符串比较, 因此会得到 <code>1.2-beta-3 &gt; 1.2-beta-11</code> 的结果, 这一点需要留意</p>
+<p>对于主版本, 次版本和增量版本来说, 比较是基于数字的, 因此
+<code>1.5 &gt; 1.4 &gt; 1.3.11 &gt; 1.3.9</code>, 而对于里程碑版本,
+Maven 则只进行简单的字符串比较, 因此会得到
+<code>1.2-beta-3 &gt; 1.2-beta-11</code> 的结果, 这一点需要留意</p>
 </blockquote>
 
-<p><strong>版本控制</strong> 是指借助版本控制工具 (如 Subversion) 追踪代码的每一个变更</p>
+<p><strong>版本控制</strong> 是指借助版本控制工具 (如 Subversion)
+追踪代码的每一个变更</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/12/16/maven/011/#more" rel="contents">
@@ -379,13 +400,13 @@
 
       <time title="创建时间：2018-12-03 16:28:56" itemprop="dateCreated datePublished" datetime="2018-12-03T16:28:56+08:00">2018-12-03</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -430,37 +451,54 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>POM 可以包含各种项目信息, 如项目描述, 版本控制系统地址, 缺陷跟踪系统地址, 许可证信息, 开发者信息等, 用户可以让 Maven 自动生成一个 <strong>Web 站点</strong>, 以 Web 的形式发布这些信息</p>
+<p>POM 可以包含各种项目信息, 如项目描述, 版本控制系统地址,
+缺陷跟踪系统地址, 许可证信息, 开发者信息等, 用户可以让 Maven
+自动生成一个 <strong>Web 站点</strong>, 以 Web 的形式发布这些信息</p>
 
 <p>项目 <code>pom.xml</code> 中添加配置</p>
 
 
-<p>配置了正确版本的 <code>maven-site-plugin</code> 之后, 在项目下运行 <code>mvn site</code> 就能直接生成一个最简单的站点</p>
+<p>配置了正确版本的 <code>maven-site-plugin</code> 之后, 在项目下运行
+<code>mvn site</code> 就能直接生成一个最简单的站点</p>
 
 
 
 
 
-<p>在默认情况下 Maven 生成的站点包含了很多项目信息链接, 这其实是由一个名为 <code>maven-project-info-reports-plugin</code> 的插件生成的, 在 Maven 3 中, 该插件的配置内置在 <code>maven-site-plugin</code> 中, 而在 Maven 2 中, 该插件的配置内置在核心源码中</p>
+<p>在默认情况下 Maven 生成的站点包含了很多项目信息链接,
+这其实是由一个名为 <code>maven-project-info-reports-plugin</code>
+的插件生成的, 在 Maven 3 中, 该插件的配置内置在
+<code>maven-site-plugin</code> 中, 而在 Maven 2 中,
+该插件的配置内置在核心源码中</p>
 <p>该插件会基于 <code>POM</code> 配置生成下列项目信息报告:</p>
 <ul>
 <li><strong>关于(about)</strong> 项目描述;</li>
-<li><strong>持续集成(Continuous Integration)</strong> 项目持续集成服务器信息;</li>
-<li><strong>依赖(Dependencies)</strong> 项目依赖信息, 包括传递性依赖, 依赖图, 依赖许可证以及依赖文件的大小, 所包含的类数目等;</li>
-<li><strong>依赖收敛(Dependency Convergence)</strong> 只针对多模块项目生成, 提供一些依赖健康状况分析, 如各模块使用的依赖版本是否一致, 项目中是否有 SNAPSHOT 依赖;</li>
-<li><strong>依赖管理(Dependency Management)</strong> 基于项目的依赖管理配置生成的报告;</li>
-<li><strong>问题追踪(Issue Tracking)</strong> 项目的问题追踪系统信息;</li>
+<li><strong>持续集成(Continuous Integration)</strong>
+项目持续集成服务器信息;</li>
+<li><strong>依赖(Dependencies)</strong> 项目依赖信息, 包括传递性依赖,
+依赖图, 依赖许可证以及依赖文件的大小, 所包含的类数目等;</li>
+<li><strong>依赖收敛(Dependency Convergence)</strong>
+只针对多模块项目生成, 提供一些依赖健康状况分析,
+如各模块使用的依赖版本是否一致, 项目中是否有 SNAPSHOT 依赖;</li>
+<li><strong>依赖管理(Dependency Management)</strong>
+基于项目的依赖管理配置生成的报告;</li>
+<li><strong>问题追踪(Issue Tracking)</strong>
+项目的问题追踪系统信息;</li>
 <li><strong>邮件列表(Mailing Lists)</strong> 项目的邮件列表信息;</li>
-<li><strong>插件管理(Plugin Management)</strong> 项目所使用插件的列表;</li>
+<li><strong>插件管理(Plugin Management)</strong>
+项目所使用插件的列表;</li>
 <li><strong>项目许可证(Project License)</strong> 项目许可证信息;</li>
-<li><strong>项目概述(Project Summary)</strong> 项目概述包括坐标, 名称, 描述等;</li>
+<li><strong>项目概述(Project Summary)</strong> 项目概述包括坐标, 名称,
+描述等;</li>
 <li><strong>项目团队(Project Team)</strong> 项目团队信息;</li>
 <li><strong>源码仓库(Source Repository)</strong> 项目的源码仓库信息</li>
 </ul>
-<p>Maven 不会凭空生成信息, 只有用户在 <code>POM</code> 中提供了相关配置后, 站点才有可能包含这些信息的报告</p>
+<p>Maven 不会凭空生成信息, 只有用户在 <code>POM</code>
+中提供了相关配置后, 站点才有可能包含这些信息的报告</p>
 
 
-<p>除了默认的项目信息报告, Maven 社区还提供了大量报告插件, 只要稍加配置, 用户就能让 Maven 自动生成各种内容丰富的报告</p>
+<p>除了默认的项目信息报告, Maven 社区还提供了大量报告插件, 只要稍加配置,
+用户就能让 Maven 自动生成各种内容丰富的报告</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/12/03/maven/010/#more" rel="contents">
@@ -520,13 +558,13 @@
 
       <time title="创建时间：2018-11-27 23:32:37" itemprop="dateCreated datePublished" datetime="2018-11-27T23:32:37+08:00">2018-11-27</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -575,21 +613,38 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个典型的WAR文件会有如下目录结构:</span></span><br><span class="line">war/</span><br><span class="line">├─META<span class="literal">-INF</span>/</span><br><span class="line">├─WEB<span class="literal">-INF</span>/</span><br><span class="line">│  ├─classes/</span><br><span class="line">│  │  ├─ServletA.class</span><br><span class="line">│  │  ├─config.properties</span><br><span class="line">│  │  ├─lib/</span><br><span class="line">│  │  └─xxx.jar</span><br><span class="line">│  └─web.xml</span><br><span class="line">├─img/</span><br><span class="line">├─css/</span><br><span class="line">├─js/</span><br><span class="line">├─index.html</span><br><span class="line">└─sample.jsp</span><br></pre></td></tr></table></figure>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个典型的Web项目的Maven目录结构如下:</span></span><br><span class="line">project/</span><br><span class="line">├─pom.xml</span><br><span class="line">└─src/</span><br><span class="line">   ├─main/</span><br><span class="line">   │  ├─java/</span><br><span class="line">   │  │  └─ServletA.java</span><br><span class="line">   │  ├─resources/</span><br><span class="line">   │  │  └─config.properties</span><br><span class="line">   │  └─webapp/</span><br><span class="line">   │     ├─WEB<span class="literal">-INF</span>/</span><br><span class="line">   │     │  └─web.xml</span><br><span class="line">   │     ├─img/</span><br><span class="line">   │     ├─css/</span><br><span class="line">   │     ├─js/</span><br><span class="line">   │     ├─index.html</span><br><span class="line">   │     └─sample.jsp</span><br><span class="line">   └─test/</span><br><span class="line">       ├─java/</span><br><span class="line">       └─resources/</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>有一点需要注意的是, <code>WAR</code> 包中有一个 <code>lib</code> 目录包含所有依赖 <code>JAR</code> 包, 但 <code>Maven</code> 项目结构中没有这样一个目录, 这是因为依赖都配置在 <code>POM</code> 中, Maven 在用 <code>WAR</code> 方式打包的时候会根据 <code>POM</code> 的配置从本地仓库复制相应的 <code>JAR</code> 文件</p>
+<p>有一点需要注意的是, <code>WAR</code> 包中有一个 <code>lib</code>
+目录包含所有依赖 <code>JAR</code> 包, 但 <code>Maven</code>
+项目结构中没有这样一个目录, 这是因为依赖都配置在 <code>POM</code> 中,
+Maven 在用 <code>WAR</code> 方式打包的时候会根据 <code>POM</code>
+的配置从本地仓库复制相应的 <code>JAR</code> 文件</p>
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 显式指定Web项目的打包方式为war --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.janz.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>project-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 如果不显式地指定packaging, Maven会使用默认的jar打包方式, 从而导致无法正确打包Web项目 --&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="使用jetty-maven-plugin进行测试">使用jetty-maven-plugin进行测试</h2>
-<p>传统的 Web 测试方法要求我们编译, 测试, 打包及部署, 这往往会消耗数 10 秒至数分钟的时间, <code>jetty-maven-plugin</code> 能够帮助我们节省时间, 它能够周期性地检查项目内容, 发现变更后自动更新到内置的 Jetty Web 容器中, 换句话说, 它帮我们省去了打包和部署的步骤</p>
+<h2
+id="使用jetty-maven-plugin进行测试">使用jetty-maven-plugin进行测试</h2>
+<p>传统的 Web 测试方法要求我们编译, 测试, 打包及部署, 这往往会消耗数 10
+秒至数分钟的时间, <code>jetty-maven-plugin</code> 能够帮助我们节省时间,
+它能够周期性地检查项目内容, 发现变更后自动更新到内置的 Jetty Web 容器中,
+换句话说, 它帮我们省去了打包和部署的步骤</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置jetty-maven-plugin --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mortbay.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>7.1.6.v20100715<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scanIntervalSeconds</span>&gt;</span>10<span class="tag">&lt;/<span class="name">scanIntervalSeconds</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">webAppConfig</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">contextPath</span>&gt;</span>/test<span class="tag">&lt;/<span class="name">contextPath</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">webAppConfig</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- jetty被eclipse收购后, 新版本配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>9.4.12.v20180830<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scanIntervalSeconds</span>&gt;</span>10<span class="tag">&lt;/<span class="name">scanIntervalSeconds</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">webAppConfig</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">contextPath</span>&gt;</span>/test<span class="tag">&lt;/<span class="name">contextPath</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">webAppConfig</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- jetty-maven-plugin并不是官方的Maven插件, 为了能在命令行直接运行mvn jetty:run, 用户需要配置settings.xml如下, 新版本无需此配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pluginGroup</span>&gt;</span>org.mortbay.jetty<span class="tag">&lt;/<span class="name">pluginGroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jetty-maven-plugin会启动Jetty, 并且默认监听本地的8080端口, 并将当前项目部署到容器中, 同时它还会根据用户配置扫描代码改动</span></span><br><span class="line"><span class="comment"># 如果希望使用其他端口, 可以添加jetty.port参数, 例如:</span></span><br><span class="line">λ mvn jetty:run <span class="literal">-Djetty</span>.port=<span class="number">9999</span></span><br><span class="line"><span class="comment"># 可以打开浏览器通过地址http://localhost:9999/test/访问</span></span><br></pre></td></tr></table></figure>
 <h2 id="使用cargo实现自动化部署">使用Cargo实现自动化部署</h2>
-<p>Cargo 是一组帮助用户操作 Web 容器的工具, 它能够帮助用户实现自动化部署, 而且它几乎支持所有的 Web 容器, 如 Tomcat, JBoss, Jetty 和 Glassfish 等, Cargo 通过 <code>cargo-maven2-plugin</code> 提供了 Maven 集成, Maven 用户可以使用该插件将 Web 项目部署到 Web 容器中</p>
+<p>Cargo 是一组帮助用户操作 Web 容器的工具,
+它能够帮助用户实现自动化部署, 而且它几乎支持所有的 Web 容器, 如 Tomcat,
+JBoss, Jetty 和 Glassfish 等, Cargo 通过
+<code>cargo-maven2-plugin</code> 提供了 Maven 集成, Maven
+用户可以使用该插件将 Web 项目部署到 Web 容器中</p>
 <h3 id="部署至本地web容器">部署至本地Web容器</h3>
-<p>Cargo 支持两种本地部署的方式, 分别为 <code>standalone</code> 模式和 <code>existing</code> 模式:</p>
+<p>Cargo 支持两种本地部署的方式, 分别为 <code>standalone</code> 模式和
+<code>existing</code> 模式:</p>
 <ul>
-<li>在 <code>standalone</code> 模式中, Cargo 会从 Web 容器的安装目录复制一份配置到用户指定的目录, 然后在此基础上部署应用, 每次重新构建的时候, 这个目录都会被清空, 所有配置被重新生成;</li>
-<li>在 <code>existing</code> 模式中, 用户需要指定现有的 Web 容器配置目录, 然后 Cargo 会直接使用这些配置并将应用部署到其对应的位置</li>
+<li>在 <code>standalone</code> 模式中, Cargo 会从 Web
+容器的安装目录复制一份配置到用户指定的目录, 然后在此基础上部署应用,
+每次重新构建的时候, 这个目录都会被清空, 所有配置被重新生成;</li>
+<li>在 <code>existing</code> 模式中, 用户需要指定现有的 Web
+容器配置目录, 然后 Cargo
+会直接使用这些配置并将应用部署到其对应的位置</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用standalone模式部署应用至本地Web容器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.cargo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cargo-maven2-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">container</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">containerId</span>&gt;</span>tomcat6x<span class="tag">&lt;/<span class="name">containerId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">home</span>&gt;</span>D:\cmd\apache-tomcat-6.0.29<span class="tag">&lt;/<span class="name">home</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">container</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>standalone<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">home</span>&gt;</span>$&#123;project.build.directory&#125;/tomcat6x<span class="tag">&lt;/<span class="name">home</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用existing模式部署应用至本地Web容器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.cargo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cargo-maven2-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">container</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">containerId</span>&gt;</span>tomcat6x<span class="tag">&lt;/<span class="name">containerId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">home</span>&gt;</span>D:\cmd\apache-tomcat-6.0.29<span class="tag">&lt;/<span class="name">home</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">container</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">type</span>&gt;</span>existing<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">home</span>&gt;</span>D:\cmd\apache-tomcat-6.0.29<span class="tag">&lt;/<span class="name">home</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -647,13 +702,13 @@
 
       <time title="创建时间：2018-11-05 17:06:15" itemprop="dateCreated datePublished" datetime="2018-11-05T17:06:15+08:00">2018-11-05</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -698,40 +753,72 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>Maven 为了支持构建的灵活性, 内置了三大特性, 即 <strong>属性</strong>, <strong>Profile</strong> 和 <strong>资源过滤</strong></p>
+<p>Maven 为了支持构建的灵活性, 内置了三大特性, 即 <strong>属性</strong>,
+<strong>Profile</strong> 和 <strong>资源过滤</strong></p>
 <p>Maven 属性分为 6 类, 分别为:</p>
 <ul>
 <li><p><strong>内置属性</strong> 主要有两个常用内置属性:</p>
 <ul>
-<li><code>$&#123;basedir&#125;</code> 表示项目根目录, 即包含 <code>pom.xml</code> 文件的目录;</li>
+<li><code>$&#123;basedir&#125;</code> 表示项目根目录, 即包含 <code>pom.xml</code>
+文件的目录;</li>
 <li><code>$&#123;version&#125;</code> 表示项目版本;</li>
 </ul></li>
-<li><p><strong>POM 属性</strong> 用户可以使用该类属性引用 POM 文件中对应元素的值, 常用的 POM 属性包括:</p>
+<li><p><strong>POM 属性</strong> 用户可以使用该类属性引用 POM
+文件中对应元素的值, 常用的 POM 属性包括:</p>
 <ul>
-<li><code>$&#123;project.build.sourceDirectory&#125;</code> 项目的主源码目录, 默认为<code>src/main/java/</code>;</li>
-<li><code>$&#123;project.build.testSourceDirectory&#125;</code> 项目的测试源码目录, 默认为 <code>src/test/java/</code>;</li>
-<li><code>$&#123;project.build.directory&#125;</code> 项目构建输出目录, 默认为 <code>target/</code>;</li>
-<li><code>$&#123;project.outputDirectory&#125;</code> 项目主代码编译输出目录, 默认为 <code>target/classes/</code>;</li>
-<li><code>$&#123;project.testOutputDirectory&#125;</code> 项目测试代码编译输出目录, 默认为 <code>target/test-classes/</code>;</li>
+<li><code>$&#123;project.build.sourceDirectory&#125;</code> 项目的主源码目录,
+默认为<code>src/main/java/</code>;</li>
+<li><code>$&#123;project.build.testSourceDirectory&#125;</code>
+项目的测试源码目录, 默认为 <code>src/test/java/</code>;</li>
+<li><code>$&#123;project.build.directory&#125;</code> 项目构建输出目录, 默认为
+<code>target/</code>;</li>
+<li><code>$&#123;project.outputDirectory&#125;</code> 项目主代码编译输出目录,
+默认为 <code>target/classes/</code>;</li>
+<li><code>$&#123;project.testOutputDirectory&#125;</code>
+项目测试代码编译输出目录, 默认为 <code>target/test-classes/</code>;</li>
 <li><code>$&#123;project.groupId&#125;</code> 项目的 <code>groupId</code>;</li>
-<li><code>$&#123;project.artifactId&#125;</code> 项目的 <code>artifactId</code>;</li>
-<li><code>$&#123;project.version&#125;</code> 项目的 <code>version</code>, 与 <code>$&#123;version&#125;</code> 等价;</li>
-<li><code>$&#123;project.build.finalName&#125;</code> 项目打包输出文件的名称, 默认为 <code>$&#123;project.artifactId&#125;-$&#123;project.version&#125;</code></li>
+<li><code>$&#123;project.artifactId&#125;</code> 项目的
+<code>artifactId</code>;</li>
+<li><code>$&#123;project.version&#125;</code> 项目的 <code>version</code>, 与
+<code>$&#123;version&#125;</code> 等价;</li>
+<li><code>$&#123;project.build.finalName&#125;</code> 项目打包输出文件的名称,
+默认为 <code>$&#123;project.artifactId&#125;-$&#123;project.version&#125;</code></li>
 </ul></li>
-<li><p><strong>自定义属性</strong> 用户可以在 POM 的 <code>&lt;properties&gt;</code> 元素下自定义 Maven 属性, 例如</p>
+<li><p><strong>自定义属性</strong> 用户可以在 POM 的
+<code>&lt;properties&gt;</code> 元素下自定义 Maven 属性, 例如</p>
 
-<p>然后在 POM 中其他地方使用 <code>$&#123;my.prop&#125;</code> 的时候会被替换成 <code>hello</code>;</p></li>
-<li><p><strong>Settings 属性</strong> 与 POM 属性同理, 用户使用以 <code>settings.</code> 开头的属性引用 <code>settings.xml</code> 文件中 XML 元素的值, 如常用的 <code>$&#123;settings.localRepository&#125;</code> 指向用户本地仓库的地址;</p></li>
-<li><p><strong>Java 系统属性</strong> 所有 Java 系统属性都可以使用 Maven 属性引用, 例如 <code>$&#123;user.home&#125;</code> 指向了用户目录, 用户可以使用 <code>mvn help:system</code> 查看所有的 Java 系统属性;</p></li>
-<li><p><strong>环境变量属性</strong> 所有环境变量都可以使用以 <code>env.</code> 开头的 Maven 属性引用, 例如 <code>$&#123;env.JAVA_HOME&#125;</code> 指代了 <code>JAVA_HOME</code> 环境变量的值, 用户可以使用 <code>mvn help:system</code> 查看所有的环境变量</p></li>
+<p>然后在 POM 中其他地方使用 <code>$&#123;my.prop&#125;</code> 的时候会被替换成
+<code>hello</code>;</p></li>
+<li><p><strong>Settings 属性</strong> 与 POM 属性同理, 用户使用以
+<code>settings.</code> 开头的属性引用 <code>settings.xml</code> 文件中
+XML 元素的值, 如常用的 <code>$&#123;settings.localRepository&#125;</code>
+指向用户本地仓库的地址;</p></li>
+<li><p><strong>Java 系统属性</strong> 所有 Java 系统属性都可以使用 Maven
+属性引用, 例如 <code>$&#123;user.home&#125;</code> 指向了用户目录, 用户可以使用
+<code>mvn help:system</code> 查看所有的 Java 系统属性;</p></li>
+<li><p><strong>环境变量属性</strong> 所有环境变量都可以使用以
+<code>env.</code> 开头的 Maven 属性引用, 例如
+<code>$&#123;env.JAVA_HOME&#125;</code> 指代了 <code>JAVA_HOME</code>
+环境变量的值, 用户可以使用 <code>mvn help:system</code>
+查看所有的环境变量</p></li>
 </ul>
 <blockquote>
-<p>Maven 属性默认只有在 POM 中才会被解析, 也就是说, <code>$&#123;my.prop&#125;</code> 放到 POM 中会变成 <code>hello</code>, 但是如果放到 <code>src/main/resources/</code> 目录下的文件中, 构建的时候它将仍然还是 <code>$&#123;my.prop&#125;</code></p>
+<p>Maven 属性默认只有在 POM 中才会被解析, 也就是说,
+<code>$&#123;my.prop&#125;</code> 放到 POM 中会变成 <code>hello</code>,
+但是如果放到 <code>src/main/resources/</code> 目录下的文件中,
+构建的时候它将仍然还是 <code>$&#123;my.prop&#125;</code></p>
 </blockquote>
-<p>资源文件的处理其实是 <code>maven-resources-plugin</code> 做的事情, 它默认的行为只是将项目主资源文件复制到主代码编译输出目录中, 将测试资源文件复制到测试代码编译输出目录中, 不过只要通过一些简单的 POM 配置, 该插件就能够解析资源文件中的 Maven 属性, 即开启 <strong>资源过滤</strong></p>
+<p>资源文件的处理其实是 <code>maven-resources-plugin</code> 做的事情,
+它默认的行为只是将项目主资源文件复制到主代码编译输出目录中,
+将测试资源文件复制到测试代码编译输出目录中, 不过只要通过一些简单的 POM
+配置, 该插件就能够解析资源文件中的 Maven 属性, 即开启
+<strong>资源过滤</strong></p>
 
 
-<p>为了能让构建在各个环境下方便地移植, Maven 引入了 <code>profile</code> 的概念, <code>profile</code> 能够在构建的时候修改 POM 的一个子集, 或者添加额外的配置元素, 用户可以使用很多方式激活 <code>profile</code>, 以实现构建在不同环境下的移植</p>
+<p>为了能让构建在各个环境下方便地移植, Maven 引入了 <code>profile</code>
+的概念, <code>profile</code> 能够在构建的时候修改 POM 的一个子集,
+或者添加额外的配置元素, 用户可以使用很多方式激活 <code>profile</code>,
+以实现构建在不同环境下的移植</p>
 
 
 <ol type="1">
@@ -748,7 +835,8 @@
 <li><p>默认激活</p>
 
 <blockquote>
-<p>需要注意的是, 如果 POM 中有任何一个 <code>profile</code> 通过以上其他任意一种方式被激活了, 所有的默认激活配置都会失效</p>
+<p>需要注意的是, 如果 POM 中有任何一个 <code>profile</code>
+通过以上其他任意一种方式被激活了, 所有的默认激活配置都会失效</p>
 </blockquote></li>
 </ol>
 
@@ -813,13 +901,13 @@
 
       <time title="创建时间：2018-09-16 19:14:59" itemprop="dateCreated datePublished" datetime="2018-09-16T19:14:59+08:00">2018-09-16</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-10 08:40:35" itemprop="dateModified" datetime="2021-05-10T08:40:35+08:00">2021-05-10</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-10 08:40:35" itemprop="dateModified" datetime="2021-05-10T08:40:35+08:00">2021-05-10</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -863,14 +951,25 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p>Maven 的重要职责之一就是自动运行 <strong>单元测试</strong>, 它通过 <code>maven-surefire-plugin</code> 与主流的单元测试框架 JUnit 3, JUnit 4 以及 TestNG 集成, 并且能够自动生成丰富的结果报告</p>
+<p>Maven 的重要职责之一就是自动运行 <strong>单元测试</strong>, 它通过
+<code>maven-surefire-plugin</code> 与主流的单元测试框架 JUnit 3, JUnit 4
+以及 TestNG 集成, 并且能够自动生成丰富的结果报告</p>
 
-<p>Maven 本身并不是一个单元测试框架, Java 世界中主流的单元测试框架为 <a target="_blank" rel="noopener" href="http://www.junit.org/">JUnit</a> 和 <a target="_blank" rel="noopener" href="http://testng.org/">TestNG</a>, Maven 所做的只是在构建执行到特定生命周期阶段的时候, 通过插件来执行 JUnit 或者 TestNG 的测试用例, 这一插件就是 <code>maven-surefire-plugin</code>, 可以称之为 <strong>测试运行器 (Test Runner)</strong>, 它能很好地兼容 JUnit 3, JUnit 4 以及 TestNG</p>
-<p>在默认情况下, <code>maven-surefire-plugin</code> 的 <code>test</code> 目标会自动执行测试源码路径 (默认为 <code>src/test/java/</code>) 下所有符合一组命名模式的测试类, 这组模式为:</p>
+<p>Maven 本身并不是一个单元测试框架, Java 世界中主流的单元测试框架为 <a target="_blank" rel="noopener" href="http://www.junit.org/">JUnit</a> 和 <a target="_blank" rel="noopener" href="http://testng.org/">TestNG</a>, Maven
+所做的只是在构建执行到特定生命周期阶段的时候, 通过插件来执行 JUnit 或者
+TestNG 的测试用例, 这一插件就是 <code>maven-surefire-plugin</code>,
+可以称之为 <strong>测试运行器 (Test Runner)</strong>, 它能很好地兼容
+JUnit 3, JUnit 4 以及 TestNG</p>
+<p>在默认情况下, <code>maven-surefire-plugin</code> 的 <code>test</code>
+目标会自动执行测试源码路径 (默认为 <code>src/test/java/</code>)
+下所有符合一组命名模式的测试类, 这组模式为:</p>
 <ul>
-<li><code>**/Test*.java</code> 任何子目录下所有命名以 <code>Test</code> 开头的 Java 类;</li>
-<li><code>**/*Test.java</code> 任何子目录下所有命名以 <code>Test</code> 结尾的 Java 类;</li>
-<li><code>**/*TestCase.java</code> 任何子目录下所有命名以 <code>TestCase</code> 结尾的 Java 类</li>
+<li><code>**/Test*.java</code> 任何子目录下所有命名以 <code>Test</code>
+开头的 Java 类;</li>
+<li><code>**/*Test.java</code> 任何子目录下所有命名以 <code>Test</code>
+结尾的 Java 类;</li>
+<li><code>**/*TestCase.java</code> 任何子目录下所有命名以
+<code>TestCase</code> 结尾的 Java 类</li>
 </ul>
 
 
@@ -880,15 +979,20 @@
 
 
 
-<p><code>test</code> 参数的值必须匹配一个或者多个测试类, 如果 <code>maven-surefire-plugin</code> 找不到任何匹配的测试类, 就会报错并导致构建失败</p>
+<p><code>test</code> 参数的值必须匹配一个或者多个测试类, 如果
+<code>maven-surefire-plugin</code> 找不到任何匹配的测试类,
+就会报错并导致构建失败</p>
 
 
-<p><code>maven-surefire-plugin</code> 允许用户通过额外的配置来自定义包含一些其他测试类, 或者排除一些符合默认命名模式的测试类</p>
+<p><code>maven-surefire-plugin</code>
+允许用户通过额外的配置来自定义包含一些其他测试类,
+或者排除一些符合默认命名模式的测试类</p>
 
 
 
 
-<p>默认情况下, <code>maven-surefire-plugin</code> 会在项目的 <code>target/surefire-reports</code> 目录下生成两种格式的错误报告:</p>
+<p>默认情况下, <code>maven-surefire-plugin</code> 会在项目的
+<code>target/surefire-reports</code> 目录下生成两种格式的错误报告:</p>
 <ul>
 <li>简单文本格式;</li>
 <li>与 JUnit 兼容的 <code>XML</code> 格式</li>
@@ -952,13 +1056,13 @@
 
       <time title="创建时间：2018-09-12 02:09:18" itemprop="dateCreated datePublished" datetime="2018-09-12T02:09:18+08:00">2018-09-12</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1003,13 +1107,29 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>Maven 的 <strong>生命周期</strong> 就是为了对所有的构建过程进行抽象和统一, Maven 从大量项目和构建工具中学习和反思, 然后总结了一套高度完善的, 易扩展的生命周期, 这个生命周期包含了项目的清理, 初始化, 编译, 测试, 打包, 集成测试, 验证, 部署和站点生成等几乎所有构建步骤</p>
-<p>Maven 的生命周期是抽象的, 这意味着生命周期本身不做任何实际的工作, 在 Maven 的设计中, 实际的任务 (如编译源代码) 都交由 <strong>插件</strong> 来完成, Maven 设计了插件机制, 每个构建步骤都可以绑定一个或者多个插件行为, 而且 Maven 为大多数构建步骤编写并绑定了默认插件</p>
+<p>Maven 的 <strong>生命周期</strong>
+就是为了对所有的构建过程进行抽象和统一, Maven
+从大量项目和构建工具中学习和反思, 然后总结了一套高度完善的,
+易扩展的生命周期, 这个生命周期包含了项目的清理, 初始化, 编译, 测试,
+打包, 集成测试, 验证, 部署和站点生成等几乎所有构建步骤</p>
+<p>Maven 的生命周期是抽象的, 这意味着生命周期本身不做任何实际的工作, 在
+Maven 的设计中, 实际的任务 (如编译源代码) 都交由 <strong>插件</strong>
+来完成, Maven 设计了插件机制,
+每个构建步骤都可以绑定一个或者多个插件行为, 而且 Maven
+为大多数构建步骤编写并绑定了默认插件</p>
 
-<p>Maven 定义的生命周期和插件机制一方面保证了所有 Maven 项目有一致的构建标准, 另一方面又通过默认插件简化和稳定了实际项目的构建, 此外, 该机制还提供了足够的扩展空间, 用户可以通过配置现有插件或者自行编写插件来自定义构建行为</p>
+<p>Maven 定义的生命周期和插件机制一方面保证了所有 Maven
+项目有一致的构建标准, 另一方面又通过默认插件简化和稳定了实际项目的构建,
+此外, 该机制还提供了足够的扩展空间,
+用户可以通过配置现有插件或者自行编写插件来自定义构建行为</p>
 
-<p>Maven 拥有三套相互独立的生命周期, 它们分别为 <code>clean</code>, <code>default</code> 和 <code>site</code>, <code>clean</code> 生命周期的目的是清理项目, <code>default</code> 生命周期的目的是构建项目, 而 <code>site</code> 生命周期的目的是建立项目站点</p>
-<p>每个生命周期包含一些阶段, 这些阶段是有顺序的, 并且后面的阶段依赖于前面的阶段, 较之于生命周期阶段的前后依赖关系, 三套生命周期本身是相互独立的</p>
+<p>Maven 拥有三套相互独立的生命周期, 它们分别为 <code>clean</code>,
+<code>default</code> 和 <code>site</code>, <code>clean</code>
+生命周期的目的是清理项目, <code>default</code> 生命周期的目的是构建项目,
+而 <code>site</code> 生命周期的目的是建立项目站点</p>
+<p>每个生命周期包含一些阶段, 这些阶段是有顺序的,
+并且后面的阶段依赖于前面的阶段, 较之于生命周期阶段的前后依赖关系,
+三套生命周期本身是相互独立的</p>
 
 <p><code>clean</code> 生命周期的目的是清理项目, 它包含三个阶段:</p>
 <ol type="1">
@@ -1018,7 +1138,8 @@
 <li><code>post-clean</code> 执行一些清理后需要完成的工作</li>
 </ol>
 
-<p><code>default</code> 生命周期定义了真正构建时所需要执行的所有步骤, 它是所有生命周期中最核心的部分, 其包含的阶段如下:</p>
+<p><code>default</code> 生命周期定义了真正构建时所需要执行的所有步骤,
+它是所有生命周期中最核心的部分, 其包含的阶段如下:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/12/maven/006/#more" rel="contents">
@@ -1078,13 +1199,13 @@
 
       <time title="创建时间：2018-09-08 22:08:41" itemprop="dateCreated datePublished" datetime="2018-09-08T22:08:41+08:00">2018-09-08</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1129,18 +1250,41 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>在 Maven 世界中, 任何一个依赖, 插件或者项目构建的输出, 都可以称为 <strong>构件</strong>, 任何一个构件都有一组坐标唯一标识</p>
-<p>得益于坐标机制, 任何 Maven 项目使用任何一个构件的方式都是完全相同的, 在此基础上, Maven 可以在某个位置统一存储所有 Maven 项目共享的构件, 这个统一的位置就是 <strong>仓库</strong>, 实际的 Maven 项目将不再各自存储其依赖文件, 它们只需要声明这些依赖的坐标, 在需要的时候 (例如, 编译项目的时候需要将依赖加入到 <code>classpath</code> 中), Maven 会自动根据坐标找到仓库中的构件, 并使用它们, 为了实现重用, 项目构建完毕后生成的构件也可以安装或者部署到仓库中, 供其他项目使用</p>
+<p>在 Maven 世界中, 任何一个依赖, 插件或者项目构建的输出, 都可以称为
+<strong>构件</strong>, 任何一个构件都有一组坐标唯一标识</p>
+<p>得益于坐标机制, 任何 Maven 项目使用任何一个构件的方式都是完全相同的,
+在此基础上, Maven 可以在某个位置统一存储所有 Maven 项目共享的构件,
+这个统一的位置就是 <strong>仓库</strong>, 实际的 Maven
+项目将不再各自存储其依赖文件, 它们只需要声明这些依赖的坐标, 在需要的时候
+(例如, 编译项目的时候需要将依赖加入到 <code>classpath</code> 中), Maven
+会自动根据坐标找到仓库中的构件, 并使用它们, 为了实现重用,
+项目构建完毕后生成的构件也可以安装或者部署到仓库中, 供其他项目使用</p>
 
-<p>任何一个构件都有其唯一的坐标, 根据这个坐标可以定义其在仓库中的唯一存储路径, 这便是 Maven 的 <strong>仓库布局</strong> 方式, 例如 <code>log4j:log4j:1.2.15</code> 这一依赖, 其对应的仓库路径为 <code>log4j/log4j/1.2.15/log4j-1.2.15.jar</code>, 该路径与坐标的大致对应关系为 <code>groupId/artifactId/version/artifactId-version.packaging</code></p>
+<p>任何一个构件都有其唯一的坐标,
+根据这个坐标可以定义其在仓库中的唯一存储路径, 这便是 Maven 的
+<strong>仓库布局</strong> 方式, 例如 <code>log4j:log4j:1.2.15</code>
+这一依赖, 其对应的仓库路径为
+<code>log4j/log4j/1.2.15/log4j-1.2.15.jar</code>,
+该路径与坐标的大致对应关系为
+<code>groupId/artifactId/version/artifactId-version.packaging</code></p>
 <blockquote>
-<p>Maven 仓库是基于简单文件系统存储的, 我们也理解了其存储方式, 因此, 当遇到一些与仓库相关的问题时, 可以很方便地查找相关文件, 方便定位问题</p>
+<p>Maven 仓库是基于简单文件系统存储的, 我们也理解了其存储方式, 因此,
+当遇到一些与仓库相关的问题时, 可以很方便地查找相关文件, 方便定位问题</p>
 </blockquote>
 
-<p>对于 Maven 来说, 仓库只分为两类: <strong>本地仓库</strong> 和 <strong>远程仓库</strong></p>
-<p>当 Maven 根据坐标寻找构件的时候, 它首先会查看本地仓库, 如果本地仓库存在此构件, 则直接使用, 如果本地仓库不存在此构件, 或者需要查看是否有更新的构件版本, Maven 就会去远程仓库查找, 发现需要的构件之后, 下载到本地仓库再使用, 如果本地仓库和远程仓库都没有需要的构件, Maven 就会报错</p>
-<p><strong>中央仓库</strong> 是 Maven 核心自带的远程仓库, 它包含了绝大部分开源的构件, 在默认配置下, 当本地仓库没有 Maven 需要的构件的时候, 它就会尝试从中央仓库下载</p>
-<p><strong>私服</strong> 是另一种特殊的远程仓库, 为了节省带宽和时间, 应该在局域网内架设一个私有的仓库服务器, 用其代理所有外部的远程仓库, 内部的项目还能部署到私服上供其他项目使用</p>
+<p>对于 Maven 来说, 仓库只分为两类: <strong>本地仓库</strong> 和
+<strong>远程仓库</strong></p>
+<p>当 Maven 根据坐标寻找构件的时候, 它首先会查看本地仓库,
+如果本地仓库存在此构件, 则直接使用, 如果本地仓库不存在此构件,
+或者需要查看是否有更新的构件版本, Maven 就会去远程仓库查找,
+发现需要的构件之后, 下载到本地仓库再使用,
+如果本地仓库和远程仓库都没有需要的构件, Maven 就会报错</p>
+<p><strong>中央仓库</strong> 是 Maven 核心自带的远程仓库,
+它包含了绝大部分开源的构件, 在默认配置下, 当本地仓库没有 Maven
+需要的构件的时候, 它就会尝试从中央仓库下载</p>
+<p><strong>私服</strong> 是另一种特殊的远程仓库, 为了节省带宽和时间,
+应该在局域网内架设一个私有的仓库服务器, 用其代理所有外部的远程仓库,
+内部的项目还能部署到私服上供其他项目使用</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/08/maven/005/#more" rel="contents">
@@ -1200,13 +1344,13 @@
 
       <time title="创建时间：2018-09-05 02:32:41" itemprop="dateCreated datePublished" datetime="2018-09-05T02:32:41+08:00">2018-09-05</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1251,24 +1395,43 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>想要一次构建两个项目, 而不是到两个模块的目录下分别执行 <code>mvn</code> 命令, Maven <strong>聚合</strong> (或者称为多模块) 这一特性就是为该需求服务的</p>
+<p>想要一次构建两个项目, 而不是到两个模块的目录下分别执行
+<code>mvn</code> 命令, Maven <strong>聚合</strong> (或者称为多模块)
+这一特性就是为该需求服务的</p>
 
-<p>为了方便用户构建项目, 通常将聚合模块放在项目目录的最顶层, 其他模块则作为聚合模块的子目录存在, 这样当用户得到源码的时候, 第一眼发现的就是聚合模块的 <code>POM</code>, 不用从多个模块中去寻找聚合模块来构建整个项目</p>
+<p>为了方便用户构建项目, 通常将聚合模块放在项目目录的最顶层,
+其他模块则作为聚合模块的子目录存在, 这样当用户得到源码的时候,
+第一眼发现的就是聚合模块的 <code>POM</code>,
+不用从多个模块中去寻找聚合模块来构建整个项目</p>
 
 <blockquote>
-<p>关于目录结构还需要注意的是, 聚合模块与其他模块的目录结构并非一定要是父子关系, 如果使用其他目录结构, 聚合模块的 <code>POM</code> 也需要做相应的修改, 以指向正确的模块目录</p>
+<p>关于目录结构还需要注意的是,
+聚合模块与其他模块的目录结构并非一定要是父子关系, 如果使用其他目录结构,
+聚合模块的 <code>POM</code> 也需要做相应的修改, 以指向正确的模块目录</p>
 </blockquote>
 
 
-<p>在 Maven 的世界中, 也有类似的机制能让我们抽取出重复的配置, 这就是 <code>POM</code> 的 <strong>继承</strong>, 需要创建 <code>POM</code> 的父子结构, 然后在父 <code>POM</code> 中声明一些配置供子 <code>POM</code> 继承</p>
+<p>在 Maven 的世界中, 也有类似的机制能让我们抽取出重复的配置, 这就是
+<code>POM</code> 的 <strong>继承</strong>, 需要创建 <code>POM</code>
+的父子结构, 然后在父 <code>POM</code> 中声明一些配置供子
+<code>POM</code> 继承</p>
 
-<p>由于父模块只是为了帮助消除配置的重复, 因此它本身不包含除 <code>POM</code> 之外的项目文件, 也就不需要 <code>src/main/java/</code> 之类的文件夹了</p>
+<p>由于父模块只是为了帮助消除配置的重复, 因此它本身不包含除
+<code>POM</code> 之外的项目文件, 也就不需要 <code>src/main/java/</code>
+之类的文件夹了</p>
 
 <blockquote>
-<p>正确设置 <code>relativePath</code> 非常重要, 考虑这样一个情况, 开发团队的新成员从源码库签出一个包含父子模块关系的 Maven 项目, 由于只关心其中的某一个子模块, 它就直接到该模块的目录下执行构建, 这个时候, 父模块是没有被安装到本地仓库的, 因此如果子模块没有设置正确的 <code>relativePath</code>, Maven 将无法找到父 <code>POM</code>, 这将直接导致构建失败, 如果 Maven 能够根据 <code>relativePath</code> 找到父 <code>POM</code>, 它就不需要再去检查本地仓库</p>
+<p>正确设置 <code>relativePath</code> 非常重要, 考虑这样一个情况,
+开发团队的新成员从源码库签出一个包含父子模块关系的 Maven 项目,
+由于只关心其中的某一个子模块, 它就直接到该模块的目录下执行构建,
+这个时候, 父模块是没有被安装到本地仓库的, 因此如果子模块没有设置正确的
+<code>relativePath</code>, Maven 将无法找到父 <code>POM</code>,
+这将直接导致构建失败, 如果 Maven 能够根据 <code>relativePath</code>
+找到父 <code>POM</code>, 它就不需要再去检查本地仓库</p>
 </blockquote>
 
-<p>以下是可以被继承的 <code>POM</code> 元素的完整列表, 并附带了简单的说明:</p>
+<p>以下是可以被继承的 <code>POM</code> 元素的完整列表,
+并附带了简单的说明:</p>
 <ul>
 <li><code>groupId</code> 项目组 ID, 项目坐标的核心元素;</li>
 <li><code>version</code> 项目版本, 项目坐标的核心元素;</li>
@@ -1287,8 +1450,10 @@
 <li><code>dependencies</code> 项目的依赖配置;</li>
 <li><code>dependencyManagement</code> 项目的依赖管理配置;</li>
 <li><code>repositories</code> 项目的仓库配置;</li>
-<li><code>build</code> 包括项目的源码目录配置, 输出目录配置, 插件配置, 插件管理配置等;</li>
-<li><code>reporting</code> 包括项目的报告输出目录配置, 报告插件配置等</li>
+<li><code>build</code> 包括项目的源码目录配置, 输出目录配置, 插件配置,
+插件管理配置等;</li>
+<li><code>reporting</code> 包括项目的报告输出目录配置,
+报告插件配置等</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1349,13 +1514,13 @@
 
       <time title="创建时间：2018-09-04 20:33:59" itemprop="dateCreated datePublished" datetime="2018-09-04T20:33:59+08:00">2018-09-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1400,44 +1565,106 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 <strong>Maven 坐标</strong> 唯一标识, Maven 坐标的元素包括<code>groupId</code>, <code>artifactId</code>, <code>version</code>, <code>packaging</code>, <code>classifier</code>, Maven 内置了一个中央仓库的地址, 该中央仓库包含了世界上大部分流行的开源项目构件, Maven 会在需要的时候去那里下载</p>
+<p>Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 <strong>Maven
+坐标</strong> 唯一标识, Maven 坐标的元素包括<code>groupId</code>,
+<code>artifactId</code>, <code>version</code>, <code>packaging</code>,
+<code>classifier</code>, Maven 内置了一个中央仓库的地址,
+该中央仓库包含了世界上大部分流行的开源项目构件, Maven
+会在需要的时候去那里下载</p>
 
-<p><code>nexus-indexer</code> 是一个对 Maven 仓库编纂索引并提供搜索功能的类库, 它是 Nexus 项目的一个子模块, 下面是 <code>nexus-indexer</code> 的坐标定义</p>
+<p><code>nexus-indexer</code> 是一个对 Maven
+仓库编纂索引并提供搜索功能的类库, 它是 Nexus 项目的一个子模块, 下面是
+<code>nexus-indexer</code> 的坐标定义</p>
 
 <ul>
-<li><p><strong><code>groupId</code></strong> 定义当前 Maven 项目隶属的实际项目, Maven 项目和实际项目不一定是一对一的关系, 一个实际项目往往会被划分成很多模块, <code>groupId</code> 不应该对应项目隶属的组织或公司, <code>groupId</code> 的表示方式与 Java 包名的表示方式类似, 通常与域名反向一一对应</p>
-<p>上例中, <code>groupId</code> 为 <code>org.sonatype.nexus</code>, <code>org.sonatype</code> 表示 Sonatype 公司建立的一个非盈利性组织, <code>nexus</code> 表示 <code>Nexus</code> 这一实际项目, 该 <code>groupId</code> 与域名 <code>nexus.sonatype.org</code> 对应</p></li>
-<li><p><strong><code>artifactId</code></strong> 该元素定义实际项目中的一个 Maven 项目 (模块), 推荐的做法是使用实际项目名称作为 <code>artifactId</code> 的前缀</p>
-<p>上例中的 <code>artifactId</code> 是 <code>nexus-indexer</code>, 使用了实际项目名 <code>nexus</code> 作为前缀, 这样做的好处是方便寻找实际构件, 在默认情况下, Maven 生成的构件, 其文件名会以 <code>artifactId</code> 作为开头, 如 <code>nexus-indexer-2.0.0.jar</code>, 使用实际项目名称作为前缀之后, 就能方便从一个 <code>lib</code> 文件夹中找到某个项目的一组构件</p></li>
-<li><p><strong><code>version</code></strong> 该元素定义 Maven 项目当前所处的版本</p>
-<p>上例中 <code>nexus-indexer</code> 的版本是 <code>2.0.0</code>, 需要注意的是, Maven 定义了一套完整的版本规范, 以及快照 (<code>SNAPSHOT</code>) 的概念</p></li>
-<li><p><strong><code>packaging</code></strong> 该元素定义 Maven 项目的打包方式, 打包方式通常与所生成构件的文件扩展名对应</p>
-<p>上例中 <code>packaging</code> 为 <code>jar</code>, 最终的文件名为 <code>nexus-indexer-2.0.0.jar</code>, 而使用 <code>war</code> 打包方式的 Maven 项目最终生成的构件会有一个 <code>.war</code> 文件, 不过这不是绝对的, 打包方式会影响到构建的生命周期, 比如 <code>jar</code> 打包和 <code>war</code> 打包会使用不同的命令, 当不定义 <code>packaging</code> 的时候, Maven 会使用默认值 <code>jar</code></p></li>
-<li><p><strong><code>classifier</code></strong> 该元素用来帮助定义构建输出的一些附属构件, 附属构件与主构件对应</p>
-<p>上例中的主构件是 <code>nexus-indexer-2.0.0.jar</code>, 该项目可能还会通过使用一些插件生成如 <code>nexus-indexer-2.0.0-javadoc.jar</code>, <code>nexus-indexer-2.0.0-sources.jar</code> 这样一些附属构件, 其包含了 Java 文档和源代码, 这时候, <code>javadoc</code> 和 <code>sources</code> 就是这两个附属构件的 <code>classifier</code>, 这样附属构件也就拥有了自己唯一的坐标, 注意, 不能直接定义项目的 <code>classifier</code>, 因为附属构件不是项目直接默认生成的, 而是由附加的插件帮助生成</p></li>
+<li><p><strong><code>groupId</code></strong> 定义当前 Maven
+项目隶属的实际项目, Maven 项目和实际项目不一定是一对一的关系,
+一个实际项目往往会被划分成很多模块, <code>groupId</code>
+不应该对应项目隶属的组织或公司, <code>groupId</code> 的表示方式与 Java
+包名的表示方式类似, 通常与域名反向一一对应</p>
+<p>上例中, <code>groupId</code> 为 <code>org.sonatype.nexus</code>,
+<code>org.sonatype</code> 表示 Sonatype 公司建立的一个非盈利性组织,
+<code>nexus</code> 表示 <code>Nexus</code> 这一实际项目, 该
+<code>groupId</code> 与域名 <code>nexus.sonatype.org</code>
+对应</p></li>
+<li><p><strong><code>artifactId</code></strong>
+该元素定义实际项目中的一个 Maven 项目 (模块),
+推荐的做法是使用实际项目名称作为 <code>artifactId</code> 的前缀</p>
+<p>上例中的 <code>artifactId</code> 是 <code>nexus-indexer</code>,
+使用了实际项目名 <code>nexus</code> 作为前缀,
+这样做的好处是方便寻找实际构件, 在默认情况下, Maven 生成的构件,
+其文件名会以 <code>artifactId</code> 作为开头, 如
+<code>nexus-indexer-2.0.0.jar</code>, 使用实际项目名称作为前缀之后,
+就能方便从一个 <code>lib</code> 文件夹中找到某个项目的一组构件</p></li>
+<li><p><strong><code>version</code></strong> 该元素定义 Maven
+项目当前所处的版本</p>
+<p>上例中 <code>nexus-indexer</code> 的版本是 <code>2.0.0</code>,
+需要注意的是, Maven 定义了一套完整的版本规范, 以及快照
+(<code>SNAPSHOT</code>) 的概念</p></li>
+<li><p><strong><code>packaging</code></strong> 该元素定义 Maven
+项目的打包方式, 打包方式通常与所生成构件的文件扩展名对应</p>
+<p>上例中 <code>packaging</code> 为 <code>jar</code>, 最终的文件名为
+<code>nexus-indexer-2.0.0.jar</code>, 而使用 <code>war</code> 打包方式的
+Maven 项目最终生成的构件会有一个 <code>.war</code> 文件,
+不过这不是绝对的, 打包方式会影响到构建的生命周期, 比如 <code>jar</code>
+打包和 <code>war</code> 打包会使用不同的命令, 当不定义
+<code>packaging</code> 的时候, Maven 会使用默认值
+<code>jar</code></p></li>
+<li><p><strong><code>classifier</code></strong>
+该元素用来帮助定义构建输出的一些附属构件, 附属构件与主构件对应</p>
+<p>上例中的主构件是 <code>nexus-indexer-2.0.0.jar</code>,
+该项目可能还会通过使用一些插件生成如
+<code>nexus-indexer-2.0.0-javadoc.jar</code>,
+<code>nexus-indexer-2.0.0-sources.jar</code> 这样一些附属构件, 其包含了
+Java 文档和源代码, 这时候, <code>javadoc</code> 和 <code>sources</code>
+就是这两个附属构件的 <code>classifier</code>,
+这样附属构件也就拥有了自己唯一的坐标, 注意, 不能直接定义项目的
+<code>classifier</code>, 因为附属构件不是项目直接默认生成的,
+而是由附加的插件帮助生成</p></li>
 </ul>
 
 <p>一个依赖声明可以包含如下的一些元素</p>
 
 <ul>
-<li><strong><code>groupId</code>, <code>artifactId</code>, <code>version</code></strong> 依赖的基本坐标, 对于任何一个依赖来说, 基本坐标是最重要的, Maven 根据坐标才能找到需要的依赖</li>
-<li><strong><code>type</code></strong> 依赖的类型, 对应于项目坐标定义的 <code>packaging</code>, 大部分情况下, 该元素不必声明, 其默认值为 <code>jar</code></li>
+<li><strong><code>groupId</code>, <code>artifactId</code>,
+<code>version</code></strong> 依赖的基本坐标, 对于任何一个依赖来说,
+基本坐标是最重要的, Maven 根据坐标才能找到需要的依赖</li>
+<li><strong><code>type</code></strong> 依赖的类型, 对应于项目坐标定义的
+<code>packaging</code>, 大部分情况下, 该元素不必声明, 其默认值为
+<code>jar</code></li>
 <li><strong><code>scope</code></strong> 依赖的范围</li>
 <li><strong><code>optional</code></strong> 标记依赖是否可选</li>
 <li><strong><code>exclusions</code></strong> 用来排除传递性依赖</li>
 </ul>
 
-<p><strong>依赖范围</strong> 用来控制依赖与三种 <code>classpath</code> (编译 <code>classpath</code>, 测试 <code>classpath</code>, 运行 <code>classpath</code>) 的关系</p>
+<p><strong>依赖范围</strong> 用来控制依赖与三种 <code>classpath</code>
+(编译 <code>classpath</code>, 测试 <code>classpath</code>, 运行
+<code>classpath</code>) 的关系</p>
 <p>Maven 有以下几种依赖范围:</p>
 <ul>
-<li><p><strong><code>compile</code></strong> 编译依赖范围, 如果没有指定, 就会默认使用该依赖范围, 使用此依赖范围的 Maven 依赖, 对于编译, 测试, 运行三种 <code>classpath</code> 都有效</p></li>
-<li><p><strong><code>test</code></strong> 测试依赖范围, 使用此依赖范围的 Maven 依赖, 只对于测试 <code>classpath</code> 有效, 在编译主代码或者运行项目的使用时将无法使用此类依赖</p></li>
-<li><p><strong><code>provided</code></strong> 已提供依赖范围, 使用此依赖范围的 Maven 依赖, 对于编译和测试 <code>classpath</code> 有效, 但在运行时无效</p></li>
-<li><p><strong><code>runtime</code></strong> 运行时依赖范围, 使用此依赖范围的 Maven 依赖, 对于测试和运行 <code>classpath</code> 有效, 但在编译主代码时无效</p></li>
-<li><p><strong><code>system</code></strong> 系统依赖范围, 该依赖与三种 <code>classpath</code> 的关系, 和 <code>provided</code> 依赖范围完全一致, 但是使用 <code>system</code> 范围的依赖时必须通过 <code>systemPath</code> 元素显式地指定依赖文件的路径, 由于此类依赖不是通过 Maven 仓库解析的, 而且往往与本机系统绑定, 可能造成构建的不可移植, 因此应该谨慎使用</p>
+<li><p><strong><code>compile</code></strong> 编译依赖范围, 如果没有指定,
+就会默认使用该依赖范围, 使用此依赖范围的 Maven 依赖, 对于编译, 测试,
+运行三种 <code>classpath</code> 都有效</p></li>
+<li><p><strong><code>test</code></strong> 测试依赖范围, 使用此依赖范围的
+Maven 依赖, 只对于测试 <code>classpath</code> 有效,
+在编译主代码或者运行项目的使用时将无法使用此类依赖</p></li>
+<li><p><strong><code>provided</code></strong> 已提供依赖范围,
+使用此依赖范围的 Maven 依赖, 对于编译和测试 <code>classpath</code> 有效,
+但在运行时无效</p></li>
+<li><p><strong><code>runtime</code></strong> 运行时依赖范围,
+使用此依赖范围的 Maven 依赖, 对于测试和运行 <code>classpath</code> 有效,
+但在编译主代码时无效</p></li>
+<li><p><strong><code>system</code></strong> 系统依赖范围, 该依赖与三种
+<code>classpath</code> 的关系, 和 <code>provided</code>
+依赖范围完全一致, 但是使用 <code>system</code> 范围的依赖时必须通过
+<code>systemPath</code> 元素显式地指定依赖文件的路径,
+由于此类依赖不是通过 Maven 仓库解析的, 而且往往与本机系统绑定,
+可能造成构建的不可移植, 因此应该谨慎使用</p>
 <p><code>systemPath</code> 元素可以引用环境变量如:</p>
 </li>
-<li><p><strong><code>import</code> (Maven 2.0.9 及以上)</strong> 导入依赖范围, 该依赖范围不会对三种 <code>classpath</code> 产生实际的影响</p></li>
+<li><p><strong><code>import</code> (Maven 2.0.9 及以上)</strong>
+导入依赖范围, 该依赖范围不会对三种 <code>classpath</code>
+产生实际的影响</p></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -1498,13 +1725,13 @@
 
       <time title="创建时间：2018-09-01 00:01:12" itemprop="dateCreated datePublished" datetime="2018-09-01T00:01:12+08:00">2018-09-01</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1549,27 +1776,44 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p><strong>POM (Project Object Model, 项目对象模型)</strong> 定义了项目的基本信息, 用于描述项目如何构建, 声明项目依赖, 等等</p>
+<p><strong>POM (Project Object Model, 项目对象模型)</strong>
+定义了项目的基本信息, 用于描述项目如何构建, 声明项目依赖, 等等</p>
 
 <blockquote>
-<p>没有任何实际的 Java 代码, 就能够定义一个 Maven 项目的 <code>POM</code>, 这体现了 Maven 的一大优点, 它能让项目对象模型最大程度地与实际代码相独立, 可以称之为解耦, 或者正交性, 这在很大程度上避免了 Java 代码和 <code>POM</code> 代码的相互影响, 比如当项目需要升级版本时, 只需要修改 <code>POM</code>, 而不需要更改 Java 代码, 而在 <code>POM</code> 稳定之后, 日常的 Java 代码开发工作基本不涉及 <code>POM</code> 的修改</p>
+<p>没有任何实际的 Java 代码, 就能够定义一个 Maven 项目的
+<code>POM</code>, 这体现了 Maven 的一大优点,
+它能让项目对象模型最大程度地与实际代码相独立, 可以称之为解耦,
+或者正交性, 这在很大程度上避免了 Java 代码和 <code>POM</code>
+代码的相互影响, 比如当项目需要升级版本时, 只需要修改 <code>POM</code>,
+而不需要更改 Java 代码, 而在 <code>POM</code> 稳定之后, 日常的 Java
+代码开发工作基本不涉及 <code>POM</code> 的修改</p>
 </blockquote>
 
-<p>默认情况下, Maven 假设项目主代码位于 <code>src/main/java</code> 目录</p>
+<p>默认情况下, Maven 假设项目主代码位于 <code>src/main/java</code>
+目录</p>
 
 <p>关于该 Java 代码有两点需要注意:</p>
 <ul>
-<li>在绝大多数情况下, 应该把项目主代码放到 <code>src/main/java/</code> 目录下 (遵循 Maven 的约定), 而无须额外的配置, Maven 会自动搜寻该目录找到项目主代码;</li>
-<li>该 Java 类的包名是 <code>com.janz.maven</code>, 这与之前在 <code>POM</code> 中定义的 <code>groupId</code> 和 <code>artifactId</code> 相吻合, 一般来说, 项目中 Java 类的包都应该基于项目的 <code>groupId</code> 和 <code>artifactId</code>, 这样更加清晰, 更加符合逻辑, 也方便搜索构件或者 Java 类</li>
+<li>在绝大多数情况下, 应该把项目主代码放到 <code>src/main/java/</code>
+目录下 (遵循 Maven 的约定), 而无须额外的配置, Maven
+会自动搜寻该目录找到项目主代码;</li>
+<li>该 Java 类的包名是 <code>com.janz.maven</code>, 这与之前在
+<code>POM</code> 中定义的 <code>groupId</code> 和
+<code>artifactId</code> 相吻合, 一般来说, 项目中 Java
+类的包都应该基于项目的 <code>groupId</code> 和 <code>artifactId</code>,
+这样更加清晰, 更加符合逻辑, 也方便搜索构件或者 Java 类</li>
 </ul>
 
 <blockquote>
-<p>旧版本的 Maven 的核心插件 <code>compiler</code> 默认只支持编译 Java 1.3, 因此需要配置该插件使其支持 Java 5</p>
+<p>旧版本的 Maven 的核心插件 <code>compiler</code> 默认只支持编译 Java
+1.3, 因此需要配置该插件使其支持 Java 5</p>
 </blockquote>
 
 
-<p>项目主代码和测试代码不同, 项目的主代码会被打包到最终的构件中 (如 <code>jar</code>), 而测试代码只在运行测试时用到, 不会被打包</p>
-<p>为了使项目结构保持清晰, 主代码与测试代码应该分别位于独立的目录中, Maven 项目中默认的测试代码目录是 <code>src/test/java</code></p>
+<p>项目主代码和测试代码不同, 项目的主代码会被打包到最终的构件中 (如
+<code>jar</code>), 而测试代码只在运行测试时用到, 不会被打包</p>
+<p>为了使项目结构保持清晰, 主代码与测试代码应该分别位于独立的目录中,
+Maven 项目中默认的测试代码目录是 <code>src/test/java</code></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/09/01/maven/002/#more" rel="contents">
@@ -1608,7 +1852,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1620,7 +1864,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -1664,7 +1908,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

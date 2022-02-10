@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 Maven 坐标 唯一标识, Maven 坐标的元素包括groupId, artifactId, version, packaging, classifier, Maven 内置了一个中央仓库的地址, 该中央仓库包含了世界上大部分流行的开源项目构件, Maven 会在需要的时候去那里下载  nexus-indexer 是一个对 M">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 Maven 坐标 唯一标识, Maven 坐标的元素包括groupId, artifactId, version, packaging, classifier, Maven 内置了一个中央仓库的地址, 该中央仓库包含了世界上大部分流行的开源项目构件, Maven 会在需要的时候去那里下载  nexus-indexer 是一个对 M">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven 003 坐标和依赖">
 <meta property="og:url" content="https://janz.icu/2018/09/04/maven/003/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Maven 003 坐标和依赖 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2018-09-04 20:33:59" itemprop="dateCreated datePublished" datetime="2018-09-04T20:33:59+08:00">2018-09-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -304,46 +305,115 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="坐标和依赖">坐标和依赖</h1>
 <h2 id="maven-坐标">Maven 坐标</h2>
-<p>Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 <strong>Maven 坐标</strong> 唯一标识, Maven 坐标的元素包括<code>groupId</code>, <code>artifactId</code>, <code>version</code>, <code>packaging</code>, <code>classifier</code>, Maven 内置了一个中央仓库的地址, 该中央仓库包含了世界上大部分流行的开源项目构件, Maven 会在需要的时候去那里下载</p>
+<p>Maven 定义了这样一组规则, 世界上任何一个构件都可以使用 <strong>Maven
+坐标</strong> 唯一标识, Maven 坐标的元素包括<code>groupId</code>,
+<code>artifactId</code>, <code>version</code>, <code>packaging</code>,
+<code>classifier</code>, Maven 内置了一个中央仓库的地址,
+该中央仓库包含了世界上大部分流行的开源项目构件, Maven
+会在需要的时候去那里下载</p>
 <h3 id="坐标详解">坐标详解</h3>
-<p><code>nexus-indexer</code> 是一个对 Maven 仓库编纂索引并提供搜索功能的类库, 它是 Nexus 项目的一个子模块, 下面是 <code>nexus-indexer</code> 的坐标定义</p>
+<p><code>nexus-indexer</code> 是一个对 Maven
+仓库编纂索引并提供搜索功能的类库, 它是 Nexus 项目的一个子模块, 下面是
+<code>nexus-indexer</code> 的坐标定义</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.sonatype.nexus<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>nexus-indexer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><strong><code>groupId</code></strong> 定义当前 Maven 项目隶属的实际项目, Maven 项目和实际项目不一定是一对一的关系, 一个实际项目往往会被划分成很多模块, <code>groupId</code> 不应该对应项目隶属的组织或公司, <code>groupId</code> 的表示方式与 Java 包名的表示方式类似, 通常与域名反向一一对应</p>
-<p>上例中, <code>groupId</code> 为 <code>org.sonatype.nexus</code>, <code>org.sonatype</code> 表示 Sonatype 公司建立的一个非盈利性组织, <code>nexus</code> 表示 <code>Nexus</code> 这一实际项目, 该 <code>groupId</code> 与域名 <code>nexus.sonatype.org</code> 对应</p></li>
-<li><p><strong><code>artifactId</code></strong> 该元素定义实际项目中的一个 Maven 项目 (模块), 推荐的做法是使用实际项目名称作为 <code>artifactId</code> 的前缀</p>
-<p>上例中的 <code>artifactId</code> 是 <code>nexus-indexer</code>, 使用了实际项目名 <code>nexus</code> 作为前缀, 这样做的好处是方便寻找实际构件, 在默认情况下, Maven 生成的构件, 其文件名会以 <code>artifactId</code> 作为开头, 如 <code>nexus-indexer-2.0.0.jar</code>, 使用实际项目名称作为前缀之后, 就能方便从一个 <code>lib</code> 文件夹中找到某个项目的一组构件</p></li>
-<li><p><strong><code>version</code></strong> 该元素定义 Maven 项目当前所处的版本</p>
-<p>上例中 <code>nexus-indexer</code> 的版本是 <code>2.0.0</code>, 需要注意的是, Maven 定义了一套完整的版本规范, 以及快照 (<code>SNAPSHOT</code>) 的概念</p></li>
-<li><p><strong><code>packaging</code></strong> 该元素定义 Maven 项目的打包方式, 打包方式通常与所生成构件的文件扩展名对应</p>
-<p>上例中 <code>packaging</code> 为 <code>jar</code>, 最终的文件名为 <code>nexus-indexer-2.0.0.jar</code>, 而使用 <code>war</code> 打包方式的 Maven 项目最终生成的构件会有一个 <code>.war</code> 文件, 不过这不是绝对的, 打包方式会影响到构建的生命周期, 比如 <code>jar</code> 打包和 <code>war</code> 打包会使用不同的命令, 当不定义 <code>packaging</code> 的时候, Maven 会使用默认值 <code>jar</code></p></li>
-<li><p><strong><code>classifier</code></strong> 该元素用来帮助定义构建输出的一些附属构件, 附属构件与主构件对应</p>
-<p>上例中的主构件是 <code>nexus-indexer-2.0.0.jar</code>, 该项目可能还会通过使用一些插件生成如 <code>nexus-indexer-2.0.0-javadoc.jar</code>, <code>nexus-indexer-2.0.0-sources.jar</code> 这样一些附属构件, 其包含了 Java 文档和源代码, 这时候, <code>javadoc</code> 和 <code>sources</code> 就是这两个附属构件的 <code>classifier</code>, 这样附属构件也就拥有了自己唯一的坐标, 注意, 不能直接定义项目的 <code>classifier</code>, 因为附属构件不是项目直接默认生成的, 而是由附加的插件帮助生成</p></li>
+<li><p><strong><code>groupId</code></strong> 定义当前 Maven
+项目隶属的实际项目, Maven 项目和实际项目不一定是一对一的关系,
+一个实际项目往往会被划分成很多模块, <code>groupId</code>
+不应该对应项目隶属的组织或公司, <code>groupId</code> 的表示方式与 Java
+包名的表示方式类似, 通常与域名反向一一对应</p>
+<p>上例中, <code>groupId</code> 为 <code>org.sonatype.nexus</code>,
+<code>org.sonatype</code> 表示 Sonatype 公司建立的一个非盈利性组织,
+<code>nexus</code> 表示 <code>Nexus</code> 这一实际项目, 该
+<code>groupId</code> 与域名 <code>nexus.sonatype.org</code>
+对应</p></li>
+<li><p><strong><code>artifactId</code></strong>
+该元素定义实际项目中的一个 Maven 项目 (模块),
+推荐的做法是使用实际项目名称作为 <code>artifactId</code> 的前缀</p>
+<p>上例中的 <code>artifactId</code> 是 <code>nexus-indexer</code>,
+使用了实际项目名 <code>nexus</code> 作为前缀,
+这样做的好处是方便寻找实际构件, 在默认情况下, Maven 生成的构件,
+其文件名会以 <code>artifactId</code> 作为开头, 如
+<code>nexus-indexer-2.0.0.jar</code>, 使用实际项目名称作为前缀之后,
+就能方便从一个 <code>lib</code> 文件夹中找到某个项目的一组构件</p></li>
+<li><p><strong><code>version</code></strong> 该元素定义 Maven
+项目当前所处的版本</p>
+<p>上例中 <code>nexus-indexer</code> 的版本是 <code>2.0.0</code>,
+需要注意的是, Maven 定义了一套完整的版本规范, 以及快照
+(<code>SNAPSHOT</code>) 的概念</p></li>
+<li><p><strong><code>packaging</code></strong> 该元素定义 Maven
+项目的打包方式, 打包方式通常与所生成构件的文件扩展名对应</p>
+<p>上例中 <code>packaging</code> 为 <code>jar</code>, 最终的文件名为
+<code>nexus-indexer-2.0.0.jar</code>, 而使用 <code>war</code> 打包方式的
+Maven 项目最终生成的构件会有一个 <code>.war</code> 文件,
+不过这不是绝对的, 打包方式会影响到构建的生命周期, 比如 <code>jar</code>
+打包和 <code>war</code> 打包会使用不同的命令, 当不定义
+<code>packaging</code> 的时候, Maven 会使用默认值
+<code>jar</code></p></li>
+<li><p><strong><code>classifier</code></strong>
+该元素用来帮助定义构建输出的一些附属构件, 附属构件与主构件对应</p>
+<p>上例中的主构件是 <code>nexus-indexer-2.0.0.jar</code>,
+该项目可能还会通过使用一些插件生成如
+<code>nexus-indexer-2.0.0-javadoc.jar</code>,
+<code>nexus-indexer-2.0.0-sources.jar</code> 这样一些附属构件, 其包含了
+Java 文档和源代码, 这时候, <code>javadoc</code> 和 <code>sources</code>
+就是这两个附属构件的 <code>classifier</code>,
+这样附属构件也就拥有了自己唯一的坐标, 注意, 不能直接定义项目的
+<code>classifier</code>, 因为附属构件不是项目直接默认生成的,
+而是由附加的插件帮助生成</p></li>
 </ul>
 <h2 id="依赖的配置">依赖的配置</h2>
 <p>一个依赖声明可以包含如下的一些元素</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- dependencies可以包含一个或者多个dependency元素, 以声明一个或者多个项目依赖 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span><span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span><span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span><span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span><span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span><span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span><span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li><strong><code>groupId</code>, <code>artifactId</code>, <code>version</code></strong> 依赖的基本坐标, 对于任何一个依赖来说, 基本坐标是最重要的, Maven 根据坐标才能找到需要的依赖</li>
-<li><strong><code>type</code></strong> 依赖的类型, 对应于项目坐标定义的 <code>packaging</code>, 大部分情况下, 该元素不必声明, 其默认值为 <code>jar</code></li>
+<li><strong><code>groupId</code>, <code>artifactId</code>,
+<code>version</code></strong> 依赖的基本坐标, 对于任何一个依赖来说,
+基本坐标是最重要的, Maven 根据坐标才能找到需要的依赖</li>
+<li><strong><code>type</code></strong> 依赖的类型, 对应于项目坐标定义的
+<code>packaging</code>, 大部分情况下, 该元素不必声明, 其默认值为
+<code>jar</code></li>
 <li><strong><code>scope</code></strong> 依赖的范围</li>
 <li><strong><code>optional</code></strong> 标记依赖是否可选</li>
 <li><strong><code>exclusions</code></strong> 用来排除传递性依赖</li>
 </ul>
 <h3 id="依赖范围">依赖范围</h3>
-<p><strong>依赖范围</strong> 用来控制依赖与三种 <code>classpath</code> (编译 <code>classpath</code>, 测试 <code>classpath</code>, 运行 <code>classpath</code>) 的关系</p>
+<p><strong>依赖范围</strong> 用来控制依赖与三种 <code>classpath</code>
+(编译 <code>classpath</code>, 测试 <code>classpath</code>, 运行
+<code>classpath</code>) 的关系</p>
 <p>Maven 有以下几种依赖范围:</p>
 <ul>
-<li><p><strong><code>compile</code></strong> 编译依赖范围, 如果没有指定, 就会默认使用该依赖范围, 使用此依赖范围的 Maven 依赖, 对于编译, 测试, 运行三种 <code>classpath</code> 都有效</p></li>
-<li><p><strong><code>test</code></strong> 测试依赖范围, 使用此依赖范围的 Maven 依赖, 只对于测试 <code>classpath</code> 有效, 在编译主代码或者运行项目的使用时将无法使用此类依赖</p></li>
-<li><p><strong><code>provided</code></strong> 已提供依赖范围, 使用此依赖范围的 Maven 依赖, 对于编译和测试 <code>classpath</code> 有效, 但在运行时无效</p></li>
-<li><p><strong><code>runtime</code></strong> 运行时依赖范围, 使用此依赖范围的 Maven 依赖, 对于测试和运行 <code>classpath</code> 有效, 但在编译主代码时无效</p></li>
-<li><p><strong><code>system</code></strong> 系统依赖范围, 该依赖与三种 <code>classpath</code> 的关系, 和 <code>provided</code> 依赖范围完全一致, 但是使用 <code>system</code> 范围的依赖时必须通过 <code>systemPath</code> 元素显式地指定依赖文件的路径, 由于此类依赖不是通过 Maven 仓库解析的, 而且往往与本机系统绑定, 可能造成构建的不可移植, 因此应该谨慎使用</p>
+<li><p><strong><code>compile</code></strong> 编译依赖范围, 如果没有指定,
+就会默认使用该依赖范围, 使用此依赖范围的 Maven 依赖, 对于编译, 测试,
+运行三种 <code>classpath</code> 都有效</p></li>
+<li><p><strong><code>test</code></strong> 测试依赖范围, 使用此依赖范围的
+Maven 依赖, 只对于测试 <code>classpath</code> 有效,
+在编译主代码或者运行项目的使用时将无法使用此类依赖</p></li>
+<li><p><strong><code>provided</code></strong> 已提供依赖范围,
+使用此依赖范围的 Maven 依赖, 对于编译和测试 <code>classpath</code> 有效,
+但在运行时无效</p></li>
+<li><p><strong><code>runtime</code></strong> 运行时依赖范围,
+使用此依赖范围的 Maven 依赖, 对于测试和运行 <code>classpath</code> 有效,
+但在编译主代码时无效</p></li>
+<li><p><strong><code>system</code></strong> 系统依赖范围, 该依赖与三种
+<code>classpath</code> 的关系, 和 <code>provided</code>
+依赖范围完全一致, 但是使用 <code>system</code> 范围的依赖时必须通过
+<code>systemPath</code> 元素显式地指定依赖文件的路径,
+由于此类依赖不是通过 Maven 仓库解析的, 而且往往与本机系统绑定,
+可能造成构建的不可移植, 因此应该谨慎使用</p>
 <p><code>systemPath</code> 元素可以引用环境变量如:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.sql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jdbc-stdext<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>system<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;java.home&#125;/lib/rt.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li><p><strong><code>import</code> (Maven 2.0.9 及以上)</strong> 导入依赖范围, 该依赖范围不会对三种 <code>classpath</code> 产生实际的影响</p></li>
+<li><p><strong><code>import</code> (Maven 2.0.9 及以上)</strong>
+导入依赖范围, 该依赖范围不会对三种 <code>classpath</code>
+产生实际的影响</p></li>
 </ul>
 <table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 21%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>依赖范围 (<code>scope</code>)</th>
@@ -392,7 +462,12 @@
 </tbody>
 </table>
 <h3 id="传递性依赖">传递性依赖</h3>
-<p>以 <code>org.springframework:spring-webmvc</code> 项目为例, 该项目有一个 <code>org.springframework:spring-core</code> 的依赖, 而实际上 <code>spring-core</code> 也有它自己的一个<code>commons-logging</code> 依赖, 那么 <code>commons-logging</code> 就会成为 <code>spring-webmvc</code> 的一个 <strong>传递性依赖</strong></p>
+<p>以 <code>org.springframework:spring-webmvc</code> 项目为例,
+该项目有一个 <code>org.springframework:spring-core</code> 的依赖,
+而实际上 <code>spring-core</code>
+也有它自己的一个<code>commons-logging</code> 依赖, 那么
+<code>commons-logging</code> 就会成为 <code>spring-webmvc</code> 的一个
+<strong>传递性依赖</strong></p>
 <pre class="mermaid">graph LR
 title["图 传递性依赖"]
 title --> C
@@ -404,9 +479,17 @@ C(commons-logging)
 A --> B
 B --> C
 A -.-> C</pre>
-<p>有了传递性依赖机制, 在使用 <code>Spring Framework</code> 的时候就不用去考虑它依赖了什么, 也不用担心引入多余的依赖, Maven 会解析各个直接依赖的 <code>POM</code>, 将那些必要的间接依赖, 以传递性依赖的形式引入到当前的项目中</p>
-<p>依赖范围不仅可以控制依赖与三种 <code>classpath</code> 的关系, 还对传递性依赖产生影响</p>
-<p>假设 A 依赖于 B, B 依赖于 C, 我们说 A 对于 B 是第一直接依赖, B 对于 C 是第二直接依赖, A 对于 C 是传递性依赖, 第一直接依赖的范围和第二直接依赖的范围决定了传递性依赖的范围, 如表所示, 最左边一列表示第一直接依赖范围, 最上面一行表示第二直接依赖范围, 中间的交叉单元格则表示传递性依赖范围</p>
+<p>有了传递性依赖机制, 在使用 <code>Spring Framework</code>
+的时候就不用去考虑它依赖了什么, 也不用担心引入多余的依赖, Maven
+会解析各个直接依赖的 <code>POM</code>, 将那些必要的间接依赖,
+以传递性依赖的形式引入到当前的项目中</p>
+<p>依赖范围不仅可以控制依赖与三种 <code>classpath</code> 的关系,
+还对传递性依赖产生影响</p>
+<p>假设 A 依赖于 B, B 依赖于 C, 我们说 A 对于 B 是第一直接依赖, B 对于 C
+是第二直接依赖, A 对于 C 是传递性依赖,
+第一直接依赖的范围和第二直接依赖的范围决定了传递性依赖的范围, 如表所示,
+最左边一列表示第一直接依赖范围, 最上面一行表示第二直接依赖范围,
+中间的交叉单元格则表示传递性依赖范围</p>
 <table>
 <thead>
 <tr class="header">
@@ -448,19 +531,32 @@ A -.-> C</pre>
 </tr>
 </tbody>
 </table>
-<p>Maven 引入的传递性依赖机制, 一方面大大简化和方便了依赖声明, 另一方面, 大部分情况下我们只需要关心项目的直接依赖是什么, 而不用考虑这些直接依赖会引入什么传递性依赖</p>
+<p>Maven 引入的传递性依赖机制, 一方面大大简化和方便了依赖声明, 另一方面,
+大部分情况下我们只需要关心项目的直接依赖是什么,
+而不用考虑这些直接依赖会引入什么传递性依赖</p>
 <h3 id="依赖调解">依赖调解</h3>
-<p>例如, 项目 A 有这样的依赖关系: <code>A -&gt; B -&gt; C -&gt; X (1.0)</code>, <code>A -&gt; D -&gt; X (2.0)</code>, X 是 A 的传递性依赖, 但是两条依赖路径上有两个版本的 X</p>
+<p>例如, 项目 A 有这样的依赖关系:
+<code>A -&gt; B -&gt; C -&gt; X (1.0)</code>,
+<code>A -&gt; D -&gt; X (2.0)</code>, X 是 A 的传递性依赖,
+但是两条依赖路径上有两个版本的 X</p>
 <p>Maven <strong>依赖调解 (Dependency Mediation)</strong> 的原则:</p>
 <ol type="1">
 <li>路径最近者优先;</li>
 <li>第一声明者优先</li>
 </ol>
 <blockquote>
-<p>在依赖路径长度相等的前提下, 在 Maven 2.8 及之前的版本中, 解析是不确定的, 从 Maven 2.0.9 开始, 为了尽可能避免构建的不确定性, 在 POM 中依赖声明最靠前的会被使用</p>
+<p>在依赖路径长度相等的前提下, 在 Maven 2.8 及之前的版本中,
+解析是不确定的, 从 Maven 2.0.9 开始, 为了尽可能避免构建的不确定性, 在
+POM 中依赖声明最靠前的会被使用</p>
 </blockquote>
 <h3 id="可选依赖">可选依赖</h3>
-<p>例如, 项目 A 依赖于项目 B, 项目 B 依赖于项目 X 和 Y, B 对于 X 和 Y 的依赖都是可选依赖: <code>A -&gt; B</code>, <code>B -&gt; X (可选)</code>, <code>B -&gt; Y (可选)</code>, 根据传递性依赖的定义, 如果所有这三个依赖的范围都是 <code>compile</code>, 那么 X, Y 就是 A 的 <code>compile</code> 范围传递性依赖, 然而由于这里 X, Y 是可选依赖, 依赖将不会得以传递, 换句话说, X, Y 将不会对 A 有任何影响</p>
+<p>例如, 项目 A 依赖于项目 B, 项目 B 依赖于项目 X 和 Y, B 对于 X 和 Y
+的依赖都是可选依赖: <code>A -&gt; B</code>,
+<code>B -&gt; X (可选)</code>, <code>B -&gt; Y (可选)</code>,
+根据传递性依赖的定义, 如果所有这三个依赖的范围都是 <code>compile</code>,
+那么 X, Y 就是 A 的 <code>compile</code> 范围传递性依赖, 然而由于这里 X,
+Y 是可选依赖, 依赖将不会得以传递, 换句话说, X, Y 将不会对 A
+有任何影响</p>
 <pre class="mermaid">graph LR
 title["图 可选依赖"]
 title --> C
@@ -476,13 +572,18 @@ A -.->|X| D
 B --> C
 B --> D</pre>
 <blockquote>
-<p>关于可选依赖需要说明的一点是, 在理想的情况下, 是不应该使用可选依赖的, 使用可选依赖的原因是某一个项目实现了多个特性, 在面向对象设计中, 有个单一职责性原则, 意指一个类应该只有一项职责, 而不是糅合太多的功能, 这个原则在规划 Maven 项目的时候也同样适用</p>
+<p>关于可选依赖需要说明的一点是, 在理想的情况下, 是不应该使用可选依赖的,
+使用可选依赖的原因是某一个项目实现了多个特性, 在面向对象设计中,
+有个单一职责性原则, 意指一个类应该只有一项职责, 而不是糅合太多的功能,
+这个原则在规划 Maven 项目的时候也同样适用</p>
 </blockquote>
 <h2 id="实践">实践</h2>
 <h3 id="排除依赖">排除依赖</h3>
-<p>传递性依赖会给项目隐式地引入很多依赖, 这极大地简化了项目依赖的管理, 但是有些时候这种特性也会带来问题:</p>
+<p>传递性依赖会给项目隐式地引入很多依赖, 这极大地简化了项目依赖的管理,
+但是有些时候这种特性也会带来问题:</p>
 <ul>
-<li>项目依赖 <code>SNAPSHOT</code> 版本的传递依赖时, <code>SNAPSHOT</code> 的不稳定性会直接影响到当前的项目;</li>
+<li>项目依赖 <code>SNAPSHOT</code> 版本的传递依赖时,
+<code>SNAPSHOT</code> 的不稳定性会直接影响到当前的项目;</li>
 <li>由于版权因素不在中央仓库的依赖项目</li>
 </ul>
 <pre class="mermaid">graph LR
@@ -499,7 +600,14 @@ B -->|X| C
 A --> D</pre>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码清单5-9 排除传递性依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 项目依赖项目spring-core, 但是不想引入传递性依赖commons-logging --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 使用exclusions元素声明排除依赖, 可以排除一个或多个传递性依赖 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 声明exclusion只需要groupId和artifactId, 而不需要version --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 手动添加项目org.slf4j, 用于替代commons-logging --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.0-beta2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="归类依赖">归类依赖</h3>
-<p>项目中, 有很多关于 <code>Spring Framework</code> 的依赖, 它们分别是 <code>org.springframework:spring-core:2.5.6</code>, <code>org.springframework:spring-beans:2.5.6</code>, <code>org.springframework:spring-context:2.5.6</code> 和 <code>org.springframework:spring-context-support:2.5.6</code>, 它们是来自同一项目的不同模块, 因此, 所有这些依赖的版本都是相同的, 而且可以预见, 如果将来需要升级 <code>Spring Framework</code>, 这些依赖的版本会一起升级</p>
+<p>项目中, 有很多关于 <code>Spring Framework</code> 的依赖, 它们分别是
+<code>org.springframework:spring-core:2.5.6</code>,
+<code>org.springframework:spring-beans:2.5.6</code>,
+<code>org.springframework:spring-context:2.5.6</code> 和
+<code>org.springframework:spring-context-support:2.5.6</code>,
+它们是来自同一项目的不同模块, 因此, 所有这些依赖的版本都是相同的,
+而且可以预见, 如果将来需要升级 <code>Spring Framework</code>,
+这些依赖的版本会一起升级</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码清单5-12 使用Maven属性归类依赖 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 使用properties元素定义Maven属性, 该例中定义了一个springframework.version子元素, 其值为5.1.5.RELEASE, 有了这个属性定义后, Maven运行的时候会将POM中的所有$&#123;springframework&#125;替换成实际值5.1.5.RELEASE --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">springframework.version</span>&gt;</span>5.1.5.RELEASE<span class="tag">&lt;/<span class="name">springframework.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springframework.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-beans<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springframework.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springframework.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context-support<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;springframework.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="优化依赖">优化依赖</h3>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以运行如下的命令查看当前项目的已解析依赖</span></span><br><span class="line">λ mvn dependency:list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示了所有project-a的已解析依赖, 同时每个依赖的范围也得以明确标示</span></span><br></pre></td></tr></table></figure>
@@ -512,24 +620,6 @@ A --> D</pre>
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/08/29/maven/001/" rel="bookmark">Maven 001 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/09/05/maven/004/" rel="bookmark">Maven 004 聚合与继承</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/09/08/maven/005/" rel="bookmark">Maven 005 仓库</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/09/01/maven/002/" rel="bookmark">Maven 002 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2018/09/12/maven/006/" rel="bookmark">Maven 006 生命周期和插件</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -600,7 +690,7 @@ A --> D</pre>
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -612,7 +702,7 @@ A --> D</pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -656,7 +746,7 @@ A --> D</pre>
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

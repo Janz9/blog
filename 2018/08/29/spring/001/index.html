@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Spring 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益 Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:  基于 POJO 的轻量级">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Spring 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益 Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:  基于 POJO 的轻量级">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring 001 简介">
 <meta property="og:url" content="https://janz.icu/2018/08/29/spring/001/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Spring 001 简介 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2018-08-29 22:10:32" itemprop="dateCreated datePublished" datetime="2018-08-29T22:10:32+08:00">2018-08-29</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -304,7 +305,11 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="spring-简介">Spring 简介</h1>
 <h2 id="定义">定义</h2>
-<p><strong>Spring</strong> 是一个开源框架, 是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的 JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring 不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性, 可测试性和松耦合等方面从 Spring 中获益</p>
+<p><strong>Spring</strong> 是一个开源框架,
+是为了解决企业级应用开发的复杂性而创建的, 使用 Spring 可以让简单的
+JavaBean 实现之前只有 EJB 才能完成的事情, 但 Spring
+不仅仅局限于服务器端开发, 任何 Java 应用都能在简单性,
+可测试性和松耦合等方面从 Spring 中获益</p>
 <p>Spring 采取了以下 4 种关键策略降低 Java 开发的复杂性:</p>
 <ul>
 <li>基于 POJO 的轻量级和最小侵入性编程;</li>
@@ -313,7 +318,10 @@
 <li>通过切面和模板减少样板式代码</li>
 </ul>
 <h2 id="框架">框架</h2>
-<p>在 Spring 4.0 中, <strong>Spring 框架</strong> 的发布版本包括了 20 个不同的模块, 每个模块会有 3 个 JAR 文件 (二进制类库, 源码的 JAR 文件以及 JavaDoc 的 JAR 文件), 这些模块依据其所属的功能可以划分为 6 类不同的功能</p>
+<p>在 Spring 4.0 中, <strong>Spring 框架</strong> 的发布版本包括了 20
+个不同的模块, 每个模块会有 3 个 JAR 文件 (二进制类库, 源码的 JAR
+文件以及 JavaDoc 的 JAR 文件), 这些模块依据其所属的功能可以划分为 6
+类不同的功能</p>
 <ol type="1">
 <li>Spring 核心容器
 <ul>
@@ -355,24 +363,40 @@
 </ul></li>
 </ol>
 <h2 id="容器">容器</h2>
-<p>在基于 Spring 的应用中, 应用对象生存于 <strong>Spring 容器(container)</strong> 中, Spring 容器负责创建对象, 装配它们, 配置它们并管理它们的整个生命周期</p>
-<p>Spring 容器并不是只有一个, Spring 自带了多个容器实现, 可以归为两种不同的类型:</p>
+<p>在基于 Spring 的应用中, 应用对象生存于 <strong>Spring
+容器(container)</strong> 中, Spring 容器负责创建对象, 装配它们,
+配置它们并管理它们的整个生命周期</p>
+<p>Spring 容器并不是只有一个, Spring 自带了多个容器实现,
+可以归为两种不同的类型:</p>
 <ul>
-<li><code>BeanFactory(org.springframework.beans.factory.BeanFactory)</code> 最简单的容器, 提供基本的 DI 支持;</li>
-<li><code>ApplicationContext(org.springframework.context.ApplicationContext)</code> 基于 <code>BeanFactory</code> 构建, 并提供应用框架级别的服务</li>
+<li><code>BeanFactory(org.springframework.beans.factory.BeanFactory)</code>
+最简单的容器, 提供基本的 DI 支持;</li>
+<li><code>ApplicationContext(org.springframework.context.ApplicationContext)</code>
+基于 <code>BeanFactory</code> 构建, 并提供应用框架级别的服务</li>
 </ul>
 <blockquote>
-<p>虽然可以在 <code>BeanFactory</code> 和 <code>ApplicationContext</code> 之间任选一种, 但 <code>BeanFactory</code> 对大多数应用来说往往太低级了, 因此, <code>ApplicationContext</code> 要比 <code>BeanFactory</code> 更受欢迎</p>
+<p>虽然可以在 <code>BeanFactory</code> 和
+<code>ApplicationContext</code> 之间任选一种, 但
+<code>BeanFactory</code> 对大多数应用来说往往太低级了, 因此,
+<code>ApplicationContext</code> 要比 <code>BeanFactory</code>
+更受欢迎</p>
 </blockquote>
 <h2 id="应用上下文">应用上下文</h2>
-<p>Spring 通过 <strong>应用上下文(Application Context)</strong> 装载 bean 的定义并把它们组装起来, Spring 应用上下文全权负责对象的创建和组装</p>
+<p>Spring 通过 <strong>应用上下文(Application Context)</strong> 装载
+bean 的定义并把它们组装起来, Spring
+应用上下文全权负责对象的创建和组装</p>
 <p>Spring 自带了多种类型的应用上下文, 下面罗列几个:</p>
 <ul>
-<li><code>AnnotationConfigApplicationContext</code> 从一个或多个基于 Java 的配置类中加载 Spring 应用上下文;</li>
-<li><code>AnnotationConfigWebApplicationContext</code> 从一个或多个基于 Java 的配置类中加载 Spring Web 应用上下文;</li>
-<li><code>ClassPathXmlApplicationContext</code> 从类路径下的一个或多个 XML 配置文件中加载上下文定义, 把应用上下文的定义文件作为类资源;</li>
-<li><code>FileSystemXmlapplicationcontext</code> 从文件系统下的一个或多个 XML 配置文件中加载上下文定义;</li>
-<li><code>XmlWebApplicationContext</code> 从 Web 应用下的一个或多个 XML 配置文件中加载上下文定义。</li>
+<li><code>AnnotationConfigApplicationContext</code> 从一个或多个基于
+Java 的配置类中加载 Spring 应用上下文;</li>
+<li><code>AnnotationConfigWebApplicationContext</code> 从一个或多个基于
+Java 的配置类中加载 Spring Web 应用上下文;</li>
+<li><code>ClassPathXmlApplicationContext</code> 从类路径下的一个或多个
+XML 配置文件中加载上下文定义, 把应用上下文的定义文件作为类资源;</li>
+<li><code>FileSystemXmlapplicationcontext</code>
+从文件系统下的一个或多个 XML 配置文件中加载上下文定义;</li>
+<li><code>XmlWebApplicationContext</code> 从 Web 应用下的一个或多个 XML
+配置文件中加载上下文定义。</li>
 </ul>
 <pre class="mermaid">graph TB
 title[图 bean在Spring容器中的生命周期过程]
@@ -405,7 +429,10 @@ J --> K
 K --> L
 L --> M</pre>
 <h2 id="装配">装配</h2>
-<p>在 Spring 中, 对象无需自己查找或创建与其所关联的其他对象, 相反, 容器负责把需要相互协作的对象引用赋予各个对象, 创建对象之间协作关系的行为通常称为 <strong>装配(wiring)</strong>, 这也是 <strong>依赖注入(DI)</strong> 的本质</p>
+<p>在 Spring 中, 对象无需自己查找或创建与其所关联的其他对象, 相反,
+容器负责把需要相互协作的对象引用赋予各个对象,
+创建对象之间协作关系的行为通常称为 <strong>装配(wiring)</strong>, 这也是
+<strong>依赖注入(DI)</strong> 的本质</p>
 <p>Spring 提供了三种主要的装配机制:</p>
 <ul>
 <li>在 XML 中进行显示配置;</li>
@@ -419,24 +446,6 @@ L --> M</pre>
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/04/06/spring/002/" rel="bookmark">Spring 002 自动化装配</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/04/07/spring/003/" rel="bookmark">Spring 003 显式装配</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/04/08/spring/004/" rel="bookmark">Spring 004 高级装配</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/04/12/spring/005/" rel="bookmark">Spring 005 AOP</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2019/05/06/spring/006/" rel="bookmark">Spring 006 Web</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -504,7 +513,7 @@ L --> M</pre>
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -516,7 +525,7 @@ L --> M</pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -560,7 +569,7 @@ L --> M</pre>
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

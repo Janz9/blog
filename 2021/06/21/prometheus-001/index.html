@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,21 +25,20 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Prometheus 主要用于提供近实时的, 基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus 专注于现在正在发生的事情, 而不是追踪数周或数月前的数据, 它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的 Prometheus 主要由 6 个核心模块构成:  Prometheus Server 是最核心的模块, 它主要包含抓取, 存储和查询这">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Prometheus 主要用于提供近实时的, 基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus 专注于现在正在发生的事情, 而不是追踪数周或数月前的数据, 它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的 Prometheus 主要由 6 个核心模块构成:  Prometheus Server 是最核心的模块, 它主要包含抓取, 存储和查询这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus 入门">
 <meta property="og:url" content="https://janz.icu/2021/06/21/prometheus-001/index.html">
 <meta property="og:site_name" content="Jbot">
 <meta property="og:description" content="Prometheus 主要用于提供近实时的, 基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus 专注于现在正在发生的事情, 而不是追踪数周或数月前的数据, 它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的 Prometheus 主要由 6 个核心模块构成:  Prometheus Server 是最核心的模块, 它主要包含抓取, 存储和查询这">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg">
 <meta property="article:published_time" content="2021-06-21T02:57:40.000Z">
-<meta property="article:modified_time" content="2021-07-18T23:13:14.494Z">
+<meta property="article:modified_time" content="2021-10-29T07:29:57.315Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="Prometheus">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg">
 
 
 <link rel="canonical" href="https://janz.icu/2021/06/21/prometheus-001/">
@@ -52,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Prometheus 入门 | Jbot</title>
   
+
 
 
 
@@ -79,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -255,13 +254,13 @@
 
       <time title="创建时间：2021-06-21 10:57:40" itemprop="dateCreated datePublished" datetime="2021-06-21T10:57:40+08:00">2021-06-21</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-19 07:13:14" itemprop="dateModified" datetime="2021-07-19T07:13:14+08:00">2021-07-19</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-10-29 15:29:57" itemprop="dateModified" datetime="2021-10-29T15:29:57+08:00">2021-10-29</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -305,150 +304,275 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="入门">入门</h1>
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a> 主要用于提供近实时的, 基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus 专注于现在正在发生的事情, 而不是追踪数周或数月前的数据, 它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的</p>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a> 主要用于提供近实时的,
+基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus
+专注于现在正在发生的事情, 而不是追踪数周或数月前的数据,
+它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的</p>
 <p>Prometheus 主要由 6 个核心模块构成:</p>
 <ul>
-<li><strong>Prometheus Server</strong> 是最核心的模块, 它主要包含抓取, 存储和查询这 3 个功能, 通过静态配置或服务发现监控的目标, 周期性的从 Prometheus Targets 或 Pushgateway 拉取监控指标数据, 数据通过一定的规则清理和数据整理后, 存储到新的时间序列中进行持久化, 之后客户端就可以通过 PromQL 语句对数据进行查询</li>
-<li><strong>Service Discovery</strong> 支持通过文件配置静态地址或服务发现的目标, 相对于直接使用文件配置, 在云环境以及容器环境下更多的监控对象都是动态的, 实际场景下, Prometheus 更适合云以及容器环境下的监控需求</li>
-<li><strong>Prometheus Targets</strong> 是 Prometheus 监控的对象, 对于长时间执行的 Job, 可以使用 Exporter 集成进行监控, Exporter 的机制是将第三方系统的监控数据按照 Prometheus 的格式暴露出来, Prometheus 是拉模式为主的监控系统</li>
-<li><strong>Pushgateway</strong> 是用于支持临时性 Job 主动推送指标的中间网关, 它使用推模式收集数据, 本质上是用于解决 Prometheus 服务器和监控目标有网络隔离的场景</li>
-<li><strong>Dashboard</strong> 除了内置的查询语言 PromQL 以外, Prometheus 还支持表达式浏览器和基于表达式浏览器的数据图形界面, 实际工作中使用 Grafana 等作为前端展示界面</li>
-<li><strong>AlertManager</strong> 是独立于 Prometheus 的一个告警组件, 需要单独安装部署, AlertManager 通过接收 Prometheus 推送过来的告警, 用于管理, 整合和分发告警到不同的目的地, AlertManager 提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook 通知的支持</li>
+<li><strong>Prometheus Server</strong> 是最核心的模块, 它主要包含抓取,
+存储和查询这 3 个功能, 通过静态配置或服务发现监控的目标, 周期性的从
+Prometheus Targets 或 Pushgateway 拉取监控指标数据,
+数据通过一定的规则清理和数据整理后, 存储到新的时间序列中进行持久化,
+之后客户端就可以通过 PromQL 语句对数据进行查询</li>
+<li><strong>Service Discovery</strong>
+支持通过文件配置静态地址或服务发现的目标, 相对于直接使用文件配置,
+在云环境以及容器环境下更多的监控对象都是动态的, 实际场景下, Prometheus
+更适合云以及容器环境下的监控需求</li>
+<li><strong>Prometheus Targets</strong> 是 Prometheus 监控的对象,
+对于长时间执行的 Job, 可以使用 Exporter 集成进行监控, Exporter
+的机制是将第三方系统的监控数据按照 Prometheus 的格式暴露出来, Prometheus
+是拉模式为主的监控系统</li>
+<li><strong>Pushgateway</strong> 是用于支持临时性 Job
+主动推送指标的中间网关, 它使用推模式收集数据, 本质上是用于解决
+Prometheus 服务器和监控目标有网络隔离的场景</li>
+<li><strong>Dashboard</strong> 除了内置的查询语言 PromQL 以外,
+Prometheus 还支持表达式浏览器和基于表达式浏览器的数据图形界面,
+实际工作中使用 Grafana 等作为前端展示界面</li>
+<li><strong>AlertManager</strong> 是独立于 Prometheus 的一个告警组件,
+需要单独安装部署, AlertManager 通过接收 Prometheus 推送过来的告警,
+用于管理, 整合和分发告警到不同的目的地, AlertManager
+提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook
+通知的支持</li>
 </ul>
 <figure>
-<img data-src="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg" alt="Prometheus 架构图" /><figcaption aria-hidden="true">Prometheus 架构图</figcaption>
+<img
+src="https://cdn.jsdelivr.net/gh/prometheus/prometheus@428e1ad42c8f6477037e7baf313209a59ad4450a/documentation/images/architecture.svg"
+alt="Prometheus 架构图" />
+<figcaption aria-hidden="true">Prometheus 架构图</figcaption>
 </figure>
 <h2 id="安装">安装</h2>
-<p>Prometheus 官网提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/releases">releases</a>, 也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/prometheus">prom/prometheus</a>, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/installation/">installation</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: docekr部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d</span></span><br><span class="line">  -p 9090:9090</span><br><span class="line">  -v prometheus.yml:/etc/prometheus/prometheus.yml</span><br><span class="line">  prom/prometheus</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 使用包管理器安装</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> scoop install prometheus  <span class="comment"># windows</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew  install prometheus  <span class="comment"># macos</span></span></span><br></pre></td></tr></table></figure>
+<p>Prometheus 官网提供了预编译的二进制文件 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/releases">releases</a>,
+也支持使用容器的方式部署 <a
+target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/prometheus">prom/prometheus</a>,
+详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/installation/">installation</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: docekr部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d</span></span><br><span class="line">  -p 9090:9090</span><br><span class="line">  -v prometheus.yml:/etc/prometheus/prometheus.yml</span><br><span class="line">  prom/prometheus</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 使用包管理器安装</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">scoop install prometheus  <span class="comment"># windows</span></span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">brew  install prometheus  <span class="comment"># macos</span></span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>除了单独安装外, 部署 Prometheus 的最佳方式在很大程度上取决于服务器的实际环境, 开发者可以使用配置文件来构建自己的部署并将 Prometheus 打包成服务</p>
+<p>除了单独安装外, 部署 Prometheus
+的最佳方式在很大程度上取决于服务器的实际环境,
+开发者可以使用配置文件来构建自己的部署并将 Prometheus 打包成服务</p>
 </blockquote>
 <p>集成好的监控套件, 以下是一些服务整合的配置</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/vegasbrianc/prometheus">vegasbrianc/prometheus</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/danguita/prometheus-monitoring-stack">danguita/prometheus-monitoring-stack</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/robinong79/docker-swarm-monitoring">robinong79/docker-swarm-monitoring</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/vegasbrianc/prometheus">vegasbrianc/prometheus</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/danguita/prometheus-monitoring-stack">danguita/prometheus-monitoring-stack</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/robinong79/docker-swarm-monitoring">robinong79/docker-swarm-monitoring</a></li>
 </ul>
 <p>管理工具配置的监控, 以下是一些管理工具的扩展</p>
 <ul>
-<li>Puppet <a target="_blank" rel="noopener" href="https://forge.puppet.com/modules/puppet/prometheus">puppet/prometheus</a></li>
-<li>Chef <a target="_blank" rel="noopener" href="https://github.com/elijah/chef-prometheus">elijah/chef-prometheus</a></li>
-<li>Ansible <a target="_blank" rel="noopener" href="https://github.com/cloudalchemy/ansible-prometheus">cloudalchemy/ansible-prometheus</a></li>
-<li>SaltStack <a target="_blank" rel="noopener" href="https://github.com/saltstack-formulas/prometheus-formula">saltstack-formulas/prometheus-formula</a></li>
+<li>Puppet <a
+target="_blank" rel="noopener" href="https://forge.puppet.com/modules/puppet/prometheus">puppet/prometheus</a></li>
+<li>Chef <a
+target="_blank" rel="noopener" href="https://github.com/elijah/chef-prometheus">elijah/chef-prometheus</a></li>
+<li>Ansible <a
+target="_blank" rel="noopener" href="https://github.com/cloudalchemy/ansible-prometheus">cloudalchemy/ansible-prometheus</a></li>
+<li>SaltStack <a
+target="_blank" rel="noopener" href="https://github.com/saltstack-formulas/prometheus-formula">saltstack-formulas/prometheus-formula</a></li>
 </ul>
 <p>可以通过 Kubernetes 集群部署</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/kayrus/prometheus-kubernetes">kayrus/prometheus-kubernetes</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/prometheus-operator">prometheus-operator/prometheus-operator</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/kayrus/prometheus-kubernetes">kayrus/prometheus-kubernetes</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/prometheus-operator/prometheus-operator">prometheus-operator/prometheus-operator</a></li>
 </ul>
 <h3 id="配置">配置</h3>
-<p>Prometheus 通过 YAML 文件来配置, 初始的配置文件 <code>prometheus.yml</code> 位于执行文件的根目录, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file">configuration</a></p>
+<p>Prometheus 通过 YAML 文件来配置, 初始的配置文件
+<code>prometheus.yml</code> 位于执行文件的根目录, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#configuration-file">configuration</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: prometheus.yml</span></span><br><span class="line"><span class="attr">global:</span>  <span class="comment"># 全局配置</span></span><br><span class="line">  <span class="attr">scrape_interval:</span>     <span class="string">15s</span>  <span class="comment"># 指定应用程序或服务抓取数据的时间间隔, 默认1m</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span>  <span class="comment"># 指定评估规则的频率, 默认1m</span></span><br><span class="line"></span><br><span class="line"><span class="attr">alerting:</span>  <span class="comment"># 告警配置</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">          <span class="comment"># - alertmanager:9093</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rule_files:</span>  <span class="comment"># 指定包含记录规则或警报规则的文件列表</span></span><br><span class="line"><span class="comment"># - &quot;first_rules.yml&quot;</span></span><br><span class="line"><span class="comment"># - &quot;second_rules.yml&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">scrape_configs:</span>  <span class="comment"># 指定抓取的所有目标</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;prometheus&#x27;</span>  <span class="comment"># 默认配置中定义了监控Prometheus服务自身的作业</span></span><br><span class="line">    <span class="comment"># metrics_path defaults to &#x27;/metrics&#x27;</span></span><br><span class="line">    <span class="comment"># scheme defaults to &#x27;http&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;localhost:9090&#x27;</span>]  <span class="comment"># 通过静态方式配置抓取的端点, 每个地址对应一个目标</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prometheus将它抓取的指标的数据源称为端点, 为了抓取这些端点的数据, Prometheus定义了目标, 这个目标里包含的信息是抓取数据所必需的, 比如用到的标签, 建立连接所需的身份验证, 或者其他定义数据抓取的信息, 若干目标构成的组称为作业, 作业里每个目标都有一个名为实例的标签, 用来唯一标识这个目标</span></span><br></pre></td></tr></table></figure>
-<p>YAML 配置非常复杂, 建议通过 Prometheus 附带的代码校验工具 <code>promtool</code> 来验证 YAML 配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 验证配置文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> promtool check config prometheus.yml</span></span><br></pre></td></tr></table></figure>
-<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/config">/config</a> 查看当前服务使用的配置信息</p>
+<p>YAML 配置非常复杂, 建议通过 Prometheus 附带的代码校验工具
+<code>promtool</code> 来验证 YAML 配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 验证配置文件</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">promtool check config prometheus.yml</span></span><br></pre></td></tr></table></figure>
+<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/config">/config</a>
+查看当前服务使用的配置信息</p>
 <h3 id="认证">认证</h3>
-<p>Prometheus 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code> 指定配置文件, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/https/">authentication</a></p>
+<p>Prometheus 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code>
+指定配置文件, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/https/">authentication</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 认证配置</span></span><br><span class="line"><span class="attr">basic_auth_users:</span></span><br><span class="line">  <span class="attr">admin:</span> <span class="string">$2y$10$mDwo.lAisC94iLAyP81MCesa29IzH37oigHC/42V2pdJlUprsJPze</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>密码参考 <a target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
+<p>密码参考 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 验证认证配置</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> promtool check web-config web-config.yml</span></span><br></pre></td></tr></table></figure>
-<p>使用 Nginx 反向代理 Prometheus 时, 配置 basic 认证和 TLS 的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/basic-auth/">basic</a> <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/tls-encryption/">tls</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 验证认证配置</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">promtool check web-config web-config.yml</span></span><br></pre></td></tr></table></figure>
+<p>使用 Nginx 反向代理 Prometheus 时, 配置 basic 认证和 TLS 的示例, 参考
+<a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/basic-auth/">basic</a> <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/tls-encryption/">tls</a></p>
 <h3 id="启动">启动</h3>
-<p>通过运行 <code>prometheus</code> 执行文件启动服务, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/getting_started/#starting-prometheus">starting</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 启动服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> prometheus</span></span><br><span class="line">  --config.file=&quot;./prometheus.yml&quot;      # 指定配置文件, 默认使用根目录中初始的配置文件</span><br><span class="line">  --web.config.file=&quot;./web-config.yml&quot;  # 指定认证配置</span><br><span class="line">  --web.enable-lifecycle                # 开启管理API的端点</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可通过-h选项查看帮助内容</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 通过端点关闭服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -X POST http://localhost:9090/-/quit</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 前提启动时指定选项--web.enable-lifecycle</span></span><br></pre></td></tr></table></figure>
-<p>服务启动之后, 可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/targets">/targets</a> 查看当前的监控目标列表</p>
-<p>初始配置中只有一个作业 <code>prometheus</code> 的监控目标, 目标的监控数据从本地的 <code>9090</code> 端口返回指标, 可以通过配置的端点默认值 <a target="_blank" rel="noopener" href="http://localhost:9090/metrics">/metrics</a> 查看抓取的指标数据</p>
-<p>Prometheus 提供了一组管理 API, 以促进自动化和集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/management_api/">management-api</a></p>
+<p>通过运行 <code>prometheus</code> 执行文件启动服务, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/getting_started/#starting-prometheus">starting</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 启动服务</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">prometheus</span></span><br><span class="line">  --config.file=&quot;./prometheus.yml&quot;      # 指定配置文件, 默认使用根目录中初始的配置文件</span><br><span class="line">  --web.config.file=&quot;./web-config.yml&quot;  # 指定认证配置</span><br><span class="line">  --web.enable-lifecycle                # 开启管理API的端点</span><br><span class="line"><span class="meta"># </span><span class="language-bash">可通过-h选项查看帮助内容</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 通过端点关闭服务</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">curl -X POST http://localhost:9090/-/quit</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">前提启动时指定选项--web.enable-lifecycle</span></span><br></pre></td></tr></table></figure>
+<p>服务启动之后, 可以在控制台 <a
+target="_blank" rel="noopener" href="http://localhost:9090/targets">/targets</a>
+查看当前的监控目标列表</p>
+<p>初始配置中只有一个作业 <code>prometheus</code> 的监控目标,
+目标的监控数据从本地的 <code>9090</code> 端口返回指标,
+可以通过配置的端点默认值 <a
+target="_blank" rel="noopener" href="http://localhost:9090/metrics">/metrics</a> 查看抓取的指标数据</p>
+<p>Prometheus 提供了一组管理 API, 以促进自动化和集成, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/management_api/">management-api</a></p>
 <ul>
 <li><code>GET /-/healthy</code> 该端点用于显示服务的健康状态</li>
-<li><code>GET /-/ready</code> 当服务准备好时, 该端点返回 <code>200</code> 状态码</li>
-<li><code>POST /-/reload</code> 该端点用于触发重新加载服务的配置和规则文件</li>
+<li><code>GET /-/ready</code> 当服务准备好时, 该端点返回
+<code>200</code> 状态码</li>
+<li><code>POST /-/reload</code>
+该端点用于触发重新加载服务的配置和规则文件</li>
 <li><code>POST /-/quit</code> 该端点用于触发服务正常关闭</li>
 </ul>
 <h2 id="作业">作业</h2>
-<p>在 Prometheus 中可以获取的端点称为实例(instance), 通常对应于单个进程, 具有相同目的的实例集合称为作业(job), 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/jobs_instances/">jobs</a></p>
+<p>在 Prometheus 中可以获取的端点称为实例(instance), 通常对应于单个进程,
+具有相同目的的实例集合称为作业(job), 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/jobs_instances/">jobs</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 静态配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;jenkins&#x27;</span>         <span class="comment"># 配置作业名称</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">&#x27;prometheus&#x27;</span>  <span class="comment"># 配置获取指标的资源路径</span></span><br><span class="line">    <span class="attr">scheme:</span> <span class="string">http</span>                <span class="comment"># 配置请求使用的协议</span></span><br><span class="line">    <span class="attr">basic_auth:</span>                 <span class="comment"># 配置认证</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">&#x27;xxxxxx&#x27;</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&#x27;xxxxxx&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span>             <span class="comment"># 静态配置</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span>                <span class="comment"># 配置目标组</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;127.0.0.1:8080&#x27;</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&#x27;127.0.0.1:8081&#x27;</span></span><br></pre></td></tr></table></figure>
 <h3 id="服务发现">服务发现</h3>
-<p>在基于云的基础设施环境中, 应用可以随着定义的规则动态的创建或者销毁, 从而自适应访问规模的变化, 这种按需的资源使用方式对于监控系统而言就意味着没有一个固定的监控目标, Prometheus 的解决方案是引入服务发现(service discovery) 的模式</p>
+<p>在基于云的基础设施环境中, 应用可以随着定义的规则动态的创建或者销毁,
+从而自适应访问规模的变化,
+这种按需的资源使用方式对于监控系统而言就意味着没有一个固定的监控目标,
+Prometheus 的解决方案是引入服务发现(service discovery) 的模式</p>
 <h4 id="基于文件">基于文件</h4>
-<p>基于文件的服务发现不需要依赖其它的平台或第三方服务, 因此可以通过与自动化配置管理工具结合使用, 将监控目标的信息写入文件, Prometheus 就会定时从文件中读取最新的目标信息, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/file-sd/">file-sd</a></p>
+<p>基于文件的服务发现不需要依赖其它的平台或第三方服务,
+因此可以通过与自动化配置管理工具结合使用, 将监控目标的信息写入文件,
+Prometheus 就会定时从文件中读取最新的目标信息, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/file-sd/">file-sd</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 基于文件的配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;file_ds&#x27;</span></span><br><span class="line">    <span class="attr">file_sd_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">refresh_interval:</span> <span class="string">5m</span>   <span class="comment"># 读取文件的频率, 默认5分钟</span></span><br><span class="line">        <span class="attr">files:</span> [<span class="string">targets.json</span>]  <span class="comment"># 包含目标信息的文件</span></span><br></pre></td></tr></table></figure>
 <h4 id="基于-http">基于 http</h4>
-<p>基于 http 协议的服务发现提供了更通用的方式获取目标信息, 它能够通过接口的端点获取目标信息, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/http_sd/">http-sd</a></p>
+<p>基于 http 协议的服务发现提供了更通用的方式获取目标信息,
+它能够通过接口的端点获取目标信息, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/http_sd/">http-sd</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 基于HTTP的配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;http_ds&#x27;</span></span><br><span class="line">    <span class="attr">http_sd_config:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">&#x27;http://example.com/prometheus&#x27;</span>  <span class="comment"># 用于获取目标信息的端点</span></span><br></pre></td></tr></table></figure>
 <h4 id="基于服务中心">基于服务中心</h4>
-<p>Prometheus 支持多种常用的服务发现组件, 如 Kubernetes, Zookeeper, Azure, Consul 等, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/blog/2015/06/01/advanced-service-discovery/">service-discovery</a></p>
+<p>Prometheus 支持多种常用的服务发现组件, 如 Kubernetes, Zookeeper,
+Azure, Consul 等, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/blog/2015/06/01/advanced-service-discovery/">service-discovery</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 基于consul的配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">service-y</span></span><br><span class="line">    <span class="attr">consul_sd_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">server:</span> <span class="string">&#x27;localhost:1234&#x27;</span></span><br><span class="line">        <span class="attr">token:</span> <span class="string">mysecret</span></span><br><span class="line">        <span class="attr">services:</span> [<span class="string">&#x27;nginx&#x27;</span>, <span class="string">&#x27;cache&#x27;</span>, <span class="string">&#x27;mysql&#x27;</span>]</span><br><span class="line">        <span class="attr">tags:</span> [<span class="string">&quot;canary&quot;</span>, <span class="string">&quot;v1&quot;</span>]</span><br><span class="line">        <span class="attr">node_meta:</span></span><br><span class="line">          <span class="attr">rack:</span> <span class="string">&quot;123&quot;</span></span><br><span class="line">        <span class="attr">allow_stale:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">scheme:</span> <span class="string">https</span></span><br><span class="line">        <span class="attr">tls_config:</span></span><br><span class="line">          <span class="attr">ca_file:</span> <span class="string">valid_ca_file</span></span><br><span class="line">          <span class="attr">cert_file:</span> <span class="string">valid_cert_file</span></span><br><span class="line">          <span class="attr">key_file:</span>  <span class="string">valid_key_file</span></span><br><span class="line">          <span class="attr">insecure_skip_verify:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 <h2 id="规则">规则</h2>
-<p>Prometheus 中可以定期执行的两种规则为 <strong>记录规则(recording rules)</strong> 和 <strong>告警规则(alerting rules)</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 验证规则文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> promtool check rules rules/*.yml</span></span><br></pre></td></tr></table></figure>
+<p>Prometheus 中可以定期执行的两种规则为 <strong>记录规则(recording
+rules)</strong> 和 <strong>告警规则(alerting rules)</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 验证规则文件</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">promtool check rules rules/*.yml</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: prometheus.yml</span></span><br><span class="line"><span class="attr">rule_files:</span>  <span class="comment"># 指定包含记录规则或警报规则的文件列表</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;rules/node.rules.yml&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;rules/instance.alerts.yml&quot;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 重载配置和规则文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -X POST http://localhost:9090/-/reload</span></span><br></pre></td></tr></table></figure>
-<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/rules">/rules</a> 查看配置的规则列表, 每一条规则都提供了一个可供参考的评估时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 重载配置和规则文件</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">curl -X POST http://localhost:9090/-/reload</span></span><br></pre></td></tr></table></figure>
+<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/rules">/rules</a>
+查看配置的规则列表, 每一条规则都提供了一个可供参考的评估时间</p>
 <h3 id="记录规则">记录规则</h3>
-<p>记录规则可以预先计算经常需要或计算量大的表达式, 并将结果保存为一组新的时间序列, 由此实现对复杂查询语句的性能优化并提高查询效率, 查询预计算的结果通常在速率上比每次执行原始表达式要快得多, 这对于仪表板特别有用, 仪表板每次刷新时都需要重复查询相同的表达式, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/">recording-rules</a></p>
-<p>记录规则在规则组中定义, 规则组中的规则是按顺序执行的, 可以根据规则创建指标, 并在后面的规则中重用这些指标, 这个特性仅在规则组内使用, 不适用于并行关系的规则组之间</p>
+<p>记录规则可以预先计算经常需要或计算量大的表达式,
+并将结果保存为一组新的时间序列,
+由此实现对复杂查询语句的性能优化并提高查询效率,
+查询预计算的结果通常在速率上比每次执行原始表达式要快得多,
+这对于仪表板特别有用, 仪表板每次刷新时都需要重复查询相同的表达式, 详见
+<a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/">recording-rules</a></p>
+<p>记录规则在规则组中定义, 规则组中的规则是按顺序执行的,
+可以根据规则创建指标, 并在后面的规则中重用这些指标,
+这个特性仅在规则组内使用, 不适用于并行关系的规则组之间</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: rules/node.rules.yml</span></span><br><span class="line"><span class="attr">groups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node_rules</span>  <span class="comment"># 规则组名称, 在服务器上必须是唯一的</span></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">      <span class="comment"># 记录每个实例的每个模式的CPU使用率</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">record:</span> <span class="string">instance_mode:node_cpu_seconds_total:rate5m</span>                   <span class="comment"># 规则的命名</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">sum</span> <span class="string">without(cpu)(rate(node_cpu_seconds_total&#123;job=&quot;node&quot;&#125;[5m]))</span>  <span class="comment"># 生成新时间序列的查询</span></span><br><span class="line">      <span class="comment"># 记录所有实例的每个模式的CPU使用率</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">record:</span> <span class="string">mode:node_cpu_seconds_total:rate5m</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">sum</span> <span class="string">without(instance)(instance_mode:node_cpu_seconds_total:rate5m)</span></span><br></pre></td></tr></table></figure>
 <h3 id="告警规则">告警规则</h3>
-<p>告警规则可以基于 PromQL 表达式定义告警条件, 并将有关触发告警的通知发送到外部服务器, 只要告警表达式在给定的时间点生成一个或多个矢量元素, 告警就被这些元素的标签集视为处于活动状态, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting-rules</a></p>
-<p>在告警中可以使用模板, 模板使用标准的 Go 语法, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/template_examples/">template</a></p>
+<p>告警规则可以基于 PromQL 表达式定义告警条件,
+并将有关触发告警的通知发送到外部服务器,
+只要告警表达式在给定的时间点生成一个或多个矢量元素,
+告警就被这些元素的标签集视为处于活动状态, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">alerting-rules</a></p>
+<p>在告警中可以使用模板, 模板使用标准的 Go 语法, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/template_examples/">template</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: rules/instance.alerts.yml</span></span><br><span class="line"><span class="attr">groups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">instance_alerts</span></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">InstanceDown</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">5m</span>       <span class="comment"># 控制在触发告警之前表达式必须满足的持续时间</span></span><br><span class="line">        <span class="attr">annotations:</span>  <span class="comment"># 指定信息标签, 可用于存储更长的附加信息, 例如告警描述等</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;Instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> down&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> has been down for more than 5 minutes.&quot;</span></span><br></pre></td></tr></table></figure>
-<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/alerts">/alerts</a> 查看监控中的告警列表, 告警规则有三种状态:</p>
+<p>可以在控制台 <a target="_blank" rel="noopener" href="http://localhost:9090/alerts">/alerts</a>
+查看监控中的告警列表, 告警规则有三种状态:</p>
 <ul>
 <li>非活动(Inactive) 没有触发阈值</li>
 <li>挂起(Pending) 已触发阈值但未满足告警的持续时间</li>
 <li>触发(Firing) 已触发阈值且满足告警的持续时间</li>
 </ul>
 <h2 id="存储">存储</h2>
-<p>Prometheus 包括一个本地磁盘上的时间序列数据库, 但也可以选择与远程存储系统集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/storage/">storage</a></p>
+<p>Prometheus 包括一个本地磁盘上的时间序列数据库,
+但也可以选择与远程存储系统集成, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/storage/">storage</a></p>
 <h3 id="本地存储">本地存储</h3>
-<p>Prometheus 存储层使用 Prometheus TSDB 的本地存储, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/tree/main/tsdb">prometheus-tsdb</a></p>
-<p>TSDB 工具已包含在 <code>promtool</code> 中, 可以用于分析和监测数据库中条目的流失(churn) 和基数(cardinality)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 帮助文档</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> promtool -h</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 截取输出tsdb相关的命令</span></span><br><span class="line">Commands:</span><br><span class="line">  tsdb bench write [&lt;flags&gt;] [&lt;file&gt;]</span><br><span class="line">    Run a write performance benchmark.</span><br><span class="line">  tsdb analyze [&lt;flags&gt;] [&lt;db path&gt;] [&lt;block id&gt;]</span><br><span class="line">    Analyze churn, label pair cardinality.</span><br><span class="line">  tsdb list [&lt;flags&gt;] [&lt;db path&gt;]</span><br><span class="line">    List tsdb blocks.</span><br><span class="line">  tsdb dump [&lt;flags&gt;] [&lt;db path&gt;]</span><br><span class="line">    Dump samples from a TSDB.</span><br><span class="line">  tsdb create-blocks-from openmetrics &lt;input file&gt; [&lt;output directory&gt;]</span><br><span class="line">    Import samples from OpenMetrics input and produce TSDB blocks. Please refer to the storage docs for more details.</span><br></pre></td></tr></table></figure>
+<p>Prometheus 存储层使用 Prometheus TSDB 的本地存储, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/tree/main/tsdb">prometheus-tsdb</a></p>
+<p>TSDB 工具已包含在 <code>promtool</code> 中,
+可以用于分析和监测数据库中条目的流失(churn) 和基数(cardinality)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 帮助文档</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">promtool -h</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">截取输出tsdb相关的命令</span></span><br><span class="line">Commands:</span><br><span class="line">  tsdb bench write [&lt;flags&gt;] [&lt;file&gt;]</span><br><span class="line">    Run a write performance benchmark.</span><br><span class="line">  tsdb analyze [&lt;flags&gt;] [&lt;db path&gt;] [&lt;block id&gt;]</span><br><span class="line">    Analyze churn, label pair cardinality.</span><br><span class="line">  tsdb list [&lt;flags&gt;] [&lt;db path&gt;]</span><br><span class="line">    List tsdb blocks.</span><br><span class="line">  tsdb dump [&lt;flags&gt;] [&lt;db path&gt;]</span><br><span class="line">    Dump samples from a TSDB.</span><br><span class="line">  tsdb create-blocks-from openmetrics &lt;input file&gt; [&lt;output directory&gt;]</span><br><span class="line">    Import samples from OpenMetrics input and produce TSDB blocks. Please refer to the storage docs for more details.</span><br></pre></td></tr></table></figure>
 <h4 id="结构">结构</h4>
-<p>Prometheus 采集的数据默认保存在根目录的 <code>data</code> 文件夹中, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/blob/release-2.22/tsdb/docs/format/README.md">format</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 打印data结构</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tree ./data</span></span><br><span class="line">data</span><br><span class="line">├── 01F8YGFNET4KZSJ5AJGBWJVRMB  # 数据块</span><br><span class="line">│     ├── chunks               # 样本数据</span><br><span class="line">│     │     └── 000001</span><br><span class="line">│     ├── index                # 索引文件</span><br><span class="line">│     ├── meta.json            # 元数据文件</span><br><span class="line">│     └── tombstones           # 里程碑文件</span><br><span class="line">├── 01F8YKYX0S8QQWCKC0BAJYX8B2</span><br><span class="line">├── 01F8YTTPQH6FPXY4N68F2CG2JK</span><br><span class="line">├── 01F8Z1PE0BVDXM5YCFFYDY840P</span><br><span class="line">├── 01F8Z8J586KGS1WMNW7HCXB18P</span><br><span class="line">├── chunks_head</span><br><span class="line">├── lock</span><br><span class="line">├── queries.active</span><br><span class="line">└── wal                         # 预写日志</span><br><span class="line">       ├── 00000002</span><br><span class="line">       ├── 00000003</span><br><span class="line">       └── checkpoint.00000001  # 检查点</span><br></pre></td></tr></table></figure>
+<p>Prometheus 采集的数据默认保存在根目录的 <code>data</code> 文件夹中,
+详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/blob/release-2.22/tsdb/docs/format/README.md">format</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 打印data结构</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">tree ./data</span></span><br><span class="line">data</span><br><span class="line">├── 01F8YGFNET4KZSJ5AJGBWJVRMB  # 数据块</span><br><span class="line">│     ├── chunks               # 样本数据</span><br><span class="line">│     │     └── 000001</span><br><span class="line">│     ├── index                # 索引文件</span><br><span class="line">│     ├── meta.json            # 元数据文件</span><br><span class="line">│     └── tombstones           # 里程碑文件</span><br><span class="line">├── 01F8YKYX0S8QQWCKC0BAJYX8B2</span><br><span class="line">├── 01F8YTTPQH6FPXY4N68F2CG2JK</span><br><span class="line">├── 01F8Z1PE0BVDXM5YCFFYDY840P</span><br><span class="line">├── 01F8Z8J586KGS1WMNW7HCXB18P</span><br><span class="line">├── chunks_head</span><br><span class="line">├── lock</span><br><span class="line">├── queries.active</span><br><span class="line">└── wal                         # 预写日志</span><br><span class="line">       ├── 00000002</span><br><span class="line">       ├── 00000003</span><br><span class="line">       └── checkpoint.00000001  # 检查点</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>数据块(block)</p>
-<p>TSDB 中默认每 2 小时为一个时间窗口, 产生的数据存储在一个数据块中, 数据块会定期压缩, 合并和清理, 每个数据块都拥有全局唯一的名称, 这是通过 <a target="_blank" rel="noopener" href="https://github.com/ulid/spec">ULID</a> 原理生成的</p>
+<p>TSDB 中默认每 2 小时为一个时间窗口, 产生的数据存储在一个数据块中,
+数据块会定期压缩, 合并和清理, 每个数据块都拥有全局唯一的名称, 这是通过
+<a target="_blank" rel="noopener" href="https://github.com/ulid/spec">ULID</a> 原理生成的</p>
 <ul>
 <li><p>样本数据(chunks)</p>
-<p>保存时序数据的目录, 按文件大小 <code>512MB</code> 存为多个文件, 通过数字编号命名</p></li>
+<p>保存时序数据的目录, 按文件大小 <code>512MB</code> 存为多个文件,
+通过数字编号命名</p></li>
 <li><p>索引(index)</p>
-<p>该文件是 TSDB 实现高效查询的基础, 可以通过指标名称(metrics name) 和标签(labels) 查找时序数据在样本数据中的位置</p></li>
+<p>该文件是 TSDB 实现高效查询的基础, 可以通过指标名称(metrics name)
+和标签(labels) 查找时序数据在样本数据中的位置</p></li>
 <li><p>元数据(meta.json)</p>
 <p>数据块的元数据, 该文件记录的信息用于数据块的合并和清理等操作</p></li>
 <li><p>里程碑(tombstones)</p>
-<p>该文件用于对数据进行软删除, TSDB 采用标记删除的策略来降低删除操作的成本</p></li>
+<p>该文件用于对数据进行软删除, TSDB
+采用标记删除的策略来降低删除操作的成本</p></li>
 </ul></li>
 <li><p>预写日志(wal)</p>
-<p>TSDB 的关键点是先写日志再写磁盘, 使用预写日志(write-ahead logging) 技术可以方便的进行回滚, 重试数据等操作, 保证数据可靠性, 日志按文件大小 <code>128MB</code> 分为多个文件段, 这些文件包括还没有被压缩的原始数据, 所以比常规的数据块文件大得多</p>
+<p>TSDB 的关键点是先写日志再写磁盘, 使用预写日志(write-ahead logging)
+技术可以方便的进行回滚, 重试数据等操作, 保证数据可靠性, 日志按文件大小
+<code>128MB</code> 分为多个文件段, 这些文件包括还没有被压缩的原始数据,
+所以比常规的数据块文件大得多</p>
 <ul>
 <li><p>检查点(checkpoint)</p>
-<p>该文件用于对日志数量进行控制, 它用于日志定期压缩和清理, 目的是减少宕机后恢复的时长, 降低磁盘占用率</p></li>
+<p>该文件用于对日志数量进行控制, 它用于日志定期压缩和清理,
+目的是减少宕机后恢复的时长, 降低磁盘占用率</p></li>
 </ul></li>
 </ul>
 <h4 id="配置-1">配置</h4>
-<p>Prometheus 将时间序列及其样本存储在磁盘上, 鉴于磁盘空间是有限的资源, Prometheus 提供了几个参数来修改本地存储的配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 可选配置</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> prometheus -h</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 截取输出storage.tsdb相关的命令</span></span><br><span class="line">Flags:</span><br><span class="line">      --storage.tsdb.path=&quot;data/&quot;  </span><br><span class="line">                                 Base path for metrics storage.</span><br><span class="line">      --storage.tsdb.retention=STORAGE.TSDB.RETENTION  </span><br><span class="line">                                 [DEPRECATED] How long to retain samples in storage. This flag has been deprecated, use</span><br><span class="line">                                 &quot;storage.tsdb.retention.time&quot; instead.</span><br><span class="line">      --storage.tsdb.retention.time=STORAGE.TSDB.RETENTION.TIME  </span><br><span class="line">                                 How long to retain samples in storage. When this flag is set it overrides</span><br><span class="line">                                 &quot;storage.tsdb.retention&quot;. If neither this flag nor &quot;storage.tsdb.retention&quot; nor</span><br><span class="line">                                 &quot;storage.tsdb.retention.size&quot; is set, the retention time defaults to 15d. Units Supported: y, w,</span><br><span class="line">                                 d, h, m, s, ms.</span><br><span class="line">      --storage.tsdb.retention.size=STORAGE.TSDB.RETENTION.SIZE  </span><br><span class="line">                                 [EXPERIMENTAL] Maximum number of bytes that can be stored for blocks. A unit is required,</span><br><span class="line">                                 supported units: B, KB, MB, GB, TB, PB, EB. Ex: &quot;512MB&quot;. This flag is experimental and can be</span><br><span class="line">                                 changed in future releases.</span><br><span class="line">      --storage.tsdb.no-lockfile  </span><br><span class="line">                                 Do not create lockfile in data directory.</span><br><span class="line">      --storage.tsdb.allow-overlapping-blocks  </span><br><span class="line">                                 [EXPERIMENTAL] Allow overlapping blocks, which in turn enables vertical compaction and vertical</span><br><span class="line">                                 query merge.</span><br><span class="line">      --storage.tsdb.wal-compression  </span><br><span class="line">                                 Compress the tsdb WAL.</span><br></pre></td></tr></table></figure>
+<p>Prometheus 将时间序列及其样本存储在磁盘上, 鉴于磁盘空间是有限的资源,
+Prometheus 提供了几个参数来修改本地存储的配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 可选配置</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">prometheus -h</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">截取输出storage.tsdb相关的命令</span></span><br><span class="line">Flags:</span><br><span class="line">      --storage.tsdb.path=&quot;data/&quot;  </span><br><span class="line">                                 Base path for metrics storage.</span><br><span class="line">      --storage.tsdb.retention=STORAGE.TSDB.RETENTION  </span><br><span class="line">                                 [DEPRECATED] How long to retain samples in storage. This flag has been deprecated, use</span><br><span class="line">                                 &quot;storage.tsdb.retention.time&quot; instead.</span><br><span class="line">      --storage.tsdb.retention.time=STORAGE.TSDB.RETENTION.TIME  </span><br><span class="line">                                 How long to retain samples in storage. When this flag is set it overrides</span><br><span class="line">                                 &quot;storage.tsdb.retention&quot;. If neither this flag nor &quot;storage.tsdb.retention&quot; nor</span><br><span class="line">                                 &quot;storage.tsdb.retention.size&quot; is set, the retention time defaults to 15d. Units Supported: y, w,</span><br><span class="line">                                 d, h, m, s, ms.</span><br><span class="line">      --storage.tsdb.retention.size=STORAGE.TSDB.RETENTION.SIZE  </span><br><span class="line">                                 [EXPERIMENTAL] Maximum number of bytes that can be stored for blocks. A unit is required,</span><br><span class="line">                                 supported units: B, KB, MB, GB, TB, PB, EB. Ex: &quot;512MB&quot;. This flag is experimental and can be</span><br><span class="line">                                 changed in future releases.</span><br><span class="line">      --storage.tsdb.no-lockfile  </span><br><span class="line">                                 Do not create lockfile in data directory.</span><br><span class="line">      --storage.tsdb.allow-overlapping-blocks  </span><br><span class="line">                                 [EXPERIMENTAL] Allow overlapping blocks, which in turn enables vertical compaction and vertical</span><br><span class="line">                                 query merge.</span><br><span class="line">      --storage.tsdb.wal-compression  </span><br><span class="line">                                 Compress the tsdb WAL.</span><br></pre></td></tr></table></figure>
 <h3 id="远程存储">远程存储</h3>
-<p>Prometheus 的远程写入 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write">remote_write</a> 和远程读取 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read">remote_read</a> 功能允许透明的发送和接收样本, 这主要用于长期存储, 用户可以在配置文件中指定远程的 URL 地址, Prometheus 将采集到的样本数据通过 HTTP 的形式发送给适配器(adaptor), 而适配器则实现对接外部的远程存储系统, 外部系统可以是真正的存储系统, 公有云的存储服务, 消息队列等任意形式, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/storage/#remote-storage-integrations">remote-storage</a></p>
+<p>Prometheus 的远程写入 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write">remote_write</a>
+和远程读取 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read">remote_read</a>
+功能允许透明的发送和接收样本, 这主要用于长期存储,
+用户可以在配置文件中指定远程的 URL 地址, Prometheus
+将采集到的样本数据通过 HTTP 的形式发送给适配器(adaptor),
+而适配器则实现对接外部的远程存储系统, 外部系统可以是真正的存储系统,
+公有云的存储服务, 消息队列等任意形式, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/storage/#remote-storage-integrations">remote-storage</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 远程配置</span></span><br><span class="line"><span class="attr">remote_write:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">http://remote1/push</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">drop_expensive</span></span><br><span class="line">    <span class="attr">write_relabel_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">source_labels:</span> [<span class="string">__name__</span>]</span><br><span class="line">        <span class="attr">regex:</span> <span class="string">expensive.*</span></span><br><span class="line">        <span class="attr">action:</span> <span class="string">drop</span></span><br><span class="line">    <span class="attr">oauth2:</span></span><br><span class="line">      <span class="attr">client_id:</span> <span class="string">&quot;123&quot;</span></span><br><span class="line">      <span class="attr">client_secret:</span> <span class="string">&quot;456&quot;</span></span><br><span class="line">      <span class="attr">token_url:</span> <span class="string">&quot;http://remote1/auth&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">http://remote2/push</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">rw_tls</span></span><br><span class="line">    <span class="attr">tls_config:</span></span><br><span class="line">      <span class="attr">cert_file:</span> <span class="string">valid_cert_file</span></span><br><span class="line">      <span class="attr">key_file:</span> <span class="string">valid_key_file</span></span><br><span class="line">    <span class="attr">headers:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">value</span></span><br><span class="line"><span class="attr">remote_read:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">http://remote1/read</span></span><br><span class="line">    <span class="attr">read_recent:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">http://remote3/read</span></span><br><span class="line">    <span class="attr">read_recent:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">read_special</span></span><br><span class="line">    <span class="attr">required_matchers:</span></span><br><span class="line">      <span class="attr">job:</span> <span class="string">special</span></span><br><span class="line">    <span class="attr">tls_config:</span></span><br><span class="line">      <span class="attr">cert_file:</span> <span class="string">valid_cert_file</span></span><br><span class="line">      <span class="attr">key_file:</span> <span class="string">valid_key_file</span></span><br></pre></td></tr></table></figure>
-<p>现有集成的远程存储系统, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage">remote-integrations</a></p>
+<p>现有集成的远程存储系统, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage">remote-integrations</a></p>
 <h2 id="集群">集群</h2>
-<p>单体架构并不是高可用集群, 存在发生单点故障的可能性, 而且随着监控规模的扩展, 大量数据的读写也很容易让单体架构响应变慢, 过度消耗系统资源, 因此, 在企业实际生产中, 非常有必要构建 Prometheus 的高可用集群的架构, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/federation/#federation">federation</a></p>
-<p>因为 Prometheus 是基于时间序列的存储及监控系统, 对系统时间的准确性要求很高, 所以在部署 Prometheus 集群之前, 必须对服务器的时间源做同步, 比如 <a target="_blank" rel="noopener" href="http://www.cas.cn/tz/201809/t20180921_4664344.shtml">NTP</a> 网络授时服务</p>
+<p>单体架构并不是高可用集群, 存在发生单点故障的可能性,
+而且随着监控规模的扩展, 大量数据的读写也很容易让单体架构响应变慢,
+过度消耗系统资源, 因此, 在企业实际生产中, 非常有必要构建 Prometheus
+的高可用集群的架构, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/federation/#federation">federation</a></p>
+<p>因为 Prometheus 是基于时间序列的存储及监控系统,
+对系统时间的准确性要求很高, 所以在部署 Prometheus 集群之前,
+必须对服务器的时间源做同步, 比如 <a
+target="_blank" rel="noopener" href="http://www.cas.cn/tz/201809/t20180921_4664344.shtml">NTP</a>
+网络授时服务</p>
 <h3 id="联邦集群">联邦集群</h3>
-<p>在每个数据中心部署单独的 Prometheus Server, 用于采集当前数据中心监控数据, 并由一个中心的 Prometheus Server 负责聚合多个数据中心的监控数据, 这一特性在 Prometheus 中称为联邦集群</p>
-<p>联邦集群方案可以降低单个服务采集负载, 通过联邦节点汇聚核心数据, 降低单机存储压力, 避免单点故障时都体现出不错的优势</p>
+<p>在每个数据中心部署单独的 Prometheus Server,
+用于采集当前数据中心监控数据, 并由一个中心的 Prometheus Server
+负责聚合多个数据中心的监控数据, 这一特性在 Prometheus 中称为联邦集群</p>
+<p>联邦集群方案可以降低单个服务采集负载, 通过联邦节点汇聚核心数据,
+降低单机存储压力, 避免单点故障时都体现出不错的优势</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 集群配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;federate&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">15s</span></span><br><span class="line">    <span class="attr">honor_labels:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">&#x27;/federate&#x27;</span></span><br><span class="line">    <span class="attr">params:</span></span><br><span class="line">      <span class="string">&#x27;match[]&#x27;</span><span class="string">:</span>  <span class="comment"># 通过match[]参数指定过滤条件, 可以有效减少聚合不必要的时间序列</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;&#123;job=&quot;prometheus&quot;&#125;&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;&#123;__name__=~&quot;job:.*&quot;&#125;&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;&#123;__name__=~&quot;node.*&quot;&#125;&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span>  <span class="comment"># 聚合三台节点服务器</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;source-prometheus-1:9090&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;source-prometheus-2:9090&#x27;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&#x27;source-prometheus-3:9090&#x27;</span></span><br></pre></td></tr></table></figure>
 <h3 id="功能分区">功能分区</h3>
-<p>当单个采集任务的目标数量非常庞大时, 如果简单通过联邦集群无法有效处理, 可以考虑在实例级别进行功能分区, 可以按照任务的不同实例进行划分, 以支持规模的扩展</p>
+<p>当单个采集任务的目标数量非常庞大时, 如果简单通过联邦集群无法有效处理,
+可以考虑在实例级别进行功能分区, 可以按照任务的不同实例进行划分,
+以支持规模的扩展</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 节点配置</span></span><br><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">external_labels:</span></span><br><span class="line">    <span class="attr">slave:</span> <span class="number">1</span>  <span class="comment"># 添加额外标签</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;slave&#x27;</span></span><br><span class="line">    <span class="attr">relabel_configs:</span>  <span class="comment"># 只分配采集当前任务的一部分实例的监控指标</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">source_labels:</span> [<span class="string">__address__</span>]</span><br><span class="line">        <span class="attr">modulus:</span> <span class="number">4</span></span><br><span class="line">        <span class="attr">target_label:</span> <span class="string">__tmp_hash</span></span><br><span class="line">        <span class="attr">action:</span> <span class="string">hashmod</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">source_labels:</span> [<span class="string">__tmp_hash</span>]</span><br><span class="line">        <span class="attr">regex:</span> <span class="string">^1$</span></span><br><span class="line">        <span class="attr">action:</span> <span class="string">keep</span></span><br></pre></td></tr></table></figure>
 
     </div>
@@ -457,24 +581,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/19/alertmanager-001/" rel="bookmark">AlertManager 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -545,7 +651,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -557,7 +663,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -601,7 +707,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

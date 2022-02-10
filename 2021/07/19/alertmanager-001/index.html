@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,22 +25,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络端口 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端发送">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络端口 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端发送">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AlertManager 入门">
 <meta property="og:url" content="https://janz.icu/2021/07/19/alertmanager-001/index.html">
 <meta property="og:site_name" content="Jbot">
 <meta property="og:description" content="AlertManager 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 PagerDuty, Opsgenie 等), 网络端口 (webhook), 微信等多种通知方式 AlertManager 的架构可分为以下 6 个模块:  API 模块用于接收客户端发送">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg">
 <meta property="article:published_time" content="2021-07-19T00:33:03.000Z">
 <meta property="article:modified_time" content="2021-07-26T22:07:44.117Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="AlertManager">
 <meta property="article:tag" content="Prometheus">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg">
 
 
 <link rel="canonical" href="https://janz.icu/2021/07/19/alertmanager-001/">
@@ -53,6 +51,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>AlertManager 入门 | Jbot</title>
   
+
 
 
 
@@ -80,7 +79,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -256,13 +255,13 @@
 
       <time title="创建时间：2021-07-19 08:33:03" itemprop="dateCreated datePublished" datetime="2021-07-19T08:33:03+08:00">2021-07-19</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-27 06:07:44" itemprop="dateModified" datetime="2021-07-27T06:07:44+08:00">2021-07-27</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-07-27 06:07:44" itemprop="dateModified" datetime="2021-07-27T06:07:44+08:00">2021-07-27</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -306,74 +305,146 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="入门">入门</h1>
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络端口 (webhook), 微信等多种通知方式</p>
+<p><a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a>
+负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件,
+根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理,
+以及触发邮件, 第三方平台 (如 <a
+target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a
+target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等),
+网络端口 (webhook), 微信等多种通知方式</p>
 <p>AlertManager 的架构可分为以下 6 个模块:</p>
 <ol type="1">
-<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于 http 协议的告警事件</li>
-<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中, 可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
-<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警, 并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中, 以实现告警事件的分组处理</li>
-<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑 (如抑制, 静默, 去重等) 来优化告警的质量</li>
-<li>Silence Provider 模块用于提供静默处理的实现, 静默规则可用来关闭部分告警的通知, 并通过 Cluster 以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
+<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于
+http 协议的告警事件</li>
+<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中,
+可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
+<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警,
+并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中,
+以实现告警事件的分组处理</li>
+<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑
+(如抑制, 静默, 去重等) 来优化告警的质量</li>
+<li>Silence Provider 模块用于提供静默处理的实现,
+静默规则可用来关闭部分告警的通知, 并通过 Cluster
+以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
 <li>Notify Provider 模块用于提供通知的具体实现, 并会在本地记录日志</li>
 </ol>
 <figure>
-<img data-src="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg" alt="AlertManager 架构图" /><figcaption aria-hidden="true">AlertManager 架构图</figcaption>
+<img
+src="https://cdn.jsdelivr.net/gh/prometheus/alertmanager@402564055b5bde93b0b742d25651402a6b5faf41/doc/arch.svg"
+alt="AlertManager 架构图" />
+<figcaption aria-hidden="true">AlertManager 架构图</figcaption>
 </figure>
 <h2 id="安装">安装</h2>
-<p>AlertManager 提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/releases">releases</a>, 也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/alertmanager">prom/alertmanager</a>, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager#install">install</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: docker部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d</span></span><br><span class="line">  -p 9093:9093</span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br></pre></td></tr></table></figure>
+<p>AlertManager 提供了预编译的二进制文件 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/releases">releases</a>,
+也支持使用容器的方式部署 <a
+target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/alertmanager">prom/alertmanager</a>,
+详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager#install">install</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: docker部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d</span></span><br><span class="line">  -p 9093:9093</span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br></pre></td></tr></table></figure>
 <h3 id="配置">配置</h3>
-<p>AlertManager 通过 YAML 文件来配置, 命令行可以配置不可变的系统参数, 而配置文件定义的限制规则用于通知路由和接收者, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/">configuration</a></p>
+<p>AlertManager 通过 YAML 文件来配置, 命令行可以配置不可变的系统参数,
+而配置文件定义的限制规则用于通知路由和接收者, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/">configuration</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: alertmanager.yml</span></span><br><span class="line"><span class="attr">global:</span>  <span class="comment"># 全局配置</span></span><br><span class="line"><span class="comment"># The smarthost and SMTP sender used for mail notifications.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">templates:</span>  <span class="comment"># 模板配置</span></span><br><span class="line"><span class="comment"># - &#x27;/etc/alertmanager/template/*.tmpl&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">route:</span>  <span class="comment"># 告警路由</span></span><br><span class="line">  <span class="attr">group_by:</span> [<span class="string">&#x27;job&#x27;</span>]</span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">30s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">5m</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">1h</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">&#x27;webhook&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receivers:</span>  <span class="comment"># 接收配置</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">&#x27;webhook&#x27;</span></span><br><span class="line">  <span class="attr">webhook_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">&#x27;http://127.0.0.1:5001/&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">inhibit_rules:</span>  <span class="comment"># 静默规则</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">source_match:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">&#x27;critical&#x27;</span></span><br><span class="line">    <span class="attr">target_match:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">    <span class="attr">equal:</span> [<span class="string">&#x27;instance&#x27;</span>]</span><br></pre></td></tr></table></figure>
 <h3 id="认证">认证</h3>
-<p>AlertManager 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code> 指定配置文件, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/#configuration-file">authentication</a></p>
+<p>AlertManager 支持 basic 认证和 TLS, 通过
+<code>--web.config.file</code> 指定配置文件, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/#configuration-file">authentication</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 认证配置</span></span><br><span class="line"><span class="attr">basic_auth_users:</span></span><br><span class="line">  <span class="attr">admin:</span> <span class="string">$2y$10$mDwo.lAisC94iLAyP81MCesa29IzH37oigHC/42V2pdJlUprsJPze</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>密码参考 <a target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
+<p>密码参考 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
 </blockquote>
 <h3 id="启动">启动</h3>
 <p>通过运行 <code>alertmanager</code> 执行文件启动服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 启动服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> alertmanager</span></span><br><span class="line">  --config.file=&quot;./alertmanager.yml&quot;    # 指定配置文件</span><br><span class="line">  --web.config.file=&quot;./web-config.yml&quot;  # 指定认证配置</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可通过-h选项查看帮助内容</span></span><br></pre></td></tr></table></figure>
-<p>服务启动之后, 可以在控制台 <a target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/status">/status</a> 查看服务状态和配置信息</p>
-<p>AlertManager 提供了一组管理 API, 以促进自动化和集成, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/management_api/">management-api</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 启动服务</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">alertmanager</span></span><br><span class="line">  --config.file=&quot;./alertmanager.yml&quot;    # 指定配置文件</span><br><span class="line">  --web.config.file=&quot;./web-config.yml&quot;  # 指定认证配置</span><br><span class="line"><span class="meta"># </span><span class="language-bash">可通过-h选项查看帮助内容</span></span><br></pre></td></tr></table></figure>
+<p>服务启动之后, 可以在控制台 <a
+target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/status">/status</a>
+查看服务状态和配置信息</p>
+<p>AlertManager 提供了一组管理 API, 以促进自动化和集成, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/management_api/">management-api</a></p>
 <ul>
 <li><code>GET /-/healthy</code> 该端点用于显示服务的健康状态</li>
-<li><code>GET /-/ready</code> 当服务准备好时, 该端点返回 <code>200</code> 状态码</li>
-<li><code>POST /-/reload</code> 该端点用于触发重新加载服务的配置和规则文件</li>
+<li><code>GET /-/ready</code> 当服务准备好时, 该端点返回
+<code>200</code> 状态码</li>
+<li><code>POST /-/reload</code>
+该端点用于触发重新加载服务的配置和规则文件</li>
 </ul>
 <h2 id="通知">通知</h2>
-<p>根据 Prometheus 和 AlertManager 的告警配置, 会影响告警事件的通知逻辑和时间</p>
+<p>根据 Prometheus 和 AlertManager 的告警配置,
+会影响告警事件的通知逻辑和时间</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: prometheus.yml</span></span><br><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span> <span class="string">1m</span></span><br><span class="line">  <span class="attr">scrape_timeout:</span> <span class="string">10s</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">1m</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9093</span></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;rules/instance.alerts.yml&quot;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: alertmanager.yml</span></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> [<span class="string">...</span>]</span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">30s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">5m</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">4h</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: rules/instance.alerts.yml</span></span><br><span class="line"><span class="attr">groups:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">instance_alerts</span></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">InstanceDown</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">5m</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;Instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> down&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> has been down for more than 5 minutes.&quot;</span></span><br></pre></td></tr></table></figure>
 <ol type="1">
-<li>Prometheus 以 <code>scrape_interval</code> 采样周期的间隔从客户端拉取时序, 根据时序的采样值, 以 <code>evaluation_interval</code> 评估周期的间隔对告警规则的表达式 <code>expr</code> 进行评估;</li>
-<li>当采集对象出现问题时, Prometheus 会持续尝试拉取时序, 直到经过 <code>scrape_timeout</code> 超时时间后停止;</li>
+<li>Prometheus 以 <code>scrape_interval</code>
+采样周期的间隔从客户端拉取时序, 根据时序的采样值, 以
+<code>evaluation_interval</code> 评估周期的间隔对告警规则的表达式
+<code>expr</code> 进行评估;</li>
+<li>当采集对象出现问题时, Prometheus 会持续尝试拉取时序, 直到经过
+<code>scrape_timeout</code> 超时时间后停止;</li>
 <li>告警规则的表达式评估为真时, 告警状态切换到挂起 (Pending);</li>
-<li>告警状态挂起的持续时间超过 <code>for</code> 指定的时间后, 告警状态切换为触发(Firing), 并将告警事件发送给 AlertManager;</li>
-<li>下个评估周期若表达式评估仍为真, 且持续时间超过 <code>for</code> 指定的时间, 则持续发送告警事件给 AlertManager;</li>
-<li>直到表达式评估为假, 告警状态切换为非活动(Inactive), 并发送通知 AlertManager 告警事件已解决;</li>
-<li>AlertManager 接收到告警事件后, 先根据分组中的 <code>group_wait</code> 等待时间, 等待过后再发出告警通知;</li>
-<li>同个分组的告警事件, 在等待时间内可能产生新的告警事件, 在前一个告警成功发出后, 经过 <code>group_interval</code> 周期时间后, 再发送新的告警通知;</li>
-<li>如果分组里的告警一直没发生变化, 则在成功发出告警通知之后, 再经过 <code>repeat_interval</code> 重复周期的时间后, 重复发出相同的告警通知;</li>
-<li>如果告警通知没有成功发出, 则等待 <code>group_interval</code> 周期时间后, 会再次尝试发出告警通知</li>
+<li>告警状态挂起的持续时间超过 <code>for</code> 指定的时间后,
+告警状态切换为触发(Firing), 并将告警事件发送给 AlertManager;</li>
+<li>下个评估周期若表达式评估仍为真, 且持续时间超过 <code>for</code>
+指定的时间, 则持续发送告警事件给 AlertManager;</li>
+<li>直到表达式评估为假, 告警状态切换为非活动(Inactive), 并发送通知
+AlertManager 告警事件已解决;</li>
+<li>AlertManager 接收到告警事件后, 先根据分组中的
+<code>group_wait</code> 等待时间, 等待过后再发出告警通知;</li>
+<li>同个分组的告警事件, 在等待时间内可能产生新的告警事件,
+在前一个告警成功发出后, 经过 <code>group_interval</code> 周期时间后,
+再发送新的告警通知;</li>
+<li>如果分组里的告警一直没发生变化, 则在成功发出告警通知之后, 再经过
+<code>repeat_interval</code> 重复周期的时间后,
+重复发出相同的告警通知;</li>
+<li>如果告警通知没有成功发出, 则等待 <code>group_interval</code>
+周期时间后, 会再次尝试发出告警通知</li>
 </ol>
 <h3 id="分组">分组</h3>
-<p>分组是指将性质类似的告警分成一个通知类, 不同分组之间互相独立, 互不影响, 分组可以聚合同类告警以减少告警数量, 通过精简的方式帮助分析问题, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#grouping">grouping</a></p>
-<p>分组由配置文件中的路由树节点配置, 可按匹配规则细分成多个子节点, 子节点未配置的可选参数将从父节点继承配置</p>
+<p>分组是指将性质类似的告警分成一个通知类, 不同分组之间互相独立,
+互不影响, 分组可以聚合同类告警以减少告警数量,
+通过精简的方式帮助分析问题, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#grouping">grouping</a></p>
+<p>分组由配置文件中的路由树节点配置, 可按匹配规则细分成多个子节点,
+子节点未配置的可选参数将从父节点继承配置</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 分组配置</span></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> [<span class="string">...</span>]</span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">30s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">5m</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">4h</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">&#x27;webhook&#x27;</span>   <span class="comment"># 该分组的接收配置, 对应receivers节点配置</span></span><br><span class="line">  <span class="attr">routes:</span>               <span class="comment"># 子分组</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">matchers:</span>           <span class="comment"># 匹配规则</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">application=&quot;myapp&quot;</span></span><br><span class="line">    <span class="attr">receiver:</span> <span class="string">&#x27;email&#x27;</span>   <span class="comment"># 覆盖父节点的接收配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处配置myapp应用告警使用email方式, 其它使用webhook方式</span></span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://www.prometheus.io/webtools/alerting/routing-tree-editor/">RoutingTreeEditor</a> 是一个在线支持可视化的路由树编辑器, 通过生成直观的图例, 确保开发人员编写正确的路由分组</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.prometheus.io/webtools/alerting/routing-tree-editor/">RoutingTreeEditor</a>
+是一个在线支持可视化的路由树编辑器, 通过生成直观的图例,
+确保开发人员编写正确的路由分组</p>
 <h3 id="抑制">抑制</h3>
-<p>抑制是指当源告警通知已经发出时, 停止再发送目标告警的通知, 抑制主要用于消除冗余的告警, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#inhibition">inhibition</a></p>
+<p>抑制是指当源告警通知已经发出时, 停止再发送目标告警的通知,
+抑制主要用于消除冗余的告警, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#inhibition">inhibition</a></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 抑制配置</span></span><br><span class="line"><span class="attr">inhibit_rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">source_matchers:</span>  <span class="comment"># 匹配源告警</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">job=&#x27;node&#x27;</span></span><br><span class="line">  <span class="attr">target_matchers:</span>  <span class="comment"># 匹配目标告警</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">application=&#x27;myapp&#x27;</span></span><br><span class="line">  <span class="attr">equal:</span> []         <span class="comment"># 配置需要在源和目标中必须具有相等值的标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处配置当node主机发出告警通知时, 不再发出myapp应用的告警通知</span></span><br></pre></td></tr></table></figure>
 <h3 id="静默">静默</h3>
-<p>静默通过配置静默表达式, 使匹配的告警事件不再发送告警通知, 管理员可以在控制台 <a target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/silences">/silences</a> 中添加静默表达式, 通常用于主机维护时或夜间运行批处理作业等场景, 添加临时的静默规则可以防止产生不必要的告警, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#silences">silences</a></p>
-<p>静默提供了一种简单的机制, 可以在给定的时间内忽略可存在的告警, 静默基于 <code>matchers</code> 配置实现, 类似于路由树, 对接收的告警事件进行检查, 判断它们是否和活跃的静默表达式匹配, 如果匹配成功, 就不会将这些告警发送给接收端</p>
+<p>静默通过配置静默表达式, 使匹配的告警事件不再发送告警通知,
+管理员可以在控制台 <a
+target="_blank" rel="noopener" href="http://127.0.0.1:9093/#/silences">/silences</a> 中添加静默表达式,
+通常用于主机维护时或夜间运行批处理作业等场景,
+添加临时的静默规则可以防止产生不必要的告警, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/#silences">silences</a></p>
+<p>静默提供了一种简单的机制, 可以在给定的时间内忽略可存在的告警,
+静默基于 <code>matchers</code> 配置实现, 类似于路由树,
+对接收的告警事件进行检查, 判断它们是否和活跃的静默表达式匹配,
+如果匹配成功, 就不会将这些告警发送给接收端</p>
 <h2 id="amtool">AMTool</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/tree/main/cmd/amtool">AMTool</a> 是用于与 AlertManager 架构中的 API 模块进行交互的命令行工具, 它可以使用 AlertManager 提供的查询语法, 进行告警事件的查询, 也支持管理服务的静默表达式</p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/tree/main/cmd/amtool">AMTool</a>
+是用于与 AlertManager 架构中的 API 模块进行交互的命令行工具, 它可以使用
+AlertManager 提供的查询语法, 进行告警事件的查询,
+也支持管理服务的静默表达式</p>
 <h2 id="集群">集群</h2>
-<p>为了避免单节点问题, 通常会对多个 AlertManager 进行集群部署, AlertManager 之间通过 Gossip 机制进行集群成员管理和成员故障检测, 以确保在多个 AlertManager 分别接收到相同告警事件的情况下, 只有一个告警通知被发送给接收端, 要创建 AlertManager 的高可用集群, 可使用 <code>--cluster.*</code> 标志进行配置, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/blob/main/README.md#high-availability">high-availability</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 启动服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -p 9094:9093</span></span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br><span class="line">  --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager</span><br><span class="line">  --cluster.listen-address=&quot;172.17.0.1:9094&quot;</span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -p 9095:9093</span></span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br><span class="line">  --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager</span><br><span class="line">  --cluster.listen-address=&quot;172.17.0.2:9095&quot; --cluster.peer=&quot;172.17.0.1:9094&quot;</span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -p 9096:9093</span></span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br><span class="line">  --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager</span><br><span class="line">  --cluster.listen-address=&quot;172.17.0.3:9096&quot; --cluster.peer=&quot;172.17.0.1:9094&quot;</span><br></pre></td></tr></table></figure>
+<p>为了避免单节点问题, 通常会对多个 AlertManager 进行集群部署,
+AlertManager 之间通过 Gossip 机制进行集群成员管理和成员故障检测,
+以确保在多个 AlertManager 分别接收到相同告警事件的情况下,
+只有一个告警通知被发送给接收端, 要创建 AlertManager 的高可用集群, 可使用
+<code>--cluster.*</code> 标志进行配置, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/blob/main/README.md#high-availability">high-availability</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 启动服务</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d -p 9094:9093</span></span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br><span class="line">  --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager</span><br><span class="line">  --cluster.listen-address=&quot;172.17.0.1:9094&quot;</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d -p 9095:9093</span></span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br><span class="line">  --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager</span><br><span class="line">  --cluster.listen-address=&quot;172.17.0.2:9095&quot; --cluster.peer=&quot;172.17.0.1:9094&quot;</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d -p 9096:9093</span></span><br><span class="line">  -v alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">  prom/alertmanager</span><br><span class="line">  --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager</span><br><span class="line">  --cluster.listen-address=&quot;172.17.0.3:9096&quot; --cluster.peer=&quot;172.17.0.1:9094&quot;</span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: prometheus.yml</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9094</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.2</span><span class="string">:9095</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.3</span><span class="string">:9096</span></span><br></pre></td></tr></table></figure>
 
     </div>
@@ -382,24 +453,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -471,7 +524,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -483,7 +536,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -527,7 +580,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

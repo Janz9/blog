@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="制品 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等 最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 Nexus, Artifactory 等  Maven 团队提供的官方插件支持将打包后的制品发布到配置的仓库中  Nexus 提供了 Nexu">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="制品 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等 最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 Nexus, Artifactory 等  Maven 团队提供的官方插件支持将打包后的制品发布到配置的仓库中  Nexus 提供了 Nexu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 管理">
 <meta property="og:url" content="https://janz.icu/2020/05/26/jenkins%20009/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jenkins 管理 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2020-05-26 12:57:52" itemprop="dateCreated datePublished" datetime="2020-05-26T12:57:52+08:00">2020-05-26</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 14:58:49" itemprop="dateModified" datetime="2021-05-06T14:58:49+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 14:58:49" itemprop="dateModified" datetime="2021-05-06T14:58:49+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -304,44 +305,77 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="管理">管理</h1>
 <h2 id="制品">制品</h2>
-<p><strong>制品</strong> 是软件开发过程中产生的多种有形副产品之一, 狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图, 设计文档等</p>
-<p>最简单的制品管理仓库就是将制品统一放在一个系统目录结构下, 但是更多的做法是使用现成的制品库, 目前现成的制品库有 <a target="_blank" rel="noopener" href="https://www.sonatype.com/nexus-repository-oss">Nexus</a>, <a target="_blank" rel="noopener" href="https://jfrog.com/artifactory/">Artifactory</a> 等</p>
+<p><strong>制品</strong> 是软件开发过程中产生的多种有形副产品之一,
+狭义的制品可以简单地理解为二进制包, 广义的制品还包括用例, UML 图,
+设计文档等</p>
+<p>最简单的制品管理仓库就是将制品统一放在一个系统目录结构下,
+但是更多的做法是使用现成的制品库, 目前现成的制品库有 <a
+target="_blank" rel="noopener" href="https://www.sonatype.com/nexus-repository-oss">Nexus</a>, <a
+target="_blank" rel="noopener" href="https://jfrog.com/artifactory/">Artifactory</a> 等</p>
 <h3 id="maven-制品">Maven 制品</h3>
 <p>Maven 团队提供的官方插件支持将打包后的制品发布到配置的仓库中</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: deploy */</span></span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;deploy&#x27;</span>) &#123;</span><br><span class="line">        sh <span class="string">&quot;mvn deploy&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Nexus 提供了 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/nexus-jenkins-plugin/">Nexus Platform</a> 插件发布 Maven 制品, 安装好插件后, 在 <code>Manage Jenkins / Configure System / Sonatype Nexus</code> 节点下配置 Nexus 服务器地址</p>
+<p>Nexus 提供了 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/nexus-jenkins-plugin/">Nexus
+Platform</a> 插件发布 Maven 制品, 安装好插件后, 在
+<code>Manage Jenkins / Configure System / Sonatype Nexus</code>
+节点下配置 Nexus 服务器地址</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: nexusPublisher */</span></span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;deploy&#x27;</span>) &#123;</span><br><span class="line">        nexusPublisher(</span><br><span class="line">            <span class="comment">// 需要与配置的Nexus的ServerId一致</span></span><br><span class="line">            <span class="symbol">nexusInstanceId:</span> <span class="string">&quot;Nexus3&quot;</span>,</span><br><span class="line">            <span class="comment">// 指定发布到Nexus服务器的仓库</span></span><br><span class="line">            <span class="symbol">nexusRepositoryId:</span> <span class="string">&quot;JENKINS_DEPLOY&quot;</span>,</span><br><span class="line">            <span class="symbol">packages:</span> [[</span><br><span class="line">                <span class="symbol">$class:</span> <span class="string">&quot;MavenPackage&quot;</span>,</span><br><span class="line">                <span class="comment">// 指定要发布的文件</span></span><br><span class="line">                <span class="symbol">mavenAssetList:</span> [[</span><br><span class="line">                    <span class="symbol">classifier:</span> <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="symbol">extension:</span> <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="symbol">filePath:</span> <span class="string">&quot;target/app.jar&quot;</span></span><br><span class="line">                ]],</span><br><span class="line">                <span class="comment">// Maven包的坐标</span></span><br><span class="line">                <span class="symbol">mavenCoordinate:</span> [</span><br><span class="line">                    <span class="symbol">groupId:</span> <span class="string">&quot;com.janz.jenkins&quot;</span>,</span><br><span class="line">                    <span class="symbol">artifactId:</span> <span class="string">&quot;project-nexus&quot;</span>,</span><br><span class="line">                    <span class="symbol">packaging:</span> <span class="string">&quot;jar&quot;</span>,</span><br><span class="line">                    <span class="symbol">version:</span> <span class="string">&quot;1.0.0&quot;</span></span><br><span class="line">                ]</span><br><span class="line">            ]]</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="pipeline-制品">Pipeline 制品</h3>
-<p>可以使用 <code>archiveArtifacts</code> 指令对制品进行归档, 构建的结果页面提供了归档文件的下载链接</p>
+<p>可以使用 <code>archiveArtifacts</code> 指令对制品进行归档,
+构建的结果页面提供了归档文件的下载链接</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: archiveArtifacts */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            sh <span class="string">&quot;mvn package&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    post &#123;</span><br><span class="line">        success &#123;</span><br><span class="line">            archiveArtifacts(<span class="attr">artifacts:</span> <span class="string">&quot;**/target/*.jar&quot;</span>, <span class="attr">fingerprint:</span> <span class="literal">true</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* archiveArtifacts指令参数</span></span><br><span class="line"><span class="comment">artifacts         需要归档的文件路径</span></span><br><span class="line"><span class="comment">fingerprint       是否对归档的文件进行签名</span></span><br><span class="line"><span class="comment">excludes          需要排除的文件路径</span></span><br><span class="line"><span class="comment">caseSensitive     是否对路径大小写敏感</span></span><br><span class="line"><span class="comment">onlyIfSuccessful  是否只在构建成功时进行归档</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>在某些场景下, 需要在 pipeline 之间拷贝制品, 使用 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/copyartifact/">Copy Artifact</a> 插件可以实现</p>
+<p>在某些场景下, 需要在 pipeline 之间拷贝制品, 使用 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/copyartifact/">Copy Artifact</a>
+插件可以实现</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: copyArtifacts */</span></span><br><span class="line">steps &#123;</span><br><span class="line">    <span class="comment">// 从project项目中拿到最后一次归档的制品</span></span><br><span class="line">    copyArtifacts(</span><br><span class="line">        <span class="symbol">projectName:</span> <span class="string">&quot;project&quot;</span>,</span><br><span class="line">        <span class="symbol">selector:</span> lastSuccessful(<span class="literal">true</span>)</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* copyArtifacts指令参数</span></span><br><span class="line"><span class="comment">projectName           归档制品的项目名称</span></span><br><span class="line"><span class="comment">selector              拷贝制品的选择器, 默认拷贝最后一个制品</span></span><br><span class="line"><span class="comment">parameters            使用逗号分隔的键值对字符串, 用于过滤从哪些构建中拷贝制品</span></span><br><span class="line"><span class="comment">filter                用于过滤需要拷贝的文件</span></span><br><span class="line"><span class="comment">excludes              用于排除不需要拷贝的文件</span></span><br><span class="line"><span class="comment">target                拷贝制品的目标路径, 默认为当前pipeline的工作目录</span></span><br><span class="line"><span class="comment">optional              如果为true则拷贝失败也不影响本次构建结果</span></span><br><span class="line"><span class="comment">fingerprintArtifacts  是否对制品进行签名, 默认值为true</span></span><br><span class="line"><span class="comment">resultVariableSuffix  用于获取制品的原构建序号</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/* 常用的选择器</span></span><br><span class="line"><span class="comment">lastSuccessful(boolean stable)  最后一次构建成功的制品, stable为true表示只取构建成功的制品, 为false表示只要构建结果比UNSTABLE好就行</span></span><br><span class="line"><span class="comment">specific(String number)         指定某一次构建的制品</span></span><br><span class="line"><span class="comment">lastCompleted()                 最后一次完成构建的制品, 不论构建的最终状态如何</span></span><br><span class="line"><span class="comment">latestSavedBuild()              最后一次被标记为keep forever的构建的制品</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>插件会将拷贝的制品的原构建序号放到环境变量 <code>COPYARTIFACT_BUILD_NUMBER_(resultVariableSuffix)</code> 中, 在当前 pipeline 中可以通过此变量拿到原构建序号</p>
+<p>插件会将拷贝的制品的原构建序号放到环境变量
+<code>COPYARTIFACT_BUILD_NUMBER_(resultVariableSuffix)</code> 中, 在当前
+pipeline 中可以通过此变量拿到原构建序号</p>
 </blockquote>
 <h2 id="版本号">版本号</h2>
-<p><strong>版本号</strong> 的制定并没有所谓的行业标准, GitHub 提出了一种具有指导意义, 统一的版本号表示规则, 称为 Semantic Versioning(语义化版本表示), 先行版本号及版本编译元数据可以加到后面作为延伸</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语义化版本格式</span></span><br><span class="line">主版本号.次版本号.修订号</span><br><span class="line"><span class="meta">#</span><span class="bash"> 常用修饰词</span></span><br><span class="line">alpha  内部版本</span><br><span class="line">beta   测试版本</span><br><span class="line">rc     即将作为正式版本发布</span><br><span class="line">lts    长期维护</span><br></pre></td></tr></table></figure>
-<p>Jenkins 的插件 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/versionnumber/">Version Number</a> 是一款用于生成版本号的插件, 提供了 <code>VersionNumber</code> 指令</p>
+<p><strong>版本号</strong> 的制定并没有所谓的行业标准, GitHub
+提出了一种具有指导意义, 统一的版本号表示规则, 称为 Semantic
+Versioning(语义化版本表示),
+先行版本号及版本编译元数据可以加到后面作为延伸</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">语义化版本格式</span></span><br><span class="line">主版本号.次版本号.修订号</span><br><span class="line"><span class="meta"># </span><span class="language-bash">常用修饰词</span></span><br><span class="line">alpha  内部版本</span><br><span class="line">beta   测试版本</span><br><span class="line">rc     即将作为正式版本发布</span><br><span class="line">lts    长期维护</span><br></pre></td></tr></table></figure>
+<p>Jenkins 的插件 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/versionnumber/">Version Number</a>
+是一款用于生成版本号的插件, 提供了 <code>VersionNumber</code> 指令</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: VersionNumber */</span></span><br><span class="line">script &#123;</span><br><span class="line">    <span class="keyword">def</span> version = VersionNumber(</span><br><span class="line">        <span class="symbol">versionPrefix:</span> <span class="string">&quot;$&#123;JOB_NAME&#125;-&quot;</span>,</span><br><span class="line">        <span class="symbol">versionNumberString:</span> <span class="string">&#x27;v1.1.1.$&#123;BUILDS_ALL_TIME&#125;&#x27;</span></span><br><span class="line">    )</span><br><span class="line">    echo <span class="string">&quot;$&#123;version&#125;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">versionNumberString      字符串类型, 版本号格式, 用于生成版本号, 只能使用单引号, 以防格式中的占位符被转义, 版本号格式支持多种占位符</span></span><br><span class="line"><span class="comment">versionPrefix            字符串类型, 版本号前缀</span></span><br><span class="line"><span class="comment">projectStartDate         字符串类型, 项目开始时间, 格式为yyyy-MM-dd, 用于计算项目开始后的月数和年数</span></span><br><span class="line"><span class="comment">worstResultForIncrement  字符串类型, 如果本次构建状态比上一次构建状态更糟糕, 则占位符的值不会增加, 可以设置的值有SUCCESS, UNSTABLE, FAILURE, ABORTED, NOT_BUILT(默认值)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/* 常用的占位符</span></span><br><span class="line"><span class="comment">BUILD_DATE_FORMATTED  格式化的构建日期, 支持参数化, 如$&#123;BUILD_DATE_FORMATTED, &quot;yyyy-MM&quot;&#125;</span></span><br><span class="line"><span class="comment">BUILD_DAY             构建日期, 支持X和XX参数, 如$&#123;BUILD_DAY, XX&#125;</span></span><br><span class="line"><span class="comment">BUILD_WEEK            今年构建的星期数, 支持X和XX参数</span></span><br><span class="line"><span class="comment">BUILD_MONTH           今年构建的月数, 支持X和XX参数</span></span><br><span class="line"><span class="comment">BUILD_YEAR            今年构建的年份</span></span><br><span class="line"><span class="comment">BUILDS_TODAY          当天完成的构建数</span></span><br><span class="line"><span class="comment">BUILDS_THIS_WEEK      本星期完成的构建数</span></span><br><span class="line"><span class="comment">BUILDS_THIS_MONTH     本月完成的构建数</span></span><br><span class="line"><span class="comment">BUILDS_THIS_YEAR      本年完成的构建数</span></span><br><span class="line"><span class="comment">BUILDS_ALL_TIME       自从项目开始后完成的总构建数</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h2 id="通知">通知</h2>
-<p>实时知道构建的状态很重要, 最好的方式就是构建系统本身知道出现情况时发起通知</p>
+<p>实时知道构建的状态很重要,
+最好的方式就是构建系统本身知道出现情况时发起通知</p>
 <h3 id="邮件通知">邮件通知</h3>
 <p><strong>邮件通知</strong> 是最常用的通知方式, Jenkins 默认支持</p>
-<p>进入 <code>Manage Jenkins / Configure System / Jenkins Location</code> 页面, 设置管理员邮箱, 并配置 <code>Email Notification</code> 节点的信息</p>
+<p>进入
+<code>Manage Jenkins / Configure System / Jenkins Location</code> 页面,
+设置管理员邮箱, 并配置 <code>Email Notification</code> 节点的信息</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: mail */</span></span><br><span class="line">post &#123;</span><br><span class="line">    failure &#123;</span><br><span class="line">        mail(<span class="attr">body:</span> <span class="string">&#x27;failure body&#x27;</span>, <span class="attr">subject:</span> <span class="string">&#x27;build status&#x27;</span>, <span class="attr">from:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">to:</span> <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">subject  邮件主题</span></span><br><span class="line"><span class="comment">body     邮件内容</span></span><br><span class="line"><span class="comment">from     发件地址</span></span><br><span class="line"><span class="comment">to       收件地址</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/email-ext/">Email Extension</a> 插件对邮件通知的功能进行了扩展, 支持更多的特性</p>
-<p>进入 <code>Manage Jenkins / Configure System / Extended Email Notification</code> 页面配置信息</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/email-ext/">Email Extension</a>
+插件对邮件通知的功能进行了扩展, 支持更多的特性</p>
+<p>进入
+<code>Manage Jenkins / Configure System / Extended Email Notification</code>
+页面配置信息</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: emailext */</span></span><br><span class="line">post &#123;</span><br><span class="line">    failure &#123;</span><br><span class="line">        emailext(<span class="attr">body:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">subject:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">to:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">attachLog:</span> <span class="literal">true</span>, <span class="attr">compressLog:</span> <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">subject             邮件主题</span></span><br><span class="line"><span class="comment">body                邮件内容</span></span><br><span class="line"><span class="comment">attachLog           可选, 是否将构建日志以附件形式发送</span></span><br><span class="line"><span class="comment">attachmentsPattern  可选, String类型, 需要发送的附件的路径</span></span><br><span class="line"><span class="comment">compressLog         可选, 是否压缩日志</span></span><br><span class="line"><span class="comment">from                可选, 收件人邮件</span></span><br><span class="line"><span class="comment">to                  可选, 发件人邮件</span></span><br><span class="line"><span class="comment">recipientProviders  可选, List类型, 收件人列表类型</span></span><br><span class="line"><span class="comment">replyTo             可选, 回复邮箱</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="http-请求通知">HTTP 请求通知</h3>
-<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/http_request/">HTTP Request</a> 插件能在 Jenkins pipeline 中发送 HTTP 请求给第三方系统</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/http_request/">HTTP Request</a>
+插件能在 Jenkins pipeline 中发送 HTTP 请求给第三方系统</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: httpRequest */</span></span><br><span class="line">steps &#123;</span><br><span class="line">    script &#123;</span><br><span class="line">        <span class="keyword">def</span> response = httpRequest(</span><br><span class="line">            <span class="symbol">url:</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">            <span class="symbol">acceptType:</span> <span class="string">&#x27;APPLICATION_JSON&#x27;</span>,</span><br><span class="line">            <span class="symbol">contentType:</span> <span class="string">&#x27;APPLICATION_JSON&#x27;</span>,</span><br><span class="line">            <span class="symbol">httpMethod:</span> <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">            <span class="symbol">authentication:</span> <span class="string">&#x27;http_request&#x27;</span>,</span><br><span class="line">            <span class="symbol">requestBody:</span> <span class="string">&quot;&#123;&#x27;buildNumber&#x27;:&#x27;$&#123;env.BUILD_NUMBER&#125;&#x27;&#125;&quot;</span>,</span><br><span class="line">            <span class="symbol">timeout:</span> <span class="number">5</span>,</span><br><span class="line">            <span class="symbol">vaildResponseCodes:</span> <span class="string">&quot;200:302&quot;</span></span><br><span class="line">        )</span><br><span class="line">        echo <span class="string">&quot;$&#123;response.status&#125;&quot;</span></span><br><span class="line">        echo <span class="string">&quot;$&#123;response.content&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">url                     字符串类型, 请求URL</span></span><br><span class="line"><span class="comment">acceptType              枚举类型, HTTP请求Header的Accept的值</span></span><br><span class="line"><span class="comment">contentType             枚举类型, HTTP请求Header的ContentType的值</span></span><br><span class="line"><span class="comment">httpMethod              枚举类型, HTTP方法</span></span><br><span class="line"><span class="comment">authentication          字符串类型, HTTP Basic认证方式</span></span><br><span class="line"><span class="comment">consoleLogResponseBody  布尔类型, 是否将请求的响应打印出来</span></span><br><span class="line"><span class="comment">customHeaders           对象数组, HTTP请求Header部分的内容</span></span><br><span class="line"><span class="comment">httpProxy               字符串类型, HTTP代理地址</span></span><br><span class="line"><span class="comment">ignoreSslErrors         布尔类型, 是否忽略SSL错误</span></span><br><span class="line"><span class="comment">requestBody             字符串类型, 请求体的内容</span></span><br><span class="line"><span class="comment">timeout                 整形, 超时时间, 单位为秒, 默认值为0代表不设置超时时间</span></span><br><span class="line"><span class="comment">validResponseCodes      字符串类型, 代表HTTP请求成功的状态码, 多值用逗号分隔, 范围用冒号分隔</span></span><br><span class="line"><span class="comment">validResponseContent    字符串类型, 代表HTTP请求成功的响应体</span></span><br><span class="line"><span class="comment">quiet                   布尔类型, 是否关闭所有的日志打印, 默认值为false</span></span><br><span class="line"><span class="comment">responseHandle          枚举类型, 获取HTTP响应内容的方式</span></span><br><span class="line"><span class="comment">outputFile              字符串类型, 请求响应内容的输出路径</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h2 id="视图">视图</h2>
-<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/greenballs/">Green Balls</a> 插件的作用让构建成功的状态图标变成绿色的</p>
-<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/build-monitor-plugin/">Build Monitor View</a> 插件可以将 Jenkins 项目以一块看板的形式呈现</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/greenballs/">Green Balls</a>
+插件的作用让构建成功的状态图标变成绿色的</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/build-monitor-plugin/">Build
+Monitor View</a> 插件可以将 Jenkins 项目以一块看板的形式呈现</p>
 <h2 id="监控">监控</h2>
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a> 是一款开源的监控和告警系统, 服务器端主动从客户端拉取指标数据, Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/prometheus/">Prometheus</a> 插件的目的就是为了暴露一个数据接口, 这样 Prometheus 就可以拉取到指标数据了</p>
-<p>Prometheus 本身提供的界面过于简陋, 所以一般会使用 <a target="_blank" rel="noopener" href="https://grafana.com/">Grafana</a> 对指标进行展示</p>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a>
+是一款开源的监控和告警系统, 服务器端主动从客户端拉取指标数据, Jenkins 的
+<a target="_blank" rel="noopener" href="https://plugins.jenkins.io/prometheus/">Prometheus</a>
+插件的目的就是为了暴露一个数据接口, 这样 Prometheus
+就可以拉取到指标数据了</p>
+<p>Prometheus 本身提供的界面过于简陋, 所以一般会使用 <a
+target="_blank" rel="noopener" href="https://grafana.com/">Grafana</a> 对指标进行展示</p>
 <pre class="mermaid">graph LR
 A(Jenkins master)
 B(Prometheus)
@@ -349,11 +383,17 @@ C(Grafana)
 B --pull--> A
 C --query--> B</pre>
 <h2 id="备份">备份</h2>
-<p>Jenkins 的所有数据都是存放在文件中的, 所以 Jenkins 备份其实就是备份 <code>JENKINS_HOME</code> 目录</p>
+<p>Jenkins 的所有数据都是存放在文件中的, 所以 Jenkins 备份其实就是备份
+<code>JENKINS_HOME</code> 目录</p>
 <blockquote>
-<p>如果启动 Jenkins 时没有指定 <code>JENKINS_HOME</code> 环境变量, 那么 Jenkins 将在当前用户目录下创建一个 <code>.jenkins</code> 目录作为 <code>JENKINS_HOME</code> 目录</p>
+<p>如果启动 Jenkins 时没有指定 <code>JENKINS_HOME</code> 环境变量, 那么
+Jenkins 将在当前用户目录下创建一个 <code>.jenkins</code> 目录作为
+<code>JENKINS_HOME</code> 目录</p>
 </blockquote>
-<p>Jenkins 本身并不提供备份功能, 而是交给插件来完成, 安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/periodicbackup/">Periodic Backup</a> 插件后, 在 <code>Manage Jenkins / Periodic Backup Manager</code> 节点下管理备份功能</p>
+<p>Jenkins 本身并不提供备份功能, 而是交给插件来完成, 安装 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/periodicbackup/">Periodic Backup</a>
+插件后, 在 <code>Manage Jenkins / Periodic Backup Manager</code>
+节点下管理备份功能</p>
 
     </div>
 
@@ -361,24 +401,6 @@ C --query--> B</pre>
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -449,7 +471,7 @@ C --query--> B</pre>
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -461,7 +483,7 @@ C --query--> B</pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -505,7 +527,7 @@ C --query--> B</pre>
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

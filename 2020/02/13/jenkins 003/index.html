@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="环境变量 可以看作是 pipeline 与 Jenkins 交互的媒介, 可以分为 Jenkins 内置变量 和 自定义变量  在 pipeline 执行时, Jenkins 通过一个名为 env 的全局变量, 将 Jenkins 内置环境变量暴露出来   在调试 pipeline 时, 可以在 pipeline 的开始阶段通过 sh &#39;printenv&#39; 命令将 env 变量的属性值打印出来">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="环境变量 可以看作是 pipeline 与 Jenkins 交互的媒介, 可以分为 Jenkins 内置变量 和 自定义变量  在 pipeline 执行时, Jenkins 通过一个名为 env 的全局变量, 将 Jenkins 内置环境变量暴露出来   在调试 pipeline 时, 可以在 pipeline 的开始阶段通过 sh &#39;printenv&#39; 命令将 env 变量的属性值打印出来">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 变量参数">
 <meta property="og:url" content="https://janz.icu/2020/02/13/jenkins%20003/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jenkins 变量参数 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2020-02-13 16:33:12" itemprop="dateCreated datePublished" datetime="2020-02-13T16:33:12+08:00">2020-02-13</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:24:50" itemprop="dateModified" datetime="2021-05-06T11:24:50+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:24:50" itemprop="dateModified" datetime="2021-05-06T11:24:50+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -304,39 +305,61 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="变量和参数">变量和参数</h1>
 <h2 id="环境变量">环境变量</h2>
-<p><strong>环境变量</strong> 可以看作是 pipeline 与 Jenkins 交互的媒介, 可以分为 <strong>Jenkins 内置变量</strong> 和 <strong>自定义变量</strong></p>
+<p><strong>环境变量</strong> 可以看作是 pipeline 与 Jenkins 交互的媒介,
+可以分为 <strong>Jenkins 内置变量</strong> 和
+<strong>自定义变量</strong></p>
 <h3 id="内置变量">内置变量</h3>
-<p>在 <code>pipeline</code> 执行时, Jenkins 通过一个名为 <code>env</code> 的全局变量, 将 Jenkins 内置环境变量暴露出来</p>
+<p>在 <code>pipeline</code> 执行时, Jenkins 通过一个名为
+<code>env</code> 的全局变量, 将 Jenkins 内置环境变量暴露出来</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 内置变量 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;example&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;Running $&#123;env.BUILD_NUMBER&#125; on $&#123;env.JENKINS_URL&#125;&quot;</span></span><br><span class="line">            echo <span class="string">&quot;Running $env.BUILD_NUMBER on $env.JENKINS_URL&quot;</span></span><br><span class="line">            echo <span class="string">&quot;Running $&#123;BUILD_NUMBER&#125; on $&#123;JENKINS_URL&#125;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上方式都是合法的, 但是不推荐方法三, 因为出现变量冲突时非常难排查</span></span><br><span class="line"><span class="comment">/* 常用变量</span></span><br><span class="line"><span class="comment">BUILD_NUMBER  构建号, 累加的数字</span></span><br><span class="line"><span class="comment">BRANCH_NAME   分支名称, 多分支pipeline项目支持</span></span><br><span class="line"><span class="comment">BUILD_URL     当前构建的页面URL</span></span><br><span class="line"><span class="comment">GIT_BRANCH    分支名称, 通过Git拉取源码时支持</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>在调试 <code>pipeline</code> 时, 可以在 <code>pipeline</code> 的开始阶段通过 <code>sh 'printenv'</code> 命令将 <code>env</code> 变量的属性值打印出来</p>
+<p>在调试 <code>pipeline</code> 时, 可以在 <code>pipeline</code>
+的开始阶段通过 <code>sh 'printenv'</code> 命令将 <code>env</code>
+变量的属性值打印出来</p>
 </blockquote>
 <h3 id="自定义变量">自定义变量</h3>
-<p>当 <code>pipeline</code> 变得复杂时, 就会有自定义的环境变量的需求, 声明式 pipeline 提供了 <code>environment</code> 指令, 方便自定义变量</p>
+<p>当 <code>pipeline</code> 变得复杂时, 就会有自定义的环境变量的需求,
+声明式 pipeline 提供了 <code>environment</code> 指令, 方便自定义变量</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 自定义变量 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    <span class="comment">// 变量作用域为整个pipeline</span></span><br><span class="line">    environment &#123;</span><br><span class="line">        CC = <span class="string">&#x27;clang&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;example&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">// 变量作用域为当前阶段</span></span><br><span class="line">            environment &#123;</span><br><span class="line">                DEBUG_FLAGS = <span class="string">&#x27;-g&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&quot;$&#123;CC&#125; $&#123;DEBUG_FLAGS&#125;&quot;</span></span><br><span class="line">                sh <span class="string">&#x27;printenv&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果在 <code>environment</code> 中定义的变量与 <code>env</code> 中的变量重名, 那么被重名的变量的值会被覆盖掉</p>
+<p>如果在 <code>environment</code> 中定义的变量与 <code>env</code>
+中的变量重名, 那么被重名的变量的值会被覆盖掉</p>
 </blockquote>
 <h3 id="全局变量">全局变量</h3>
 <p>有时候, 需要定义一些全局的跨 pipeline 的自定义变量</p>
-<p>进入 <code>Manage Jenkins / Configure System / Global properties</code> 节点, 添加全局环境变量, 自定义全局变量会被加入 <code>env</code> 属性列表中, 所以使用方法与 Jenkins 内置变量无异</p>
+<p>进入
+<code>Manage Jenkins / Configure System / Global properties</code> 节点,
+添加全局环境变量, 自定义全局变量会被加入 <code>env</code> 属性列表中,
+所以使用方法与 Jenkins 内置变量无异</p>
 <h2 id="参数化">参数化</h2>
 <p><strong>参数化</strong> 是指可以通过传参来决定 pipeline 的行为</p>
 <h3 id="参数定义">参数定义</h3>
-<p>在 Jenkins pipeline 中定义参数使用的是 <code>parameters</code> 指令, 被传入的参数会放到一个名为 <code>params</code> 的对象中, 在 <code>pipeline</code> 中可直接使用</p>
+<p>在 Jenkins pipeline 中定义参数使用的是 <code>parameters</code> 指令,
+被传入的参数会放到一个名为 <code>params</code> 的对象中, 在
+<code>pipeline</code> 中可直接使用</p>
 <blockquote>
-<p>至少要手动执行一次, pipeline 才会被 Jenkins 加载生效, 生效后再执行项目时, 就可以设置参数值了</p>
+<p>至少要手动执行一次, pipeline 才会被 Jenkins 加载生效,
+生效后再执行项目时, 就可以设置参数值了</p>
 </blockquote>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: parameters */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    parameters &#123;</span><br><span class="line">        booleanParam(<span class="attr">name:</span> <span class="string">&#x27;flag&#x27;</span>, <span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>, <span class="attr">defaultValue:</span> <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;param value: $&#123;params.flag&#125;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 支持的参数类型</span></span><br><span class="line"><span class="comment">string        字符串类型</span></span><br><span class="line"><span class="comment">text          多行文本类型, 换行使用\n</span></span><br><span class="line"><span class="comment">booleanParam  布尔类型</span></span><br><span class="line"><span class="comment">choice        选择参数类型, 使用\n来分隔多个选项</span></span><br><span class="line"><span class="comment">file          文件类型</span></span><br><span class="line"><span class="comment">password      密码类型</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="参数传递">参数传递</h3>
-<p>除了可以在执行项目时设置参数值外, 也可以通过 pipeline 调用另一个 pipeline 时传递参数值, 在 Jenkins pipeline 中使用 <code>build</code> 指令实现</p>
+<p>除了可以在执行项目时设置参数值外, 也可以通过 pipeline 调用另一个
+pipeline 时传递参数值, 在 Jenkins pipeline 中使用 <code>build</code>
+指令实现</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: build */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                build (</span><br><span class="line">                    <span class="symbol">job:</span> <span class="string">&quot;pipeline_name&quot;</span>,</span><br><span class="line">                    <span class="symbol">parameters:</span> [</span><br><span class="line">                        booleanParam(<span class="attr">name:</span> <span class="string">&#x27;flag&#x27;</span>, <span class="attr">value:</span> <span class="literal">true</span>)</span><br><span class="line">                    ]</span><br><span class="line">                )</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">job          目标pipeline任务的名称</span></span><br><span class="line"><span class="comment">parameters   可选, 数组类型, 传入目标pipeline的参数列表, 可选参数类型同定参方法</span></span><br><span class="line"><span class="comment">propagate    可选, 如果值为true(默认值), 则只有当下游任务的构建状态为SUCCESS时, 上游任务才算构建成功, 如果值为false, 则不论下游任务构建状态是什么, 上游任务都忽略</span></span><br><span class="line"><span class="comment">quietPeriod  可选, 整形类型, 触发下游任务后, 下游任务等待多久执行, 如果不设置此参数, 则等待时间由下游任务确定, 单位为秒</span></span><br><span class="line"><span class="comment">wait         可选, 是否等待下游任务执行完成, 默认值为true</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果使用 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/cloudbees-folder/">Folder</a> 插件, 可以像管理文件夹下的文件一样来管理 Jenkins 项目, 此时需要注意 <code>build</code> 指令的 <code>job</code> 参数的写法, 同一目录下时可以直接使用任务名称, 不同目录下时需要指定绝对路径</p>
+<p>如果使用 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/cloudbees-folder/">Folder</a> 插件,
+可以像管理文件夹下的文件一样来管理 Jenkins 项目, 此时需要注意
+<code>build</code> 指令的 <code>job</code> 参数的写法,
+同一目录下时可以直接使用任务名称, 不同目录下时需要指定绝对路径</p>
 </blockquote>
 <h3 id="参数输入">参数输入</h3>
-<p>执行 <code>input</code> 指令会暂停 pipeline, 直到用户输入参数, 这是一种特殊的参数化 pipeline 的方法</p>
-<p><code>input</code> 指令的返回值类型取决于要返回的值的个数, 如果只返回一个值, 返回值类型就是这个值的类型, 如果有多个返回值, 则返回值类型就是 <code>Map</code> 类型</p>
+<p>执行 <code>input</code> 指令会暂停 pipeline, 直到用户输入参数,
+这是一种特殊的参数化 pipeline 的方法</p>
+<p><code>input</code> 指令的返回值类型取决于要返回的值的个数,
+如果只返回一个值, 返回值类型就是这个值的类型, 如果有多个返回值,
+则返回值类型就是 <code>Map</code> 类型</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: input */</span></span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">        steps &#123;</span><br><span class="line">            timeout(<span class="attr">time:</span> <span class="number">1</span>, <span class="attr">unit:</span> <span class="string">&#x27;HOURS&#x27;</span>) &#123;</span><br><span class="line">                input(<span class="attr">message:</span> <span class="string">&#x27;发布或停止&#x27;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当pipeline执行到build阶段时就会暂停, 将鼠标指针移到虚线方块上, 会出现提示信息浮层, 默认按钮为Proceed(继续)或Abort(中止), 手动点击确认</span></span><br><span class="line"><span class="comment">// 与timeout指令同时使用可以实现超时自动中止pipeline, 防止无限等待</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: input */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    environment &#123;</span><br><span class="line">        pm = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;params&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                pm = input(</span><br><span class="line">                    <span class="symbol">message:</span> <span class="string">&#x27;发布配置&#x27;</span>,</span><br><span class="line">                    <span class="symbol">ok:</span> <span class="string">&#x27;确定&#x27;</span>,</span><br><span class="line">                    <span class="symbol">parameters:</span> [</span><br><span class="line">                        choice(<span class="attr">choices:</span> <span class="string">&#x27;dev\ntest\nprod&#x27;</span>,</span><br><span class="line">                               <span class="symbol">description:</span> <span class="string">&#x27;环境&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;build_env&#x27;</span>),</span><br><span class="line">                        string(<span class="attr">defaultValue:</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">                               <span class="symbol">description:</span> <span class="string">&#x27;域名&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;domain&#x27;</span>)</span><br><span class="line">                    ],</span><br><span class="line">                    <span class="symbol">submitter:</span> <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">                    <span class="symbol">submitterParameter:</span> <span class="string">&#x27;APPROVER&#x27;</span></span><br><span class="line">                )</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;操作者: $&#123;pm[&#x27;APPROVER&#x27;]&#125;&quot;</span></span><br><span class="line">                echo <span class="string">&quot;发布环境: $&#123;pm[&#x27;build_env&#x27;]&#125;&quot;</span></span><br><span class="line">                echo <span class="string">&quot;发布域名: $&#123;pm[&#x27;domain&#x27;]&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">message             指令的提示消息</span></span><br><span class="line"><span class="comment">submitter           可选, 可以进行操作的用户名或用户组名, 使用逗号分隔</span></span><br><span class="line"><span class="comment">submitterParameter  可选, 保存input指令的实际操作者的用户名的变量名</span></span><br><span class="line"><span class="comment">ok                  可选, 自定义确定按钮的文本</span></span><br><span class="line"><span class="comment">parameters          自定义输入的参数列表, 可选参数类型同定参方法</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
@@ -346,24 +369,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/03/30/jenkins 006/" rel="bookmark">Jenkins 扩展插件</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -434,7 +439,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -446,7 +451,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -490,7 +495,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

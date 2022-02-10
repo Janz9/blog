@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta property="og:type" content="website">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta property="og:type" content="website">
 <meta property="og:title" content="Jbot">
 <meta property="og:url" content="https://janz.icu/index.html">
 <meta property="og:site_name" content="Jbot">
@@ -45,6 +45,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jbot</title>
   
+
 
 
 
@@ -246,13 +247,13 @@
 
       <time title="创建时间：2021-08-18 05:46:50" itemprop="dateCreated datePublished" datetime="2021-08-18T05:46:50+08:00">2021-08-18</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-09-05 12:42:43" itemprop="dateModified" datetime="2021-09-05T12:42:43+08:00">2021-09-05</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-24 12:42:43" itemprop="dateModified" datetime="2021-11-24T12:42:43+08:00">2021-11-24</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -296,27 +297,43 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p><a target="_blank" rel="noopener" href="https://grafana.com/oss/loki/">Loki</a> 是一个功能齐全的日志聚合系统的核心, 专为高效保存日志消息而优化, 与其它日志系统不同, Loki 不索引原始日志消息, 而是基于标签构建索引</p>
-<p>Loki 的组件在内部称为模块 (module), 单体模式部署时, 每个组件都运行在同一进程中, 通过 Loki 配置的 gRPC 端口在本地网络中连接, 以进行组件之间的相互通信, Loki 主要由 5 个组件构成:</p>
+<p><a target="_blank" rel="noopener" href="https://grafana.com/oss/loki/">Loki</a>
+是一个功能齐全的日志聚合系统的核心, 专为高效保存日志消息而优化,
+与其它日志系统不同, Loki 不索引原始日志消息, 而是基于标签构建索引</p>
+<p>Loki 的组件在内部称为模块 (module), 单体模式部署时,
+每个组件都运行在同一进程中, 通过 Loki 配置的 gRPC 端口在本地网络中连接,
+以进行组件之间的相互通信, Loki 主要由 5 个组件构成:</p>
 <ul>
-<li><strong>Distributor</strong> 负责处理客户端传入的流, 这是日志数据写入路径中的第一站, 分发器将验证每个流的正确性, 确保其在配置的租户 (或全局) 限制内, 然后将有效的数据块分批, 并行发送到匹配的 Ingester</li>
-<li><strong>Ingester</strong> 负责接收数据块, 当数据达到一定数量或期限时, 将数据块刷新到数据库中, 其对数据块和索引分别使用单独的数据库, 因为它们的数据类型不同</li>
-<li><strong>Querier</strong> 基于 LogQL 查询语言, 以检索存储库和 Ingester 中尚未刷新的数据的索引, 并返回匹配的日志查询结果</li>
-<li><strong>Query Frontend</strong> 负责提供查询的 API 端点, 传入的查询请求保存在内部的队列中, 以便 Querier 提取执行</li>
-<li><strong>Ruler</strong> 分为记录规则和告警规则, 用于预计算表达式和触发告警事件</li>
+<li><strong>Distributor</strong> 负责处理客户端传入的流,
+这是日志数据写入路径中的第一站, 分发器将验证每个流的正确性,
+确保其在配置的租户 (或全局) 限制内, 然后将有效的数据块分批,
+并行发送到匹配的 Ingester</li>
+<li><strong>Ingester</strong> 负责接收数据块,
+当数据达到一定数量或期限时, 将数据块刷新到数据库中,
+其对数据块和索引分别使用单独的数据库, 因为它们的数据类型不同</li>
+<li><strong>Querier</strong> 基于 LogQL 查询语言, 以检索存储库和
+Ingester 中尚未刷新的数据的索引, 并返回匹配的日志查询结果</li>
+<li><strong>Query Frontend</strong> 负责提供查询的 API 端点,
+传入的查询请求保存在内部的队列中, 以便 Querier 提取执行</li>
+<li><strong>Ruler</strong> 分为记录规则和告警规则,
+用于预计算表达式和触发告警事件</li>
 </ul>
 
 
-<p>Loki 提供了多种安装方式, 详见 <a target="_blank" rel="noopener" href="https://grafana.com/docs/loki/latest/installation/">installation</a>, 支持使用容器方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/grafana/loki">grafana/loki</a></p>
+<p>Loki 提供了多种安装方式, 详见 <a target="_blank" rel="noopener" href="https://grafana.com/docs/loki/latest/installation/">installation</a>,
+支持使用容器方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/grafana/loki">grafana/loki</a></p>
 
 
 <p>Loki 通过 YAML 文件来配置, 详见 <a target="_blank" rel="noopener" href="https://grafana.com/docs/loki/latest/configuration/">configuration</a></p>
 
 <blockquote>
-<p>Loki 不附带任何内置的身份认证层, 如需对外暴露端口的方式部署, 需要在服务前置运行身份认证的反向代理, 例如使用 basic auth 或 OAuth2 代理的 Nginx 服务</p>
+<p>Loki 不附带任何内置的身份认证层, 如需对外暴露端口的方式部署,
+需要在服务前置运行身份认证的反向代理, 例如使用 basic auth 或 OAuth2
+代理的 Nginx 服务</p>
 </blockquote>
 
-<p>通过运行二进制文件 <a target="_blank" rel="noopener" href="https://github.com/grafana/loki/releases/">release</a> 启动服务, 详见 <a target="_blank" rel="noopener" href="https://grafana.com/docs/loki/latest/installation/local/">local</a></p>
+<p>通过运行二进制文件 <a target="_blank" rel="noopener" href="https://github.com/grafana/loki/releases/">release</a> 启动服务,
+详见 <a target="_blank" rel="noopener" href="https://grafana.com/docs/loki/latest/installation/local/">local</a></p>
 
 <p>Loki 提供了一组管理 API, 以促进自动化和集成, 详见 <a target="_blank" rel="noopener" href="https://grafana.com/docs/loki/latest/api/">management-api</a></p>
           <!--noindex-->
@@ -378,13 +395,13 @@
 
       <time title="创建时间：2021-07-19 08:33:03" itemprop="dateCreated datePublished" datetime="2021-07-19T08:33:03+08:00">2021-07-19</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-27 06:07:44" itemprop="dateModified" datetime="2021-07-27T06:07:44+08:00">2021-07-27</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-07-27 06:07:44" itemprop="dateModified" datetime="2021-07-27T06:07:44+08:00">2021-07-27</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -428,25 +445,40 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a> 负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件, 根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理, 以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等), 网络端口 (webhook), 微信等多种通知方式</p>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/alertmanager/">AlertManager</a>
+负责处理客户端应用程序 (如 Prometheus 服务等) 发送的告警事件,
+根据配置定义的规则, 可以对告警事件做分组, 抑制, 静默等处理,
+以及触发邮件, 第三方平台 (如 <a target="_blank" rel="noopener" href="https://www.pagerduty.com/">PagerDuty</a>, <a target="_blank" rel="noopener" href="https://www.atlassian.com/zh/software/opsgenie">Opsgenie</a> 等),
+网络端口 (webhook), 微信等多种通知方式</p>
 <p>AlertManager 的架构可分为以下 6 个模块:</p>
 <ol type="1">
-<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于 http 协议的告警事件</li>
-<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中, 可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
-<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警, 并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中, 以实现告警事件的分组处理</li>
-<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑 (如抑制, 静默, 去重等) 来优化告警的质量</li>
-<li>Silence Provider 模块用于提供静默处理的实现, 静默规则可用来关闭部分告警的通知, 并通过 Cluster 以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
+<li>API 模块用于接收客户端发送的告警请求, 如 Prometheus 服务发送的基于
+http 协议的告警事件</li>
+<li>Alert Provider 模块用于存储告警内容, 默认实现存储在本机内存中,
+可以通过扩展其接口, 实现将告警信息持久化到数据库或云存储</li>
+<li>Dispatcher 模块通过订阅方式从 Alert Provider 模块中获取新的告警,
+并根据配置文件中的规则, 将告警信息按标签路由到不同的分组中,
+以实现告警事件的分组处理</li>
+<li>Notification Pipeline 模块是一个责任链模式的组件, 通过一系列逻辑
+(如抑制, 静默, 去重等) 来优化告警的质量</li>
+<li>Silence Provider 模块用于提供静默处理的实现,
+静默规则可用来关闭部分告警的通知, 并通过 Cluster
+以日志形式广播给集群中的节点, 避免告警事件在集群中重复出现</li>
 <li>Notify Provider 模块用于提供通知的具体实现, 并会在本地记录日志</li>
 </ol>
 
 
-<p>AlertManager 提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/releases">releases</a>, 也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/alertmanager">prom/alertmanager</a>, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager#install">install</a></p>
+<p>AlertManager 提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager/releases">releases</a>,
+也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/alertmanager">prom/alertmanager</a>,
+详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/alertmanager#install">install</a></p>
 
 
-<p>AlertManager 通过 YAML 文件来配置, 命令行可以配置不可变的系统参数, 而配置文件定义的限制规则用于通知路由和接收者, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/">configuration</a></p>
+<p>AlertManager 通过 YAML 文件来配置, 命令行可以配置不可变的系统参数,
+而配置文件定义的限制规则用于通知路由和接收者, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/">configuration</a></p>
 
 
-<p>AlertManager 支持 basic 认证和 TLS, 通过 <code>--web.config.file</code> 指定配置文件, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/#configuration-file">authentication</a></p>
+<p>AlertManager 支持 basic 认证和 TLS, 通过
+<code>--web.config.file</code> 指定配置文件, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/#configuration-file">authentication</a></p>
 
 <blockquote>
 <p>密码参考 <a target="_blank" rel="noopener" href="https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md#about-bcrypt">bcrypt</a></p>
@@ -512,13 +544,13 @@
 
       <time title="创建时间：2021-07-15 00:10:37" itemprop="dateCreated datePublished" datetime="2021-07-15T00:10:37+08:00">2021-07-15</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-20 19:25:00" itemprop="dateModified" datetime="2021-07-20T19:25:00+08:00">2021-07-20</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-07-20 19:25:00" itemprop="dateModified" datetime="2021-07-20T19:25:00+08:00">2021-07-20</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -562,16 +594,29 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p><a target="_blank" rel="noopener" href="https://micrometer.io/">Micrometer</a> 是基于 JVM 应用的度量监控库, 它提供了应用内统一的指标采集接口和实现, 允许开发人员选择不同的数据规范对接方式, 从而最大限度的提高了对接不同监控系统的可移植性</p>
-<p>由于不同的监控系统对数据规范的特征支持不一, Micrometer 按 3 个特征对已支持的监控系统做了划分, 详见 <a target="_blank" rel="noopener" href="https://micrometer.io/docs/concepts#_supported_monitoring_systems">monitoring-systems</a></p>
+<p><a target="_blank" rel="noopener" href="https://micrometer.io/">Micrometer</a> 是基于 JVM
+应用的度量监控库, 它提供了应用内统一的指标采集接口和实现,
+允许开发人员选择不同的数据规范对接方式,
+从而最大限度的提高了对接不同监控系统的可移植性</p>
+<p>由于不同的监控系统对数据规范的特征支持不一, Micrometer 按 3
+个特征对已支持的监控系统做了划分, 详见 <a target="_blank" rel="noopener" href="https://micrometer.io/docs/concepts#_supported_monitoring_systems">monitoring-systems</a></p>
 <ul>
-<li>维度(dimensional) 对于支持维度的监控系统, 维度信息将以键值对的标签形式返回, 对于不支持维度的监控系统, 维度信息将会展平添加到指标名称中</li>
-<li>速率聚合(rate aggregation) 对于不支持速率聚合的监控系统, 增量采样的数据可以进行速率聚合再返回新样本, 对于支持速率聚合的监控系统, 直接返回增量数据</li>
+<li>维度(dimensional) 对于支持维度的监控系统,
+维度信息将以键值对的标签形式返回, 对于不支持维度的监控系统,
+维度信息将会展平添加到指标名称中</li>
+<li>速率聚合(rate aggregation) 对于不支持速率聚合的监控系统,
+增量采样的数据可以进行速率聚合再返回新样本, 对于支持速率聚合的监控系统,
+直接返回增量数据</li>
 <li>发布(publishing) 支持不同的监控系统对采样数据的推模式和拉模式</li>
 </ul>
 
-<p>Micrometer 为不同的监控系统提供了称为 <strong>注册表(registry)</strong> 的实现模块和测试套件, 注册表接口 <code>MeterRegistry</code> 定义了创建和保存应用要采集的指标元数据的方法, 每个支持的监控系统都有一个该接口的具体实现, 详见 <a target="_blank" rel="noopener" href="https://micrometer.io/docs/concepts#_registry">registry</a></p>
-<p>Micrometer 默认提供 <code>SimpleMeterRegistry</code> 的简单实现类, 在开发者没有首选的监控系统前, 可以通过该实现类编写采样的代码, 该实现类将采样数据保存在内存中, 并且不会提供对外暴露对接数据的方式</p>
+<p>Micrometer 为不同的监控系统提供了称为
+<strong>注册表(registry)</strong> 的实现模块和测试套件, 注册表接口
+<code>MeterRegistry</code> 定义了创建和保存应用要采集的指标元数据的方法,
+每个支持的监控系统都有一个该接口的具体实现, 详见 <a target="_blank" rel="noopener" href="https://micrometer.io/docs/concepts#_registry">registry</a></p>
+<p>Micrometer 默认提供 <code>SimpleMeterRegistry</code> 的简单实现类,
+在开发者没有首选的监控系统前, 可以通过该实现类编写采样的代码,
+该实现类将采样数据保存在内存中, 并且不会提供对外暴露对接数据的方式</p>
 
 
 <p>注册表可以通过配置指标过滤器, 控制指标的注册方式和其采样数据, 详见 <a target="_blank" rel="noopener" href="https://micrometer.io/docs/concepts#_meter_filters">meter-filters</a></p>
@@ -643,13 +688,13 @@
 
       <time title="创建时间：2021-07-04 22:05:02" itemprop="dateCreated datePublished" datetime="2021-07-04T22:05:02+08:00">2021-07-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-20 00:25:15" itemprop="dateModified" datetime="2021-07-20T00:25:15+08:00">2021-07-20</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-09 15:25:16" itemprop="dateModified" datetime="2021-11-09T15:25:16+08:00">2021-11-09</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -695,26 +740,38 @@
           
 <p>Prometheus 服务采集数据, 通常可以分为以下三种方式:</p>
 <ul>
-<li>独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据</li>
-<li>集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集</li>
-<li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端</li>
+<li>独立方式 使用 Exporter 以零侵入的方式单独部署,
+作为代理层暴露第三方系统或应用中的数据</li>
+<li>集成方式 使用 ClientLibs 耦合到应用的开发源码中,
+主要用于业务相关指标的采集</li>
+<li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据,
+再暴露给服务端</li>
 </ul>
 <p>Prometheus 服务拉取数据的规范基于简单的文本格式, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exposition_formats/">exposition-formats</a></p>
 
-<p>现成的 exporter 列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#third-party-exporters">exporter</a>, 自定义编写 exporter 的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing-exporters</a></p>
+<p>现成的 exporter 列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#third-party-exporters">exporter</a>,
+自定义编写 exporter 的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing-exporters</a></p>
 <p>常用系统和应用的 exporter 的配置部署示例:</p>
 <ol type="1">
-<li><p><a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">node-exporter</a> 基于 Linux 内核的系统指标采集, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/node-exporter/">node-exporter-guides</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">node-exporter</a>
+基于 Linux 内核的系统指标采集, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/node-exporter/">node-exporter-guides</a></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/prometheus/mysqld_exporter">mysqld-exporter</a> 基于 MySQL 的数据库指标采集</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/prometheus/mysqld_exporter">mysqld-exporter</a>
+基于 MySQL 的数据库指标采集</p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/oliver006/redis_exporter">redis-exporter</a> 基于 Redis 的数据库指标采集</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/oliver006/redis_exporter">redis-exporter</a>
+基于 Redis 的数据库指标采集</p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/google/cadvisor">google-cadvisor</a> 基于一个正在运行的 Docker 守护进程, 用于收集, 聚合, 处理和导出进程和容器的指标, 它为每个容器记录资源隔离参数, 资源使用情况, 网络统计信息等数据, 并支持按 Prometheus 的规范格式导出, 详见 <a target="_blank" rel="noopener" href="https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md">cadvisor-prometheus</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/google/cadvisor">google-cadvisor</a>
+基于一个正在运行的 Docker 守护进程, 用于收集, 聚合,
+处理和导出进程和容器的指标, 它为每个容器记录资源隔离参数, 资源使用情况,
+网络统计信息等数据, 并支持按 Prometheus 的规范格式导出, 详见 <a target="_blank" rel="noopener" href="https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md">cadvisor-prometheus</a></p>
 </li>
 </ol>
 
-<p>Prometheus 提供了与应用开发语言相匹配的客户端库, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/clientlibs/">clientlibs</a>, 辅助开发的工具库列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#other-third-party-utilities">utilities</a>, 自定义编写客户端库的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_clientlibs/">writing-clientlibs</a></p>
+<p>Prometheus 提供了与应用开发语言相匹配的客户端库, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/clientlibs/">clientlibs</a>,
+辅助开发的工具库列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#other-third-party-utilities">utilities</a>,
+自定义编写客户端库的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_clientlibs/">writing-clientlibs</a></p>
 <p>已集成 prometheus 采集规范的应用列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#software-exposing-prometheus-metrics">software</a></p>
           <!--noindex-->
             <div class="post-button">
@@ -775,13 +832,13 @@
 
       <time title="创建时间：2021-07-01 12:58:39" itemprop="dateCreated datePublished" datetime="2021-07-01T12:58:39+08:00">2021-07-01</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-03 16:34:25" itemprop="dateModified" datetime="2021-07-03T16:34:25+08:00">2021-07-03</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-07-03 16:34:25" itemprop="dateModified" datetime="2021-07-03T16:34:25+08:00">2021-07-03</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -825,8 +882,11 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p>Prometheus 控制台的对象信息查询和表达式查询, 是通过服务端提供的基于 http 协议的 api 接口实现的, 当前稳定的接口可以在服务端的 <code>/api/v1/</code> 路由端点下访问, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/">http-api</a></p>
-<p>接口响应格式基于 Json 形式, 每个成功的请求都会返回一个 <code>2xx</code> 的状态码, 可能返回的其它状态码如下:</p>
+<p>Prometheus 控制台的对象信息查询和表达式查询, 是通过服务端提供的基于
+http 协议的 api 接口实现的, 当前稳定的接口可以在服务端的
+<code>/api/v1/</code> 路由端点下访问, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/">http-api</a></p>
+<p>接口响应格式基于 Json 形式, 每个成功的请求都会返回一个
+<code>2xx</code> 的状态码, 可能返回的其它状态码如下:</p>
 <ul>
 <li><code>400</code> 参数缺少或不正确时</li>
 <li><code>422</code> 表达式不能被执行时</li>
@@ -841,7 +901,8 @@
 <li><p>区间查询接口, 用于在一段时间内计算表达式的结果</p>
 </li>
 </ol>
-<p>当表达式查询成功时, 对应 PromQL 计算结果的 4 种类型, 响应体中 <code>data</code> 字段的返回值如下:</p>
+<p>当表达式查询成功时, 对应 PromQL 计算结果的 4 种类型, 响应体中
+<code>data</code> 字段的返回值如下:</p>
 <ul>
 <li><p>区间向量(range vectors)</p>
 </li>
@@ -913,13 +974,13 @@
 
       <time title="创建时间：2021-06-25 14:00:20" itemprop="dateCreated datePublished" datetime="2021-06-25T14:00:20+08:00">2021-06-25</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-08-21 20:49:08" itemprop="dateModified" datetime="2021-08-21T20:49:08+08:00">2021-08-21</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-11 16:16:00" itemprop="dateModified" datetime="2021-11-11T16:16:00+08:00">2021-11-11</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -944,7 +1005,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>16k</span>
+      <span>17k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -963,33 +1024,47 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p>每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/data_model/">data-model</a></p>
+<p>每种监控系统都有自己对指标的一套定义和规范,
+指标的数据格式将直接影响对数据的采集和存储,
+所以定义指标时需要充分考虑通用性和扩展性, Prometheus
+基本上以时间序列(time series) 的形式存储所有数据, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/data_model/">data-model</a></p>
 
-<p>Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都将被忽略</p>
+<p>Prometheus 从监控目标的端点拉取采样的指标数据,
+指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行,
+其他空行都将被忽略</p>
 
 <p>时间序列的组成:</p>
 <ul>
 <li>指标(metric)
 <ul>
-<li>指标名称(metric name) 用于反映指标的含义, 通常描述收集的时间序列的一般性质</li>
+<li>指标名称(metric name) 用于反映指标的含义,
+通常描述收集的时间序列的一般性质</li>
 <li>标签集(labels) 通过键值对的形式提供多种特征维度</li>
 </ul></li>
 <li>样本(sample)
 <ul>
 <li>时间戳(timestamp) 样本的采集时间, 精确到毫秒</li>
-<li>样本值(value) 类型为 <code>float64</code> 的数值, Prometheus 没有对样本值的单位进行定义, 需要使用者自己区分或者事先定义好样本数据的单位</li>
+<li>样本值(value) 类型为 <code>float64</code> 的数值, Prometheus
+没有对样本值的单位进行定义,
+需要使用者自己区分或者事先定义好样本数据的单位</li>
 </ul></li>
 </ul>
 <p></p>
 
 
 <blockquote>
-<p>指标名称实际上以标签的形式保存在数据库中, <code>__name__</code> 是特定的标签(系统保留关键字), 用于表示指标名称, 这种方式是系统内部的表现形式, 官方推荐只能在系统内部使用</p>
+<p>指标名称实际上以标签的形式保存在数据库中, <code>__name__</code>
+是特定的标签(系统保留关键字), 用于表示指标名称,
+这种方式是系统内部的表现形式, 官方推荐只能在系统内部使用</p>
 </blockquote>
 
-<p>Prometheus 指标分为 Counter(计数型), Gauge(测量型), Histogram(直方图) 和 Summary(摘要型) 这 4 种类型, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/metric_types/">metric-types</a></p>
+<p>Prometheus 指标分为 Counter(计数型), Gauge(测量型), Histogram(直方图)
+和 Summary(摘要型) 这 4 种类型, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/metric_types/">metric-types</a></p>
 
-<p>Counter 计数型的特点是只增不减, 具有很好的不相关性, 不会因为机器重启而置零, 虽然它们是随着时间增加而不会减少的数字, 但有时可以将其重置为零并再次开始递增, 常见的监控指标如服务的请求数, 已完成的任务数, 错误发生的次数等</p>
+<p>Counter 计数型的特点是只增不减, 具有很好的不相关性,
+不会因为机器重启而置零, 虽然它们是随着时间增加而不会减少的数字,
+但有时可以将其重置为零并再次开始递增, 常见的监控指标如服务的请求数,
+已完成的任务数, 错误发生的次数等</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/25/prometheus-002/#more" rel="contents">
@@ -1049,13 +1124,13 @@
 
       <time title="创建时间：2021-06-21 10:57:40" itemprop="dateCreated datePublished" datetime="2021-06-21T10:57:40+08:00">2021-06-21</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-19 07:13:14" itemprop="dateModified" datetime="2021-07-19T07:13:14+08:00">2021-07-19</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-10-29 15:29:57" itemprop="dateModified" datetime="2021-10-29T15:29:57+08:00">2021-10-29</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1099,23 +1174,48 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a> 主要用于提供近实时的, 基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus 专注于现在正在发生的事情, 而不是追踪数周或数月前的数据, 它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的</p>
+<p><a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a> 主要用于提供近实时的,
+基于动态云环境和容器的微服务, 服务和应用程序的内省监控, Prometheus
+专注于现在正在发生的事情, 而不是追踪数周或数月前的数据,
+它基于这样一个前提, 即大多数监控查询和警报都是从最近的数据中生成的</p>
 <p>Prometheus 主要由 6 个核心模块构成:</p>
 <ul>
-<li><strong>Prometheus Server</strong> 是最核心的模块, 它主要包含抓取, 存储和查询这 3 个功能, 通过静态配置或服务发现监控的目标, 周期性的从 Prometheus Targets 或 Pushgateway 拉取监控指标数据, 数据通过一定的规则清理和数据整理后, 存储到新的时间序列中进行持久化, 之后客户端就可以通过 PromQL 语句对数据进行查询</li>
-<li><strong>Service Discovery</strong> 支持通过文件配置静态地址或服务发现的目标, 相对于直接使用文件配置, 在云环境以及容器环境下更多的监控对象都是动态的, 实际场景下, Prometheus 更适合云以及容器环境下的监控需求</li>
-<li><strong>Prometheus Targets</strong> 是 Prometheus 监控的对象, 对于长时间执行的 Job, 可以使用 Exporter 集成进行监控, Exporter 的机制是将第三方系统的监控数据按照 Prometheus 的格式暴露出来, Prometheus 是拉模式为主的监控系统</li>
-<li><strong>Pushgateway</strong> 是用于支持临时性 Job 主动推送指标的中间网关, 它使用推模式收集数据, 本质上是用于解决 Prometheus 服务器和监控目标有网络隔离的场景</li>
-<li><strong>Dashboard</strong> 除了内置的查询语言 PromQL 以外, Prometheus 还支持表达式浏览器和基于表达式浏览器的数据图形界面, 实际工作中使用 Grafana 等作为前端展示界面</li>
-<li><strong>AlertManager</strong> 是独立于 Prometheus 的一个告警组件, 需要单独安装部署, AlertManager 通过接收 Prometheus 推送过来的告警, 用于管理, 整合和分发告警到不同的目的地, AlertManager 提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook 通知的支持</li>
+<li><strong>Prometheus Server</strong> 是最核心的模块, 它主要包含抓取,
+存储和查询这 3 个功能, 通过静态配置或服务发现监控的目标, 周期性的从
+Prometheus Targets 或 Pushgateway 拉取监控指标数据,
+数据通过一定的规则清理和数据整理后, 存储到新的时间序列中进行持久化,
+之后客户端就可以通过 PromQL 语句对数据进行查询</li>
+<li><strong>Service Discovery</strong>
+支持通过文件配置静态地址或服务发现的目标, 相对于直接使用文件配置,
+在云环境以及容器环境下更多的监控对象都是动态的, 实际场景下, Prometheus
+更适合云以及容器环境下的监控需求</li>
+<li><strong>Prometheus Targets</strong> 是 Prometheus 监控的对象,
+对于长时间执行的 Job, 可以使用 Exporter 集成进行监控, Exporter
+的机制是将第三方系统的监控数据按照 Prometheus 的格式暴露出来, Prometheus
+是拉模式为主的监控系统</li>
+<li><strong>Pushgateway</strong> 是用于支持临时性 Job
+主动推送指标的中间网关, 它使用推模式收集数据, 本质上是用于解决
+Prometheus 服务器和监控目标有网络隔离的场景</li>
+<li><strong>Dashboard</strong> 除了内置的查询语言 PromQL 以外,
+Prometheus 还支持表达式浏览器和基于表达式浏览器的数据图形界面,
+实际工作中使用 Grafana 等作为前端展示界面</li>
+<li><strong>AlertManager</strong> 是独立于 Prometheus 的一个告警组件,
+需要单独安装部署, AlertManager 通过接收 Prometheus 推送过来的告警,
+用于管理, 整合和分发告警到不同的目的地, AlertManager
+提供了多种内置的第三方告警通知方式, 同时还提供了对 Webhook
+通知的支持</li>
 </ul>
 
 
-<p>Prometheus 官网提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/releases">releases</a>, 也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/prometheus">prom/prometheus</a>, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/installation/">installation</a></p>
+<p>Prometheus 官网提供了预编译的二进制文件 <a target="_blank" rel="noopener" href="https://github.com/prometheus/prometheus/releases">releases</a>,
+也支持使用容器的方式部署 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/prom/prometheus">prom/prometheus</a>,
+详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/installation/">installation</a></p>
 
 
 <blockquote>
-<p>除了单独安装外, 部署 Prometheus 的最佳方式在很大程度上取决于服务器的实际环境, 开发者可以使用配置文件来构建自己的部署并将 Prometheus 打包成服务</p>
+<p>除了单独安装外, 部署 Prometheus
+的最佳方式在很大程度上取决于服务器的实际环境,
+开发者可以使用配置文件来构建自己的部署并将 Prometheus 打包成服务</p>
 </blockquote>
 <p>集成好的监控套件, 以下是一些服务整合的配置</p>
 <ul>
@@ -1183,13 +1283,13 @@
 
       <time title="创建时间：2021-05-20 13:28:23" itemprop="dateCreated datePublished" datetime="2021-05-20T13:28:23+08:00">2021-05-20</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-10 02:04:29" itemprop="dateModified" datetime="2021-06-10T02:04:29+08:00">2021-06-10</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-06-10 02:04:29" itemprop="dateModified" datetime="2021-06-10T02:04:29+08:00">2021-06-10</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1237,13 +1337,21 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p>使用 GraphQL 时, 最常见被选用的跨端协议是 HTTP, 通常使用单个端点来提供服务的完整功能, 服务通常使用文本格式的 Json 语法返回数据, <a target="_blank" rel="noopener" href="https://graphql.cn/learn/serving-over-http/">serving-over-http</a> 页面提供了使用 HTTP 服务的最佳实践</p>
+<p>使用 GraphQL 时, 最常见被选用的跨端协议是 HTTP,
+通常使用单个端点来提供服务的完整功能, 服务通常使用文本格式的 Json
+语法返回数据, <a target="_blank" rel="noopener" href="https://graphql.cn/learn/serving-over-http/">serving-over-http</a>
+页面提供了使用 HTTP 服务的最佳实践</p>
 
-<p>GraphQL 规范特意忽略了网络处理的问题, 但这并不意味着在使用 GraphQL 时没有针对这些问题的解决方案, 可代以工程上通行的准则来实现, 这些准则是基于服务端与 <a target="_blank" rel="noopener" href="https://relay.dev/">relay</a> 客户端兼容来写的, 但是对于任何客户端都有用</p>
+<p>GraphQL 规范特意忽略了网络处理的问题, 但这并不意味着在使用 GraphQL
+时没有针对这些问题的解决方案, 可代以工程上通行的准则来实现,
+这些准则是基于服务端与 <a target="_blank" rel="noopener" href="https://relay.dev/">relay</a>
+客户端兼容来写的, 但是对于任何客户端都有用</p>
 
-<p>GraphQL 服务在单个入口端点, 通常是 <code>/graphql</code> 上运行, 并且所有提供服务的 GraphQL 请求都应被导向此入口端点</p>
+<p>GraphQL 服务在单个入口端点, 通常是 <code>/graphql</code> 上运行,
+并且所有提供服务的 GraphQL 请求都应被导向此入口端点</p>
 <blockquote>
-<p>虽然 GraphQL 也可以暴露多个资源端点, 但这可能导致开发人员在使用 GraphiQL 等工具时遇到困难</p>
+<p>虽然 GraphQL 也可以暴露多个资源端点, 但这可能导致开发人员在使用
+GraphiQL 等工具时遇到困难</p>
 </blockquote>
 
 <p>GraphQL 服务应能够处理 <code>GET</code> 和 <code>POST</code> 方法</p>
@@ -1251,11 +1359,14 @@
 
 <p>通常建议支持另外两种情况:</p>
 <ol type="1">
-<li>如果存在 <code>query</code> 这个查询字符串参数, 则应当以与 <code>GET</code> 相同的方式进行解析和处理</li>
-<li>如果存在 <code>Content-Type: application/graphql</code> 请求头, 则将 <code>POST</code> 请求体内容视为 GraphQL 查询字符串</li>
+<li>如果存在 <code>query</code> 这个查询字符串参数, 则应当以与
+<code>GET</code> 相同的方式进行解析和处理</li>
+<li>如果存在 <code>Content-Type: application/graphql</code> 请求头, 则将
+<code>POST</code> 请求体内容视为 GraphQL 查询字符串</li>
 </ol>
 
-<p>无论使用任何方法发送查询和变量, 响应都应当以 Json 格式返回, 注意需按 <a target="_blank" rel="noopener" href="https://spec.graphql.cn//#sec-Data-">规范</a> 的条目规则</p>
+<p>无论使用任何方法发送查询和变量, 响应都应当以 Json 格式返回, 注意需按
+<a target="_blank" rel="noopener" href="https://spec.graphql.cn//#sec-Data-">规范</a> 的条目规则</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/20/graphql%20003/#more" rel="contents">
@@ -1315,13 +1426,13 @@
 
       <time title="创建时间：2021-05-19 11:36:23" itemprop="dateCreated datePublished" datetime="2021-05-19T11:36:23+08:00">2021-05-19</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-08-15 14:00:47" itemprop="dateModified" datetime="2021-08-15T14:00:47+08:00">2021-08-15</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-08-15 14:00:47" itemprop="dateModified" datetime="2021-08-15T14:00:47+08:00">2021-08-15</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1377,15 +1488,20 @@
 
 
 <blockquote>
-<p>推荐使用 GraphQL SDL 语言, 可以将 schema 字符串写到代码变量里, 或者以文本形式写到 <code>.graphql</code> 为扩展名的文件, 再读取到应用内存中</p>
+<p>推荐使用 GraphQL SDL 语言, 可以将 schema 字符串写到代码变量里,
+或者以文本形式写到 <code>.graphql</code> 为扩展名的文件,
+再读取到应用内存中</p>
 </blockquote>
-<p>类型解析器 <code>TypeResolver</code> 用于决定具体值的类型, 这是接口和联合需要的功能</p>
+<p>类型解析器 <code>TypeResolver</code> 用于决定具体值的类型,
+这是接口和联合需要的功能</p>
 
 <p>数据解析器 <code>DataFetcher</code> 为定义的类型和字段提供数据</p>
 
-<p>运行时线路 <code>RuntimeWiring</code> 和 <code>GraphQLSchema</code> 组合成一个可执行的 schema</p>
+<p>运行时线路 <code>RuntimeWiring</code> 和 <code>GraphQLSchema</code>
+组合成一个可执行的 schema</p>
 
-<p>GraphQL-Java 允许将 schema 拆分成多个文件, 并在使用前将多个文件合并到一个逻辑单元中, 详见 <a target="_blank" rel="noopener" href="https://www.graphql-java.com/documentation/v16/schema/#modularising-the-schema-sdl">modular</a></p>
+<p>GraphQL-Java 允许将 schema 拆分成多个文件,
+并在使用前将多个文件合并到一个逻辑单元中, 详见 <a target="_blank" rel="noopener" href="https://www.graphql-java.com/documentation/v16/schema/#modularising-the-schema-sdl">modular</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/19/graphql%20002/#more" rel="contents">
@@ -1445,13 +1561,13 @@
 
       <time title="创建时间：2021-05-17 11:13:25" itemprop="dateCreated datePublished" datetime="2021-05-17T11:13:25+08:00">2021-05-17</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-08-15 13:58:44" itemprop="dateModified" datetime="2021-08-15T13:58:44+08:00">2021-08-15</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-08-15 13:58:44" itemprop="dateModified" datetime="2021-08-15T13:58:44+08:00">2021-08-15</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1495,19 +1611,29 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p><a target="_blank" rel="noopener" href="https://graphql.org/">GraphQL</a> 是一种用于 API 的查询语言, 也是一个满足数据查询的运行时, GraphQL 对 API 中的数据提供了一套易于理解的完整描述, 使得客户端能够准确的获得它需要的数据, 而且没有任何冗余, 也让 API 更容易的随着时间推移而演进, 规范详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/">spec</a></p>
+<p><a target="_blank" rel="noopener" href="https://graphql.org/">GraphQL</a> 是一种用于 API 的查询语言,
+也是一个满足数据查询的运行时, GraphQL 对 API
+中的数据提供了一套易于理解的完整描述,
+使得客户端能够准确的获得它需要的数据, 而且没有任何冗余, 也让 API
+更容易的随着时间推移而演进, 规范详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/">spec</a></p>
 
-<p>GraphQL 使用模板定义语言(Schema Definitin Language, SDL) 用于定义强类型的文档, 无论使用何种语言或框架构建应用程序, GraphQL SDL 都是相同的, GraphQL Schema 定义了应用程序中的可用类型, 服务端和客户端通过它来验证 GraphQL 请求</p>
+<p>GraphQL 使用模板定义语言(Schema Definitin Language, SDL)
+用于定义强类型的文档, 无论使用何种语言或框架构建应用程序, GraphQL SDL
+都是相同的, GraphQL Schema 定义了应用程序中的可用类型,
+服务端和客户端通过它来验证 GraphQL 请求</p>
 
 
-<p>GraphQL schema 中最基本的单元是类型, 每个 GraphQL 服务都会定义一套类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Types-">types</a></p>
-<p><strong>初始类型(initial types)</strong> 定义了 schema 的入口, GraphQL 有 3 种初始类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Initial-types-">initial</a></p>
+<p>GraphQL schema 中最基本的单元是类型, 每个 GraphQL
+服务都会定义一套类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Types-">types</a></p>
+<p><strong>初始类型(initial types)</strong> 定义了 schema 的入口,
+GraphQL 有 3 种初始类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Initial-types-">initial</a></p>
 <ul>
 <li>查询(<code>Query</code>)</li>
 <li>更改(<code>Mutation</code>)</li>
 <li>订阅(<code>Subscription</code>)</li>
 </ul>
-<p><strong>标量类型(scalar types)</strong> 是最基本的类型, GraphQL 有 5 种内置的标量类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Scalars-">scalars</a></p>
+<p><strong>标量类型(scalar types)</strong> 是最基本的类型, GraphQL 有 5
+种内置的标量类型, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Scalars-">scalars</a></p>
 <ul>
 <li>整数(<code>Int</code>)</li>
 <li>浮点数(<code>Float</code>)</li>
@@ -1515,7 +1641,8 @@
 <li>布尔值(<code>Boolean</code>)</li>
 <li>唯一标识符(<code>ID</code>)</li>
 </ul>
-<p>枚举类型(<code>Enum</code>) 是基于标量类型的变体, 其表示可能值的一个有限集, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Enums-">enum</a></p>
+<p>枚举类型(<code>Enum</code>) 是基于标量类型的变体,
+其表示可能值的一个有限集, 详见 <a target="_blank" rel="noopener" href="https://spec.graphql.cn/#sec-Enums-">enum</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/17/graphql%20001/#more" rel="contents">
@@ -1554,7 +1681,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1566,7 +1693,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -1610,7 +1737,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

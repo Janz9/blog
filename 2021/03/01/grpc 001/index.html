@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="gRPC 是一项进程间通信技术, 可以用来连接, 调用, 操作和调试分布式异构应用程序  在开发 gRPC 应用程序时, 先要定义服务接口, 借助服务定义, 可以生成服务端代码 (骨架 skeleton), 它通过提供低层级的通信抽象简化了服务端的逻辑, 同时, 还可以生成客户端代码 (存根 stub), 它使用抽象简化了客户端的通信, 为不同的编程语言隐藏了低层级的通信  gRPC 主要有以下">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="gRPC 是一项进程间通信技术, 可以用来连接, 调用, 操作和调试分布式异构应用程序  在开发 gRPC 应用程序时, 先要定义服务接口, 借助服务定义, 可以生成服务端代码 (骨架 skeleton), 它通过提供低层级的通信抽象简化了服务端的逻辑, 同时, 还可以生成客户端代码 (存根 stub), 它使用抽象简化了客户端的通信, 为不同的编程语言隐藏了低层级的通信  gRPC 主要有以下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gRPC 入门">
 <meta property="og:url" content="https://janz.icu/2021/03/01/grpc%20001/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>gRPC 入门 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2021-03-01 12:33:27" itemprop="dateCreated datePublished" datetime="2021-03-01T12:33:27+08:00">2021-03-01</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-22 06:50:24" itemprop="dateModified" datetime="2021-07-22T06:50:24+08:00">2021-07-22</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-07-22 06:50:24" itemprop="dateModified" datetime="2021-07-22T06:50:24+08:00">2021-07-22</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,9 +304,14 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="入门">入门</h1>
-<p><strong>gRPC</strong> 是一项进程间通信技术, 可以用来连接, 调用, 操作和调试分布式异构应用程序</p>
+<p><strong>gRPC</strong> 是一项进程间通信技术, 可以用来连接, 调用,
+操作和调试分布式异构应用程序</p>
 <h2 id="简介">简介</h2>
-<p>在开发 gRPC 应用程序时, 先要定义服务接口, 借助服务定义, 可以生成服务端代码 (骨架 skeleton), 它通过提供低层级的通信抽象简化了服务端的逻辑, 同时, 还可以生成客户端代码 (存根 stub), 它使用抽象简化了客户端的通信, 为不同的编程语言隐藏了低层级的通信</p>
+<p>在开发 gRPC 应用程序时, 先要定义服务接口, 借助服务定义,
+可以生成服务端代码 (骨架 skeleton),
+它通过提供低层级的通信抽象简化了服务端的逻辑, 同时, 还可以生成客户端代码
+(存根 stub), 它使用抽象简化了客户端的通信,
+为不同的编程语言隐藏了低层级的通信</p>
 <pre class="mermaid">flowchart LR
 TITLE["图 基于gRPC的微服务"]
 A(服务定义)
@@ -325,40 +331,70 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <p>gRPC 主要有以下几个优势:</p>
 <ul>
 <li><p>提供高效的进程间通信</p>
-<p>gRPC 在 HTTP/2 之上实现了基于 protocol buffers 的二进制协议, 从而能够更快的处理进程间的通信</p></li>
+<p>gRPC 在 HTTP/2 之上实现了基于 protocol buffers 的二进制协议,
+从而能够更快的处理进程间的通信</p></li>
 <li><p>强类型的接口定义</p>
-<p>gRPC 为应用程序开发提供了一种契约优先的方式, 首先必须定义服务接口, 然后才能去处理实现细节, 使用静态类型可以避免程序运行时或互操作产生的大多数错误</p></li>
+<p>gRPC 为应用程序开发提供了一种契约优先的方式, 首先必须定义服务接口,
+然后才能去处理实现细节,
+使用静态类型可以避免程序运行时或互操作产生的大多数错误</p></li>
 <li><p>支持多语言</p>
-<p>gRPC 基于 protocol buffers 的服务定义是语言中立的, 因此, 可以选择任意一种语言, 都能与现有的服务端或客户端进行互操作</p></li>
+<p>gRPC 基于 protocol buffers 的服务定义是语言中立的, 因此,
+可以选择任意一种语言, 都能与现有的服务端或客户端进行互操作</p></li>
 <li><p>支持双工流</p>
-<p>gRPC 在服务端和客户端都提供了对流的原生支持, 这些功能都被整合到了服务定义本身之中</p></li>
+<p>gRPC 在服务端和客户端都提供了对流的原生支持,
+这些功能都被整合到了服务定义本身之中</p></li>
 <li><p>内置的商业化特性</p>
-<p>gRPC 提供的内置支持, 如认证加密, 弹性, 元数据交换, 负载均衡, 服务发现等, 大多数现代框架和技术也对 gRPC 提供了原生支持</p></li>
+<p>gRPC 提供的内置支持, 如认证加密, 弹性, 元数据交换, 负载均衡,
+服务发现等, 大多数现代框架和技术也对 gRPC 提供了原生支持</p></li>
 </ul>
 <h3 id="服务定义">服务定义</h3>
-<p>开发 gRPC 应用程序时, 要先定义服务接口, 其中包含允许远程调用的方法, 以及调用这些方法所使用的消息格式等, gRPC 使用 protocol buffers 作为接口定义语言 (interface definition language, IDL) 来定义服务接口, <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/">protocol-buffers</a> 是语言中立, 平台无关, 实现结构化, 数据序列化的可扩展机制, 因为服务定义是规范的扩展, 所以可以借助 gRPC 插件来根据 proto 文件生成代码</p>
-<p>proto 语法指南参考 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto">proto2</a> <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto3">proto3</a></p>
+<p>开发 gRPC 应用程序时, 要先定义服务接口, 其中包含允许远程调用的方法,
+以及调用这些方法所使用的消息格式等, gRPC 使用 protocol buffers
+作为接口定义语言 (interface definition language, IDL) 来定义服务接口, <a
+target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/">protocol-buffers</a>
+是语言中立, 平台无关, 实现结构化, 数据序列化的可扩展机制,
+因为服务定义是规范的扩展, 所以可以借助 gRPC 插件来根据 proto
+文件生成代码</p>
+<p>proto 语法指南参考 <a
+target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto">proto2</a>
+<a
+target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto3">proto3</a></p>
 <p><strong>服务(service)</strong> 是暴露给客户端的远程方法集合</p>
 <p><strong>消息(message)</strong> 是客户端和服务端交换的数据结构</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 服务定义文件</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;  <span class="comment">// 指定所使用的版本</span></span><br><span class="line"><span class="keyword">package</span> com.demo;   <span class="comment">// 指定包名, 避免协议消息类型之间的命名冲突</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务接口的定义</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Biz</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> insert(Entity) <span class="keyword">returns</span> (Identification)</span>; <span class="comment">// 服务方法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 消息结构的定义</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Identification</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int32</span> id = <span class="number">1</span>; <span class="comment">// 结构字段</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Entity</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int32</span> id = <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">string</span> code = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">string</span> name = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 protobuf 最直接的 RPC 框架是 <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc">gRPC</a>, 其它可用的第三方项目, 参考 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/blob/master/docs/third_party.md">third party</a></p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 服务定义文件</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;  <span class="comment">// 指定所使用的版本</span></span><br><span class="line"><span class="keyword">package</span> com.demo;   <span class="comment">// 指定包名, 避免协议消息类型之间的命名冲突</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务接口的定义</span></span><br><span class="line"><span class="keyword">service </span><span class="title class_">Biz</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> insert(Entity) <span class="keyword">returns</span> (Identification)</span>; <span class="comment">// 服务方法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 消息结构的定义</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Identification</span> &#123;</span><br><span class="line">  <span class="type">int32</span> id = <span class="number">1</span>; <span class="comment">// 结构字段</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Entity</span> &#123;</span><br><span class="line">  <span class="type">int32</span> id = <span class="number">1</span>;</span><br><span class="line">  <span class="type">string</span> code = <span class="number">2</span>;</span><br><span class="line">  <span class="type">string</span> name = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 protobuf 最直接的 RPC 框架是 <a
+target="_blank" rel="noopener" href="https://github.com/grpc/grpc">gRPC</a>, 其它可用的第三方项目, 参考
+<a
+target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/blob/master/docs/third_party.md">third
+party</a></p>
 <h2 id="原理">原理</h2>
-<p>gRPC 应用程序使用 RPC 通过网络进行通信, 对于实现 RPC 的底层细节, 所使用的消息编码技术以及在网络中的运行方式, 这些底层通信细节都是由服务定义所生成的代码实现的, 开发人员需要做的就是处理高层级的抽象</p>
-<p>在设计复杂的 gRPC 应用程序或设法调试现有的应用程序时, 理解底层通信细节很有帮助</p>
+<p>gRPC 应用程序使用 RPC 通过网络进行通信, 对于实现 RPC 的底层细节,
+所使用的消息编码技术以及在网络中的运行方式,
+这些底层通信细节都是由服务定义所生成的代码实现的,
+开发人员需要做的就是处理高层级的抽象</p>
+<p>在设计复杂的 gRPC 应用程序或设法调试现有的应用程序时,
+理解底层通信细节很有帮助</p>
 <h3 id="通信">通信</h3>
 <p>gRPC 应用程序的 4 种基础通信模式:</p>
 <ul>
 <li><p>一元 RPC</p>
-<p>一元 PRC 模式也称为简单 RPC 模式, 在该模式中, 当客户端调用服务端的远程方法时, 客户端发送请求至服务端并获得一个响应</p></li>
+<p>一元 PRC 模式也称为简单 RPC 模式, 在该模式中,
+当客户端调用服务端的远程方法时,
+客户端发送请求至服务端并获得一个响应</p></li>
 <li><p>服务端流 RPC</p>
-<p>在服务端流 RPC 模式中, 服务端在接收到客户端的请求消息后, 会发回响应的序列, 这种多个响应所组成的序列也被称为流</p></li>
+<p>在服务端流 RPC 模式中, 服务端在接收到客户端的请求消息后,
+会发回响应的序列, 这种多个响应所组成的序列也被称为流</p></li>
 <li><p>客户端流 RPC</p>
-<p>在客户端流 RPC 模式中, 客户端会发送多个请求给服务端, 而不再是单个请求, 服务端则会发送一个响应给客户端</p></li>
+<p>在客户端流 RPC 模式中, 客户端会发送多个请求给服务端,
+而不再是单个请求, 服务端则会发送一个响应给客户端</p></li>
 <li><p>双向流 RPC</p>
-<p>在双向流 RPC 模式中, 客户端以消息流的形式发送请求到服务端, 服务端也以消息流的形式进行响应</p></li>
+<p>在双向流 RPC 模式中, 客户端以消息流的形式发送请求到服务端,
+服务端也以消息流的形式进行响应</p></li>
 </ul>
 <h3 id="编码">编码</h3>
-<p>gRPC 使用 protocol buffers 编写服务定义, 支持的语言都有对应的编译器来生成源代码, protocol buffers 支持多种编码技术, 它会根据数据类型使用不同的编码技术</p>
+<p>gRPC 使用 protocol buffers 编写服务定义,
+支持的语言都有对应的编译器来生成源代码, protocol buffers
+支持多种编码技术, 它会根据数据类型使用不同的编码技术</p>
 <h4 id="消息">消息</h4>
 <p><span class="math display">\[
 \overbrace{
@@ -384,14 +420,25 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <p>标签(1byte) 也称字段标识符, 由字段索引和线路类型构成</p>
 <p>字段索引 是在定义消息时, 为每个消息字段所设置的唯一数字</p>
 <p>线路类型(3bit) 是基于字段类型的, 线路类型会提供信息来确定值的长度</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 消息结构定义</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Identification</span> </span>&#123; <span class="comment">// 定义消息名</span></span><br><span class="line">  <span class="built_in">int32</span> id = <span class="number">1</span>; <span class="comment">// 字段类型 字段名 字段索引</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可用的线路类型及其对应的字段类型, 见表 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/encoding#structure">structure</a></p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例: 消息结构定义</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Identification</span> &#123; <span class="comment">// 定义消息名</span></span><br><span class="line">  <span class="type">int32</span> id = <span class="number">1</span>; <span class="comment">// 字段类型 字段名 字段索引</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可用的线路类型及其对应的字段类型, 见表 <a
+target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/encoding#structure">structure</a></p>
 <blockquote>
-<p>在设计消息定义时, 了解各种数据类型对应的编码技术很重要, 这样做能够为每个消息字段设置最合适的数据类型, 从而让消息能够在运行时高效编码</p>
-<p>比如, 对于负整数, 推荐使用 <code>sint32</code> 有符号整数类型, 负数首先会使用 zigzag 编码转换成正数, 然后再使用 varint 进行编码, 如果使用 <code>int32</code> 这样的常规类型, 就意味着使用 varint 编码将负值转换成二进制值, 但这比转换正值要使用更多的字节, 详见 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/encoding#signed_integers">signed integers</a></p>
+<p>在设计消息定义时, 了解各种数据类型对应的编码技术很重要,
+这样做能够为每个消息字段设置最合适的数据类型,
+从而让消息能够在运行时高效编码</p>
+<p>比如, 对于负整数, 推荐使用 <code>sint32</code> 有符号整数类型,
+负数首先会使用 zigzag 编码转换成正数, 然后再使用 varint 进行编码,
+如果使用 <code>int32</code> 这样的常规类型, 就意味着使用 varint
+编码将负值转换成二进制值, 但这比转换正值要使用更多的字节, 详见 <a
+target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/encoding#signed_integers">signed
+integers</a></p>
 </blockquote>
 <h4 id="分帧">分帧</h4>
-<p>通常, 消息分帧会构建消息和通信, 以便于接收方很容易的提取信息, gRPC 使用 <strong>长度前缀分帧(length-prefix framing)</strong> 的消息分帧技术, 在写入消息本身之前, 写入长度信息, 来表明每条消息的大小 <span class="math display">\[
+<p>通常, 消息分帧会构建消息和通信, 以便于接收方很容易的提取信息, gRPC
+使用 <strong>长度前缀分帧(length-prefix framing)</strong>
+的消息分帧技术, 在写入消息本身之前, 写入长度信息, 来表明每条消息的大小
+<span class="math display">\[
 \fbox{压缩标记}
 \fbox{消息长度}
 \underbrace{
@@ -403,12 +450,17 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <p>压缩标记(1byte) 用来表明数据是否进行了压缩</p>
 <p>消息长度(4byte) 设置消息的大小</p>
 <blockquote>
-<p>对于简单的消息, 只需要处理一条长度前缀分帧, 而对于流消息, 就会有多条长度前缀分帧的消息需处理</p>
+<p>对于简单的消息, 只需要处理一条长度前缀分帧, 而对于流消息,
+就会有多条长度前缀分帧的消息需处理</p>
 </blockquote>
 <h3 id="协议">协议</h3>
-<p>gRPC 使用 HTTP/2 作为其传输协议, 实现通过网络发送消息, 当把基于长度前缀的消息分帧以请求消息或响应消息的形式通过网络进行发送时, 除了消息本身, 还要发送额外的头信息, 详见 <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md">http2</a></p>
+<p>gRPC 使用 HTTP/2 作为其传输协议, 实现通过网络发送消息,
+当把基于长度前缀的消息分帧以请求消息或响应消息的形式通过网络进行发送时,
+除了消息本身, 还要发送额外的头信息, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md">http2</a></p>
 <h4 id="请求">请求</h4>
-<p>请求消息用于初始化远程调用, 在 gRPC 中, 请求消息始终由客户端应用程序来触发, 它包含 3 部分:</p>
+<p>请求消息用于初始化远程调用, 在 gRPC 中,
+请求消息始终由客户端应用程序来触发, 它包含 3 部分:</p>
 <ul>
 <li>请求头信息</li>
 <li>以长度作为前缀的消息</li>
@@ -421,19 +473,36 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <li>以长度作为前缀的消息</li>
 <li>trailer 标记</li>
 </ul>
-<p>单独的 trailer 来提醒客户端响应消息已发送, trailer 会携带状态码以及请求的状态信息</p>
-<p>gRPC 状态码见 <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/statuscodes.md">statuscodes</a> <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/http-grpc-status-mapping.md">httpstatus</a></p>
+<p>单独的 trailer 来提醒客户端响应消息已发送, trailer
+会携带状态码以及请求的状态信息</p>
+<p>gRPC 状态码见 <a
+target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/statuscodes.md">statuscodes</a>
+<a
+target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/http-grpc-status-mapping.md">httpstatus</a></p>
 <h2 id="工具">工具</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf">protobuf</a> 包含 protoc 编译器, 用于编译 <code>.proto</code> 文件, 生成的类为消息结构的字段提供 <code>getters</code> 和 <code>setters</code>, 并作为一个单元来处理读取和写入 protocol buffer 的细节</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-java">grpc-java</a> 用于 Java 项目, 生成较高层次上的源码, 包含三个不同的层:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf">protobuf</a>
+包含 protoc 编译器, 用于编译 <code>.proto</code> 文件,
+生成的类为消息结构的字段提供 <code>getters</code> 和
+<code>setters</code>, 并作为一个单元来处理读取和写入 protocol buffer
+的细节</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-java">grpc-java</a> 用于 Java
+项目, 生成较高层次上的源码, 包含三个不同的层:</p>
 <ul>
-<li>存根(stub) 存根层是向开发人员公开的层, 它为数据模型 / IDL / 接口提供类型安全的绑定</li>
-<li>通道(channel) 通道层是对传输处理的抽象, 适合于拦截 / 修饰, 并且比存根层向应用程序公开更多的行为</li>
+<li>存根(stub) 存根层是向开发人员公开的层, 它为数据模型 / IDL /
+接口提供类型安全的绑定</li>
+<li>通道(channel) 通道层是对传输处理的抽象, 适合于拦截 / 修饰,
+并且比存根层向应用程序公开更多的行为</li>
 <li>传输(transport) 传输层完成了从线上读取字节的工作</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcurl">grpcurl</a> 用于 gRPC 服务交互的命令行工具</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcui">grpcui</a> 是一个命令行工具, 它提供了一个基于浏览器的 GUI, 允许开发者以交互方式构造 gRPC 服务端的请求</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/pseudomuto/protoc-gen-doc">protoc-gen-doc</a> 是一个用于 protoc 的文档生成器, 该工具可以根据 <code>proto</code> 文件中的定义和注释生成 Html, Json, DocBook 或 Markdown 文档</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcurl">grpcurl</a> 用于
+gRPC 服务交互的命令行工具</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/fullstorydev/grpcui">grpcui</a>
+是一个命令行工具, 它提供了一个基于浏览器的 GUI, 允许开发者以交互方式构造
+gRPC 服务端的请求</p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/pseudomuto/protoc-gen-doc">protoc-gen-doc</a>
+是一个用于 protoc 的文档生成器, 该工具可以根据 <code>proto</code>
+文件中的定义和注释生成 Html, Json, DocBook 或 Markdown 文档</p>
 
     </div>
 
@@ -441,15 +510,6 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/03/02/grpc 002/" rel="bookmark">gRPC 示例</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/03/03/grpc 003/" rel="bookmark">gRPC 接口</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -520,7 +580,7 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -532,7 +592,7 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -576,7 +636,7 @@ linkStyle 0 stroke:#FFF,stroke-width:0;</pre>
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

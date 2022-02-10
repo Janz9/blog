@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta property="og:type" content="website">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta property="og:type" content="website">
 <meta property="og:title" content="Jbot">
 <meta property="og:url" content="https://janz.icu/page/4/index.html">
 <meta property="og:site_name" content="Jbot">
@@ -45,6 +45,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jbot</title>
   
+
 
 
 
@@ -246,13 +247,13 @@
 
       <time title="创建时间：2020-05-18 10:15:29" itemprop="dateCreated datePublished" datetime="2020-05-18T10:15:29+08:00">2020-05-18</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-31 08:17:39" itemprop="dateModified" datetime="2021-05-31T08:17:39+08:00">2021-05-31</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-31 08:17:39" itemprop="dateModified" datetime="2021-05-31T08:17:39+08:00">2021-05-31</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -296,15 +297,19 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p><a target="_blank" rel="noopener" href="https://curl.haxx.se/">cURL</a> 项目的主要目的和侧重点围绕着两个产品展开:</p>
+<p><a target="_blank" rel="noopener" href="https://curl.haxx.se/">cURL</a>
+项目的主要目的和侧重点围绕着两个产品展开:</p>
 <ul>
 <li>命令行工具 curl;</li>
-<li>提供 C API 的 <a target="_blank" rel="noopener" href="https://curl.haxx.se/libcurl/">libcurl</a> 库</li>
+<li>提供 C API 的 <a target="_blank" rel="noopener" href="https://curl.haxx.se/libcurl/">libcurl</a>
+库</li>
 </ul>
 
-<p><strong>命令行选项</strong> 可以将想要用 curl 执行的任务的信息传给 curl</p>
+<p><strong>命令行选项</strong> 可以将想要用 curl 执行的任务的信息传给
+curl</p>
 <ul>
-<li>很多选项属于切换开关, 用于启用某些功能或切换两个已知状态, 指定对应的选项名称即可使用这些选项;</li>
+<li>很多选项属于切换开关, 用于启用某些功能或切换两个已知状态,
+指定对应的选项名称即可使用这些选项;</li>
 <li>对于一些选项, 需要向它们传递一些数据</li>
 </ul>
 <p>cURL 提供了 WEB 版本的 <a target="_blank" rel="noopener" href="https://curl.haxx.se/docs/manpage.html">文档</a></p>
@@ -313,10 +318,13 @@
 <p><strong>短选项</strong> 使用起来非常方便, 因为它们的名字很简短</p>
 
 
-<p>因为字母的数量有限, 需要用到的选项又比较多, 所以并非所有选项都可以使用单个字母来表示, 于是就有了 <strong>长选项</strong></p>
+<p>因为字母的数量有限, 需要用到的选项又比较多,
+所以并非所有选项都可以使用单个字母来表示, 于是就有了
+<strong>长选项</strong></p>
 
 
-<p>对于开关选项, 既可以用它们打开某些功能, 也可以通过 <strong>负选项</strong> 关闭功能</p>
+<p>对于开关选项, 既可以用它们打开某些功能, 也可以通过
+<strong>负选项</strong> 关闭功能</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/05/18/curl%20001/#more" rel="contents">
@@ -376,13 +384,13 @@
 
       <time title="创建时间：2020-03-30 00:24:58" itemprop="dateCreated datePublished" datetime="2020-03-30T00:24:58+08:00">2020-03-30</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:41:09" itemprop="dateModified" datetime="2021-05-06T11:41:09+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:41:09" itemprop="dateModified" datetime="2021-05-06T11:41:09+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -427,27 +435,42 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="扩展插件">扩展插件</h1>
 <h2 id="扩展">扩展</h2>
-<p>在大量使用 pipeline 后会发现 Jenkins 内置的功能并不能照顾到所有的需求, 这时就需要扩展 pipeline</p>
+<p>在大量使用 pipeline 后会发现 Jenkins
+内置的功能并不能照顾到所有的需求, 这时就需要扩展 pipeline</p>
 <h3 id="函数">函数</h3>
-<p>pipeline 本质是一个 Groovy 脚本, 所以可以在 pipeline 中定义函数, 并使用 Groovy 语言自带的特性</p>
+<p>pipeline 本质是一个 Groovy 脚本, 所以可以在 pipeline 中定义函数,
+并使用 Groovy 语言自带的特性</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 定义函数 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;$&#123;createVersion(BUILD_NUMBER)&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">def</span> createVersion(String BUILD_NUMBER) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date().format(<span class="string">&#x27;yyMM&#x27;</span>) + <span class="string">&quot;-$&#123;BUILD_NUMBER&#125;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="共享库">共享库</h3>
-<p>Jenkins pipeline 提供了 <strong>共享库(Shared library)</strong> 技术, 可以将重复代码定义在一个独立的代码控制仓库中, 其他的 Jenkins pipeline 加载使用它</p>
-<p>创建共享库项目并推送到 SCM, 在 <code>Manager Jenkins / Configure System / Global Pipeline Libraries</code> 节点下配置全局共享库</p>
+<p>Jenkins pipeline 提供了 <strong>共享库(Shared library)</strong> 技术,
+可以将重复代码定义在一个独立的代码控制仓库中, 其他的 Jenkins pipeline
+加载使用它</p>
+<p>创建共享库项目并推送到 SCM, 在
+<code>Manager Jenkins / Configure System / Global Pipeline Libraries</code>
+节点下配置全局共享库</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 共享库结构 */</span></span><br><span class="line">├─src</span><br><span class="line">│  └─codes</span><br><span class="line">│     └─showme</span><br><span class="line">│        └─Utils.groovy</span><br><span class="line">└─vars</span><br><span class="line">   └─sayHello.groovy</span><br><span class="line"></span><br><span class="line"><span class="comment">// src目录是一个标准的Java源码结构, 目录中的类被称为库类</span></span><br><span class="line"><span class="comment">// vars目录是可以在pipeline中直接调用的全局变量, 变量的文件名即调用的函数名</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 文件: src/codes/showme/Utils.groovy */</span></span><br><span class="line"><span class="keyword">package</span> codes.showme</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Utils</span> <span class="keyword">implements</span> <span class="title">Serializable</span> &#123;</span></span><br><span class="line">    <span class="keyword">def</span> getVersion(String BUILD_NUMBER, String GIT_COMMIT) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Date().format(<span class="string">&#x27;yyMM&#x27;</span>) + <span class="string">&quot;-$&#123;BUILD_NUMBER&#125;&quot;</span> + <span class="string">&quot;-$&#123;GIT_COMMIT&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 库类可以使用@Grab注解使用第三方依赖</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 文件: src/codes/showme/Utils.groovy */</span></span><br><span class="line"><span class="keyword">package</span> codes.showme</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Utils</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="keyword">def</span> getVersion(String BUILD_NUMBER, String GIT_COMMIT) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Date().format(<span class="string">&#x27;yyMM&#x27;</span>) + <span class="string">&quot;-$&#123;BUILD_NUMBER&#125;&quot;</span> + <span class="string">&quot;-$&#123;GIT_COMMIT&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 库类可以使用@Grab注解使用第三方依赖</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 文件: vars/sayHello.groovy */</span></span><br><span class="line"><span class="keyword">def</span> call(String name) &#123;</span><br><span class="line">    echo <span class="string">&quot;hello $&#123;name&#125;.&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 全局变量实际调用的是文件中的call函数, 函数中可以直接调用pipeline的步骤, 函数参数还支持接收闭包</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 共享库 */</span></span><br><span class="line"><span class="meta">@Library</span>(<span class="string">&#x27;global-shared-library&#x27;</span>) <span class="comment">// 使用@Library指定共享库, 需要与全局共享库配置的Name一致</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sayHello(<span class="string">&#x27;world&#x27;</span>) <span class="comment">// 使用共享库vars目录中定义的全局变量</span></span><br><span class="line">                script &#123; <span class="comment">// 使用src目录中的类时, 需要使用全包名, 同时因为写的是Groovy代码, 所以需要使用script指令</span></span><br><span class="line">                    <span class="keyword">def</span> util = <span class="keyword">new</span> codes.showme.Utils()</span><br><span class="line">                    <span class="keyword">def</span> v = util.getVersion(<span class="string">&quot;$&#123;BUILD_NUMBER&#125;&quot;</span>, <span class="string">&quot;$&#123;GIT_COMMIT&#125;&quot;</span>)</span><br><span class="line">                    echo <span class="string">&quot;$&#123;v&#125;&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @Library语法</span></span><br><span class="line"><span class="meta">@Library</span>(<span class="string">&#x27;Name@version&#x27;</span>)</span><br><span class="line"><span class="comment">// Jenkins支持添加多个共享库, 所以@Library注解允许同时引入多个共享库, 出现同名函数时的处理方式是先定义者生效</span></span><br><span class="line"><span class="meta">@Library</span>([<span class="string">&#x27;Name@version&#x27;</span>, <span class="string">&#x27;Name2@version2&#x27;</span>])</span><br></pre></td></tr></table></figure>
 <h3 id="共享库模板">共享库模板</h3>
-<p>声明式 pipeline 在 <code>1.2</code> 版本后, 可以在共享库中定义 <code>pipeline</code>, 通过此特性, 可以定义 pipeline 的模板, 如果大多数项目的结构都是标准化的, 那么利用 pipeline 模板技术可以大大降低维护 pipeline 的成本</p>
+<p>声明式 pipeline 在 <code>1.2</code> 版本后, 可以在共享库中定义
+<code>pipeline</code>, 通过此特性, 可以定义 pipeline 的模板,
+如果大多数项目的结构都是标准化的, 那么利用 pipeline
+模板技术可以大大降低维护 pipeline 的成本</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 共享库代码 */</span></span><br><span class="line"><span class="comment">/* vars/generatePipeline.groovy */</span></span><br><span class="line"><span class="keyword">def</span> call(String lang) &#123;</span><br><span class="line">    <span class="keyword">if</span>(lang == <span class="string">&#x27;go&#x27;</span>) &#123;</span><br><span class="line">        pipeline &#123;</span><br><span class="line">            <span class="comment">// 代码同pipeline定义</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(lang == <span class="string">&#x27;java&#x27;</span>) &#123;</span><br><span class="line">        pipeline &#123;</span><br><span class="line">            <span class="comment">// 代码同pipeline定义</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 使用模板 */</span></span><br><span class="line"><span class="meta">@Library</span>(<span class="string">&#x27;global-shared-library&#x27;</span>)</span><br><span class="line">generatePipeline(<span class="string">&#x27;go&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="插件">插件</h2>
-<p>Jenkins 插件开发文档 <a target="_blank" rel="noopener" href="https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial">TUTORIAL</a>, 使用 Maven 的 <code>archetype</code> 插件生成代码骨架, 非常简单</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 使用mvn命令生成项目</span></span><br><span class="line">mvn archetype:generate -Dfilter=io.jenkins.archetypes:hello-world-plugin</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成的代码骨架</span></span><br><span class="line">├───pom.xml</span><br><span class="line">└───src</span><br><span class="line">    ├───main</span><br><span class="line">    │   ├───java</span><br><span class="line">    │   │   └───io</span><br><span class="line">    │   │       └───jenkins</span><br><span class="line">    │   │           └───plugins</span><br><span class="line">    │   │               └───sample</span><br><span class="line">    │   │                   └───HelloWorldBuilder.java</span><br><span class="line">    │   └───resources</span><br><span class="line">    │       ├───index.jelly</span><br><span class="line">    │       └───(省略i18n文件)</span><br><span class="line">    └───test</span><br><span class="line">        └───java</span><br><span class="line">            └───io</span><br><span class="line">                └───jenkins</span><br><span class="line">                    └───plugins</span><br><span class="line">                        └───sample</span><br><span class="line">                            └───HelloWorldBuilderTest.java</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pom.xml的&lt;name&gt;标签     定义插件的名称</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HelloWorldBuilder.java  步骤具体实现类</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> index.jelly             插件管理页面显示的HTML内容</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 文件: HelloWorldBuilder.java */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldBuilder</span> <span class="keyword">extends</span> <span class="title">Builder</span> <span class="keyword">implements</span> <span class="title">SimpleBuildStep</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> useFrench;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @DataBoundConstructor注解标识插件类的构造函数, name属性为插件默认属性, 也是调用插件时的必要参数</span></span><br><span class="line">    <span class="meta">@DataBoundConstructor</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HelloWorldBuilder</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isUseFrench</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> useFrench;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @DataBoundSetter注解标识插件属性的setter方法</span></span><br><span class="line">    <span class="meta">@DataBoundSetter</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUseFrench</span><span class="params">(<span class="keyword">boolean</span> useFrench)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.useFrench = useFrench;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">(Run&lt;?, ?&gt; run, FilePath workspace, Launcher launcher, TaskListener listener)</span> <span class="keyword">throws</span> InterruptedException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 插件的执行逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (useFrench) &#123;</span><br><span class="line">            listener.getLogger().println(<span class="string">&quot;Bonjour, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            listener.getLogger().println(<span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 扩展点唯一标识, 被定义在扩展点上, 可以理解为在pipeline中使用插件时所引用的函数名, 本例的扩展点标识为greet</span></span><br><span class="line">    <span class="meta">@Symbol(&quot;greet&quot;)</span></span><br><span class="line">    <span class="comment">// 扩展点注解, 通过此注解自动发现扩展点, 并将扩展点加入扩展点列表中</span></span><br><span class="line">    <span class="meta">@Extension</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">DescriptorImpl</span> <span class="keyword">extends</span> <span class="title">BuildStepDescriptor</span>&lt;<span class="title">Builder</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> FormValidation <span class="title">doCheckName</span><span class="params">(<span class="meta">@QueryParameter</span> String value, <span class="meta">@QueryParameter</span> <span class="keyword">boolean</span> useFrench)</span></span></span><br><span class="line"><span class="function">                <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (value.length() == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> FormValidation.error(Messages.HelloWorldBuilder_DescriptorImpl_errors_missingName());</span><br><span class="line">            <span class="keyword">if</span> (value.length() &lt; <span class="number">4</span>)</span><br><span class="line">                <span class="keyword">return</span> FormValidation.warning(Messages.HelloWorldBuilder_DescriptorImpl_warnings_tooShort());</span><br><span class="line">            <span class="keyword">if</span> (!useFrench &amp;&amp; value.matches(<span class="string">&quot;.*[éáàç].*&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> FormValidation.warning(Messages.HelloWorldBuilder_DescriptorImpl_warnings_reallyFrench());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> FormValidation.ok();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isApplicable</span><span class="params">(Class&lt;? extends AbstractProject&gt; aClass)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getDisplayName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Messages.HelloWorldBuilder_DescriptorImpl_DisplayName();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Jenkins 插件开发的代码骨架中, <code>pom.xml</code> 文件默认添加了用于插件开发的 Maven 插件 <code>maven-hpi-plugin</code>, 通过该插件, 只需要实现插件代码, 然后执行 <code>mvn hpi:run</code> 就可以启动一个安装了插件的 Jenkins 实例, 在浏览器中打开 <code>http://localhost:8080/jenkins</code> 即可访问</p>
+<p>Jenkins 插件开发文档 <a
+target="_blank" rel="noopener" href="https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial">TUTORIAL</a>,
+使用 Maven 的 <code>archetype</code> 插件生成代码骨架, 非常简单</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 使用mvn命令生成项目</span></span><br><span class="line">mvn archetype:generate -Dfilter=io.jenkins.archetypes:hello-world-plugin</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">生成的代码骨架</span></span><br><span class="line">├───pom.xml</span><br><span class="line">└───src</span><br><span class="line">    ├───main</span><br><span class="line">    │   ├───java</span><br><span class="line">    │   │   └───io</span><br><span class="line">    │   │       └───jenkins</span><br><span class="line">    │   │           └───plugins</span><br><span class="line">    │   │               └───sample</span><br><span class="line">    │   │                   └───HelloWorldBuilder.java</span><br><span class="line">    │   └───resources</span><br><span class="line">    │       ├───index.jelly</span><br><span class="line">    │       └───(省略i18n文件)</span><br><span class="line">    └───test</span><br><span class="line">        └───java</span><br><span class="line">            └───io</span><br><span class="line">                └───jenkins</span><br><span class="line">                    └───plugins</span><br><span class="line">                        └───sample</span><br><span class="line">                            └───HelloWorldBuilderTest.java</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">pom.xml的&lt;name&gt;标签     定义插件的名称</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">HelloWorldBuilder.java  步骤具体实现类</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">index.jelly             插件管理页面显示的HTML内容</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 文件: HelloWorldBuilder.java */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorldBuilder</span> <span class="keyword">extends</span> <span class="title class_">Builder</span> <span class="keyword">implements</span> <span class="title class_">SimpleBuildStep</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> useFrench;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @DataBoundConstructor注解标识插件类的构造函数, name属性为插件默认属性, 也是调用插件时的必要参数</span></span><br><span class="line">    <span class="meta">@DataBoundConstructor</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HelloWorldBuilder</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isUseFrench</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> useFrench;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @DataBoundSetter注解标识插件属性的setter方法</span></span><br><span class="line">    <span class="meta">@DataBoundSetter</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUseFrench</span><span class="params">(<span class="type">boolean</span> useFrench)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.useFrench = useFrench;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">perform</span><span class="params">(Run&lt;?, ?&gt; run, FilePath workspace, Launcher launcher, TaskListener listener)</span> <span class="keyword">throws</span> InterruptedException, IOException &#123;</span><br><span class="line">        <span class="comment">// 插件的执行逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (useFrench) &#123;</span><br><span class="line">            listener.getLogger().println(<span class="string">&quot;Bonjour, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            listener.getLogger().println(<span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 扩展点唯一标识, 被定义在扩展点上, 可以理解为在pipeline中使用插件时所引用的函数名, 本例的扩展点标识为greet</span></span><br><span class="line">    <span class="meta">@Symbol(&quot;greet&quot;)</span></span><br><span class="line">    <span class="comment">// 扩展点注解, 通过此注解自动发现扩展点, 并将扩展点加入扩展点列表中</span></span><br><span class="line">    <span class="meta">@Extension</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">DescriptorImpl</span> <span class="keyword">extends</span> <span class="title class_">BuildStepDescriptor</span>&lt;Builder&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> FormValidation <span class="title function_">doCheckName</span><span class="params">(<span class="meta">@QueryParameter</span> String value, <span class="meta">@QueryParameter</span> <span class="type">boolean</span> useFrench)</span></span><br><span class="line">                <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">            <span class="keyword">if</span> (value.length() == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> FormValidation.error(Messages.HelloWorldBuilder_DescriptorImpl_errors_missingName());</span><br><span class="line">            <span class="keyword">if</span> (value.length() &lt; <span class="number">4</span>)</span><br><span class="line">                <span class="keyword">return</span> FormValidation.warning(Messages.HelloWorldBuilder_DescriptorImpl_warnings_tooShort());</span><br><span class="line">            <span class="keyword">if</span> (!useFrench &amp;&amp; value.matches(<span class="string">&quot;.*[éáàç].*&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> FormValidation.warning(Messages.HelloWorldBuilder_DescriptorImpl_warnings_reallyFrench());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> FormValidation.ok();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isApplicable</span><span class="params">(Class&lt;? extends AbstractProject&gt; aClass)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">getDisplayName</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Messages.HelloWorldBuilder_DescriptorImpl_DisplayName();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Jenkins 插件开发的代码骨架中, <code>pom.xml</code>
+文件默认添加了用于插件开发的 Maven 插件 <code>maven-hpi-plugin</code>,
+通过该插件, 只需要实现插件代码, 然后执行 <code>mvn hpi:run</code>
+就可以启动一个安装了插件的 Jenkins 实例, 在浏览器中打开
+<code>http://localhost:8080/jenkins</code> 即可访问</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 在Jenkinsfile中使用插件 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                greet(<span class="attr">name:</span> <span class="string">&#x27;build&#x27;</span>, <span class="attr">useFrench:</span> <span class="literal">false</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// greet是通过@Symbol定义的插件扩展点名称, 可以将这个名称理解为一个函数名, @DataBoundConstructor和@DataBoundSetter注解的方法可以理解为这个函数的参数</span></span><br></pre></td></tr></table></figure>
 
       
@@ -501,13 +524,13 @@
 
       <time title="创建时间：2020-02-17 16:50:11" itemprop="dateCreated datePublished" datetime="2020-02-17T16:50:11+08:00">2020-02-17</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:34:29" itemprop="dateModified" datetime="2021-05-06T11:34:29+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:34:29" itemprop="dateModified" datetime="2021-05-06T11:34:29+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -557,20 +580,29 @@
 <li>Delegate to servlet container</li>
 <li>Jenkins' own user database</li>
 </ol>
-<p>在 <code>Manager Jenkins ／ Configure Global Security ／ Security Realm</code> 节点下可以配置</p>
+<p>在
+<code>Manager Jenkins ／ Configure Global Security ／ Security Realm</code>
+节点下可以配置</p>
 <blockquote>
-<p>如果安装了 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ldap/">LDAP</a> 插件, 则可以使用 LDAP 认证</p>
+<p>如果安装了 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ldap/">LDAP</a> 插件,
+则可以使用 LDAP 认证</p>
 </blockquote>
 
-<p>Jenkins 默认的授权方式无法满足现实复杂的场景, 有三款插件分别支持不同维度的授权方式:</p>
+<p>Jenkins 默认的授权方式无法满足现实复杂的场景,
+有三款插件分别支持不同维度的授权方式:</p>
 <ol type="1">
 <li>Matrix Authorization Strategy 基于矩阵的安全策略</li>
-<li>Project-based Matrix Authorization Strategy 基于项目的矩阵授权策略</li>
+<li>Project-based Matrix Authorization Strategy
+基于项目的矩阵授权策略</li>
 <li>Role-based Authorization Strategy 基于角色的安全策略</li>
 </ol>
-<p>安装插件后, 在 <code>Manager Jenkins ／ Configure Global Security / Authorization</code> 节点下可以配置</p>
+<p>安装插件后, 在
+<code>Manager Jenkins ／ Configure Global Security / Authorization</code>
+节点下可以配置</p>
 
-<p>安装插件 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/role-strategy/">Role-based Authorization Strategy</a> 后, 在 <code>Manager Jenkins</code> 菜单下增加了 <code>Manager and Assign Roles</code> 菜单项</p>
+<p>安装插件 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/role-strategy/">Role-based
+Authorization Strategy</a> 后, 在 <code>Manager Jenkins</code>
+菜单下增加了 <code>Manager and Assign Roles</code> 菜单项</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/17/jenkins%20005/#more" rel="contents">
@@ -630,13 +662,13 @@
 
       <time title="创建时间：2020-02-13 17:22:00" itemprop="dateCreated datePublished" datetime="2020-02-13T17:22:00+08:00">2020-02-13</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:30:51" itemprop="dateModified" datetime="2021-05-06T11:30:51+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:30:51" itemprop="dateModified" datetime="2021-05-06T11:30:51+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -680,22 +712,29 @@
     
     <div class="post-body" itemprop="articleBody">
           
-<p>可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline <strong>触发条件</strong>, Jenkins pipeline 中使用 <code>trigger</code> 指令来定义触发条件</p>
+<p>可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline
+<strong>触发条件</strong>, Jenkins pipeline 中使用 <code>trigger</code>
+指令来定义触发条件</p>
 <blockquote>
-<p>需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, <code>trigger</code> 指令才会生效</p>
+<p>需要手动触发一次任务, 让 Jenkins 加载 pipeline 后,
+<code>trigger</code> 指令才会生效</p>
 </blockquote>
 
-<p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline 执行</p>
+<p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline
+执行</p>
 
 <p><strong>定时执行</strong> 的使用场景通常是执行一些周期性的工作</p>
 
-<p>在一些大型组织中, 会同时存在大量的同一时刻执行的定时任务, 在 Jenkins trigger cron 语法中使用 <code>H(hash)</code> 字符来解决这一问题</p>
+<p>在一些大型组织中, 会同时存在大量的同一时刻执行的定时任务, 在 Jenkins
+trigger cron 语法中使用 <code>H(hash)</code> 字符来解决这一问题</p>
 
 <blockquote>
-<p>需注意的是, <code>H</code> 应用在某一天的字段时会有不准确的情况, 因为有些月份有31天, 有些却是28天</p>
+<p>需注意的是, <code>H</code> 应用在某一天的字段时会有不准确的情况,
+因为有些月份有31天, 有些却是28天</p>
 </blockquote>
 
-<p><strong>轮询代码库</strong> 是指定期到代码仓库询问代码是否有变化, 如果有变化就执行</p>
+<p><strong>轮询代码库</strong> 是指定期到代码仓库询问代码是否有变化,
+如果有变化就执行</p>
 
 
 <p><strong>事件触发</strong> 是指发生了某个事件就触发 pipeline 执行</p>
@@ -758,13 +797,13 @@
 
       <time title="创建时间：2020-02-13 16:33:12" itemprop="dateCreated datePublished" datetime="2020-02-13T16:33:12+08:00">2020-02-13</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:24:50" itemprop="dateModified" datetime="2021-05-06T11:24:50+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:24:50" itemprop="dateModified" datetime="2021-05-06T11:24:50+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -809,22 +848,32 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p><strong>环境变量</strong> 可以看作是 pipeline 与 Jenkins 交互的媒介, 可以分为 <strong>Jenkins 内置变量</strong> 和 <strong>自定义变量</strong></p>
+<p><strong>环境变量</strong> 可以看作是 pipeline 与 Jenkins 交互的媒介,
+可以分为 <strong>Jenkins 内置变量</strong> 和
+<strong>自定义变量</strong></p>
 
-<p>在 <code>pipeline</code> 执行时, Jenkins 通过一个名为 <code>env</code> 的全局变量, 将 Jenkins 内置环境变量暴露出来</p>
+<p>在 <code>pipeline</code> 执行时, Jenkins 通过一个名为
+<code>env</code> 的全局变量, 将 Jenkins 内置环境变量暴露出来</p>
 
 <blockquote>
-<p>在调试 <code>pipeline</code> 时, 可以在 <code>pipeline</code> 的开始阶段通过 <code>sh 'printenv'</code> 命令将 <code>env</code> 变量的属性值打印出来</p>
+<p>在调试 <code>pipeline</code> 时, 可以在 <code>pipeline</code>
+的开始阶段通过 <code>sh 'printenv'</code> 命令将 <code>env</code>
+变量的属性值打印出来</p>
 </blockquote>
 
-<p>当 <code>pipeline</code> 变得复杂时, 就会有自定义的环境变量的需求, 声明式 pipeline 提供了 <code>environment</code> 指令, 方便自定义变量</p>
+<p>当 <code>pipeline</code> 变得复杂时, 就会有自定义的环境变量的需求,
+声明式 pipeline 提供了 <code>environment</code> 指令, 方便自定义变量</p>
 
 <blockquote>
-<p>如果在 <code>environment</code> 中定义的变量与 <code>env</code> 中的变量重名, 那么被重名的变量的值会被覆盖掉</p>
+<p>如果在 <code>environment</code> 中定义的变量与 <code>env</code>
+中的变量重名, 那么被重名的变量的值会被覆盖掉</p>
 </blockquote>
 
 <p>有时候, 需要定义一些全局的跨 pipeline 的自定义变量</p>
-<p>进入 <code>Manage Jenkins / Configure System / Global properties</code> 节点, 添加全局环境变量, 自定义全局变量会被加入 <code>env</code> 属性列表中, 所以使用方法与 Jenkins 内置变量无异</p>
+<p>进入
+<code>Manage Jenkins / Configure System / Global properties</code> 节点,
+添加全局环境变量, 自定义全局变量会被加入 <code>env</code> 属性列表中,
+所以使用方法与 Jenkins 内置变量无异</p>
 
 <p><strong>参数化</strong> 是指可以通过传参来决定 pipeline 的行为</p>
           <!--noindex-->
@@ -886,13 +935,13 @@
 
       <time title="创建时间：2020-02-11 15:38:42" itemprop="dateCreated datePublished" datetime="2020-02-11T15:38:42+08:00">2020-02-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:15:57" itemprop="dateModified" datetime="2021-05-06T11:15:57+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:15:57" itemprop="dateModified" datetime="2021-05-06T11:15:57+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -937,11 +986,16 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言), 用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试, 输出测试报告等步骤</p>
-<p>Jenkins 对这个过程进行抽象, 设计出一个基本的 <code>pipeline</code> 结构</p>
+<p>Jenkins pipeline 是基于 Groovy 语言实现的一种 DSL(领域特定语言),
+用于描述整条流水线是如何进行的, 流水线的内容包括执行编译, 打包, 测试,
+输出测试报告等步骤</p>
+<p>Jenkins 对这个过程进行抽象, 设计出一个基本的 <code>pipeline</code>
+结构</p>
 
 
-<p>基本结构满足不了现实多变的需求, 所以 Jenkins pipeline 通过各种指令来丰富自己, 指令可以被理解为对 Jenkins pipeline 基本结构的补充</p>
+<p>基本结构满足不了现实多变的需求, 所以 Jenkins pipeline
+通过各种指令来丰富自己, 指令可以被理解为对 Jenkins pipeline
+基本结构的补充</p>
 <p><strong>Jenkins pipeline 支持的指令</strong></p>
 <table>
 <thead>
@@ -990,10 +1044,13 @@
 </tbody>
 </table>
 <blockquote>
-<p>在使用指令时, 需要注意的是每个指令都有自己的作用域, 如果指令使用的位置不正确, Jenkins 将会报错</p>
+<p>在使用指令时, 需要注意的是每个指令都有自己的作用域,
+如果指令使用的位置不正确, Jenkins 将会报错</p>
 </blockquote>
 
-<p><code>post</code> 指令用于 <code>pipeline</code> 或 <code>stage</code> 完成后执行一些附加的步骤, 根据完成的状态, <code>post</code> 部分分成多种条件块, 并且可以同时包含多种条件块</p>
+<p><code>post</code> 指令用于 <code>pipeline</code> 或
+<code>stage</code> 完成后执行一些附加的步骤, 根据完成的状态,
+<code>post</code> 部分分成多种条件块, 并且可以同时包含多种条件块</p>
 
 
 <p><code>options</code> 指令用于配置整个 Jenkins pipeline 本身的选项</p>
@@ -1056,13 +1113,13 @@
 
       <time title="创建时间：2020-02-11 14:27:12" itemprop="dateCreated datePublished" datetime="2020-02-11T14:27:12+08:00">2020-02-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:09:18" itemprop="dateModified" datetime="2021-05-06T11:09:18+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-10-10 09:39:26" itemprop="dateModified" datetime="2021-10-10T09:39:26+08:00">2021-10-10</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1107,29 +1164,40 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p><strong>Jenkins</strong> 是一款使用 Java 语言开发的开源的自动化服务器, 通过界面或 Jenkinsfile 告诉它执行什么任务, 何时执行, 理论上, 可以让它执行任何任务, 但是通常只应用于持续集成和持续交付</p>
-<p><strong>Jenkinsfile</strong> 是一个文本文件, 也就是部署流水线概念在 Jenkins 中的表现形式, 所有部署流水线的逻辑都写在 Jenkinsfile 中</p>
+<p><strong>Jenkins</strong> 是一款使用 Java
+语言开发的开源的自动化服务器, 通过界面或 Jenkinsfile 告诉它执行什么任务,
+何时执行, 理论上, 可以让它执行任何任务,
+但是通常只应用于持续集成和持续交付</p>
+<p><strong>Jenkinsfile</strong> 是一个文本文件, 也就是部署流水线概念在
+Jenkins 中的表现形式, 所有部署流水线的逻辑都写在 Jenkinsfile 中</p>
 
-<p><a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">Jenkins</a> 官网提供了 war 文件, 安装程序和 Docker 镜像的下载链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">Jenkins</a> 官网提供了 war
+文件, 安装程序和 Docker 镜像的下载链接</p>
 
 
 
 <p>配置国内加速镜像 <a target="_blank" rel="noopener" href="https://jenkins-zh.cn/wechat/articles/2019/11/2019-11-11-update-center-mirror-announcement/">参考</a></p>
 
 
-<p>部署流水线(Deployment <strong>pipeline</strong>) 是指从软件版本控制库到用户手中这一过程的自动化表现形式</p>
+<p>部署流水线(Deployment <strong>pipeline</strong>)
+是指从软件版本控制库到用户手中这一过程的自动化表现形式</p>
 <blockquote>
-<p>Jenkins 1.x 只能通过界面手动操作来描述部署流水线, Jenkins 2.x 支持 <code>pipeline as code</code>, 可以通过代码来描述部署流水线</p>
+<p>Jenkins 1.x 只能通过界面手动操作来描述部署流水线, Jenkins 2.x 支持
+<code>pipeline as code</code>, 可以通过代码来描述部署流水线</p>
 </blockquote>
 
 <ul>
 <li><p>脚本式(Scripted)</p>
-<p>Groovy 语言被选择作为基础来实现 pipeline, 所以在写脚本式 pipeline, 其实就是在写 Groovy 代码, 这样为用户提供了巨大的灵活性和可扩展性</p></li>
+<p>Groovy 语言被选择作为基础来实现 pipeline, 所以在写脚本式 pipeline,
+其实就是在写 Groovy 代码,
+这样为用户提供了巨大的灵活性和可扩展性</p></li>
 <li><p>声明式(Declarative)</p>
-<p>Groovy 语言的学习成本对于不使用 Groovy 的开发团队来说通常是不必要的, 所以 Jenkins 提供了更简单, 更结构化的声明式语法</p></li>
+<p>Groovy 语言的学习成本对于不使用 Groovy 的开发团队来说通常是不必要的,
+所以 Jenkins 提供了更简单, 更结构化的声明式语法</p></li>
 </ul>
 
-<p>要创建 pipeline, 首先要安装 pipeline 插件, 在 Jenkins 中新建一个 <code>pipeline</code> 项目</p>
+<p>要创建 pipeline, 首先要安装 pipeline 插件, 在 Jenkins 中新建一个
+<code>pipeline</code> 项目</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/11/jenkins%20001/#more" rel="contents">
@@ -1189,13 +1257,13 @@
 
       <time title="创建时间：2019-09-08 08:14:42" itemprop="dateCreated datePublished" datetime="2019-09-08T08:14:42+08:00">2019-09-08</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1240,7 +1308,9 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>当开发应用的持久层的时候, 会面临多种选择, 可以使用 JDBC, Hibernate, JPA 或者其他任意的持久化框架, 可能还会考虑使用 NoSQL 数据库, 不管选择哪种持久化方式, Spring 都能够提供支持</p>
+<p>当开发应用的持久层的时候, 会面临多种选择, 可以使用 JDBC, Hibernate,
+JPA 或者其他任意的持久化框架, 可能还会考虑使用 NoSQL 数据库,
+不管选择哪种持久化方式, Spring 都能够提供支持</p>
 
 <p>Spring 将数据访问过程中固定的和可变的部分明确划分为两个不同的类:</p>
 <ul>
@@ -1296,7 +1366,10 @@
 </tbody>
 </table>
 
-<p>Spring 的异常体系比 JDBC 简单的 <code>SQLException</code> 丰富得多, 但它并没有与特定的持久化方式相关联, 这意味着可以使用 Spring 抛出一致的异常, 而不用关系所选择的持久化方案, 这有助于将选择持久化机制与数据访问层隔离开来</p>
+<p>Spring 的异常体系比 JDBC 简单的 <code>SQLException</code> 丰富得多,
+但它并没有与特定的持久化方式相关联, 这意味着可以使用 Spring
+抛出一致的异常, 而不用关系所选择的持久化方案,
+这有助于将选择持久化机制与数据访问层隔离开来</p>
 <p><strong>表 JDBC 与 Spring 的数据访问异常</strong></p>
           <!--noindex-->
             <div class="post-button">
@@ -1357,13 +1430,13 @@
 
       <time title="创建时间：2019-07-29 20:22:30" itemprop="dateCreated datePublished" datetime="2019-07-29T20:22:30+08:00">2019-07-29</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1408,20 +1481,37 @@
     <div class="post-body" itemprop="articleBody">
           
 
-<p>multipart 格式的数据会将一个表单拆分为多个部分, 每个部分对应一个输入域, 在一般的表单输入域中, 它所对应的部分中会放置文本型数据, 但是如果上传文件的话, 它所对应的部分可以是二进制</p>
+<p>multipart 格式的数据会将一个表单拆分为多个部分,
+每个部分对应一个输入域, 在一般的表单输入域中,
+它所对应的部分中会放置文本型数据, 但是如果上传文件的话,
+它所对应的部分可以是二进制</p>
 
-<p><code>DispatcherServlet</code> 并没有实现任何解析 <code>multipart</code> 请求数据的功能, 它将该任务委托给了 Spring 中 <code>MultipartResolver</code> 策略接口的实现, 通过这个实现类来解析 <code>multipart</code> 请求中的内容, 从 Spring 3.1 开始, Spring 内置了两个 <code>MultipartResolver</code> 的实现供选择:</p>
+<p><code>DispatcherServlet</code> 并没有实现任何解析
+<code>multipart</code> 请求数据的功能, 它将该任务委托给了 Spring 中
+<code>MultipartResolver</code> 策略接口的实现, 通过这个实现类来解析
+<code>multipart</code> 请求中的内容, 从 Spring 3.1 开始, Spring
+内置了两个 <code>MultipartResolver</code> 的实现供选择:</p>
 <ul>
-<li><code>CommonsMultipartResolver</code> 使用 Jakarta Commons FileUpload 解析请求;</li>
-<li><code>StandardServletMultipartResolver</code> 依赖于 Servlet 3.0 对 multipart 请求的支持 (始于 Spring 3.1)</li>
+<li><code>CommonsMultipartResolver</code> 使用 Jakarta Commons
+FileUpload 解析请求;</li>
+<li><code>StandardServletMultipartResolver</code> 依赖于 Servlet 3.0 对
+multipart 请求的支持 (始于 Spring 3.1)</li>
 </ul>
 <blockquote>
-<p>一般来讲, 在这两者之间, <code>StandardServletMultipartResolver</code> 可能会是优选的方案, 它使用 Servlet 所提供的功能支持, 并不需要依赖任何其他的项目, 如果需要将应用部署到 Servlet 3.0 之前的容器中, 或者还没有使用 Spring 3.1 或更高版本, 那么可能就需要 <code>CommonMultipartResolver</code> 了</p>
+<p>一般来讲, 在这两者之间, <code>StandardServletMultipartResolver</code>
+可能会是优选的方案, 它使用 Servlet 所提供的功能支持,
+并不需要依赖任何其他的项目, 如果需要将应用部署到 Servlet 3.0
+之前的容器中, 或者还没有使用 Spring 3.1 或更高版本, 那么可能就需要
+<code>CommonMultipartResolver</code> 了</p>
 </blockquote>
 
-<p>需要在 Servlet 中指定 multipart 的配置, 如果不设定最基本配置的话, <code>StandardServletMultipartResolver</code> 就无法正常工作</p>
+<p>需要在 Servlet 中指定 multipart 的配置, 如果不设定最基本配置的话,
+<code>StandardServletMultipartResolver</code> 就无法正常工作</p>
 <h4 id="javaconfig">JavaConfig</h4>
-<p>如果配置 <code>DispatcherServlet</code> 的初始化类继承了 <code>AbstactAnnotationConfigDispatcherServletInitia-lizer</code> 的话, 可以通过重载 <code>customizeRegistration</code> 方法来配置 multipart 的具体细节</p>
+<p>如果配置 <code>DispatcherServlet</code> 的初始化类继承了
+<code>AbstactAnnotationConfigDispatcherServletInitia-lizer</code> 的话,
+可以通过重载 <code>customizeRegistration</code> 方法来配置 multipart
+的具体细节</p>
 
 <h4 id="xml">XML</h4>
           <!--noindex-->
@@ -1483,13 +1573,13 @@
 
       <time title="创建时间：2019-05-22 02:59:03" itemprop="dateCreated datePublished" datetime="2019-05-22T02:59:03+08:00">2019-05-22</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-07 22:47:59" itemprop="dateModified" datetime="2021-02-07T22:47:59+08:00">2021-02-07</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -1542,20 +1632,25 @@
 <li><code>@LastModifiedDate</code> 最后修改的时间</li>
 </ul>
 
-<p>实体中需要添加相应的字段, 并增加 <code>@EntityListeners</code> 注解</p>
+<p>实体中需要添加相应的字段, 并增加 <code>@EntityListeners</code>
+注解</p>
 
 <p>实现 <code>AuditorAware</code> 接口</p>
 
 <p>开启 JPA 的 Auditing 功能</p>
 
 
-<p>使用对单条数据进行版本校验和比较, 来保证本次的更新是最新的, 否则就失败, 效率要高很多</p>
+<p>使用对单条数据进行版本校验和比较, 来保证本次的更新是最新的,
+否则就失败, 效率要高很多</p>
 
 
 
 
 
-<p>正常情况下, 需要在配置类加上 <code>@EnableTransactionManagement</code> 注解才能开启事务管理, spring boot 默认加载的 <code>TransactionAutoConfiguration</code> 类已经加了此注解, 默认采用 <code>AdviceMode.PROXY</code></p>
+<p>正常情况下, 需要在配置类加上
+<code>@EnableTransactionManagement</code> 注解才能开启事务管理, spring
+boot 默认加载的 <code>TransactionAutoConfiguration</code>
+类已经加了此注解, 默认采用 <code>AdviceMode.PROXY</code></p>
 
 
 <p><code>TxType</code> 有以下值:</p>
@@ -1597,7 +1692,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1609,7 +1704,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -1653,7 +1748,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

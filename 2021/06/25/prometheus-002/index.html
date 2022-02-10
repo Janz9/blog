@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 data-model  Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 data-model  Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus 数据模型">
 <meta property="og:url" content="https://janz.icu/2021/06/25/prometheus-002/index.html">
@@ -35,7 +35,7 @@
 <meta property="og:description" content="每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 data-model  Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-25T06:00:20.000Z">
-<meta property="article:modified_time" content="2021-08-21T12:49:08.550Z">
+<meta property="article:modified_time" content="2021-11-11T08:16:00.818Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="Prometheus">
 <meta name="twitter:card" content="summary">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Prometheus 数据模型 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2021-06-25 14:00:20" itemprop="dateCreated datePublished" datetime="2021-06-25T14:00:20+08:00">2021-06-25</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-08-21 20:49:08" itemprop="dateModified" datetime="2021-08-21T20:49:08+08:00">2021-08-21</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-11 16:16:00" itemprop="dateModified" datetime="2021-11-11T16:16:00+08:00">2021-11-11</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -284,7 +285,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>16k</span>
+      <span>17k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -303,27 +304,36 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="数据模型">数据模型</h1>
-<p>每种监控系统都有自己对指标的一套定义和规范, 指标的数据格式将直接影响对数据的采集和存储, 所以定义指标时需要充分考虑通用性和扩展性, Prometheus 基本上以时间序列(time series) 的形式存储所有数据, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/data_model/">data-model</a></p>
+<p>每种监控系统都有自己对指标的一套定义和规范,
+指标的数据格式将直接影响对数据的采集和存储,
+所以定义指标时需要充分考虑通用性和扩展性, Prometheus
+基本上以时间序列(time series) 的形式存储所有数据, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/data_model/">data-model</a></p>
 <h2 id="时间序列">时间序列</h2>
-<p>Prometheus 从监控目标的端点拉取采样的指标数据, 指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行, 其他空行都将被忽略</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: http://localhost:9090/metrics</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_http_requests_total Counter of HTTP requests.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_http_requests_total counter</span></span><br><span class="line">prometheus_http_requests_total&#123;code=&quot;200&quot;,handler=&quot;/metrics&quot;&#125; 5357</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处示例仅截取返回的文本数据中的单个指标</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HELP 是指标的描述</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE 是指标的类型</span></span><br></pre></td></tr></table></figure>
+<p>Prometheus 从监控目标的端点拉取采样的指标数据,
+指标数据以文本形式组织, 每个指标都占用一行, 除了文本的最后一个空行,
+其他空行都将被忽略</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: http://localhost:9090/metrics</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">HELP prometheus_http_requests_total Counter of HTTP requests.</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE prometheus_http_requests_total counter</span></span><br><span class="line">prometheus_http_requests_total&#123;code=&quot;200&quot;,handler=&quot;/metrics&quot;&#125; 5357</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">此处示例仅截取返回的文本数据中的单个指标</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">HELP 是指标的描述</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE 是指标的类型</span></span><br></pre></td></tr></table></figure>
 <p>时间序列的组成:</p>
 <ul>
 <li>指标(metric)
 <ul>
-<li>指标名称(metric name) 用于反映指标的含义, 通常描述收集的时间序列的一般性质</li>
+<li>指标名称(metric name) 用于反映指标的含义,
+通常描述收集的时间序列的一般性质</li>
 <li>标签集(labels) 通过键值对的形式提供多种特征维度</li>
 </ul></li>
 <li>样本(sample)
 <ul>
 <li>时间戳(timestamp) 样本的采集时间, 精确到毫秒</li>
-<li>样本值(value) 类型为 <code>float64</code> 的数值, Prometheus 没有对样本值的单位进行定义, 需要使用者自己区分或者事先定义好样本数据的单位</li>
+<li>样本值(value) 类型为 <code>float64</code> 的数值, Prometheus
+没有对样本值的单位进行定义,
+需要使用者自己区分或者事先定义好样本数据的单位</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[
 \overbrace{
 \overbrace{
-\texttt{prometheus_http_requests_total}
+\texttt{prometheus\_http\_requests\_total}
 }^{\large\textsf{指标名称}}
 \overbrace{
 \texttt{\{code=&quot;200&quot;,handler=&quot;/metrics&quot;\}}
@@ -338,26 +348,38 @@
 }^{\large\textsf{时间戳}}
 }^{\large\textsf{样本}} \\
 \]</span></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 时间戳格式化</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> date -d @1624636559.334 +<span class="string">&quot;%F %T.%N&quot;</span></span></span><br><span class="line">2021-06-25 23:55:59.334000000</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 指标名称的存储方式</span></span><br><span class="line">&#123;__name__: &quot;prometheus_http_requests_total&quot;, code=&quot;200&quot;, handler=&quot;/metrics&quot;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 时间戳格式化</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash"><span class="built_in">date</span> -d @1624636559.334 +<span class="string">&quot;%F %T.%N&quot;</span></span></span><br><span class="line">2021-06-25 23:55:59.334000000</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 指标名称的存储方式</span></span><br><span class="line">&#123;__name__: &quot;prometheus_http_requests_total&quot;, code=&quot;200&quot;, handler=&quot;/metrics&quot;&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>指标名称实际上以标签的形式保存在数据库中, <code>__name__</code> 是特定的标签(系统保留关键字), 用于表示指标名称, 这种方式是系统内部的表现形式, 官方推荐只能在系统内部使用</p>
+<p>指标名称实际上以标签的形式保存在数据库中, <code>__name__</code>
+是特定的标签(系统保留关键字), 用于表示指标名称,
+这种方式是系统内部的表现形式, 官方推荐只能在系统内部使用</p>
 </blockquote>
 <h2 id="指标类型">指标类型</h2>
-<p>Prometheus 指标分为 Counter(计数型), Gauge(测量型), Histogram(直方图) 和 Summary(摘要型) 这 4 种类型, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/metric_types/">metric-types</a></p>
+<p>Prometheus 指标分为 Counter(计数型), Gauge(测量型), Histogram(直方图)
+和 Summary(摘要型) 这 4 种类型, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/concepts/metric_types/">metric-types</a></p>
 <h3 id="counter">Counter</h3>
-<p>Counter 计数型的特点是只增不减, 具有很好的不相关性, 不会因为机器重启而置零, 虽然它们是随着时间增加而不会减少的数字, 但有时可以将其重置为零并再次开始递增, 常见的监控指标如服务的请求数, 已完成的任务数, 错误发生的次数等</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_http_requests_total Counter of HTTP requests.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_http_requests_total counter</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: 端点/metrics在时间戳1624639184.334时累计请求5579次, 以此类推</span></span><br></pre></td></tr></table></figure>
+<p>Counter 计数型的特点是只增不减, 具有很好的不相关性,
+不会因为机器重启而置零, 虽然它们是随着时间增加而不会减少的数字,
+但有时可以将其重置为零并再次开始递增, 常见的监控指标如服务的请求数,
+已完成的任务数, 错误发生的次数等</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">HELP prometheus_http_requests_total Counter of HTTP requests.</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE prometheus_http_requests_total counter</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">由下表可知: 端点/metrics在时间戳1624639184.334时累计请求5579次, 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询最近}\normalsize\texttt{1}\large\textsf{分钟内请求端点}\normalsize\texttt{/metrics}\large\textsf{的时序}
+\large\textsf{示例:
+查询最近}\normalsize\texttt{1}\large\textsf{分钟内请求端点}\normalsize\texttt{/metrics}\large\textsf{的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total\{handler=&quot;/metrics&quot;\}[1m]} \\
+\texttt{PromQL:
+prometheus\_http\_requests\_total\{handler=&quot;/metrics&quot;\}[1m]}
+\\
 \hline
 \begin{split}
-\texttt{prometheus_http_requests_total\{code=&quot;200&quot;, handler=&quot;/metrics&quot;\}} &amp;\qquad &amp; 5579\; @1624639184.334 \\
+\texttt{prometheus\_http\_requests\_total\{code=&quot;200&quot;,
+handler=&quot;/metrics&quot;\}} &amp;\qquad &amp; 5579\; @1624639184.334
+\\
 &amp; &amp; 5580\; @1624639199.334 \\
 &amp; &amp; 5580\; @1624639214.334 \\
 &amp; &amp; 5580\; @1624639229.334
@@ -366,18 +388,21 @@
 \end{array}
 \]</span></p>
 <h3 id="gauge">Gauge</h3>
-<p>Gauge 测量型的特点是实时变化, 本质上是特定度量的快照, 常见的监控指标如温度, 内存和磁盘的使用量等</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP process_resident_memory_bytes Resident memory size <span class="keyword">in</span> bytes.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE process_resident_memory_bytes gauge</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: 常驻内存在时间戳1624640084.334时使用量为109850624(约105MB), 以此类推</span></span><br></pre></td></tr></table></figure>
+<p>Gauge 测量型的特点是实时变化, 本质上是特定度量的快照,
+常见的监控指标如温度, 内存和磁盘的使用量等</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">HELP process_resident_memory_bytes Resident memory size <span class="keyword">in</span> bytes.</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE process_resident_memory_bytes gauge</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">由下表可知: 常驻内存在时间戳1624640084.334时使用量为109850624(约105MB), 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询最近}\normalsize\texttt{1}\large\textsf{分钟内常驻内存的时序}
+\large\textsf{示例:
+查询最近}\normalsize\texttt{1}\large\textsf{分钟内常驻内存的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: process_resident_memory_bytes[1m]} \\
+\texttt{PromQL: process\_resident\_memory\_bytes[1m]} \\
 \hline
 \begin{split}
-&amp;\texttt{process_resident_memory_bytes\{job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 109850624\; @1624640084.334 \\
+&amp;\texttt{process\_resident\_memory\_bytes\{job=&quot;prometheus&quot;\}}
+&amp;\qquad &amp; 109850624\; @1624640084.334 \\
 &amp; &amp; &amp; 109850624\; @1624640099.334 \\
 &amp; &amp; &amp; 109850624\; @1624640114.334 \\
 &amp; &amp; &amp; 110100480\; @1624640129.334
@@ -386,107 +411,146 @@
 \end{array}
 \]</span></p>
 <h3 id="histogram">Histogram</h3>
-<p>Histogram 直方图是对观察点进行采样的指标类型, 通过标签 <code>le</code> 指定上边界, 统计小于上边界的区间内的样本个数, 常用于应用性能等领域的分析观察</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_tsdb_compaction_chunk_samples Final number of samples on their first compaction</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_tsdb_compaction_chunk_samples histogram</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: TSDB首次压缩样本的数量统计, 小于4的有663个, 小于6的有817个, 以此类推</span></span><br></pre></td></tr></table></figure>
+<p>Histogram 直方图是对观察点进行采样的指标类型, 通过标签
+<code>le</code> 指定上边界, 统计小于上边界的区间内的样本个数,
+常用于应用性能等领域的分析观察</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">HELP prometheus_tsdb_compaction_chunk_samples Final number of samples on their first compaction</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE prometheus_tsdb_compaction_chunk_samples histogram</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">由下表可知: TSDB首次压缩样本的数量统计, 小于4的有663个, 小于6的有817个, 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询}\normalsize\texttt{TSDB}\large\textsf{首次压缩样本的时序}
+\large\textsf{示例:
+查询}\normalsize\texttt{TSDB}\large\textsf{首次压缩样本的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_tsdb_compaction_chunk_samples_bucket} \\
+\texttt{PromQL: prometheus\_tsdb\_compaction\_chunk\_samples\_bucket} \\
 \hline
 \begin{split}
-&amp;\texttt{prometheus_tsdb_compaction_chunk_samples_bucket\{le=&quot;4&quot;\}} &amp;\qquad &amp; 663 \\
-&amp;\texttt{prometheus_tsdb_compaction_chunk_samples_bucket\{le=&quot;6&quot;\}} &amp; &amp; 817 \\
-&amp;\texttt{prometheus_tsdb_compaction_chunk_samples_bucket\{le=&quot;9&quot;\}} &amp; &amp; 908 \\
+&amp;\texttt{prometheus\_tsdb\_compaction\_chunk\_samples\_bucket\{le=&quot;4&quot;\}}
+&amp;\qquad &amp; 663 \\
+&amp;\texttt{prometheus\_tsdb\_compaction\_chunk\_samples\_bucket\{le=&quot;6&quot;\}}
+&amp; &amp; 817 \\
+&amp;\texttt{prometheus\_tsdb\_compaction\_chunk\_samples\_bucket\{le=&quot;9&quot;\}}
+&amp; &amp; 908 \\
 &amp; ... \\
-&amp;\texttt{prometheus_tsdb_compaction_chunk_samples_bucket\{le=&quot;230.66015625&quot;\}} &amp; &amp; 130448 \\
-&amp;\texttt{prometheus_tsdb_compaction_chunk_samples_bucket\{le=&quot;345.990234375&quot;\}} &amp; &amp; 130455 \\
-&amp;\texttt{prometheus_tsdb_compaction_chunk_samples_bucket\{le=&quot;+Inf&quot;\}} &amp; &amp; 130455
+&amp;\texttt{prometheus\_tsdb\_compaction\_chunk\_samples\_bucket\{le=&quot;230.66015625&quot;\}}
+&amp; &amp; 130448 \\
+&amp;\texttt{prometheus\_tsdb\_compaction\_chunk\_samples\_bucket\{le=&quot;345.990234375&quot;\}}
+&amp; &amp; 130455 \\
+&amp;\texttt{prometheus\_tsdb\_compaction\_chunk\_samples\_bucket\{le=&quot;+Inf&quot;\}}
+&amp; &amp; 130455
 \end{split} \\
 \hline
 \end{array}
 \]</span></p>
 <h3 id="summary">Summary</h3>
-<p>Summary 摘要型是采样点分位图统计, 用于得到数据的分布情况, 常用于分位数的分析观察</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> HELP prometheus_target_interval_length_seconds Actual intervals between scrapes.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE prometheus_target_interval_length_seconds summary</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 由下表可知: 抓取数据的实际时间间隔的分位数的统计, 1%分布小于14.998899642, 50%分布小于15.000017863(中位数), 以此类推</span></span><br></pre></td></tr></table></figure>
+<p>Summary 摘要型是采样点分位图统计, 用于得到数据的分布情况,
+常用于分位数的分析观察</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">HELP prometheus_target_interval_length_seconds Actual intervals between scrapes.</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE prometheus_target_interval_length_seconds summary</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">由下表可知: 抓取数据的实际时间间隔的分位数的统计, 1%分布小于14.998899642, 50%分布小于15.000017863(中位数), 以此类推</span></span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
 \large\textsf{示例: 查询抓取数据的实际时间间隔的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_target_interval_length_seconds} \\
+\texttt{PromQL: prometheus\_target\_interval\_length\_seconds} \\
 \hline
 \begin{split}
-&amp;\texttt{prometheus_target_interval_length_seconds\{quantile=&quot;0.01&quot;\}} &amp;\qquad &amp; 14.998899642 \\
-&amp;\texttt{prometheus_target_interval_length_seconds\{quantile=&quot;0.05&quot;\}} &amp; &amp; 14.999198291 \\
-&amp;\texttt{prometheus_target_interval_length_seconds\{quantile=&quot;0.5&quot;\}} &amp; &amp; 15.000017863 \\
-&amp;\texttt{prometheus_target_interval_length_seconds\{quantile=&quot;0.9&quot;\}} &amp; &amp; 15.000658406 \\
-&amp;\texttt{prometheus_target_interval_length_seconds\{quantile=&quot;0.99&quot;\}} &amp; &amp; 15.001612175
+&amp;\texttt{prometheus\_target\_interval\_length\_seconds\{quantile=&quot;0.01&quot;\}}
+&amp;\qquad &amp; 14.998899642 \\
+&amp;\texttt{prometheus\_target\_interval\_length\_seconds\{quantile=&quot;0.05&quot;\}}
+&amp; &amp; 14.999198291 \\
+&amp;\texttt{prometheus\_target\_interval\_length\_seconds\{quantile=&quot;0.5&quot;\}}
+&amp; &amp; 15.000017863 \\
+&amp;\texttt{prometheus\_target\_interval\_length\_seconds\{quantile=&quot;0.9&quot;\}}
+&amp; &amp; 15.000658406 \\
+&amp;\texttt{prometheus\_target\_interval\_length\_seconds\{quantile=&quot;0.99&quot;\}}
+&amp; &amp; 15.001612175
 \end{split} \\
 \hline
 \end{array}
 \]</span></p>
 <h2 id="promql">PromQL</h2>
-<p><a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/">PromQL</a>(Prometheus Query Language) 是 Prometheus 提供的表达式查询语言</p>
-<p>PromQL 表达式或子表达式可以计算为 4 种类型之一, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/#expression-language-data-types">el-data-types</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/">PromQL</a>(Prometheus
+Query Language) 是 Prometheus 提供的表达式查询语言</p>
+<p>PromQL 表达式或子表达式可以计算为 4 种类型之一, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/#expression-language-data-types">el-data-types</a></p>
 <ul>
-<li>瞬时向量(instant vector) 一组时间序列, 每个时间序列包含单个样本, 它们共享相同的时间戳</li>
-<li>区间向量(range vector) 一组时间序列, 每个时间序列包含一段时间范围内的样本数据</li>
+<li>瞬时向量(instant vector) 一组时间序列, 每个时间序列包含单个样本,
+它们共享相同的时间戳</li>
+<li>区间向量(range vector) 一组时间序列,
+每个时间序列包含一段时间范围内的样本数据</li>
 <li>标量(scalar) 浮点型的数据值, 没有时序</li>
 <li>字符串(string) 简单的字符串值, 当前未使用</li>
 </ul>
 <h3 id="选择器">选择器</h3>
-<p>PromQL 提供了选择器功能更改表达式的查询范围, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/#time-series-selectors">selectors</a></p>
+<p>PromQL 提供了选择器功能更改表达式的查询范围, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/#time-series-selectors">selectors</a></p>
 <h4 id="匹配器">匹配器</h4>
-<p>匹配器是作用于标签上的, 标签匹配器可以对时间序列进行过滤, PromQL 支持完全匹配和正则匹配两种模式:</p>
+<p>匹配器是作用于标签上的, 标签匹配器可以对时间序列进行过滤, PromQL
+支持完全匹配和正则匹配两种模式:</p>
 <ul>
 <li><code>=</code> 用于选择与提供的字符串完全相同的标签</li>
 <li><code>!=</code> 用于选择与提供的字符串不相同的标签</li>
-<li><code>=~</code> 用于选择与提供的字符串进行正则运算后所得结果相匹配的标签</li>
-<li><code>!~</code> 用于选择与提供的字符串进行正则运算后所得结果不匹配的标签</li>
+<li><code>=~</code>
+用于选择与提供的字符串进行正则运算后所得结果相匹配的标签</li>
+<li><code>!~</code>
+用于选择与提供的字符串进行正则运算后所得结果不匹配的标签</li>
 </ul>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询请求的路由端点为}\normalsize\texttt{/api/}\large\textsf{的时序}
+\large\textsf{示例:
+查询请求的路由端点为}\normalsize\texttt{/api/}\large\textsf{的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total\{handler=~&quot;/api/.*&quot;\}} \\
+\texttt{PromQL:
+prometheus\_http\_requests\_total\{handler=~&quot;/api/.*&quot;\}} \\
 \hline
 \begin{split}
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/label/:name/values&quot;\}} &amp;\qquad &amp; 21 \\
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/metadata&quot;\}} &amp; &amp; 17 \\
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/query&quot;\}} &amp; &amp; 67 \\
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/query_range&quot;\}} &amp; &amp; 69 \\
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/series&quot;\}} &amp; &amp; 23
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/label/:name/values&quot;\}}
+&amp;\qquad &amp; 21 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/metadata&quot;\}}
+&amp; &amp; 17 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/query&quot;\}}
+&amp; &amp; 67 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/query\_range&quot;\}}
+&amp; &amp; 69 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/series&quot;\}}
+&amp; &amp; 23
 \end{split} \\
 \hline
 \end{array}
 \]</span></p>
 <blockquote>
-<p>PromQL 的正则表达式使用 <a target="_blank" rel="noopener" href="https://github.com/google/re2/wiki/Syntax">RE2</a> 语法, 注意其不支持向前匹配表达式</p>
+<p>PromQL 的正则表达式使用 <a
+target="_blank" rel="noopener" href="https://github.com/google/re2/wiki/Syntax">RE2</a> 语法,
+注意其不支持向前匹配表达式</p>
 </blockquote>
 <h4 id="瞬时向量选择器">瞬时向量选择器</h4>
-<p>瞬时向量选择器用于返回在指定时间戳之前查询到的最新样本的瞬时向量, 也就是包含零个或者多个时间序列的列表 <span class="math display">\[
+<p>瞬时向量选择器用于返回在指定时间戳之前查询到的最新样本的瞬时向量,
+也就是包含零个或者多个时间序列的列表 <span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询请求的响应码为}\normalsize\texttt{400}\large\textsf{的时序}
+\large\textsf{示例:
+查询请求的响应码为}\normalsize\texttt{400}\large\textsf{的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total\{code=&quot;400&quot;\}} \\
+\texttt{PromQL:
+prometheus\_http\_requests\_total\{code=&quot;400&quot;\}} \\
 \hline
 \begin{split}
-&amp;\texttt{prometheus_http_requests_total\{code=&quot;400&quot;, handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 7 \\
-&amp;\texttt{prometheus_http_requests_total\{code=&quot;400&quot;, handler=&quot;/api/v1/query_range&quot;\}} &amp; &amp; 1
+&amp;\texttt{prometheus\_http\_requests\_total\{code=&quot;400&quot;,
+handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 7 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{code=&quot;400&quot;,
+handler=&quot;/api/v1/query\_range&quot;\}} &amp; &amp; 1
 \end{split} \\
 \hline
 \end{array}
 \]</span></p>
 <h4 id="区间向量选择器">区间向量选择器</h4>
-<p>区间向量选择器返回一组时间序列, 每个时间序列包含一段时间范围内的样本数据, 时间范围的单位如下:</p>
+<p>区间向量选择器返回一组时间序列,
+每个时间序列包含一段时间范围内的样本数据, 时间范围的单位如下:</p>
 <ul>
 <li><code>ms</code> 毫秒</li>
 <li><code>s</code> 秒</li>
@@ -500,12 +564,16 @@
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询最近}\normalsize\texttt{1}\large\textsf{分钟内端点}\normalsize\texttt{/metrics/}\large\textsf{的时序}
+\large\textsf{示例:
+查询最近}\normalsize\texttt{1}\large\textsf{分钟内端点}\normalsize\texttt{/metrics/}\large\textsf{的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total\{handler=&quot;/metrics&quot;\}[1m]} \\
+\texttt{PromQL:
+prometheus\_http\_requests\_total\{handler=&quot;/metrics&quot;\}[1m]}
+\\
 \hline
 \begin{split}
-\texttt{prometheus_http_requests_total\{handler=&quot;/metrics&quot;\}} &amp;\qquad &amp; 8580\; @1624684199.334 \\
+\texttt{prometheus\_http\_requests\_total\{handler=&quot;/metrics&quot;\}}
+&amp;\qquad &amp; 8580\; @1624684199.334 \\
 &amp; &amp; 8581\; @1624684214.334 \\
 &amp; &amp; 8582\; @1624684229.334 \\
 &amp; &amp; 8583\; @1624684244.334 \\
@@ -514,19 +582,26 @@
 \end{array}
 \]</span></p>
 <blockquote>
-<p>时间范围必须用整数来表示, 比如 <code>0.5d</code> 是错误的, <code>12h</code> 是正确的</p>
+<p>时间范围必须用整数来表示, 比如 <code>0.5d</code> 是错误的,
+<code>12h</code> 是正确的</p>
 </blockquote>
 <h4 id="偏移量修改器">偏移量修改器</h4>
-<p>偏移量修改器可以让瞬时向量选择器和区间向量选择器发生偏移, 它允许获取查询计算时间并在每个选择器的基础上将其向前推移 <span class="math display">\[
+<p>偏移量修改器可以让瞬时向量选择器和区间向量选择器发生偏移,
+它允许获取查询计算时间并在每个选择器的基础上将其向前推移 <span
+class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询}\normalsize\texttt{5}\large\textsf{分钟前}\normalsize\texttt{1}\large\textsf{分钟内端点}\normalsize\texttt{/metrics/}\large\textsf{的时序}
+\large\textsf{示例:
+查询}\normalsize\texttt{5}\large\textsf{分钟前}\normalsize\texttt{1}\large\textsf{分钟内端点}\normalsize\texttt{/metrics/}\large\textsf{的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total\{handler=&quot;/metrics&quot;\}[1m] offset 5m} \\
+\texttt{PromQL:
+prometheus\_http\_requests\_total\{handler=&quot;/metrics&quot;\}[1m]
+offset 5m} \\
 \hline
 \begin{split}
-\texttt{prometheus_http_requests_total\{handler=&quot;/metrics&quot;\}} &amp;\qquad &amp; 10722\; @1624716329.334 \\
+\texttt{prometheus\_http\_requests\_total\{handler=&quot;/metrics&quot;\}}
+&amp;\qquad &amp; 10722\; @1624716329.334 \\
 &amp; &amp; 10723\; @1624716344.334 \\
 &amp; &amp; 10724\; @1624716359.334 \\
 &amp; &amp; 10725\; @1624716374.334 \\
@@ -535,15 +610,21 @@
 \end{array}
 \]</span></p>
 <h3 id="二元操作符">二元操作符</h3>
-<p>二元操作符表示接受两个操作数的运算符, 可以对瞬时向量进行更复杂的运算, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#binary-operators">binary-operators</a>, PromQL 的二元运算符分为 3 种类型</p>
+<p>二元操作符表示接受两个操作数的运算符, 可以对瞬时向量进行更复杂的运算,
+详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#binary-operators">binary-operators</a>,
+PromQL 的二元运算符分为 3 种类型</p>
 <h4 id="算术运算符">算术运算符</h4>
-<p>PromQL 支持 6 种二元算术运算符: <code>+</code> 加, <code>-</code> 减, <code>*</code> 乘, <code>/</code> 除, <code>%</code> 模, <code>^</code> 幂 <span class="math display">\[
+<p>PromQL 支持 6 种二元算术运算符: <code>+</code> 加, <code>-</code> 减,
+<code>*</code> 乘, <code>/</code> 除, <code>%</code> 模, <code>^</code>
+幂 <span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
 \large\textsf{示例: 查询节点上内存的使用率的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: (node_memory_MemTotal_bytes - node_memory_MemFree_bytes) / node_memory_MemTotal_bytes} \\
+\texttt{PromQL: (node\_memory\_MemTotal\_bytes -
+node\_memory\_MemFree\_bytes) / node\_memory\_MemTotal\_bytes} \\
 \hline
 \begin{split}
 \texttt{\{job=&quot;node&quot;\}} &amp;\qquad &amp; 0.7951647542612791
@@ -555,17 +636,23 @@
 <p>算术运算符支持 标量/标量, 向量/标量, 向量/向量 之间的操作</p>
 </blockquote>
 <h4 id="集合运算符">集合运算符</h4>
-<p>PromQL 支持 3 种集合运算符: <code>and</code> 并集, <code>or</code> 交集, <code>unless</code> 差集 <span class="math display">\[
+<p>PromQL 支持 3 种集合运算符: <code>and</code> 并集, <code>or</code>
+交集, <code>unless</code> 差集 <span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询进程的平均}\normalsize\texttt{cpu}\large\textsf{使用率, 且排除使用少于}\normalsize\texttt{100MB}\large\textsf{常驻内存的进程的时序}
+\large\textsf{示例:
+查询进程的平均}\normalsize\texttt{cpu}\large\textsf{使用率,
+且排除使用少于}\normalsize\texttt{100MB}\large\textsf{常驻内存的进程的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: rate(process_cpu_seconds_total[5m]) unless process_resident_memory_bytes &lt; 100*1024*1024} \\
+\texttt{PromQL: rate(process\_cpu\_seconds\_total[5m]) unless
+process\_resident\_memory\_bytes &lt; 100*1024*1024} \\
 \hline
 \begin{split}
-&amp;\texttt{\{job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 0.0038947368421053106 \\
-&amp;\texttt{\{job=&quot;jenkins&quot;\}} &amp;\qquad &amp; 0.018350877192984113
+&amp;\texttt{\{job=&quot;prometheus&quot;\}} &amp;\qquad &amp;
+0.0038947368421053106 \\
+&amp;\texttt{\{job=&quot;jenkins&quot;\}} &amp;\qquad &amp;
+0.018350877192984113
 \end{split} \\
 \hline
 \end{array}
@@ -574,18 +661,25 @@
 <p>集合运算符仅支持 瞬时向量 之间的操作</p>
 </blockquote>
 <h4 id="比较运算符">比较运算符</h4>
-<p>PromQL 支持的比较运算符主要包括: <code>==</code> 相等, <code>!=</code> 不相等, <code>&gt;</code> 大于, <code>&lt;</code> 小于, <code>&gt;=</code> 不小于, <code>&lt;=</code> 不大于 <span class="math display">\[
+<p>PromQL 支持的比较运算符主要包括: <code>==</code> 相等,
+<code>!=</code> 不相等, <code>&gt;</code> 大于, <code>&lt;</code> 小于,
+<code>&gt;=</code> 不小于, <code>&lt;=</code> 不大于 <span
+class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询请求数量大于}\normalsize\texttt{50}\large\textsf{的时序}
+\large\textsf{示例:
+查询请求数量大于}\normalsize\texttt{50}\large\textsf{的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total &gt; 50} \\
+\texttt{PromQL: prometheus\_http\_requests\_total &gt; 50} \\
 \hline
 \begin{split}
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 93 \\
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/api/v1/query_range&quot;\}} &amp;\qquad &amp; 69 \\
-&amp;\texttt{prometheus_http_requests_total\{handler=&quot;/metrics&quot;\}} &amp;\qquad &amp; 10820
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/query&quot;\}}
+&amp;\qquad &amp; 93 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/api/v1/query\_range&quot;\}}
+&amp;\qquad &amp; 69 \\
+&amp;\texttt{prometheus\_http\_requests\_total\{handler=&quot;/metrics&quot;\}}
+&amp;\qquad &amp; 10820
 \end{split} \\
 \hline
 \end{array}
@@ -594,18 +688,27 @@
 <p>比较运算符支持 标量/标量, 向量/标量, 向量/向量 之间的操作</p>
 <p>在两个标量之间做比较运算必须使用 <code>bool</code> 修饰符</p>
 </blockquote>
-<p>默认情况下, 比较运算符对时间序列的样本值进行过滤, 如果样本值比较的结果为 <code>false</code> 时, 这个时间序列会被丢弃, 结果为 <code>true</code> 时, 则这个时间序列保留在结果中</p>
-<p>可以通过在运算符后面使用 <code>bool</code> 修饰符来改变输出的结果, 布尔运算不会对时间序列进行过滤, 而是直接输出时间序列中样本值的比较结果, <code>0</code> 表示 <code>false</code>, <code>1</code> 表示 <code>true</code>, 如果使用了布尔修饰符, 指标名称将被删除 <span class="math display">\[
+<p>默认情况下, 比较运算符对时间序列的样本值进行过滤,
+如果样本值比较的结果为 <code>false</code> 时, 这个时间序列会被丢弃,
+结果为 <code>true</code> 时, 则这个时间序列保留在结果中</p>
+<p>可以通过在运算符后面使用 <code>bool</code> 修饰符来改变输出的结果,
+布尔运算不会对时间序列进行过滤, 而是直接输出时间序列中样本值的比较结果,
+<code>0</code> 表示 <code>false</code>, <code>1</code> 表示
+<code>true</code>, 如果使用了布尔修饰符, 指标名称将被删除 <span
+class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询请求数量大于}\normalsize\texttt{50}\large\textsf{的布尔结果的时序}
+\large\textsf{示例:
+查询请求数量大于}\normalsize\texttt{50}\large\textsf{的布尔结果的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total &gt; bool 50} \\
+\texttt{PromQL: prometheus\_http\_requests\_total &gt; bool 50} \\
 \hline
 \begin{split}
-&amp;\texttt{\{handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 1 \\
-&amp;\texttt{\{handler=&quot;/api/v1/query_range&quot;\}} &amp;\qquad &amp; 1 \\
+&amp;\texttt{\{handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 1
+\\
+&amp;\texttt{\{handler=&quot;/api/v1/query\_range&quot;\}} &amp;\qquad
+&amp; 1 \\
 &amp;\texttt{\{handler=&quot;/metrics&quot;\}} &amp;\qquad &amp; 1 \\
 &amp;\texttt{\{handler=&quot;/&quot;\}} &amp;\qquad &amp; 0 \\
 &amp;... \\
@@ -620,55 +723,84 @@
 <li><code>^</code></li>
 <li><code>*</code> <code>/</code> <code>%</code></li>
 <li><code>+</code> <code>-</code></li>
-<li><code>==</code> <code>!=</code> <code>=</code> <code>&lt;=</code> <code>&lt;</code> <code>&gt;=</code> <code>&gt;</code></li>
+<li><code>==</code> <code>!=</code> <code>=</code> <code>&lt;=</code>
+<code>&lt;</code> <code>&gt;=</code> <code>&gt;</code></li>
 <li><code>and</code> <code>unless</code></li>
 <li><code>or</code></li>
 </ol>
-<p>具有相同优先级的运算符满足结合律(左结合), 运算符 <code>^</code> 例外(右结合), 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#binary-operator-precedence">precedence</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 优先级</span></span><br><span class="line">a or b * c + d 等价 a or ((b * c) + d)</span><br><span class="line">2 ^ 3 ^ 2 等价 2 ^ (3 ^ 2)</span><br></pre></td></tr></table></figure>
+<p>具有相同优先级的运算符满足结合律(左结合), 运算符 <code>^</code>
+例外(右结合), 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#binary-operator-precedence">precedence</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 优先级</span></span><br><span class="line">a or b * c + d 等价 a or ((b * c) + d)</span><br><span class="line">2 ^ 3 ^ 2 等价 2 ^ (3 ^ 2)</span><br></pre></td></tr></table></figure>
 <h3 id="向量匹配">向量匹配</h3>
-<p>PromQL 中向量之间的运算操作会基于默认的匹配规则, 依次找到与左边向量的指标匹配 (标签完全一致) 的右边向量的指标进行运算, 如果没有找到, 则直接丢弃指标, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#vector-matching">vector-matching</a>, PromQL 中向量匹配有 2 种匹配模式</p>
+<p>PromQL 中向量之间的运算操作会基于默认的匹配规则,
+依次找到与左边向量的指标匹配 (标签完全一致) 的右边向量的指标进行运算,
+如果没有找到, 则直接丢弃指标, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#vector-matching">vector-matching</a>,
+PromQL 中向量匹配有 2 种匹配模式</p>
 <h4 id="一对一">一对一</h4>
-<p>一对一匹配模式会从操作符两边表达式获取的瞬时向量依次比较 可以使用 <code>on</code> 或者 <code>ignoring</code> 修改标签的匹配行为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法: 匹配时限定在指定的标签列表内</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 语法: 匹配时忽略指定的标签列表</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) &lt;vector expr&gt;</span><br></pre></td></tr></table></figure>
+<p>一对一匹配模式会从操作符两边表达式获取的瞬时向量依次比较 可以使用
+<code>on</code> 或者 <code>ignoring</code> 修改标签的匹配行为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">语法: 匹配时限定在指定的标签列表内</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line"><span class="meta"># </span><span class="language-bash">语法: 匹配时忽略指定的标签列表</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) &lt;vector expr&gt;</span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询请求的响应码为}\normalsize\texttt{200}\large\textsf{所占比例的时序}
+\large\textsf{示例:
+查询请求的响应码为}\normalsize\texttt{200}\large\textsf{所占比例的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total\{code=&quot;200&quot;\} / ignoring(code) (sum without(code)(prometheus_http_requests_total))} \\
+\texttt{PromQL:
+prometheus\_http\_requests\_total\{code=&quot;200&quot;\} /
+ignoring(code) (sum without(code)(prometheus\_http\_requests\_total))}
+\\
 \hline
 \begin{split}
-&amp;\texttt{\{handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 0.8920863309352518 \\
-&amp;\texttt{\{handler=&quot;/api/v1/query_range&quot;\}} &amp;\qquad &amp; 0.9857142857142858
+&amp;\texttt{\{handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp;
+0.8920863309352518 \\
+&amp;\texttt{\{handler=&quot;/api/v1/query\_range&quot;\}} &amp;\qquad
+&amp; 0.9857142857142858
 \end{split} \\
 \hline
 \end{array}
 \]</span></p>
 <h4 id="一对多">一对多</h4>
-<p>一对多匹配模式指的是一侧的每个指标可以与多侧的多个指标匹配, 必须使用 <code>group_(left/right)</code> 指定哪侧是更高的基数</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 语法: 分组匹配</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;</span><br></pre></td></tr></table></figure>
+<p>一对多匹配模式指的是一侧的每个指标可以与多侧的多个指标匹配, 必须使用
+<code>group_(left/right)</code> 指定哪侧是更高的基数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">语法: 分组匹配</span></span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; ignoring(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_left(&lt;label list&gt;) &lt;vector expr&gt;</span><br><span class="line">&lt;vector expr&gt; &lt;bin-op&gt; on(&lt;label list&gt;) group_right(&lt;label list&gt;) &lt;vector expr&gt;</span><br></pre></td></tr></table></figure>
 <p><span class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
 \large\textsf{示例: 查询请求的不同响应码所占比例的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: prometheus_http_requests_total / ignoring(code) group_left() (sum without(code)(prometheus_http_requests_total))} \\
+\texttt{PromQL: prometheus\_http\_requests\_total / ignoring(code)
+group\_left() (sum without(code)(prometheus\_http\_requests\_total))} \\
 \hline
 \begin{split}
-&amp;\texttt{\{code=&quot;200&quot;, handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 0.8920863309352518 \\
-&amp;\texttt{\{code=&quot;200&quot;, handler=&quot;/api/v1/query_range&quot;\}} &amp;\qquad &amp; 0.9857142857142858 \\
-&amp;\texttt{\{code=&quot;400&quot;, handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 0.07534246575342465 \\
-&amp;\texttt{\{code=&quot;400&quot;, handler=&quot;/api/v1/query_range&quot;\}} &amp;\qquad &amp; 0.014285714285714285 \\
-&amp;\texttt{\{code=&quot;422&quot;, handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp; 0.0684931506849315
+&amp;\texttt{\{code=&quot;200&quot;,
+handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp;
+0.8920863309352518 \\
+&amp;\texttt{\{code=&quot;200&quot;,
+handler=&quot;/api/v1/query\_range&quot;\}} &amp;\qquad &amp;
+0.9857142857142858 \\
+&amp;\texttt{\{code=&quot;400&quot;,
+handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp;
+0.07534246575342465 \\
+&amp;\texttt{\{code=&quot;400&quot;,
+handler=&quot;/api/v1/query\_range&quot;\}} &amp;\qquad &amp;
+0.014285714285714285 \\
+&amp;\texttt{\{code=&quot;422&quot;,
+handler=&quot;/api/v1/query&quot;\}} &amp;\qquad &amp;
+0.0684931506849315
 \end{split} \\
 \hline
 \end{array}
 \]</span></p>
 <h3 id="聚合操作">聚合操作</h3>
-<p>PromQL 提供聚合操作, 可用于聚合单个瞬时向量的时序, 形成一个具有较少样本值的新向量, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators">aggregation-operators</a>, PromQL 支持以下的聚合操作:</p>
+<p>PromQL 提供聚合操作, 可用于聚合单个瞬时向量的时序,
+形成一个具有较少样本值的新向量, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators">aggregation-operators</a>,
+PromQL 支持以下的聚合操作:</p>
 <ul>
 <li><code>sum</code> 求和</li>
 <li><code>min</code> 最小值</li>
@@ -683,19 +815,25 @@
 <li><code>topk</code> 样本值最大的 k 个元素</li>
 <li><code>quantile</code> 分位数</li>
 </ul>
-<p>可以通过 <code>without</code>, <code>by</code> 从句来移除或保留不同的标签, 从句可以用在表达式之前或之后 <span class="math display">\[
+<p>可以通过 <code>without</code>, <code>by</code>
+从句来移除或保留不同的标签, 从句可以用在表达式之前或之后 <span
+class="math display">\[
 \begin{array}{l}
 \hline
 \rlap{
 \large\textsf{示例: 查询请求的不同响应码的请求数求和的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: sum(prometheus_http_requests_total) by(job, code)} \\
+\texttt{PromQL: sum(prometheus\_http\_requests\_total) by(job, code)} \\
 \hline
 \begin{split}
-&amp;\texttt{\{code=&quot;400&quot;, job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 17 \\
-&amp;\texttt{\{code=&quot;422&quot;, job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 11 \\
-&amp;\texttt{\{code=&quot;200&quot;, job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 13344 \\
-&amp;\texttt{\{code=&quot;302&quot;, job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 5
+&amp;\texttt{\{code=&quot;400&quot;, job=&quot;prometheus&quot;\}}
+&amp;\qquad &amp; 17 \\
+&amp;\texttt{\{code=&quot;422&quot;, job=&quot;prometheus&quot;\}}
+&amp;\qquad &amp; 11 \\
+&amp;\texttt{\{code=&quot;200&quot;, job=&quot;prometheus&quot;\}}
+&amp;\qquad &amp; 13344 \\
+&amp;\texttt{\{code=&quot;302&quot;, job=&quot;prometheus&quot;\}}
+&amp;\qquad &amp; 5
 \end{split} \\
 \hline
 \end{array}
@@ -706,7 +844,8 @@
 \rlap{
 \large\textsf{示例: 查询请求的响应码的个数的时序}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: count(group(prometheus_http_requests_total) by(job, code)) by(job)} \\
+\texttt{PromQL: count(group(prometheus\_http\_requests\_total) by(job,
+code)) by(job)} \\
 \hline
 \begin{split}
 \texttt{\{job=&quot;prometheus&quot;\}} &amp;\qquad &amp; 4
@@ -715,12 +854,14 @@
 \end{array}
 \]</span></p>
 <h3 id="内置函数">内置函数</h3>
-<p>PromQL 提供了大量的内置函数, 以对向量进行丰富的处理, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/functions/">functions</a></p>
+<p>PromQL 提供了大量的内置函数, 以对向量进行丰富的处理, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/functions/">functions</a></p>
 <p>内置函数按功能的相关性可分类:</p>
 <ol type="1">
 <li><p>动态标签</p>
 <ul>
-<li><code>label_replace</code> 使用正则表达式为时间序列添加额外的标签</li>
+<li><code>label_replace</code>
+使用正则表达式为时间序列添加额外的标签</li>
 <li><code>label_join</code> 将现有标签以连接符拼接写入新的标签</li>
 </ul></li>
 <li><p>数学运算</p>
@@ -730,9 +871,11 @@
 <li><code>ln</code> 计算样本值的自然对数</li>
 <li><code>log2</code> <code>log10</code> 计算样本值以2/10为底的对数</li>
 <li><code>sqrt</code> 计算样本值的平方根</li>
-<li><code>ceil</code> <code>floor</code> 计算样本值四舍五入向上/下取整</li>
+<li><code>ceil</code> <code>floor</code>
+计算样本值四舍五入向上/下取整</li>
 <li><code>round</code> 计算样本值四舍五入向给定数值的整数倍取整</li>
-<li><code>clamp_max</code> <code>clamp_min</code> 样本值设置最大/小限</li>
+<li><code>clamp_max</code> <code>clamp_min</code>
+样本值设置最大/小限</li>
 </ul></li>
 <li><p>类型转换</p>
 <ul>
@@ -742,32 +885,41 @@
 <li><p>时间日期</p>
 <ul>
 <li><code>time</code> 返回时间戳</li>
-<li><code>minute</code> <code>hour</code> <code>month</code> <code>year</code> 返回时间的分/时/月/年</li>
-<li><code>day_of_month</code> <code>day_of_week</code> 返回给定时间在月/周中的序号</li>
+<li><code>minute</code> <code>hour</code> <code>month</code>
+<code>year</code> 返回时间的分/时/月/年</li>
+<li><code>day_of_month</code> <code>day_of_week</code>
+返回给定时间在月/周中的序号</li>
 <li><code>days_in_month</code> 返回给定月的天数</li>
 <li><code>timestamp</code> 返回时序的时间戳</li>
 </ul></li>
 <li><p>时间聚合</p>
 <ul>
 <li><code>avg_over_time</code> 计算区间向量中每个时序的平均值</li>
-<li><code>min_over_time</code> <code>max_over_time</code> 计算区间向量中每个时序的最小/大值</li>
+<li><code>min_over_time</code> <code>max_over_time</code>
+计算区间向量中每个时序的最小/大值</li>
 <li><code>sum_over_time</code> 计算区间向量中每个时序的求和</li>
 <li><code>count_over_time</code> 计算区间向量中每个时序的个数</li>
 <li><code>quantile_over_time</code> 计算区间向量中每个时序的分位数</li>
-<li><code>stddev_over_time</code> <code>stdvar_over_time</code> 计算区间向量中每个时序的标准差/方差</li>
+<li><code>stddev_over_time</code> <code>stdvar_over_time</code>
+计算区间向量中每个时序的标准差/方差</li>
 </ul></li>
 <li><p>Counter</p>
 <ul>
-<li><code>rate</code> <code>irate</code> 计算区间向量中每个时序的平均增长速率</li>
-<li><code>increase</code> 计算区间向量中每个时序的首尾样本值的增长量</li>
+<li><code>rate</code> <code>irate</code>
+计算区间向量中每个时序的平均增长速率</li>
+<li><code>increase</code>
+计算区间向量中每个时序的首尾样本值的增长量</li>
 <li><code>resets</code> 返回区间向量中每个时序的计数器重置次数</li>
 </ul></li>
 <li><p>Gauge</p>
 <ul>
-<li><code>predict_linear</code> 基于简单线性回归预测给定时间后的样本值</li>
-<li><code>deriv</code> 基于简单的线性回归计算区间向量中每个时序的导数</li>
+<li><code>predict_linear</code>
+基于简单线性回归预测给定时间后的样本值</li>
+<li><code>deriv</code>
+基于简单的线性回归计算区间向量中每个时序的导数</li>
 <li><code>delta</code> 计算区间向量中每个时序的首尾样本值的差值</li>
-<li><code>idelta</code> 计算区间向量中每个时序的最新两个样本值的差值</li>
+<li><code>idelta</code>
+计算区间向量中每个时序的最新两个样本值的差值</li>
 <li><code>holt_winters</code> 基于双指数平滑算法生成时序的平滑值</li>
 <li><code>changes</code> 计算区间向量中每个时序的样本值变化的次数</li>
 </ul></li>
@@ -785,9 +937,13 @@
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 查询}\normalsize\texttt{cpu}\large\textsf{的使用率的时序} \normalsize\texttt{(12%)}
+\large\textsf{示例:
+查询}\normalsize\texttt{cpu}\large\textsf{的使用率的时序}
+\normalsize\texttt{(12\%)}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: ceil((1 - avg(rate(node_cpu_seconds_total{mode=&quot;idle&quot;}[10m])) without(cpu, mode)) * 100)} \\
+\texttt{PromQL: ceil((1 -
+avg(rate(node\_cpu\_seconds\_total{mode=&quot;idle&quot;}[10m]))
+without(cpu, mode)) * 100)} \\
 \hline
 \begin{split}
 \texttt{\{job=&quot;node&quot;\}} &amp;\qquad &amp; 12
@@ -799,12 +955,17 @@
 \begin{array}{l}
 \hline
 \rlap{
-\large\textsf{示例: 预测在}\normalsize\texttt{1}\large\textsf{小时后磁盘目录}\normalsize\texttt{/}\large\textsf{的容量的时序} \normalsize\texttt{(187GB)}
+\large\textsf{示例:
+预测在}\normalsize\texttt{1}\large\textsf{小时后磁盘目录}\normalsize\texttt{/}\large\textsf{的容量的时序}
+\normalsize\texttt{(187GB)}
 } \hphantom{---------------------------------------------------} \\
-\texttt{PromQL: floor(predict_linear(node_filesystem_avail_bytes{mountpoint=&quot;/&quot;}[30m], 1*60*60) /1024/1024/1024)} \\
+\texttt{PromQL:
+floor(predict\_linear(node\_filesystem\_avail\_bytes{mountpoint=&quot;/&quot;}[30m],
+1*60*60) /1024/1024/1024)} \\
 \hline
 \begin{split}
-\texttt{\{fstype=&quot;ext4&quot;, job=&quot;node&quot;, mountpoint=&quot;/&quot;\}} &amp;\qquad &amp; 187
+\texttt{\{fstype=&quot;ext4&quot;, job=&quot;node&quot;,
+mountpoint=&quot;/&quot;\}} &amp;\qquad &amp; 187
 \end{split} \\
 \hline
 \end{array}
@@ -816,24 +977,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/19/alertmanager-001/" rel="bookmark">AlertManager 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/04/prometheus-004/" rel="bookmark">Prometheus 数据采集</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -904,7 +1047,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -916,7 +1059,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -960,7 +1103,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

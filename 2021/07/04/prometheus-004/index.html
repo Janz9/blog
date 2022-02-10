@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Prometheus 服务采集数据, 通常可以分为以下三种方式:  独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据 集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集 网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端  Prometheus 服务拉取数据的规">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Prometheus 服务采集数据, 通常可以分为以下三种方式:  独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据 集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集 网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端  Prometheus 服务拉取数据的规">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus 数据采集">
 <meta property="og:url" content="https://janz.icu/2021/07/04/prometheus-004/index.html">
@@ -35,7 +35,7 @@
 <meta property="og:description" content="Prometheus 服务采集数据, 通常可以分为以下三种方式:  独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据 集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集 网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端  Prometheus 服务拉取数据的规">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-04T14:05:02.000Z">
-<meta property="article:modified_time" content="2021-07-19T16:25:15.607Z">
+<meta property="article:modified_time" content="2021-11-09T07:25:16.001Z">
 <meta property="article:author" content="Janz">
 <meta property="article:tag" content="Prometheus">
 <meta name="twitter:card" content="summary">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Prometheus 数据采集 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2021-07-04 22:05:02" itemprop="dateCreated datePublished" datetime="2021-07-04T22:05:02+08:00">2021-07-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-20 00:25:15" itemprop="dateModified" datetime="2021-07-20T00:25:15+08:00">2021-07-20</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-09 15:25:16" itemprop="dateModified" datetime="2021-11-09T15:25:16+08:00">2021-11-09</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -305,54 +306,96 @@
         <h1 id="数据采集">数据采集</h1>
 <p>Prometheus 服务采集数据, 通常可以分为以下三种方式:</p>
 <ul>
-<li>独立方式 使用 Exporter 以零侵入的方式单独部署, 作为代理层暴露第三方系统或应用中的数据</li>
-<li>集成方式 使用 ClientLibs 耦合到应用的开发源码中, 主要用于业务相关指标的采集</li>
-<li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据, 再暴露给服务端</li>
+<li>独立方式 使用 Exporter 以零侵入的方式单独部署,
+作为代理层暴露第三方系统或应用中的数据</li>
+<li>集成方式 使用 ClientLibs 耦合到应用的开发源码中,
+主要用于业务相关指标的采集</li>
+<li>网关方式 使用 Pushgateway 作为中间网关, 接收应用主动推送的数据,
+再暴露给服务端</li>
 </ul>
-<p>Prometheus 服务拉取数据的规范基于简单的文本格式, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exposition_formats/">exposition-formats</a></p>
+<p>Prometheus 服务拉取数据的规范基于简单的文本格式, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exposition_formats/">exposition-formats</a></p>
 <h2 id="exporter">Exporter</h2>
-<p>现成的 exporter 列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#third-party-exporters">exporter</a>, 自定义编写 exporter 的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing-exporters</a></p>
+<p>现成的 exporter 列表, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#third-party-exporters">exporter</a>,
+自定义编写 exporter 的示例, 参考 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing-exporters</a></p>
 <p>常用系统和应用的 exporter 的配置部署示例:</p>
 <ol type="1">
-<li><p><a target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">node-exporter</a> 基于 Linux 内核的系统指标采集, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/node-exporter/">node-exporter-guides</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: node-exporter部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d</span></span><br><span class="line">  --net=host</span><br><span class="line">  --pid=host</span><br><span class="line">  -v /:/host:ro,rslave</span><br><span class="line">  prom/node-exporter</span><br><span class="line">  --path.rootfs=/host</span><br><span class="line">  --web.listen-address=:9100</span><br><span class="line">  --web.telemetry-path=/metrics</span><br></pre></td></tr></table></figure></li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/prometheus/mysqld_exporter">mysqld-exporter</a> 基于 MySQL 的数据库指标采集</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: mysqld-exporter部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d</span></span><br><span class="line">  --net=host</span><br><span class="line">  -e DATA_SOURCE_NAME=&quot;user:password@(hostname:3306)/&quot;</span><br><span class="line">  -v $(pwd)/config.my.cnf:~/config.my.cnf</span><br><span class="line">  prom/mysqld-exporter</span><br><span class="line">  --config.my-cnf=~/config.my.cnf</span><br><span class="line">  --web.listen-address=:9104</span><br><span class="line">  --web.telemetry-path=/metrics</span><br></pre></td></tr></table></figure></li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/oliver006/redis_exporter">redis-exporter</a> 基于 Redis 的数据库指标采集</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: redis_exporter部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d</span></span><br><span class="line">  --net=host</span><br><span class="line">  oliver006/redis_exporter</span><br><span class="line">  --redis.password=password</span><br><span class="line">  --web.listen-address=:9121</span><br><span class="line">  --web.telemetry-path=/metrics</span><br></pre></td></tr></table></figure></li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/google/cadvisor">google-cadvisor</a> 基于一个正在运行的 Docker 守护进程, 用于收集, 聚合, 处理和导出进程和容器的指标, 它为每个容器记录资源隔离参数, 资源使用情况, 网络统计信息等数据, 并支持按 Prometheus 的规范格式导出, 详见 <a target="_blank" rel="noopener" href="https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md">cadvisor-prometheus</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: google-cadvisor部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo docker run -d</span></span><br><span class="line">  --volume=/:/rootfs:ro</span><br><span class="line">  --volume=/var/run:/var/run:ro</span><br><span class="line">  --volume=/sys:/sys:ro</span><br><span class="line">  --volume=/var/lib/docker/:/var/lib/docker:ro</span><br><span class="line">  --volume=/dev/disk/:/dev/disk:ro</span><br><span class="line">  --publish=8080:8080</span><br><span class="line">  --detach=true</span><br><span class="line">  --privileged</span><br><span class="line">  google/cadvisor</span><br></pre></td></tr></table></figure></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/prometheus/node_exporter">node-exporter</a>
+基于 Linux 内核的系统指标采集, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/guides/node-exporter/">node-exporter-guides</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: node-exporter部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d</span></span><br><span class="line">  --net=host</span><br><span class="line">  --pid=host</span><br><span class="line">  -v /:/host:ro,rslave</span><br><span class="line">  prom/node-exporter</span><br><span class="line">  --path.rootfs=/host</span><br><span class="line">  --web.listen-address=:9100</span><br><span class="line">  --web.telemetry-path=/metrics</span><br></pre></td></tr></table></figure></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/prometheus/mysqld_exporter">mysqld-exporter</a>
+基于 MySQL 的数据库指标采集</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: mysqld-exporter部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d</span></span><br><span class="line">  --net=host</span><br><span class="line">  -e DATA_SOURCE_NAME=&quot;user:password@(hostname:3306)/&quot;</span><br><span class="line">  -v $(pwd)/config.my.cnf:~/config.my.cnf</span><br><span class="line">  prom/mysqld-exporter</span><br><span class="line">  --config.my-cnf=~/config.my.cnf</span><br><span class="line">  --web.listen-address=:9104</span><br><span class="line">  --web.telemetry-path=/metrics</span><br></pre></td></tr></table></figure></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://github.com/oliver006/redis_exporter">redis-exporter</a>
+基于 Redis 的数据库指标采集</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: redis_exporter部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d</span></span><br><span class="line">  --net=host</span><br><span class="line">  oliver006/redis_exporter</span><br><span class="line">  --redis.password=password</span><br><span class="line">  --web.listen-address=:9121</span><br><span class="line">  --web.telemetry-path=/metrics</span><br></pre></td></tr></table></figure></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/google/cadvisor">google-cadvisor</a>
+基于一个正在运行的 Docker 守护进程, 用于收集, 聚合,
+处理和导出进程和容器的指标, 它为每个容器记录资源隔离参数, 资源使用情况,
+网络统计信息等数据, 并支持按 Prometheus 的规范格式导出, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md">cadvisor-prometheus</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: google-cadvisor部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">sudo docker run -d</span></span><br><span class="line">  --volume=/:/rootfs:ro</span><br><span class="line">  --volume=/var/run:/var/run:ro</span><br><span class="line">  --volume=/sys:/sys:ro</span><br><span class="line">  --volume=/var/lib/docker/:/var/lib/docker:ro</span><br><span class="line">  --volume=/dev/disk/:/dev/disk:ro</span><br><span class="line">  --publish=8080:8080</span><br><span class="line">  --detach=true</span><br><span class="line">  --privileged</span><br><span class="line">  google/cadvisor</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="clientlibs">ClientLibs</h2>
-<p>Prometheus 提供了与应用开发语言相匹配的客户端库, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/clientlibs/">clientlibs</a>, 辅助开发的工具库列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#other-third-party-utilities">utilities</a>, 自定义编写客户端库的示例, 参考 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_clientlibs/">writing-clientlibs</a></p>
-<p>已集成 prometheus 采集规范的应用列表, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#software-exposing-prometheus-metrics">software</a></p>
+<p>Prometheus 提供了与应用开发语言相匹配的客户端库, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/clientlibs/">clientlibs</a>,
+辅助开发的工具库列表, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#other-third-party-utilities">utilities</a>,
+自定义编写客户端库的示例, 参考 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/writing_clientlibs/">writing-clientlibs</a></p>
+<p>已集成 prometheus 采集规范的应用列表, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#software-exposing-prometheus-metrics">software</a></p>
 <p>常用的集成采集规范的应用配置示例:</p>
 <ol type="1">
-<li><a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a> 通过守护进程的命令行配置以开启公开指标的功能, 当前这是一个实验性功能, 需要守护进程运行在实验模式, 此配置才能生效, 详见 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-metrics">dockerd-metrics</a></li>
-<li><a target="_blank" rel="noopener" href="https://about.gitlab.com">GitLab</a> 通过管理员权限在设置中可以开启公开指标的功能, 详见 <a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/gitlab_metrics.html#gitlab-prometheus-metrics">gitlab-prometheus-metrics</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.jenkins.io/">Jenkins</a> 通过安装插件以公开指标的功能, 详见 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/prometheus/">jenkins-plugin</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.nginx.com/">Nginx</a> 通过添加模块以公开指标的功能, 详见 <a target="_blank" rel="noopener" href="https://github.com/vozlt/nginx-module-vts">nginx-module</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>
+通过守护进程的命令行配置以开启公开指标的功能, 当前这是一个实验性功能,
+需要守护进程运行在实验模式, 此配置才能生效, 详见 <a
+target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-metrics">dockerd-metrics</a></li>
+<li><a target="_blank" rel="noopener" href="https://about.gitlab.com">GitLab</a>
+通过管理员权限在设置中可以开启公开指标的功能, 详见 <a
+target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/administration/monitoring/prometheus/gitlab_metrics.html#gitlab-prometheus-metrics">gitlab-prometheus-metrics</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jenkins.io/">Jenkins</a>
+通过安装插件以公开指标的功能, 详见 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/prometheus/">jenkins-plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nginx.com/">Nginx</a>
+通过添加模块以公开指标的功能, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/vozlt/nginx-module-vts">nginx-module</a></li>
 </ol>
 <h2 id="pushgateway">Pushgateway</h2>
-<p>Pushgateway 作为一个独立的服务, 位于被采集监控数据的应用程序和 Prometheus 服务之间, 与网关类似, 它被建议用于临时性的解决方案, 应用程序主动推送采样数据到 Pushgateway 集中保存, 然后 Pushgateway 作为 Prometheus 服务配置的作业被定时拉取, 详见 <a target="_blank" rel="noopener" href="https://prometheus.io/docs/practices/pushing/">pushgateway</a></p>
+<p>Pushgateway 作为一个独立的服务, 位于被采集监控数据的应用程序和
+Prometheus 服务之间, 与网关类似, 它被建议用于临时性的解决方案,
+应用程序主动推送采样数据到 Pushgateway 集中保存, 然后 Pushgateway 作为
+Prometheus 服务配置的作业被定时拉取, 详见 <a
+target="_blank" rel="noopener" href="https://prometheus.io/docs/practices/pushing/">pushgateway</a></p>
 <p>它的使用场景主要有如下 3 种:</p>
 <ol type="1">
 <li>临时或短时间的作业</li>
 <li>批处理的作业</li>
 <li>与服务存在网络隔离的作业</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: pushgateway部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docekr run -d</span></span><br><span class="line">  --net host</span><br><span class="line">  prom/pushgateway</span><br><span class="line">  --web.listen-address=:9091</span><br><span class="line">  --web.telemetry-path=/metrics</span><br><span class="line">  --web.enable-admin-api  # 启用管理员接口</span><br></pre></td></tr></table></figure>
-<p>应用程序可以通过基于 http 协议的 api 与网关 Pushgateway 进行交互, 使用示例参考 <a target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#use-it">pushgateway-use</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: pushgateway部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docekr run -d</span></span><br><span class="line">  --net host</span><br><span class="line">  prom/pushgateway</span><br><span class="line">  --web.listen-address=:9091</span><br><span class="line">  --web.telemetry-path=/metrics</span><br><span class="line">  --web.enable-admin-api  # 启用管理员接口</span><br></pre></td></tr></table></figure>
+<p>应用程序可以通过基于 http 协议的 api 与网关 Pushgateway 进行交互,
+使用示例参考 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#use-it">pushgateway-use</a></p>
 <h3 id="查询">查询</h3>
-<p>查询接口有 2 个端点, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#query-api">query-api</a></p>
+<p>查询接口有 2 个端点, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#query-api">query-api</a></p>
 <ol type="1">
-<li><p>状态查询接口, 用于获取网关的构建信息, 命令行标志和启动时间等信息</p>
+<li><p>状态查询接口, 用于获取网关的构建信息,
+命令行标志和启动时间等信息</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /api/v1/status</span><br></pre></td></tr></table></figure></li>
 <li><p>指标查询接口, 用于获取网关已接收的指标信息</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /api/v1/metrics</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="推送">推送</h3>
-<p>推送接口使用类似 REST 风格的端点, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#api">push-api</a></p>
+<p>推送接口使用类似 REST 风格的端点, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#api">push-api</a></p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 推送接口使用指标的名称和标签信息作为路径参数</span></span><br><span class="line">/metrics/job/&lt;JOB_NAME&gt;/<span class="section">[&lt;LABEL_NAME&gt;/&lt;LABEL_VALUE&gt;]</span></span><br></pre></td></tr></table></figure>
 <p>提交方式有以下 2 类:</p>
 <ol type="1">
@@ -362,12 +405,16 @@
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE  <span class="comment"># 删除指定路径参数的所有数据</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="管理">管理</h3>
-<p>管理员接口用于维护或开发人员对网关的管理, 需要在网关启动时的命令行标志中使用 <code>--web.enable-admin-api</code> 启用管理员接口, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#admin-api">admin-api</a></p>
+<p>管理员接口用于维护或开发人员对网关的管理,
+需要在网关启动时的命令行标志中使用 <code>--web.enable-admin-api</code>
+启用管理员接口, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#admin-api">admin-api</a></p>
 <ol type="1">
 <li><p>擦除接口, 用于安全的删除网关已接收的所有指标数据</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT /api/v1/admin/wipe</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>管理接口有 3 个端点, 用于 Pushgateway 的自动化和集成等场景, 详见 <a target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#management-api">management-api</a></p>
+<p>管理接口有 3 个端点, 用于 Pushgateway 的自动化和集成等场景, 详见 <a
+target="_blank" rel="noopener" href="https://github.com/prometheus/pushgateway/blob/master/README.md#management-api">management-api</a></p>
 <ol type="1">
 <li><p>用于获取网关的健康度</p>
 <figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /-/healthy</span><br></pre></td></tr></table></figure></li>
@@ -378,22 +425,38 @@
 </ol>
 <h3 id="示例">示例</h3>
 <h4 id="查询接口">查询接口</h4>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 状态查询</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl --location --request GET <span class="string">&#x27;http://localhost:9091/api/v1/status&#x27;</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;: &quot;success&quot;,</span><br><span class="line">    &quot;data&quot;: &#123;</span><br><span class="line">        &quot;build_information&quot;: &#123;</span><br><span class="line">            &quot;branch&quot;: &quot;HEAD&quot;,</span><br><span class="line">            &quot;buildDate&quot;: &quot;20210528-14:30:10&quot;,</span><br><span class="line">            &quot;buildUser&quot;: &quot;root@da864be5f3f0&quot;,</span><br><span class="line">            &quot;goVersion&quot;: &quot;go1.16.4&quot;,</span><br><span class="line">            &quot;revision&quot;: &quot;6fa509bbf4f082ab8455057aafbb5403bd6e37a5&quot;,</span><br><span class="line">            &quot;version&quot;: &quot;1.4.1&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;flags&quot;: &#123;</span><br><span class="line">            &quot;log.format&quot;: &quot;logfmt&quot;,</span><br><span class="line">            &quot;log.level&quot;: &quot;info&quot;,</span><br><span class="line">            &quot;persistence.file&quot;: &quot;&quot;,</span><br><span class="line">            &quot;persistence.interval&quot;: &quot;5m0s&quot;,</span><br><span class="line">            &quot;push.disable-consistency-check&quot;: &quot;false&quot;,</span><br><span class="line">            &quot;web.config.file&quot;: &quot;&quot;,</span><br><span class="line">            &quot;web.enable-admin-api&quot;: &quot;false&quot;,</span><br><span class="line">            &quot;web.enable-lifecycle&quot;: &quot;false&quot;,</span><br><span class="line">            &quot;web.external-url&quot;: &quot;&quot;,</span><br><span class="line">            &quot;web.listen-address&quot;: &quot;:9091&quot;,</span><br><span class="line">            &quot;web.route-prefix&quot;: &quot;&quot;,</span><br><span class="line">            &quot;web.telemetry-path&quot;: &quot;/metrics&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;start_time&quot;: &quot;2021-07-04T05:07:29.885822042Z&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 指标查询</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl --location --request GET <span class="string">&#x27;http://localhost:9091/api/v1/metrics&#x27;</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;: &quot;success&quot;,</span><br><span class="line">    &quot;data&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;labels&quot;: &#123;</span><br><span class="line">                &quot;instance&quot;: &quot;myapp&quot;,</span><br><span class="line">                &quot;job&quot;: &quot;myjob&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;last_push_successful&quot;: true,</span><br><span class="line">            &quot;push_failure_time_seconds&quot;: &#123;</span><br><span class="line">                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;GAUGE&quot;,</span><br><span class="line">                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway failed.&quot;,</span><br><span class="line">                &quot;metrics&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;labels&quot;: &#123;</span><br><span class="line">                            &quot;instance&quot;: &quot;myapp&quot;,</span><br><span class="line">                            &quot;job&quot;: &quot;myjob&quot;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        &quot;value&quot;: &quot;0&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;push_time_seconds&quot;: &#123;</span><br><span class="line">                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;GAUGE&quot;,</span><br><span class="line">                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway succeeded.&quot;,</span><br><span class="line">                &quot;metrics&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;labels&quot;: &#123;</span><br><span class="line">                            &quot;instance&quot;: &quot;myapp&quot;,</span><br><span class="line">                            &quot;job&quot;: &quot;myjob&quot;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        &quot;value&quot;: &quot;1.6253803555253766e+09&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 状态查询</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">curl --location --request GET <span class="string">&#x27;http://localhost:9091/api/v1/status&#x27;</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;: &quot;success&quot;,</span><br><span class="line">    &quot;data&quot;: &#123;</span><br><span class="line">        &quot;build_information&quot;: &#123;</span><br><span class="line">            &quot;branch&quot;: &quot;HEAD&quot;,</span><br><span class="line">            &quot;buildDate&quot;: &quot;20210528-14:30:10&quot;,</span><br><span class="line">            &quot;buildUser&quot;: &quot;root@da864be5f3f0&quot;,</span><br><span class="line">            &quot;goVersion&quot;: &quot;go1.16.4&quot;,</span><br><span class="line">            &quot;revision&quot;: &quot;6fa509bbf4f082ab8455057aafbb5403bd6e37a5&quot;,</span><br><span class="line">            &quot;version&quot;: &quot;1.4.1&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;flags&quot;: &#123;</span><br><span class="line">            &quot;log.format&quot;: &quot;logfmt&quot;,</span><br><span class="line">            &quot;log.level&quot;: &quot;info&quot;,</span><br><span class="line">            &quot;persistence.file&quot;: &quot;&quot;,</span><br><span class="line">            &quot;persistence.interval&quot;: &quot;5m0s&quot;,</span><br><span class="line">            &quot;push.disable-consistency-check&quot;: &quot;false&quot;,</span><br><span class="line">            &quot;web.config.file&quot;: &quot;&quot;,</span><br><span class="line">            &quot;web.enable-admin-api&quot;: &quot;false&quot;,</span><br><span class="line">            &quot;web.enable-lifecycle&quot;: &quot;false&quot;,</span><br><span class="line">            &quot;web.external-url&quot;: &quot;&quot;,</span><br><span class="line">            &quot;web.listen-address&quot;: &quot;:9091&quot;,</span><br><span class="line">            &quot;web.route-prefix&quot;: &quot;&quot;,</span><br><span class="line">            &quot;web.telemetry-path&quot;: &quot;/metrics&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;start_time&quot;: &quot;2021-07-04T05:07:29.885822042Z&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 指标查询</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">curl --location --request GET <span class="string">&#x27;http://localhost:9091/api/v1/metrics&#x27;</span></span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;: &quot;success&quot;,</span><br><span class="line">    &quot;data&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;labels&quot;: &#123;</span><br><span class="line">                &quot;instance&quot;: &quot;myapp&quot;,</span><br><span class="line">                &quot;job&quot;: &quot;myjob&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;last_push_successful&quot;: true,</span><br><span class="line">            &quot;push_failure_time_seconds&quot;: &#123;</span><br><span class="line">                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;GAUGE&quot;,</span><br><span class="line">                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway failed.&quot;,</span><br><span class="line">                &quot;metrics&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;labels&quot;: &#123;</span><br><span class="line">                            &quot;instance&quot;: &quot;myapp&quot;,</span><br><span class="line">                            &quot;job&quot;: &quot;myjob&quot;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        &quot;value&quot;: &quot;0&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;push_time_seconds&quot;: &#123;</span><br><span class="line">                &quot;time_stamp&quot;: &quot;2021-07-04T06:32:35.525376434Z&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;GAUGE&quot;,</span><br><span class="line">                &quot;help&quot;: &quot;Last Unix time when changing this group in the Pushgateway succeeded.&quot;,</span><br><span class="line">                &quot;metrics&quot;: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        &quot;labels&quot;: &#123;</span><br><span class="line">                            &quot;instance&quot;: &quot;myapp&quot;,</span><br><span class="line">                            &quot;job&quot;: &quot;myjob&quot;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        &quot;value&quot;: &quot;1.6253803555253766e+09&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="推送接口">推送接口</h4>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 推送数据</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span><span class="string">&#x27;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> TYPE some_metric counter</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> HELP some_metric Just an example.</span></span></span><br><span class="line">some_metric&#123;label=&quot;val1&quot;&#125; 42</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> TYPE another_metric gauge</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> HELP another_metric Just an example.</span></span></span><br><span class="line">another_metric 2398.283</span><br><span class="line">&#x27;&#x27;&#x27; |</span><br><span class="line">curl --location --request PUT &#x27;http://localhost:9091/metrics/job/myjob/instance/myapp&#x27; --data-binary @-</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> 响应返回200状态码</span></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除数据</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl --location --request DELETE <span class="string">&#x27;http://localhost:9091/metrics/job/myjob/instance/myapp&#x27;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 响应返回202状态码</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">推送数据</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span><span class="string">&#x27;</span></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash"><span class="string">TYPE some_metric counter</span></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash"><span class="string">HELP some_metric Just an example.</span></span></span><br><span class="line">some_metric&#123;label=&quot;val1&quot;&#125; 42</span><br><span class="line"><span class="meta"># </span><span class="language-bash"><span class="string">TYPE another_metric gauge</span></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash"><span class="string">HELP another_metric Just an example.</span></span></span><br><span class="line">another_metric 2398.283</span><br><span class="line">&#x27;&#x27;&#x27; |</span><br><span class="line">curl --location --request PUT &#x27;http://localhost:9091/metrics/job/myjob/instance/myapp&#x27; --data-binary @-</span><br><span class="line"><span class="meta"># </span><span class="language-bash"><span class="string">响应返回200状态码</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">删除数据</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">curl --location --request DELETE <span class="string">&#x27;http://localhost:9091/metrics/job/myjob/instance/myapp&#x27;</span></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">响应返回202状态码</span></span><br></pre></td></tr></table></figure>
 <h4 id="采集接口">采集接口</h4>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 采集接口</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl --location --request GET <span class="string">&#x27;http://localhost:9091/metrics&#x27;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 截取应用指标的输出如下</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HELP another_metric Just an example.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE another_metric gauge</span></span><br><span class="line">another_metric&#123;instance=&quot;myapp&quot;,job=&quot;myjob&quot;&#125; 2398.283</span><br><span class="line"><span class="meta">#</span><span class="bash"> HELP some_metric Just an example.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> TYPE some_metric counter</span></span><br><span class="line">some_metric&#123;instance=&quot;myapp&quot;,job=&quot;myjob&quot;,label=&quot;val1&quot;&#125; 42</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">采集接口</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">curl --location --request GET <span class="string">&#x27;http://localhost:9091/metrics&#x27;</span></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">截取应用指标的输出如下</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">HELP another_metric Just an example.</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE another_metric gauge</span></span><br><span class="line">another_metric&#123;instance=&quot;myapp&quot;,job=&quot;myjob&quot;&#125; 2398.283</span><br><span class="line"><span class="meta"># </span><span class="language-bash">HELP some_metric Just an example.</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">TYPE some_metric counter</span></span><br><span class="line">some_metric&#123;instance=&quot;myapp&quot;,job=&quot;myjob&quot;,label=&quot;val1&quot;&#125; 42</span><br></pre></td></tr></table></figure>
 <h2 id="telegraf">Telegraf</h2>
-<p>Prometheus 采集数据的方式和种类繁多, 每个组件相互独立各司其职, 随着组件部署越多, 维护压力也越大, 尤其是内部自行开发的组件需要大量的人力来完成资源控制, 特性添加, 版本升级等工作, 可以考虑使用 Telegraf 统一进行管理</p>
-<p><a target="_blank" rel="noopener" href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> 是开源的服务代理, 主要用于收集时间序列型数据, 其支持从堆栈, 传感器或系统中收集指标数据, 因此可以实现不同组件的多合一管理</p>
+<p>Prometheus 采集数据的方式和种类繁多, 每个组件相互独立各司其职,
+随着组件部署越多, 维护压力也越大,
+尤其是内部自行开发的组件需要大量的人力来完成资源控制, 特性添加,
+版本升级等工作, 可以考虑使用 Telegraf 统一进行管理</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a>
+是开源的服务代理, 主要用于收集时间序列型数据, 其支持从堆栈,
+传感器或系统中收集指标数据, 因此可以实现不同组件的多合一管理</p>
 <h2 id="grafana">Grafana</h2>
-<p><a target="_blank" rel="noopener" href="https://grafana.com/grafana/">Grafana</a> 是网络架构和应用分析中最流行的时序数据展示工具, 主要用于大规模指标数据的可视化展示, 目前支持绝大部分时序数据库, 安装参考 <a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/installation/">install</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: docker部署</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -d --name=grafana -p 3000:3000 grafana/grafana</span></span><br></pre></td></tr></table></figure>
-<p>服务启动成功之后可以访问本机 <a target="_blank" rel="noopener" href="http://127.0.0.1:3000/">3000</a> 端口查看网页, 默认管理员的帐号和密码为 <code>admin</code></p>
-<p>Grafana 支持配置 Prometheus 作为可视化的数据源, 可以通过网页手动配置, 参考 <a target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/datasources/prometheus/">datasources/prometheus</a></p>
-<p>Grafana 提供模板功能, 对于 Prometheus 的大部分 Exporter 和第三方集成基础指标的开发库, 都有现成的模板可直接使用, 在线搜索模板参考 <a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards">dashboards</a></p>
+<p><a target="_blank" rel="noopener" href="https://grafana.com/grafana/">Grafana</a>
+是网络架构和应用分析中最流行的时序数据展示工具,
+主要用于大规模指标数据的可视化展示, 目前支持绝大部分时序数据库, 安装参考
+<a
+target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/installation/">install</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: docker部署</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker run -d --name=grafana -p 3000:3000 grafana/grafana</span></span><br></pre></td></tr></table></figure>
+<p>服务启动成功之后可以访问本机 <a
+target="_blank" rel="noopener" href="http://127.0.0.1:3000/">3000</a> 端口查看网页,
+默认管理员的帐号和密码为 <code>admin</code></p>
+<p>Grafana 支持配置 Prometheus 作为可视化的数据源, 可以通过网页手动配置,
+参考 <a
+target="_blank" rel="noopener" href="https://grafana.com/docs/grafana/latest/datasources/prometheus/">datasources/prometheus</a></p>
+<p>Grafana 提供模板功能, 对于 Prometheus 的大部分 Exporter
+和第三方集成基础指标的开发库, 都有现成的模板可直接使用, 在线搜索模板参考
+<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards">dashboards</a></p>
 
     </div>
 
@@ -401,24 +464,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/19/alertmanager-001/" rel="bookmark">AlertManager 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/15/micrometer-001/" rel="bookmark">Micrometer</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/21/prometheus-001/" rel="bookmark">Prometheus 入门</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/06/25/prometheus-002/" rel="bookmark">Prometheus 数据模型</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2021/07/01/prometheus-003/" rel="bookmark">Prometheus API</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -489,7 +534,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -501,7 +546,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -545,7 +590,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

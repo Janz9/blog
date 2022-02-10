@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Jenkins 默认启用安全检查, 支持两种认证方式:  Delegate to servlet container Jenkins&#39; own user database  在 Manager Jenkins ／ Configure Global Security ／ Security Realm 节点下可以配置  如果安装了 LDAP 插件, 则可以使用 LDAP 认证   Jenkins">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Jenkins 默认启用安全检查, 支持两种认证方式:  Delegate to servlet container Jenkins&#39; own user database  在 Manager Jenkins ／ Configure Global Security ／ Security Realm 节点下可以配置  如果安装了 LDAP 插件, 则可以使用 LDAP 认证   Jenkins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 认证凭证">
 <meta property="og:url" content="https://janz.icu/2020/02/17/jenkins%20005/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jenkins 认证凭证 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -153,7 +154,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E5%92%8C%E5%87%AD%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">认证和凭证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">1.1.</span> <span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">1.1.1.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#role-based-authorization-strategy"><span class="nav-number">1.1.2.</span> <span class="nav-text">Role-based Authorization Strategy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%AD%E8%AF%81"><span class="nav-number">1.2.</span> <span class="nav-text">凭证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hashicorp-valut"><span class="nav-number">1.2.1.</span> <span class="nav-text">HashiCorp Valut</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E5%92%8C%E5%87%AD%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">认证和凭证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">1.1.</span> <span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">1.1.1.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#role-based-authorization-strategy"><span class="nav-number">1.1.2.</span> <span class="nav-text">Role-based Authorization
+Strategy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%AD%E8%AF%81"><span class="nav-number">1.2.</span> <span class="nav-text">凭证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hashicorp-valut"><span class="nav-number">1.2.1.</span> <span class="nav-text">HashiCorp Valut</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -253,13 +255,13 @@
 
       <time title="创建时间：2020-02-17 16:50:11" itemprop="dateCreated datePublished" datetime="2020-02-17T16:50:11+08:00">2020-02-17</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:34:29" itemprop="dateModified" datetime="2021-05-06T11:34:29+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:34:29" itemprop="dateModified" datetime="2021-05-06T11:34:29+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -309,30 +311,49 @@
 <li>Delegate to servlet container</li>
 <li>Jenkins' own user database</li>
 </ol>
-<p>在 <code>Manager Jenkins ／ Configure Global Security ／ Security Realm</code> 节点下可以配置</p>
+<p>在
+<code>Manager Jenkins ／ Configure Global Security ／ Security Realm</code>
+节点下可以配置</p>
 <blockquote>
-<p>如果安装了 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ldap/">LDAP</a> 插件, 则可以使用 LDAP 认证</p>
+<p>如果安装了 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/ldap/">LDAP</a> 插件,
+则可以使用 LDAP 认证</p>
 </blockquote>
 <h3 id="授权">授权</h3>
-<p>Jenkins 默认的授权方式无法满足现实复杂的场景, 有三款插件分别支持不同维度的授权方式:</p>
+<p>Jenkins 默认的授权方式无法满足现实复杂的场景,
+有三款插件分别支持不同维度的授权方式:</p>
 <ol type="1">
 <li>Matrix Authorization Strategy 基于矩阵的安全策略</li>
-<li>Project-based Matrix Authorization Strategy 基于项目的矩阵授权策略</li>
+<li>Project-based Matrix Authorization Strategy
+基于项目的矩阵授权策略</li>
 <li>Role-based Authorization Strategy 基于角色的安全策略</li>
 </ol>
-<p>安装插件后, 在 <code>Manager Jenkins ／ Configure Global Security / Authorization</code> 节点下可以配置</p>
-<h3 id="role-based-authorization-strategy">Role-based Authorization Strategy</h3>
-<p>安装插件 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/role-strategy/">Role-based Authorization Strategy</a> 后, 在 <code>Manager Jenkins</code> 菜单下增加了 <code>Manager and Assign Roles</code> 菜单项</p>
-<p>进入 <code>Manager Jenkins / Manager and Assign Roles / Manager Roles</code> 页面, 可以分别设置三类角色:</p>
+<p>安装插件后, 在
+<code>Manager Jenkins ／ Configure Global Security / Authorization</code>
+节点下可以配置</p>
+<h3 id="role-based-authorization-strategy">Role-based Authorization
+Strategy</h3>
+<p>安装插件 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/role-strategy/">Role-based
+Authorization Strategy</a> 后, 在 <code>Manager Jenkins</code>
+菜单下增加了 <code>Manager and Assign Roles</code> 菜单项</p>
+<p>进入
+<code>Manager Jenkins / Manager and Assign Roles / Manager Roles</code>
+页面, 可以分别设置三类角色:</p>
 <ul>
 <li>全局角色(Global roles)</li>
 <li>项目角色(Project roles)</li>
 <li>节点角色(Node roles)</li>
 </ul>
-<p>进入 <code>Manager Jenkins / Manager and Assign Roles / Assign Roles</code> 页面将角色分配给用户</p>
+<p>进入
+<code>Manager Jenkins / Manager and Assign Roles / Assign Roles</code>
+页面将角色分配给用户</p>
 <h2 id="凭证">凭证</h2>
-<p><strong>凭证(cridential)</strong> 是 Jenkins 进行受限操作时的凭据, 这些凭据不可能以明文写在 Jenkinsfile 中, Jenkins 凭证管理指的就是对这些凭证进行管理</p>
-<p>进入 Jenkins 的 <code>Credentials / System / Global credentials</code> 节点下, 点击 <code>Add Credentials</code> 添加凭证, Jenkins 默认支持以下凭证类型:</p>
+<p><strong>凭证(cridential)</strong> 是 Jenkins 进行受限操作时的凭据,
+这些凭据不可能以明文写在 Jenkinsfile 中, Jenkins
+凭证管理指的就是对这些凭证进行管理</p>
+<p>进入 Jenkins 的
+<code>Credentials / System / Global credentials</code> 节点下, 点击
+<code>Add Credentials</code> 添加凭证, Jenkins 默认支持以下凭证类型:</p>
 <ul>
 <li>Secret text</li>
 <li>Username with password</li>
@@ -341,17 +362,31 @@
 <li>Certificate(PKCS #12)</li>
 <li>Docker Host Certificate Authentication credentials</li>
 </ul>
-<p>添加凭证后, 安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/credentials-binding/">Credentials Binding Plugin</a> 插件, 通过其提供的 <code>withCredentials</code> 指令就可以在 pipeline 中使用凭证了</p>
+<p>添加凭证后, 安装 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/credentials-binding/">Credentials
+Binding Plugin</a> 插件, 通过其提供的 <code>withCredentials</code>
+指令就可以在 pipeline 中使用凭证了</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Secret text */</span></span><br><span class="line">withCredentials([string(<span class="attr">credentialsId:</span> <span class="string">&#x27;secretText&#x27;</span>, <span class="attr">variable:</span> <span class="string">&#x27;st&#x27;</span>)]) &#123;</span><br><span class="line">    echo <span class="string">&quot;secret: $&#123;st&#125;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 示例: Username with password */</span></span><br><span class="line">withCredentials([usernamePassword(<span class="attr">credentialsId:</span> <span class="string">&#x27;userPwd&#x27;</span>,</span><br><span class="line">                                  <span class="symbol">usernameVariable:</span> <span class="string">&#x27;username&#x27;</span>,</span><br><span class="line">                                  <span class="symbol">passwordVariable:</span> <span class="string">&#x27;password&#x27;</span></span><br><span class="line">                                 )]) &#123;</span><br><span class="line">    echo <span class="string">&quot;username: $&#123;username&#125;“</span></span><br><span class="line"><span class="string">    echo &quot;</span><span class="attr">password:</span> $&#123;password&#125;<span class="string">&quot;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// credentialsId需要同已配置的凭证的ID一致, 根据凭证类型不同会有不同的参数名称可以配置</span></span><br></pre></td></tr></table></figure>
-<p>插件的 <code>withCredentials</code> 指令使用过于复杂, 所以声明式 pipeline 提供了 <code>credentials</code> 指令来简化凭证的使用, 但是只能在 <code>environment</code> 指令中使用</p>
+<p>插件的 <code>withCredentials</code> 指令使用过于复杂, 所以声明式
+pipeline 提供了 <code>credentials</code> 指令来简化凭证的使用,
+但是只能在 <code>environment</code> 指令中使用</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Secret text */</span></span><br><span class="line">environment &#123;</span><br><span class="line">    SECRET_TEXT = credentials(<span class="string">&#x27;secretText&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">        echo <span class="string">&quot;secret: $&#123;SECRET_TEXT&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: Username with password */</span></span><br><span class="line">environment &#123;</span><br><span class="line">    UP_CREDS = credentials(<span class="string">&#x27;userPwd&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">stages &#123;</span><br><span class="line">    stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">        echo <span class="string">&quot;up: $&#123;UP_CREDS&#125;&quot;</span></span><br><span class="line">        echo <span class="string">&quot;username: $&#123;UP_CREDS_USR&#125;&quot;</span></span><br><span class="line">        echo <span class="string">&quot;password: $&#123;UP_CREDS_PSW&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// $&#123;UP_CREDS&#125;的值的格式为&lt;username&gt;:&lt;password&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>通过 <code>credentials</code> 指令可以像使用环境变量一样使用凭证, 但是该指令只支持 <code>Secret Text</code>, <code>Username with passwrod</code>, <code>Secret file</code> 三种凭证</p>
+<p>通过 <code>credentials</code> 指令可以像使用环境变量一样使用凭证,
+但是该指令只支持 <code>Secret Text</code>,
+<code>Username with passwrod</code>, <code>Secret file</code>
+三种凭证</p>
 </blockquote>
 <h3 id="hashicorp-valut">HashiCorp Valut</h3>
-<p><a target="_blank" rel="noopener" href="https://plugins.jenkins.io/hashicorp-vault-plugin/">HashiCorp Valut</a> 是一款对敏感信息进行存储, 并进行访问控制的工具, 它不仅可以存储敏感信息, 还具有滚动更新, 审计等功能</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/jenkinsci/hashicorp-vault-pipeline-plugin">Hashicorp Vault Pipeline</a> 插件提供了用于 pipeline 使用的指令 <code>valut</code></p>
+<p><a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/hashicorp-vault-plugin/">HashiCorp
+Valut</a> 是一款对敏感信息进行存储, 并进行访问控制的工具,
+它不仅可以存储敏感信息, 还具有滚动更新, 审计等功能</p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/jenkinsci/hashicorp-vault-pipeline-plugin">Hashicorp
+Vault Pipeline</a> 插件提供了用于 pipeline 使用的指令
+<code>valut</code></p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: valut */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    environment &#123;</span><br><span class="line">        SECRET = vault(<span class="attr">path:</span> <span class="string">&#x27;secret/hello&#x27;</span>, <span class="attr">key:</span> <span class="string">&#x27;value&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;value: $&#123;SECRET&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 指令参数</span></span><br><span class="line"><span class="comment">path           存储键值对的路径</span></span><br><span class="line"><span class="comment">key            存储内容的键</span></span><br><span class="line"><span class="comment">vaultUrl       可选, vault服务地址, 默认使用系统级别的配置</span></span><br><span class="line"><span class="comment">credentialsId  可选, vault服务认证的凭证</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
     </div>
@@ -360,24 +395,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/03/30/jenkins 006/" rel="bookmark">Jenkins 扩展插件</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -448,7 +465,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -460,7 +477,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -504,7 +521,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

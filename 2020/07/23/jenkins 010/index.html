@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="虽然流水线脚本和传统的 Web 页面是大多数人使用 Jenkins 的主要接口, 但 Jenkins 同时还提供了命令行接口 (CLI) 以及应用程序接口 (REST API), 这些接口所能做的事情是有限的, 但是它们可以用于一些基本操作  Jenkins 的命令行接口可以通过两种方法访问:  通过 ssh 命令; 通过 jenkins-cli.jar 客户端  Jenkins 默认的 SSH">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="虽然流水线脚本和传统的 Web 页面是大多数人使用 Jenkins 的主要接口, 但 Jenkins 同时还提供了命令行接口 (CLI) 以及应用程序接口 (REST API), 这些接口所能做的事情是有限的, 但是它们可以用于一些基本操作  Jenkins 的命令行接口可以通过两种方法访问:  通过 ssh 命令; 通过 jenkins-cli.jar 客户端  Jenkins 默认的 SSH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins CLI">
 <meta property="og:url" content="https://janz.icu/2020/07/23/jenkins%20010/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jenkins CLI | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2020-07-23 16:41:16" itemprop="dateCreated datePublished" datetime="2020-07-23T16:41:16+08:00">2020-07-23</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 15:00:00" itemprop="dateModified" datetime="2021-05-06T15:00:00+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 15:00:00" itemprop="dateModified" datetime="2021-05-06T15:00:00+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,27 +304,38 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="jenkins-cli">Jenkins CLI</h1>
-<p>虽然流水线脚本和传统的 Web 页面是大多数人使用 Jenkins 的主要接口, 但 Jenkins 同时还提供了命令行接口 (CLI) 以及应用程序接口 (REST API), 这些接口所能做的事情是有限的, 但是它们可以用于一些基本操作</p>
+<p>虽然流水线脚本和传统的 Web 页面是大多数人使用 Jenkins 的主要接口, 但
+Jenkins 同时还提供了命令行接口 (CLI) 以及应用程序接口 (REST API),
+这些接口所能做的事情是有限的, 但是它们可以用于一些基本操作</p>
 <h2 id="cli">CLI</h2>
 <p>Jenkins 的命令行接口可以通过两种方法访问:</p>
 <ul>
 <li>通过 <code>ssh</code> 命令;</li>
 <li>通过 <code>jenkins-cli.jar</code> 客户端</li>
 </ul>
-<p>Jenkins 默认的 SSH 服务是被禁用的, 需要进入 <code>Jenkins / Configure Global Security/ SSH Server</code> 节点下, 指定固定端口或者随机端口来启用 SSH 服务, 可以进入 <code>Jenkins / &#123;User&#125; / SSH Public Keys</code> 节点下配置用户的公钥</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: ssh方式获取可用命令的完整列表</span></span><br><span class="line">ssh -l username -p password localhost help</span><br></pre></td></tr></table></figure>
-<p>使用命令行接口的另一个选择是 Jenkins 自带的 CLI 客户端, 这个客户端支持几种不同的协议, 包括 HTTP 和 SSH, 可以通过链接下载该文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 下载CLI客户端</span></span><br><span class="line">curl -O https://JENKINS_URL/jnlpJars/jenkins-cli.jar</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: CLI语法</span></span><br><span class="line">java -jar jenkins-cli.jar [-s JENKINS_URL] [global options...] command [command options...] [arguments...]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 常用选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -s     指定Jenkins的URL, 如果没有指定, Jenkins会默认使用JENKINS_URL环境变量指定的值</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -http  使用HTTP协议, 这是默认的模式</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -ssh   使用SSH协议</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -auth  认证方式, 不推荐明文密码, 可以通过从文件中读取</span></span><br></pre></td></tr></table></figure>
-<p>CLI 客户端更多详细用法见官方文档 <a target="_blank" rel="noopener" href="https://www.jenkins.io/zh/doc/book/managing/cli/#%E4%BD%BF%E7%94%A8-cli-%E5%AE%A2%E6%88%B7%E7%AB%AF">CLI</a></p>
+<p>Jenkins 默认的 SSH 服务是被禁用的, 需要进入
+<code>Jenkins / Configure Global Security/ SSH Server</code> 节点下,
+指定固定端口或者随机端口来启用 SSH 服务, 可以进入
+<code>Jenkins / &#123;User&#125; / SSH Public Keys</code> 节点下配置用户的公钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: ssh方式获取可用命令的完整列表</span></span><br><span class="line">ssh -l username -p password localhost help</span><br></pre></td></tr></table></figure>
+<p>使用命令行接口的另一个选择是 Jenkins 自带的 CLI 客户端,
+这个客户端支持几种不同的协议, 包括 HTTP 和 SSH,
+可以通过链接下载该文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 下载CLI客户端</span></span><br><span class="line">curl -O https://JENKINS_URL/jnlpJars/jenkins-cli.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: CLI语法</span></span><br><span class="line">java -jar jenkins-cli.jar [-s JENKINS_URL] [global options...] command [command options...] [arguments...]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">常用选项</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-s     指定Jenkins的URL, 如果没有指定, Jenkins会默认使用JENKINS_URL环境变量指定的值</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-http  使用HTTP协议, 这是默认的模式</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-ssh   使用SSH协议</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-auth  认证方式, 不推荐明文密码, 可以通过从文件中读取</span></span><br></pre></td></tr></table></figure>
+<p>CLI 客户端更多详细用法见官方文档 <a
+target="_blank" rel="noopener" href="https://www.jenkins.io/zh/doc/book/managing/cli/#%E4%BD%BF%E7%94%A8-cli-%E5%AE%A2%E6%88%B7%E7%AB%AF">CLI</a></p>
 <h2 id="rest-api">REST API</h2>
-<p>使用 REST API 调用获取数据支持 3 种格式: XML, JSON 和 Python, 添加其中的一个限定符到 URL 末尾就会提供对应格式的数据</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 获取JOB_NAME的json数据</span></span><br><span class="line">https://JENKINS_URL/job/JOB_NAME/api/json</span><br></pre></td></tr></table></figure>
-<p>如果已经开启了跨站请求伪造保护功能, 要从 Jenkins 中获得一个 <code>crumb</code> 以便在请求中使用</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 获取crumb的链接</span></span><br><span class="line">https://JENKINS_URL/crumbIssuer/api/xml</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 使用crumb调用执行构建</span></span><br><span class="line">curl -I -X POST https://JENKINS_URL/job/JOB_NAME/build -H &quot;&lt;crumb value&gt;&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -H  传递crumb参数, 也可以通过JENKINS_CRUMB环境变量设置</span></span><br></pre></td></tr></table></figure>
+<p>使用 REST API 调用获取数据支持 3 种格式: XML, JSON 和 Python,
+添加其中的一个限定符到 URL 末尾就会提供对应格式的数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 获取JOB_NAME的json数据</span></span><br><span class="line">https://JENKINS_URL/job/JOB_NAME/api/json</span><br></pre></td></tr></table></figure>
+<p>如果已经开启了跨站请求伪造保护功能, 要从 Jenkins 中获得一个
+<code>crumb</code> 以便在请求中使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 获取crumb的链接</span></span><br><span class="line">https://JENKINS_URL/crumbIssuer/api/xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 使用crumb调用执行构建</span></span><br><span class="line">curl -I -X POST https://JENKINS_URL/job/JOB_NAME/build -H &quot;&lt;crumb value&gt;&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-H  传递crumb参数, 也可以通过JENKINS_CRUMB环境变量设置</span></span><br></pre></td></tr></table></figure>
 <h2 id="jcli">JCLI</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/jenkins-zh/jenkins-cli">JCLI</a> 项目提供了通过命令行操作 Jenkins 的更多指令, 其支持以下特性:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jenkins-zh/jenkins-cli">JCLI</a>
+项目提供了通过命令行操作 Jenkins 的更多指令, 其支持以下特性:</p>
 <ul>
 <li>支持多 Jenkins 实例管理;</li>
 <li>插件管理 (查看列表, 搜索, 安装, 上传);</li>
@@ -333,10 +345,11 @@
 <li>重启你的 Jenkins;</li>
 <li>支持通过代理连接</li>
 </ul>
-<p>Jenkins 进入 <code>Jenkins / &#123;User&#125; /API Token</code> 节点下, 添加一个新的 Token</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 生成配置文件</span></span><br><span class="line">jcli config generate</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 默认会在用户目录 ~/ 下生成配置文件.jenkins-cli.yaml</span></span><br></pre></td></tr></table></figure>
+<p>Jenkins 进入 <code>Jenkins / &#123;User&#125; /API Token</code> 节点下,
+添加一个新的 Token</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 生成配置文件</span></span><br><span class="line">jcli config generate</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">默认会在用户目录 ~/ 下生成配置文件.jenkins-cli.yaml</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: .jenkins-cli.yaml</span></span><br><span class="line"><span class="attr">current:</span> <span class="string">JENKINS_NAME</span>    <span class="comment"># 当前使用的Jenkins服务端</span></span><br><span class="line"><span class="attr">jenkins_servers:</span>         <span class="comment"># 可配置多个Jenkins服务器</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">JENKINS_NAME</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">http://localhost</span>  <span class="comment"># 指定Jenkins的URL</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">username</span>     <span class="comment"># 指定访问的用户名</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">token</span>           <span class="comment"># 指定访问的令牌, 需要同Jenkins用户添加的Token一致</span></span><br><span class="line">  <span class="attr">insecureSkipVerify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">mirrors:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">http://mirrors.jenkins.io/</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tsinghua</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://mirrors.tuna.tsinghua.edu.cn/jenkins/</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">huawei</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://mirrors.huaweicloud.com/jenkins/</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tencent</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">https://mirrors.cloud.tencent.com/jenkins/</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 示例: 常用命令</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取帮助</span></span><br><span class="line">jcli -h</span><br><span class="line"><span class="meta">#</span><span class="bash"> 搜索项目</span></span><br><span class="line">jcli job search [flags]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行构建</span></span><br><span class="line">jcli job build &lt;jobName&gt; [flags]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看队列</span></span><br><span class="line">jcli queue list</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">jcli restart</span><br><span class="line"><span class="meta">#</span><span class="bash"> 浏览器访问</span></span><br><span class="line">jcli open</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 常用命令</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">获取帮助</span></span><br><span class="line">jcli -h</span><br><span class="line"><span class="meta"># </span><span class="language-bash">搜索项目</span></span><br><span class="line">jcli job search [flags]</span><br><span class="line"><span class="meta"># </span><span class="language-bash">执行构建</span></span><br><span class="line">jcli job build &lt;jobName&gt; [flags]</span><br><span class="line"><span class="meta"># </span><span class="language-bash">查看队列</span></span><br><span class="line">jcli queue list</span><br><span class="line"><span class="meta"># </span><span class="language-bash">重启</span></span><br><span class="line">jcli restart</span><br><span class="line"><span class="meta"># </span><span class="language-bash">浏览器访问</span></span><br><span class="line">jcli open</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -344,24 +357,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 004/" rel="bookmark">Jenkins 触发条件</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -432,7 +427,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -444,7 +439,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -488,7 +483,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>

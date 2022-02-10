@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -26,8 +25,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline 触发条件, Jenkins pipeline 中使用 trigger 指令来定义触发条件  需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, trigger 指令才会生效   时间触发 是指定义一个时间, 时间到了就触发 pipeline 执行  定时执行 的使用场景通常是执行一些周">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"janz.icu","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"width":280},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline 触发条件, Jenkins pipeline 中使用 trigger 指令来定义触发条件  需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, trigger 指令才会生效   时间触发 是指定义一个时间, 时间到了就触发 pipeline 执行  定时执行 的使用场景通常是执行一些周">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins 触发条件">
 <meta property="og:url" content="https://janz.icu/2020/02/13/jenkins%20004/index.html">
@@ -50,6 +50,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Jenkins 触发条件 | Jbot</title>
   
+
 
 
 
@@ -77,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Jbot</h1>
+      <p class="site-title">Jbot</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -253,13 +254,13 @@
 
       <time title="创建时间：2020-02-13 17:22:00" itemprop="dateCreated datePublished" datetime="2020-02-13T17:22:00+08:00">2020-02-13</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 11:30:51" itemprop="dateModified" datetime="2021-05-06T11:30:51+08:00">2021-05-06</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-06 11:30:51" itemprop="dateModified" datetime="2021-05-06T11:30:51+08:00">2021-05-06</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,22 +304,29 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="触发条件">触发条件</h1>
-<p>可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline <strong>触发条件</strong>, Jenkins pipeline 中使用 <code>trigger</code> 指令来定义触发条件</p>
+<p>可以配置 pipeline 按照一定的规则自动执行, 而这些规则被称为 pipeline
+<strong>触发条件</strong>, Jenkins pipeline 中使用 <code>trigger</code>
+指令来定义触发条件</p>
 <blockquote>
-<p>需要手动触发一次任务, 让 Jenkins 加载 pipeline 后, <code>trigger</code> 指令才会生效</p>
+<p>需要手动触发一次任务, 让 Jenkins 加载 pipeline 后,
+<code>trigger</code> 指令才会生效</p>
 </blockquote>
 <h2 id="时间触发">时间触发</h2>
-<p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline 执行</p>
+<p><strong>时间触发</strong> 是指定义一个时间, 时间到了就触发 pipeline
+执行</p>
 <h3 id="定时执行">定时执行</h3>
 <p><strong>定时执行</strong> 的使用场景通常是执行一些周期性的工作</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: cron */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        <span class="comment">// 每天0时0分执行</span></span><br><span class="line">        cron(<span class="string">&#x27;0 0 * * *&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Jenkins trigger cron 语法采用的是 UNIX cron 语法(有些细微区别)</span></span><br><span class="line"><span class="comment">/* Jenkins teigger cron 设计了一些人性化的别名</span></span><br><span class="line"><span class="comment">@yearly</span></span><br><span class="line"><span class="comment">@annually</span></span><br><span class="line"><span class="comment">@monthly</span></span><br><span class="line"><span class="comment">@weekly</span></span><br><span class="line"><span class="comment">@daily</span></span><br><span class="line"><span class="comment">@midnight</span></span><br><span class="line"><span class="comment">@hourly</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>在一些大型组织中, 会同时存在大量的同一时刻执行的定时任务, 在 Jenkins trigger cron 语法中使用 <code>H(hash)</code> 字符来解决这一问题</p>
+<p>在一些大型组织中, 会同时存在大量的同一时刻执行的定时任务, 在 Jenkins
+trigger cron 语法中使用 <code>H(hash)</code> 字符来解决这一问题</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: H */</span></span><br><span class="line">triggers &#123;</span><br><span class="line">    <span class="comment">// 代表在0时0分至0时59分之间任何一个时间点执行</span></span><br><span class="line">    cron(<span class="string">&#x27;H 0 * * *&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>需注意的是, <code>H</code> 应用在某一天的字段时会有不准确的情况, 因为有些月份有31天, 有些却是28天</p>
+<p>需注意的是, <code>H</code> 应用在某一天的字段时会有不准确的情况,
+因为有些月份有31天, 有些却是28天</p>
 </blockquote>
 <h3 id="轮询代码库">轮询代码库</h3>
-<p><strong>轮询代码库</strong> 是指定期到代码仓库询问代码是否有变化, 如果有变化就执行</p>
+<p><strong>轮询代码库</strong> 是指定期到代码仓库询问代码是否有变化,
+如果有变化就执行</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: pollSCM */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        <span class="comment">// 每分钟判断一次代码是否有变化</span></span><br><span class="line">        pollSCM(<span class="string">&#x27;H/1 * * * *&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="事件触发">事件触发</h2>
 <p><strong>事件触发</strong> 是指发生了某个事件就触发 pipeline 执行</p>
@@ -326,19 +334,39 @@
 <p>当 B 任务的执行依赖 A 任务的执行结果时, A 就被称为 B 的上游任务</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: upstream */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        upstream(<span class="attr">upstreamProjects:</span> <span class="string">&#x27;A&#x27;</span>, <span class="attr">threshold:</span> hudson.model.Result.SUCCESS)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// upstreamProjects 指定上游任务, 接收多个任务时, 使用逗号分隔</span></span><br><span class="line"><span class="comment">/* threshold 指定上游任务的执行结果，枚举值包括</span></span><br><span class="line"><span class="comment">ABORTED 中止</span></span><br><span class="line"><span class="comment">FAILURE 失败</span></span><br><span class="line"><span class="comment">SUCCESS 成功</span></span><br><span class="line"><span class="comment">UNSTABLE 不稳定</span></span><br><span class="line"><span class="comment">NOT_BUILD 多阶段构建时无法执行</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h3 id="gitlab-通知">GitLab 通知</h3>
-<p><strong>GitLab 通知</strong> 是指当 GitLab 发现源代码有变化时, 触发 Jenkins 执行构建</p>
+<p><strong>GitLab 通知</strong> 是指当 GitLab 发现源代码有变化时, 触发
+Jenkins 执行构建</p>
 <h4 id="人工配置">人工配置</h4>
-<p>Jenkins 安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab 插件</a> 和 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/git/">Git 插件</a>, 创建 pipeline 项目时在 <code>Build Triggers</code> 节点下勾选 <code>Build when a change is pushed to GitLab</code>, 配置会暴露一个 <code>GitLab webhook URL</code>, 点击 <code>Generate</code> 按钮生成 <code>Secret token</code></p>
-<p>GitLab 在配置页 <code>Settings / Integrations</code> 节点下输入 <code>GitLab webhook URL</code> 和 <code>Secret token</code>, 添加好后可以在表单下方通过 <code>Test</code> 按钮选择 <code>Push events</code> 进行测试</p>
+<p>Jenkins 安装 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab 插件</a> 和 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/git/">Git 插件</a>, 创建 pipeline
+项目时在 <code>Build Triggers</code> 节点下勾选
+<code>Build when a change is pushed to GitLab</code>, 配置会暴露一个
+<code>GitLab webhook URL</code>, 点击 <code>Generate</code> 按钮生成
+<code>Secret token</code></p>
+<p>GitLab 在配置页 <code>Settings / Integrations</code> 节点下输入
+<code>GitLab webhook URL</code> 和 <code>Secret token</code>,
+添加好后可以在表单下方通过 <code>Test</code> 按钮选择
+<code>Push events</code> 进行测试</p>
 <h4 id="插件配置">插件配置</h4>
-<p>Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab 插件</a> 实现了基于 GitLab 的 <code>trigger</code>, 通过配置 pipeline 就能实现通知触发</p>
+<p>Jenkins 的 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/gitlab-plugin/">GitLab
+插件</a> 实现了基于 GitLab 的 <code>trigger</code>, 通过配置 pipeline
+就能实现通知触发</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: gitlab */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        gitlab(</span><br><span class="line">            <span class="symbol">triggerOnPush:</span> <span class="literal">true</span>,</span><br><span class="line">            <span class="symbol">triggerOnMergeRequest:</span> <span class="literal">true</span>,</span><br><span class="line">            <span class="symbol">branchFilterType:</span> <span class="string">&#x27;All&#x27;</span>,</span><br><span class="line">            <span class="symbol">secretToken:</span> <span class="string">&#x27;84b630bb7e2e6eaf307a5981927c33bc&#x27;</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">triggerOnPush          当GitLab触发push事件时, 是否执行构建</span></span><br><span class="line"><span class="comment">triggerOnMergeRequest  当GitLab触发mergeRequest事件时, 是否执行构建</span></span><br><span class="line"><span class="comment">branchFilterType       只有符合条件的分支才会被触发, 可以设置的值有NameBasedFilter(基于分支名进行过滤), RegexBasedFilter(基于正则表达式对分支名进行过滤), All(所有分支都会触发)</span></span><br><span class="line"><span class="comment">includeBranchesSpec    基于branchFilterType值, 输入期望包括的分支的规则</span></span><br><span class="line"><span class="comment">excludeBranchesSpec    基于branchFilterType值, 输入期望排除的分支的规则</span></span><br><span class="line"><span class="comment">secretToken            对应人工配置的secretToken, 使用随机字符串生成即可</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <h4 id="推送配置">推送配置</h4>
-<p>当 Jenkins 执行完构建后, 可以将构建结果推送到 GitLab 的相应 <code>commit</code> 记录上, 这样就将构建状态与提交记录关联起来</p>
-<p>进入 Jenkins 的 <code>Manager Jenkins / Configure System / GitLab</code> 节点下, 添加 GitLab 地址及认证等信息, 编辑 pipeline</p>
+<p>当 Jenkins 执行完构建后, 可以将构建结果推送到 GitLab 的相应
+<code>commit</code> 记录上, 这样就将构建状态与提交记录关联起来</p>
+<p>进入 Jenkins 的
+<code>Manager Jenkins / Configure System / GitLab</code> 节点下, 添加
+GitLab 地址及认证等信息, 编辑 pipeline</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 示例: 推送配置 */</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    post &#123;</span><br><span class="line">        failure &#123;</span><br><span class="line">            updateGitlabCommitStatus(<span class="attr">name:</span> <span class="string">&#x27;build&#x27;</span>, <span class="attr">state:</span> <span class="string">&#x27;failed&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        success &#123;</span><br><span class="line">            updateGitlabCommitStatus(<span class="attr">name:</span> <span class="string">&#x27;build&#x27;</span>, <span class="attr">state:</span> <span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    options &#123;</span><br><span class="line">        <span class="comment">// 参数值需要同GitLab节点下配置的GitLab的Connection Name一致</span></span><br><span class="line">        gitLabConnection(<span class="string">&#x27;gitlab&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="插件触发">插件触发</h2>
-<p>其他系统想触发 Jenkins 项目执行, 只需要安装 <a target="_blank" rel="noopener" href="https://plugins.jenkins.io/generic-webhook-trigger/">Generic Webhook Trigger</a> 插件, Jenkins 会暴露一个 API 接口 <code>&#123;JENKINS_DOMAIN&#125;/generic-webhook-trigger/invoke</code> 由插件来处理, 当 Jenkins 接收到接口的请求时, 会将请求代理给 GWT 插件处理, 触发逻辑由 GWT 插件提供, 大体上可以分为五个部分：</p>
+<p>其他系统想触发 Jenkins 项目执行, 只需要安装 <a
+target="_blank" rel="noopener" href="https://plugins.jenkins.io/generic-webhook-trigger/">Generic
+Webhook Trigger</a> 插件, Jenkins 会暴露一个 API 接口
+<code>&#123;JENKINS_DOMAIN&#125;/generic-webhook-trigger/invoke</code>
+由插件来处理, 当 Jenkins 接收到接口的请求时, 会将请求代理给 GWT
+插件处理, 触发逻辑由 GWT 插件提供, 大体上可以分为五个部分：</p>
 <ol type="1">
 <li>从请求中提取参数值;</li>
 <li>根据标识的 <code>token</code> 判断是否触发;</li>
@@ -354,24 +382,6 @@
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 001/" rel="bookmark">Jenkins 简介</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/11/jenkins 002/" rel="bookmark">Jenkins Pipeline</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/13/jenkins 003/" rel="bookmark">Jenkins 变量参数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/02/17/jenkins 005/" rel="bookmark">Jenkins 认证凭证</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/03/30/jenkins 006/" rel="bookmark">Jenkins 扩展插件</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -442,7 +452,7 @@
 
 <div class="copyright">
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -454,7 +464,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">424k</span>
+    <span title="站点总字数">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -498,7 +508,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.2/dist/mermaid.min.js","integrity":"sha256-UIQPVkGifpwMvDH5yGgORJ9sSTDq38zz6BGU6dNaKhM="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
   <script src="/js/third-party/fancybox.js"></script>
