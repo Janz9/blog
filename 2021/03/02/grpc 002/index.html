@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -343,7 +343,7 @@ target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf
 <p>定义的消息类型, 生成开发语言的源码文件时, 需要使用 protocol buffers
 编译器 <a
 target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/downloads">protoc</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 基于Java的编译命令</span></span><br><span class="line"><span class="meta">&gt; </span><span class="language-bash">protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">示例: 基于Java的编译命令</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">protoc --proto_path=IMPORT_PATH --java_out=DST_DIR path/to/file.proto</span></span><br></pre></td></tr></table></figure>
 <p>不同开发语言的参考文档, 详见 <a
 target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/reference/overview">reference</a>
 <a
@@ -442,7 +442,7 @@ target="_blank" rel="noopener" href="https://github.com/grpc-ecosystem/java-grpc
 target="_blank" rel="noopener" href="http://commons.apache.org/proper/commons-logging/">logging</a>
 配置文件来启用日志</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件: logging.properties</span></span><br><span class="line"><span class="attr">handlers</span>=<span class="string">java.util.logging.ConsoleHandler</span></span><br><span class="line"><span class="attr">io.grpc.netty.level</span>=<span class="string">FINE</span></span><br><span class="line"><span class="attr">java.util.logging.ConsoleHandler.level</span>=<span class="string">FINE</span></span><br><span class="line"><span class="attr">java.util.logging.ConsoleHandler.formatter</span>=<span class="string">java.util.logging.SimpleFormatter</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">示例: 项目启动时指定配置文件</span></span><br><span class="line"><span class="meta">&gt; </span><span class="language-bash">java -jar app.jar -Djava.util.logging.config.file=logging.properties</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">示例: 项目启动时指定配置文件</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">java -jar app.jar -Djava.util.logging.config.file=logging.properties</span></span><br></pre></td></tr></table></figure>
 <h2 id="生态系统">生态系统</h2>
 <p>gRPC 生态系统项目不是核心 gRPC 实现的一部分, 但在构建和运行真正的
 gRPC 应用程序时, 它们可能会非常有用, 这些项目是围绕 gRPC 构建的,

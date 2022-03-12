@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -347,8 +347,8 @@ target="_blank" rel="noopener" href="https://www.selenium.dev/selenium-ide/">ide
 <h3 id="selenium-grid">Selenium Grid</h3>
 <ol type="1">
 <li><p>下载 <code>selenium-server-standalone.jar</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">运行: hub</span></span><br><span class="line">java -jar selenium-server-standalone-3.141.59.jar \</span><br><span class="line">     -role hub</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">运行: node</span></span><br><span class="line">java -Dwebdriver.edge.driver=&quot;./driver/msedgedriver.exe&quot; \</span><br><span class="line">     -jar selenium-server-standalone-3.141.59.jar \</span><br><span class="line">     -role node \</span><br><span class="line">     -hub http://localhost:4444 \</span><br><span class="line">     -browser &quot;browserName=MicrosoftEdge,maxInstances=2,version=86.0.622.69,platform=WINDOWS&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">运行: hub</span></span><br><span class="line">java -jar selenium-server-standalone-3.141.59.jar \</span><br><span class="line">     -role hub</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">运行: node</span></span><br><span class="line">java -Dwebdriver.edge.driver=&quot;./driver/msedgedriver.exe&quot; \</span><br><span class="line">     -jar selenium-server-standalone-3.141.59.jar \</span><br><span class="line">     -role node \</span><br><span class="line">     -hub http://localhost:4444 \</span><br><span class="line">     -browser &quot;browserName=MicrosoftEdge,maxInstances=2,version=86.0.622.69,platform=WINDOWS&quot;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>运行成功可以通过 <a
 target="_blank" rel="noopener" href="http://localhost:4444/grid/console">console</a> 查看实例信息</p>
